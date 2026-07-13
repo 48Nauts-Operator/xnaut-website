@@ -5,9 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>xNAUT — The terminal built for the agent era</title>
   <meta name="description" content="xNAUT is a native, 8 MB terminal that runs your AI coding agents, tracks their status live, and proves every hour of work — without sending a byte to the cloud.">
+  <link rel="canonical" href="https://xnaut.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="xNAUT">
   <meta property="og:title" content="xNAUT — The terminal built for the agent era">
   <meta property="og:description" content="Native 8 MB terminal for AI coding agents. Local-first AI, live agent status, cryptographically signed work sessions. Free &amp; open source.">
-  <meta property="og:url" content="https://xnaut.dev">
+  <meta property="og:url" content="https://xnaut.dev/">
+  <meta property="og:image" content="https://xnaut.dev/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="xNAUT — The terminal built for the agent era">
+  <meta name="twitter:description" content="Native 8 MB terminal for AI coding agents. Local-first AI, live agent status, signed work sessions. Free &amp; open source.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css?v=3">
   <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
@@ -334,5 +345,40 @@
 </footer>
 
 <script src="js/main.js?v=2" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "xNAUT",
+  "operatingSystem": "macOS, Windows",
+  "applicationCategory": "DeveloperApplication",
+  "description": "Native 8 MB terminal that runs AI coding agents with live status, local-first AI, git worktrees, and cryptographically signed work sessions.",
+  "url": "https://xnaut.dev/",
+  "downloadUrl": "https://github.com/48Nauts-Operator/xNaut/releases/latest",
+  "license": "https://github.com/48Nauts-Operator/xNaut/blob/main/LICENSE",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "48Nauts", "url": "https://48nauts.com" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is xNAUT?", "acceptedAnswer": { "@type": "Answer", "text": "A native terminal for developers who work with AI coding agents. One 8 MB app holds your terminals, your agents with live status, git worktrees, diffs with AI annotations, project docs and a tamper-evident work log — instead of four separate tools." } },
+    { "@type": "Question", "name": "Is it really free? What's the catch?", "acceptedAnswer": { "@type": "Answer", "text": "MIT-licensed, no paid tier, no account, no trial that expires. If you use cloud AI providers, you pay them directly; local models cost nothing." } },
+    { "@type": "Question", "name": "Does anything leave my machine?", "acceptedAnswer": { "@type": "Answer", "text": "Only what you point somewhere: prompts go to the AI provider you configure (localhost Ollama/LM Studio by default), and the app checks GitHub Releases for updates. No telemetry, no analytics, no backend. A privacy monitor flags API keys and PII before a prompt leaves the app." } },
+    { "@type": "Question", "name": "Which coding agents work with it?", "acceptedAnswer": { "@type": "Answer", "text": "Any CLI agent. Claude Code, Codex, Gemini, Grok, OpenCode come preconfigured; anything else drops into the registry at ~/.config/xnaut/agents.toml. Live status pills work for all of them." } },
+    { "@type": "Question", "name": "Do I need API keys or a cloud subscription for the AI features?", "acceptedAnswer": { "@type": "Answer", "text": "No. Explain Screen, chat and theme generation run against Ollama or LM Studio on localhost out of the box. Cloud providers are optional and use your own keys, stored locally." } },
+    { "@type": "Question", "name": "How is a terminal with all this only 8 MB?", "acceptedAnswer": { "@type": "Answer", "text": "Rust + Tauri v2. The UI renders in your OS's built-in webview instead of shipping a bundled Chromium, so the binary stays ~8 MB where Electron apps ship hundreds." } },
+    { "@type": "Question", "name": "What exactly does 'proof of work' prove?", "acceptedAnswer": { "@type": "Answer", "text": "Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML/PDF with a QR verification code) proves the session wasn't edited after the fact. It proves integrity of the record, not the quality of the work." } },
+    { "@type": "Question", "name": "Is xNAUT a Warp or Cursor alternative?", "acceptedAnswer": { "@type": "Answer", "text": "For the terminal side of Warp: yes — without the account, the credits or the cloud. For Cursor: xNAUT isn't an IDE; it's where your CLI agents live and work. Many people run both." } },
+    { "@type": "Question", "name": "How is xNAUT different from Orca?", "acceptedAnswer": { "@type": "Answer", "text": "Orca is an excellent open-source agent orchestrator built on Electron and VS Code's editor. xNAUT covers the same agent + worktree workflow in a native 8 MB app, and adds local-first AI features, a doc vault, visual agent loops, and cryptographically signed work sessions." } },
+    { "@type": "Question", "name": "Does it run on Windows and Linux?", "acceptedAnswer": { "@type": "Answer", "text": "macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers ship with every release — treat them as early. No Linux builds yet." } },
+    { "@type": "Question", "name": "Can my agents control xNAUT itself?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the built-in MCP server. Any MCP client can list projects, create and update tickets, and read or write project docs in the vault, all over localhost with a per-session token." } },
+    { "@type": "Question", "name": "How often does it ship?", "acceptedAnswer": { "@type": "Answer", "text": "Fast — ten releases across v1.8 alone. Auto-update checks GitHub on startup, so you're one click behind at most." } }
+  ]
+}
+</script>
 </body>
 </html>

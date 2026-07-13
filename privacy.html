@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — xNAUT</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← back to xnaut.dev</a>
+  </div>
+</nav>
+
+<main class="legal">
+  <h1>Privacy Policy</h1>
+  <span class="updated">Last updated: 2026-07-13</span>
+
+  <div class="tldr">
+    <p><strong>TL;DR:</strong> The app runs on your machine and phones home to nobody. The website sets no cookies and runs no analytics. We have no servers, no accounts, and no interest in your data — there is nothing to collect it with.</p>
+  </div>
+
+  <h2>Who we are</h2>
+  <p>xNAUT is built by 48Nauts, Switzerland. Contact: <a href="mailto:hello@48nauts.com">hello@48nauts.com</a>.</p>
+
+  <h2>The xNAUT app</h2>
+  <ul>
+    <li><strong>No account, no sign-up.</strong> The app works fully without any registration.</li>
+    <li><strong>No telemetry.</strong> The app sends no usage data, crash reports, or analytics to us. We could not receive them if it did — we operate no backend.</li>
+    <li><strong>AI prompts go only where you point them.</strong> By default, AI features talk to models on your own machine (Ollama, LM Studio, AntBot on localhost). If you configure a cloud provider (Anthropic, OpenAI, OpenRouter, Perplexity), your prompts go directly from your machine to that provider under their privacy policy — never through us. API keys are stored locally on your device.</li>
+    <li><strong>Update checks.</strong> On startup, the app queries GitHub Releases to check for a newer version. GitHub sees this request (your IP address) under the <a href="https://docs.github.com/privacy">GitHub Privacy Statement</a>. No other network request leaves the app without your action.</li>
+    <li><strong>Work session logs, vault notes, tickets, themes and settings</strong> are stored as local files on your device. They never leave it unless you export or share them yourself.</li>
+  </ul>
+
+  <h2>This website (xnaut.dev)</h2>
+  <ul>
+    <li><strong>No cookies. No analytics. No trackers.</strong></li>
+    <li>The site is static, hosted on <strong>GitHub Pages</strong> and served through <strong>Cloudflare</strong>. Like any web host, both may log basic technical data (such as your IP address) to operate and secure the service — see the <a href="https://docs.github.com/privacy">GitHub Privacy Statement</a> and the <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a>. We do not receive or store these logs.</li>
+    <li>Your browser fetches the latest release information (version number, download links, star count) directly from <code>api.github.com</code>. GitHub sees that request under its own privacy policy.</li>
+  </ul>
+
+  <h2>Your rights</h2>
+  <p>Under the Swiss FADP and the GDPR you have rights to access, correct and delete personal data. Because we collect and store none, there is nothing on our side to access, correct or delete — but you can always reach us at <a href="mailto:hello@48nauts.com">hello@48nauts.com</a> with any question.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version appears on this page with an updated date. The site's <a href="https://github.com/48Nauts-Operator/xnaut-website">public git history</a> is the change log.</p>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="https://github.com/48Nauts-Operator/xNaut">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>

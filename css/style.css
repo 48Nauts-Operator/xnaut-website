@@ -188,6 +188,17 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 .footer-links a { font-size: 13px; color: var(--muted); }
 .footer-links a:hover { color: var(--text); }
 
+/* ---- legal pages ---- */
+.legal { max-width: 760px; margin: 0 auto; padding: 80px 32px 120px; }
+.legal h1 { font-size: 40px; font-weight: 700; margin-bottom: 8px; }
+.legal .updated { font-family: var(--mono); font-size: 13px; color: var(--faint); margin-bottom: 48px; display: block; }
+.legal h2 { font-size: 22px; font-weight: 600; margin: 40px 0 12px; }
+.legal p, .legal li { font-size: 15.5px; color: var(--text-soft); line-height: 1.7; margin-bottom: 12px; }
+.legal ul { padding-left: 22px; }
+.legal a { color: var(--amber); }
+.legal .tldr { background: var(--panel); border: 1px solid var(--border-card); border-left: 3px solid var(--amber); border-radius: 10px; padding: 20px 24px; margin-bottom: 40px; }
+.legal .tldr p { margin: 0; color: var(--text); }
+
 /* ---- responsive ---- */
 @media (max-width: 1080px) {
   .nav, .hero, .stats, .section, .final, .footer { padding-left: 32px; padding-right: 32px; }

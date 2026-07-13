@@ -150,6 +150,21 @@
       <p>Your vault's wikilinks and your codebase's imports, rendered as a force-directed orb — 2D or a slow-rotating 3D nebula. Switch between notes and code with one selector, all scanned locally in Rust.</p>
     </div>
   </div>
+
+  <div class="card mcp">
+    <div class="mcp-copy">
+      <h3>Agents don't just run in xNAUT — they drive it</h3>
+      <p>A built-in MCP server on localhost turns the terminal into a tool your agents call. Claude Code, Codex or any MCP client can list projects, create and update tickets with conflict-safe revisions, and read or write project docs in the vault. Per-session bearer token, copy-ready connection object in Project Settings.</p>
+    </div>
+    <pre class="mcp-snippet mono">{
+  "xnaut": {
+    "type": "http",
+    "url": "http://127.0.0.1:&lt;port&gt;/mcp",
+    "headers": { "Authorization": "Bearer &lt;session-token&gt;" }
+  }
+}
+<span class="dim2">// tools: projects · tickets · vault docs — all local</span></pre>
+  </div>
 </section>
 
 <section class="section pow" id="proof">
@@ -214,6 +229,7 @@
         <tr><td>AI fully on localhost</td><td class="me">✓ Ollama · LM Studio</td><td class="dim2">cloud credits</td><td class="dim2">cloud models</td><td>via your agent</td><td class="dim2">no AI</td></tr>
         <tr><td>Any CLI agent, live status</td><td class="me">✓</td><td class="dim2">its own agents</td><td class="dim2">its own agent</td><td>✓</td><td>—</td></tr>
         <tr><td>Visual agent-loop designer</td><td class="me">✓ nodes + gates</td><td class="dim2">cloud (Oz)</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>MCP server for agents</td><td class="me">✓ docs · tickets</td><td>—</td><td class="dim2">client only</td><td class="dim2">CLI, not MCP</td><td>—</td></tr>
         <tr><td>Signed proof of billable work</td><td class="me">✓ Merkle + QR</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         <tr><td>Prompt privacy guard</td><td class="me">✓ keys · PII</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
       </tbody>

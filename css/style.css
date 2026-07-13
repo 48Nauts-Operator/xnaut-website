@@ -126,6 +126,12 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 .node-amber { border-color: #6B5320; background: var(--amber-ink); color: var(--amber); }
 .edge { width: 16px; height: 1px; background: #3A3E46; flex-shrink: 0; }
 .label { font-size: 11px; color: var(--faint); }
+.mcp { flex-direction: row; align-items: center; gap: 56px; margin-top: 20px; border-color: #2A2E36; }
+.mcp-copy { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.mcp-copy h3 { font-size: 24px; }
+.mcp-copy p { font-size: 15px; }
+.mcp-snippet { flex-shrink: 0; width: 460px; max-width: 100%; background: var(--panel-deep); border: 1px solid var(--border-card); border-radius: 10px; padding: 20px 24px; font-size: 12.5px; line-height: 21px; color: var(--text-soft); overflow-x: auto; }
+@media (max-width: 1080px) { .mcp { flex-direction: column; align-items: stretch; } .mcp-snippet { width: 100%; } }
 
 /* ---- proof of work ---- */
 .pow { display: flex; align-items: center; gap: 80px; padding-top: 130px; padding-bottom: 130px; }

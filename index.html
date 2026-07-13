@@ -279,7 +279,7 @@
     </details>
     <details>
       <summary>Does anything leave my machine?</summary>
-      <p>Only what you point somewhere: prompts go to the AI provider you configure (localhost Ollama/LM Studio by default), and the app checks GitHub Releases for updates. No telemetry, no analytics, no backend of ours. The privacy monitor even flags API keys and PII before a prompt leaves the app.</p>
+      <p>Only what you point somewhere: prompts go to the AI provider you configure (localhost Ollama/LM Studio by default), and the app checks GitHub Releases for updates. The app has no telemetry and no analytics — there is no backend of ours to send anything to. (This website uses self-hosted, cookieless <a href="/privacy.html">privacy-respecting analytics</a>; the app sends nothing.) The privacy monitor even flags API keys and PII before a prompt leaves the app.</p>
     </details>
     <details>
       <summary>Which coding agents work with it?</summary>
@@ -371,7 +371,7 @@
   "mainEntity": [
     { "@type": "Question", "name": "What is xNAUT?", "acceptedAnswer": { "@type": "Answer", "text": "A native terminal for developers who work with AI coding agents. One 8 MB app holds your terminals, your agents with live status, git worktrees, diffs with AI annotations, project docs and a tamper-evident work log — instead of four separate tools." } },
     { "@type": "Question", "name": "Is it really free? What's the catch?", "acceptedAnswer": { "@type": "Answer", "text": "MIT-licensed, no paid tier, no account, no trial that expires. If you use cloud AI providers, you pay them directly; local models cost nothing." } },
-    { "@type": "Question", "name": "Does anything leave my machine?", "acceptedAnswer": { "@type": "Answer", "text": "Only what you point somewhere: prompts go to the AI provider you configure (localhost Ollama/LM Studio by default), and the app checks GitHub Releases for updates. No telemetry, no analytics, no backend. A privacy monitor flags API keys and PII before a prompt leaves the app." } },
+    { "@type": "Question", "name": "Does anything leave my machine?", "acceptedAnswer": { "@type": "Answer", "text": "Only what you point somewhere: prompts go to the AI provider you configure (localhost Ollama/LM Studio by default), and the app checks GitHub Releases for updates. The app has no telemetry and no analytics — there is no backend to send anything to. (The xnaut.dev website uses self-hosted, cookieless privacy-respecting analytics; the app sends nothing.) A privacy monitor flags API keys and PII before a prompt leaves the app." } },
     { "@type": "Question", "name": "Which coding agents work with it?", "acceptedAnswer": { "@type": "Answer", "text": "Any CLI agent. Claude Code, Codex, Gemini, Grok, OpenCode come preconfigured; anything else drops into the registry at ~/.config/xnaut/agents.toml. Live status pills work for all of them." } },
     { "@type": "Question", "name": "Do I need API keys or a cloud subscription for the AI features?", "acceptedAnswer": { "@type": "Answer", "text": "No. Explain Screen, chat and theme generation run against Ollama or LM Studio on localhost out of the box. Cloud providers are optional and use your own keys, stored locally." } },
     { "@type": "Question", "name": "How is a terminal with all this only 8 MB?", "acceptedAnswer": { "@type": "Answer", "text": "Rust + Tauri v2. The UI renders in your OS's built-in webview instead of shipping a bundled Chromium, so the binary stays ~8 MB where Electron apps ship hundreds." } },

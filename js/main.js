@@ -8,7 +8,7 @@
 
     const version = rel.tag_name.replace(/^v/, '');
     document.querySelectorAll('[data-version]').forEach(el => {
-      el.textContent = `v${version} — macOS & Windows`;
+      el.textContent = `v${version}`;
     });
 
     const asset = re => rel.assets.find(a => re.test(a.name))?.browser_download_url;

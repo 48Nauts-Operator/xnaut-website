@@ -52,6 +52,10 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 
 .pill { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px; border: 1px solid #2A2E36; border-radius: 999px; background: var(--panel); font-size: 12px; color: var(--text-soft); letter-spacing: .04em; }
 .pill-xs { gap: 6px; padding: 5px 10px; font-size: 11px; background: none; letter-spacing: 0; white-space: nowrap; }
+.badge-nobody { gap: 8px; color: var(--muted); }
+.badge-nobody .nobody-mark { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; background: var(--amber); color: var(--amber-ink); border-radius: 4px; font-weight: 700; font-size: 12px; }
+.badge-nobody .amber { font-weight: 600; }
+.badge-nobody .sep { color: var(--faint); }
 
 /* ---- nav ---- */
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 72px; border-bottom: 1px solid var(--line); }

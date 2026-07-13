@@ -9,7 +9,7 @@
   <meta property="og:description" content="Native 8 MB terminal for AI coding agents. Local-first AI, live agent status, cryptographically signed work sessions. Free &amp; open source.">
   <meta property="og:url" content="https://xnaut.dev">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 
@@ -22,6 +22,7 @@
     <a href="#features">Features</a>
     <a href="#ai">AI</a>
     <a href="#proof">Proof of Work</a>
+    <a href="#faq">FAQ</a>
     <a href="https://github.com/48Nauts-Operator/xNaut/releases">Changelog</a>
   </div>
   <div class="nav-actions">
@@ -248,6 +249,63 @@
   </div>
 </section>
 
+<section class="section faq" id="faq">
+  <div class="section-head">
+    <p class="kicker mono">05 — FAQ</p>
+    <h2>Questions people actually ask.</h2>
+  </div>
+  <div class="faq-list">
+    <details>
+      <summary>What is xNAUT?</summary>
+      <p>A native terminal for developers who work with AI coding agents. One 8 MB app holds your terminals, your agents with live status, git worktrees, diffs with AI annotations, project docs and a tamper-evident work log — instead of four separate tools.</p>
+    </details>
+    <details>
+      <summary>Is it really free? What's the catch?</summary>
+      <p>MIT-licensed, no paid tier, no account, no trial that expires. The catch is there is no catch — we're backed by ∅ Nobody, so there's no investor to monetize you for. If you use cloud AI providers, you pay them directly; local models cost nothing.</p>
+    </details>
+    <details>
+      <summary>Does anything leave my machine?</summary>
+      <p>Only what you point somewhere: prompts go to the AI provider you configure (localhost Ollama/LM Studio by default), and the app checks GitHub Releases for updates. No telemetry, no analytics, no backend of ours. The privacy monitor even flags API keys and PII before a prompt leaves the app.</p>
+    </details>
+    <details>
+      <summary>Which coding agents work with it?</summary>
+      <p>Any CLI agent. Claude Code, Codex, Gemini, Grok, OpenCode come preconfigured; anything else drops into the registry at <span class="mono">~/.config/xnaut/agents.toml</span>. Live status pills work for all of them.</p>
+    </details>
+    <details>
+      <summary>Do I need API keys or a cloud subscription for the AI features?</summary>
+      <p>No. Explain Screen, chat and theme generation run against Ollama or LM Studio on localhost out of the box. Cloud providers (Anthropic, OpenAI, OpenRouter, Perplexity) are optional and use your own keys, stored locally.</p>
+    </details>
+    <details>
+      <summary>How is a terminal with all this only 8 MB?</summary>
+      <p>Rust + Tauri v2. The UI renders in your OS's built-in webview instead of shipping a bundled Chromium, so the binary stays ~8 MB where Electron apps ship hundreds.</p>
+    </details>
+    <details>
+      <summary>What exactly does "proof of work" prove?</summary>
+      <p>Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML/PDF with a QR verification code) proves the session wasn't edited after the fact — hours you can hand to a client. It proves integrity of the record, not the quality of the work.</p>
+    </details>
+    <details>
+      <summary>Is xNAUT a Warp or Cursor alternative?</summary>
+      <p>For the terminal side of Warp: yes — without the account, the credits or the cloud. For Cursor: xNAUT isn't an IDE; it's where your CLI agents live and work. Many people run both: Cursor for editing, xNAUT for running the agent fleet. See the comparison above for specifics.</p>
+    </details>
+    <details>
+      <summary>How is xNAUT different from Orca?</summary>
+      <p>Orca is an excellent open-source agent orchestrator built on Electron and VS Code's editor. xNAUT covers the same agent + worktree workflow in a native 8 MB app, and adds what Orca doesn't have: local-first AI features, a doc vault, visual agent loops, and cryptographically signed work sessions.</p>
+    </details>
+    <details>
+      <summary>Does it run on Windows and Linux?</summary>
+      <p>macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers (.msi / .exe) ship with every release — treat them as early: the core terminal works, but workspace features that rely on zellij are macOS-first. No Linux builds yet.</p>
+    </details>
+    <details>
+      <summary>Can my agents control xNAUT itself?</summary>
+      <p>Yes — that's the MCP server. Any MCP client can list projects, create and update tickets (revision-safe), and read or write project docs in the vault, all over localhost with a per-session token.</p>
+    </details>
+    <details>
+      <summary>How often does it ship?</summary>
+      <p>Fast — the release history speaks for itself: ten releases across v1.8 alone, from the diff viewer to the knowledge graph. Auto-update checks GitHub on startup, so you're one click behind at most. The <a href="https://github.com/48Nauts-Operator/xNaut/releases">changelog</a> is public.</p>
+    </details>
+  </div>
+</section>
+
 <section class="section final">
   <p class="mono dim">$ brew install --cask xnaut</p>
   <h2>Ship with a crew of agents. Keep the helm.</h2>
@@ -273,6 +331,6 @@
   </div>
 </footer>
 
-<script src="js/main.js" defer></script>
+<script src="js/main.js?v=2" defer></script>
 </body>
 </html>

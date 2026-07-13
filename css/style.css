@@ -188,6 +188,22 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 .footer-links a { font-size: 13px; color: var(--muted); }
 .footer-links a:hover { color: var(--text); }
 
+/* ---- FAQ ---- */
+.faq { border-top: 1px solid var(--line); background: var(--panel-deep); }
+.faq .section-head { margin-bottom: 48px; }
+.faq-list { max-width: 840px; border-top: 1px solid var(--line-strong); }
+.faq-list details { border-bottom: 1px solid var(--line-strong); }
+.faq-list summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; list-style: none; cursor: pointer; padding: 22px 4px; font-family: var(--disp); font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { content: '+'; font-family: var(--mono); font-size: 20px; font-weight: 400; color: var(--faint); flex-shrink: 0; width: 24px; text-align: center; transition: transform .15s; }
+.faq-list details[open] summary::after { content: '–'; color: var(--amber); }
+.faq-list details[open] summary { color: var(--amber); }
+.faq-list summary:hover { color: var(--text); }
+.faq-list details[open] summary:hover { color: var(--amber); }
+.faq-list details p { padding: 0 40px 24px 4px; font-size: 15.5px; color: var(--muted); line-height: 1.7; max-width: 720px; }
+.faq-list details a { color: var(--amber); }
+.faq-list details .mono { font-size: 14px; color: var(--text-soft); }
+
 /* ---- legal pages ---- */
 .legal { max-width: 760px; margin: 0 auto; padding: 80px 32px 120px; }
 .legal h1 { font-size: 40px; font-weight: 700; margin-bottom: 8px; }

@@ -191,7 +191,7 @@
   <div class="pow-copy">
     <p class="kicker mono">02 — PROOF OF WORK</p>
     <h2>Every billable hour, cryptographically signed.</h2>
-    <p class="body">The Work Session Logger records every command with timestamps and duration, chains them into a SHA-256 Merkle tree, and exports a client-ready HTML or PDF report. A QR code on the report lets anyone verify the session wasn't edited after the fact.</p>
+    <p class="body">The Work Session Logger records every command with timestamps and duration, chains them into a SHA-256 Merkle tree, and exports a client-ready HTML report. A QR code on the report lets anyone verify the session wasn't edited after the fact.</p>
     <ul class="checks">
       <li>Tamper-evident hash chain — edits break the proof</li>
       <li>Tool detection groups time by Claude Code, Docker, AntBot…</li>
@@ -295,7 +295,7 @@
     </details>
     <details>
       <summary>What exactly does "proof of work" prove?</summary>
-      <p>Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML/PDF with a QR verification code) proves the session wasn't edited after the fact — hours you can hand to a client. It proves integrity of the record, not the quality of the work.</p>
+      <p>Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML with a QR verification code) proves the session wasn't edited after the fact — hours you can hand to a client. It proves integrity of the record, not the quality of the work.</p>
     </details>
     <details>
       <summary>Is xNAUT a Warp or Cursor alternative?</summary>
@@ -375,7 +375,7 @@
     { "@type": "Question", "name": "Which coding agents work with it?", "acceptedAnswer": { "@type": "Answer", "text": "Any CLI agent. Claude Code, Codex, Gemini, Grok, OpenCode come preconfigured; anything else drops into the registry at ~/.config/xnaut/agents.toml. Live status pills work for all of them." } },
     { "@type": "Question", "name": "Do I need API keys or a cloud subscription for the AI features?", "acceptedAnswer": { "@type": "Answer", "text": "No. Explain Screen, chat and theme generation run against Ollama or LM Studio on localhost out of the box. Cloud providers are optional and use your own keys, stored locally." } },
     { "@type": "Question", "name": "How is a terminal with all this only 8 MB?", "acceptedAnswer": { "@type": "Answer", "text": "Rust + Tauri v2. The UI renders in your OS's built-in webview instead of shipping a bundled Chromium, so the binary stays ~8 MB where Electron apps ship hundreds." } },
-    { "@type": "Question", "name": "What exactly does 'proof of work' prove?", "acceptedAnswer": { "@type": "Answer", "text": "Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML/PDF with a QR verification code) proves the session wasn't edited after the fact. It proves integrity of the record, not the quality of the work." } },
+    { "@type": "Question", "name": "What exactly does 'proof of work' prove?", "acceptedAnswer": { "@type": "Answer", "text": "Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML with a QR verification code) proves the session wasn't edited after the fact. It proves integrity of the record, not the quality of the work." } },
     { "@type": "Question", "name": "Is xNAUT a Warp or Cursor alternative?", "acceptedAnswer": { "@type": "Answer", "text": "For the terminal side of Warp: yes — without the account, the credits or the cloud. For Cursor: xNAUT isn't an IDE; it's where your CLI agents live and work. Many people run both." } },
     { "@type": "Question", "name": "How is xNAUT different from Orca?", "acceptedAnswer": { "@type": "Answer", "text": "Orca is an excellent open-source agent orchestrator built on Electron and VS Code's editor. xNAUT covers the same agent + worktree workflow in a native 8 MB app, and adds local-first AI features, a doc vault, visual agent loops, and cryptographically signed work sessions." } },
     { "@type": "Question", "name": "Does it run on Windows and Linux?", "acceptedAnswer": { "@type": "Answer", "text": "macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers ship with every release — treat them as early. No Linux builds yet." } },

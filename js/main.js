@@ -2,6 +2,15 @@
 // Falls back to the releases page (hrefs already in the HTML) on any failure.
 (async () => {
   try {
+    const repo = await fetch('https://api.github.com/repos/48Nauts-Operator/xNaut').then(r => r.ok && r.json());
+    if (repo) {
+      const n = repo.stargazers_count;
+      const stars = n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
+      document.querySelectorAll('[data-stars]').forEach(el => { el.textContent = `★ ${stars}`; });
+    }
+  } catch { /* keep plain star glyph */ }
+
+  try {
     const res = await fetch('https://api.github.com/repos/48Nauts-Operator/xNaut/releases/latest');
     if (!res.ok) return;
     const rel = await res.json();

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>xNAUT — The terminal built for the agent era</title>
+  <meta name="description" content="xNAUT is a native, 8 MB terminal that runs your AI coding agents, tracks their status live, and proves every hour of work — without sending a byte to the cloud.">
+  <meta property="og:title" content="xNAUT — The terminal built for the agent era">
+  <meta property="og:description" content="Native 8 MB terminal for AI coding agents. Local-first AI, live agent status, cryptographically signed work sessions. Free &amp; open source.">
+  <meta property="og:url" content="https://xnaut.dev">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#ai">AI</a>
+    <a href="#proof">Proof of Work</a>
+    <a href="https://github.com/48Nauts-Operator/xNaut/releases">Changelog</a>
+  </div>
+  <div class="nav-actions">
+    <a href="https://github.com/48Nauts-Operator/xNaut">GitHub</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest" data-download>Download</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="pill"><span class="dot dot-amber"></span><span class="mono" data-version>macOS &amp; Windows</span></div>
+  <h1>The terminal built for the&nbsp;agent&nbsp;era.</h1>
+  <p class="sub">xNAUT is a native, 8&nbsp;MB terminal that runs your AI coding agents, tracks their status live, and proves every hour of work — without sending a byte to the cloud.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest" data-download-mac>Download for macOS</a>
+    <a class="btn btn-ghost mono" href="https://github.com/48Nauts-Operator/xNaut">git clone 48Nauts/xNaut</a>
+  </div>
+  <p class="footnote">Free &amp; open source · MIT · Apple Silicon, Intel &amp; Windows x64</p>
+
+  <div class="term">
+    <div class="term-chrome">
+      <div class="term-lights"><i></i><i></i><i></i></div>
+      <div class="term-tabs mono">
+        <span class="tab tab-active"><span class="dot dot-amber"></span>xnaut</span>
+        <span class="tab">nautgate</span>
+        <span class="tab">infra</span>
+      </div>
+      <div class="term-agents mono">
+        <span class="pill pill-xs"><span class="dot dot-amber"></span>claude · working</span>
+        <span class="pill pill-xs"><span class="dot dot-green"></span>codex · done</span>
+      </div>
+    </div>
+    <div class="term-panes mono">
+      <div class="pane pane-main">
+        <div class="ln muted">~/factory/xnaut on <span class="amber">feature/agent-runner</span></div>
+        <div class="ln"><span class="green">❯</span> claude "wire the status pills to the hook listener"</div>
+        <div class="ln dim">● Reading src/js/agent-runner.js…</div>
+        <div class="ln dim">● Editing commands.rs — hook listener on 127.0.0.1:9877</div>
+        <div class="ln green">✓ 2 files changed · tests passing</div>
+        <div class="ln"><span class="amber blink">▍</span></div>
+      </div>
+      <div class="pane pane-side">
+        <div class="ln label">WORKTREES</div>
+        <div class="ln">● feature/agent-runner&nbsp;&nbsp;<span class="amber">claude</span></div>
+        <div class="ln dim">○ feature/diff-notes&nbsp;&nbsp;&nbsp;&nbsp;<span class="green">merged</span></div>
+        <div class="ln dim">○ fix/crash-log-trim&nbsp;&nbsp;&nbsp;&nbsp;<span class="green">merged</span></div>
+        <div class="ln label" style="margin-top:14px">SESSION LOG</div>
+        <div class="ln dim">recording · 02:41:07 · <span class="amber">merkle ✓</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="stats">
+  <div class="stat"><b>8 MB</b><span>native binary, not 500 MB of Electron</span></div>
+  <div class="stat"><b>&lt;100 ms</b><span>to spawn a new PTY session</span></div>
+  <div class="stat"><b>16</b><span>split panes per tab, iTerm2-style</span></div>
+  <div class="stat"><b class="amber">0</b><span>bytes required to leave your machine</span></div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-head split">
+    <div>
+      <p class="kicker mono">01 — FEATURES</p>
+      <h2>Your agents work here. So should your terminal.</h2>
+    </div>
+    <p class="section-aside">Every feature exists because running Claude Code, Codex, and friends in a plain terminal means losing track of who is doing what, where.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-visual"><span class="dot dot-amber lg"></span><span class="dot dot-green lg"></span><span class="dot dot-red lg"></span></div>
+      <h3>Agent Runner</h3>
+      <p>Launch claude, codex, gemini or any CLI agent from a user-editable registry. Live status pills — working, done, blocked — with real-time hook pushes. Click a pill, jump to its tab.</p>
+    </div>
+    <div class="card">
+      <div class="card-visual mono amber">git worktree add ⎇</div>
+      <h3>Worktree Manager</h3>
+      <p>One modal to spin up isolated worktrees with a recipe where push and status both just behave — then drop any agent straight into the new tree.</p>
+    </div>
+    <div class="card">
+      <div class="card-visual mono"><span class="green">+ added</span>&nbsp;&nbsp;<span class="red">- removed</span></div>
+      <h3>Diff Viewer with AI notes</h3>
+      <p>Side-by-side diffs where agents leave inline annotations — summary, rationale, confidence — anchored to the exact hunk. Notes update live as agents write them.</p>
+    </div>
+    <div class="card">
+      <div class="card-visual mono dim">xnaut · <span class="amber">●</span>&nbsp;&nbsp;bucky · ○</div>
+      <h3>Project Workspaces</h3>
+      <p>Each project is a workspace with its own tabs, terminals and zellij session. Switch projects, get your exact context back — nothing bleeds between them.</p>
+    </div>
+    <div class="card">
+      <div class="card-visual mono dim">⌥B browser · ⌥M markdown</div>
+      <h3>More than terminals</h3>
+      <p>Split any pane with a sandboxed browser, a markdown editor with Mermaid, a file tree or a code editor. Docs and previews live beside the shell, not in another app.</p>
+    </div>
+    <div class="card">
+      <div class="card-visual swatches"><i style="background:#F5B840"></i><i style="background:#7AA2F7"></i><i style="background:#BD93F9"></i><i style="background:#3DD68C"></i></div>
+      <h3>Themes with an AI twist</h3>
+      <p>Twelve built-in themes with full ANSI palettes — Catppuccin, Tokyo Night, Nord, Dracula — plus a generator: describe a vibe, get a matching theme for the whole app.</p>
+    </div>
+    <div class="card card-hl">
+      <div class="card-visual mono nodes">
+        <span class="node">trigger</span><i class="edge"></i><span class="node">agent</span><i class="edge"></i><span class="node node-amber">gate ✓</span><i class="edge"></i><span class="node">deliver</span>
+      </div>
+      <h3>Visual Loop Designer</h3>
+      <p>Draw agent workflows as nodes — triggers, agents, approval gates, bounded retries — with versioning, validation, cost limits and model governance. Or just describe it: the LoopBuilder agent drafts the loop and repairs validator feedback itself.</p>
+    </div>
+    <div class="card card-hl">
+      <div class="card-visual mono"><span class="dim">[[</span><span class="amber">naut-flow-concept</span><span class="dim">]]</span>&nbsp;&nbsp;<span class="label">← 12 backlinks</span></div>
+      <h3>Integrated Doc Vault</h3>
+      <p>An Obsidian-style vault inside the terminal — wikilinks, backlinks, tags, search and templates for work and personal notes. The Vault Librarian agent searches, files and writes notes on request.</p>
+    </div>
+    <div class="card card-hl">
+      <div class="card-visual orb">
+        <svg width="160" height="24" viewBox="0 0 160 24" fill="none">
+          <line x1="20" y1="12" x2="68" y2="11" stroke="#3A3E46"/>
+          <line x1="70" y1="11" x2="112" y2="5" stroke="#3A3E46"/>
+          <line x1="70" y1="12" x2="122" y2="18" stroke="#3A3E46"/>
+          <circle cx="16" cy="12" r="4.5" fill="#F5B840"/>
+          <circle cx="70" cy="11" r="3.5" fill="#878E99"/>
+          <circle cx="113" cy="5" r="2.5" fill="#5C626C"/>
+          <circle cx="123" cy="18" r="3" fill="#878E99"/>
+          <circle cx="148" cy="10" r="2" fill="#5C626C"/>
+        </svg>
+      </div>
+      <h3>Knowledge Graph orb</h3>
+      <p>Your vault's wikilinks and your codebase's imports, rendered as a force-directed orb — 2D or a slow-rotating 3D nebula. Switch between notes and code with one selector, all scanned locally in Rust.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section pow" id="proof">
+  <div class="pow-copy">
+    <p class="kicker mono">02 — PROOF OF WORK</p>
+    <h2>Every billable hour, cryptographically signed.</h2>
+    <p class="body">The Work Session Logger records every command with timestamps and duration, chains them into a SHA-256 Merkle tree, and exports a client-ready HTML or PDF report. A QR code on the report lets anyone verify the session wasn't edited after the fact.</p>
+    <ul class="checks">
+      <li>Tamper-evident hash chain — edits break the proof</li>
+      <li>Tool detection groups time by Claude Code, Docker, AntBot…</li>
+      <li>Built for consultants who invoice by the hour</li>
+    </ul>
+  </div>
+  <div class="receipt mono">
+    <div class="receipt-head">
+      <span>WORK SESSION — 2026-07-11</span>
+      <span class="badge"><span class="dot dot-green"></span>VERIFIED</span>
+    </div>
+    <div class="receipt-rows">
+      <div class="rr"><span>Claude Code</span><span>3 h 12 m</span></div>
+      <div class="rr"><span>Docker</span><span>1 h 04 m</span></div>
+      <div class="rr"><span>cargo · tests</span><span>0 h 47 m</span></div>
+      <div class="rr rr-total"><span>Total billable</span><span class="amber">5 h 03 m</span></div>
+    </div>
+    <div class="receipt-foot">
+      <span>merkle root  a94f…c21e</span>
+      <span>▦ scan to verify</span>
+    </div>
+  </div>
+</section>
+
+<section class="section ai" id="ai">
+  <p class="kicker mono">03 — LOCAL-FIRST AI</p>
+  <h2>Your model, your machine, your choice.</h2>
+  <p class="body center">Explain Screen, AI chat and theme generation run against Ollama or LM Studio on localhost by default. Cloud providers are there when you want them — behind a privacy monitor that flags leaked keys and PII before a prompt leaves the app.</p>
+  <div class="providers mono">
+    <span class="prov prov-local"><span class="dot dot-green"></span>Ollama <em>local</em></span>
+    <span class="prov prov-local"><span class="dot dot-green"></span>LM Studio <em>local</em></span>
+    <span class="prov prov-local"><span class="dot dot-green"></span>AntBot <em>local</em></span>
+    <span class="prov">Anthropic</span>
+    <span class="prov">OpenAI</span>
+    <span class="prov">OpenRouter</span>
+    <span class="prov">Perplexity</span>
+  </div>
+</section>
+
+<section class="section compare" id="compare">
+  <div class="section-head">
+    <p class="kicker mono">04 — HOW IT STACKS UP</p>
+    <h2>Bragging rights, itemized.</h2>
+    <p class="body">Everyone's open source now. Nobody else fits a terminal, an agent fleet, and a notary into 8&nbsp;MB.</p>
+  </div>
+  <div class="table-wrap">
+    <table class="cmp mono">
+      <thead>
+        <tr><th></th><th class="me">xNAUT</th><th>Warp</th><th>Cursor</th><th>Orca</th><th>Ghostty</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Price</td><td class="me">Free · MIT</td><td>$20/mo credits</td><td>$20/mo</td><td>Free · MIT</td><td>Free · MIT</td></tr>
+        <tr><td>Ships as</td><td class="me">8 MB native app</td><td>app + cloud</td><td>VS Code fork</td><td>Electron app</td><td>native binary</td></tr>
+        <tr><td>Full power, no account</td><td class="me">✓</td><td>AI needs account</td><td>—</td><td>✓</td><td>✓</td></tr>
+        <tr><td>AI fully on localhost</td><td class="me">✓ Ollama · LM Studio</td><td class="dim2">cloud credits</td><td class="dim2">cloud models</td><td>via your agent</td><td class="dim2">no AI</td></tr>
+        <tr><td>Any CLI agent, live status</td><td class="me">✓</td><td class="dim2">its own agents</td><td class="dim2">its own agent</td><td>✓</td><td>—</td></tr>
+        <tr><td>Visual agent-loop designer</td><td class="me">✓ nodes + gates</td><td class="dim2">cloud (Oz)</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Signed proof of billable work</td><td class="me">✓ Merkle + QR</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Prompt privacy guard</td><td class="me">✓ keys · PII</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="punchline">
+    <p>Ghostty is a great terminal. Warp is a great subscription. Cursor is a great IDE. Orca is a great orchestrator.</p>
+    <p class="amber">xNAUT is the whole bridge crew — in 8 MB, for free.</p>
+    <p class="fine">Snapshot July 2026. Warp: AGPL client, $20/mo Build plan for AI credits. Cursor: proprietary, $20/mo Pro. Orca: MIT, BYO agent subscriptions. Ghostty: MIT, no AI by design.</p>
+  </div>
+</section>
+
+<section class="section final">
+  <p class="mono dim">$ brew install --cask xnaut</p>
+  <h2>Ship with a crew of agents. Keep the helm.</h2>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest" data-download>Download xNAUT</a>
+    <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut">Star on GitHub</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://docs.xnaut.dev">Docs</a>
+    <a href="https://github.com/48Nauts-Operator/xNaut/releases">Changelog</a>
+    <a href="https://github.com/48Nauts-Operator/xNaut">GitHub</a>
+    <a href="https://48nauts.com">48nauts.com</a>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

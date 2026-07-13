@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Best Terminal for Claude Code — Run Agents in Parallel | xNAUT</title>
+  <meta name="description" content="Run Claude Code, Codex and Gemini in parallel with live status pills, isolated git worktrees, and annotated diffs. xNAUT is a free 8 MB native terminal built for agents.">
+  <link rel="canonical" href="https://xnaut.dev/best-terminal-for-claude-code.html">
+  <meta property="og:title" content="The Best Terminal for Claude Code — Run Agents in Parallel | xNAUT">
+  <meta property="og:description" content="Live agent status, git worktrees per agent, annotated diffs. Free, MIT, 8 MB native.">
+  <meta property="og:image" content="https://xnaut.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download</a>
+  </div>
+</nav>
+
+<main class="legal">
+  <h1>The best terminal for Claude Code is one that knows what an agent is</h1>
+  <span class="updated">Parallel agents · worktrees · live status · updated July 2026</span>
+
+  <p>Run Claude Code in a plain terminal and everything works — until you run three of them. Which tab was refactoring auth? Which one is blocked waiting for permission? Did the one in the worktree finish? The classic answer is tmux + git worktrees and a lot of discipline. It's Anthropic's own recommended pattern, and it's exactly what xNAUT builds in natively.</p>
+
+  <h2>What "built for agents" means in practice</h2>
+  <p><strong>Live status pills.</strong> Every agent — claude, codex, gemini, or anything you add to the registry — shows <span class="mono">working / done / blocked / waiting</span> in the top bar, fed by real-time hooks. Click the pill, jump to the tab.</p>
+  <p><strong>A worktree per agent.</strong> One modal creates an isolated git worktree and drops the agent into it, configured so <span class="mono">git push</span> and <span class="mono">git status</span> just behave. Parallel agents never fight over the same files.</p>
+  <p><strong>Agents annotate their own diffs.</strong> The diff viewer shows inline notes agents leave — summary, rationale, confidence — anchored to the exact hunk, updating live while they work.</p>
+  <p><strong>Agents can drive the terminal back.</strong> A localhost MCP server lets Claude Code create tickets, update project docs, and manage the vault — the terminal becomes a tool your agent calls.</p>
+  <p><strong>Proof it happened.</strong> Every session can be recorded into a SHA-256 Merkle chain and exported as a client-ready report — hours you can invoice, cryptographically tamper-evident.</p>
+
+  <h2>How the options compare</h2>
+  <div class="table-wrap">
+    <table class="cmp mono">
+      <thead><tr><th></th><th class="me">xNAUT</th><th>tmux + worktrees</th><th>Orca</th><th>Warp</th></tr></thead>
+      <tbody>
+        <tr><td>Agent status at a glance</td><td class="me">✓ live pills</td><td>manual</td><td>✓</td><td>own agents</td></tr>
+        <tr><td>Worktree management</td><td class="me">✓ built-in</td><td>by hand</td><td>✓</td><td>—</td></tr>
+        <tr><td>Footprint</td><td class="me">8 MB native</td><td>minimal</td><td>Electron</td><td>app + cloud</td></tr>
+        <tr><td>Account / cost</td><td class="me">free · none</td><td>free</td><td>free</td><td>$20/mo for AI</td></tr>
+        <tr><td>Signed work log</td><td class="me">✓</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>If tmux + worktrees already works for you, keep it — xNAUT is that workflow with the bookkeeping automated and a UI on top. <a href="/">Download for macOS or Windows</a>, free and MIT-licensed.</p>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/alternatives/warp.html">vs Warp</a>
+    <a href="/alternatives/cursor.html">vs Cursor</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is the best terminal for running Claude Code?", "acceptedAnswer": { "@type": "Answer", "text": "Any terminal runs Claude Code, but running several agents in parallel needs live status, isolated git worktrees, and diff review. xNAUT builds all three in natively — free, MIT-licensed, 8 MB." } },
+    { "@type": "Question", "name": "How do I run multiple Claude Code agents in parallel?", "acceptedAnswer": { "@type": "Answer", "text": "The proven pattern is one agent per isolated git worktree. xNAUT automates it: one modal creates the worktree, launches the agent in it, and tracks its status live." } }
+  ]
+}
+</script>
+</body>
+</html>

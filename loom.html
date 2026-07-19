@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loom — Deploy a Coding Agent as a Repeatable Run | xNAUT</title>
+  <meta name="description" content="Loom is an open, declarative format for deploying a coding agent. A Weave (*.loom.json) describes the sandbox, goal, acceptance checks and report — a manifest for an agent run.">
+  <link rel="canonical" href="https://xnaut.dev/loom.html">
+  <meta property="og:title" content="Loom — Deploy a Coding Agent as a Repeatable Run">
+  <meta property="og:description" content="A Weave (*.loom.json) declares the sandbox, goal, acceptance checks and report. Open source, MIT.">
+  <meta property="og:image" content="https://xnaut.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <style>
+    .loom-pre { font-family: var(--mono); font-size: 12.5px; line-height: 1.65; color: var(--text-soft); background: var(--panel-deep); border: 1px solid var(--border-card); border-radius: 12px; padding: 20px 22px; overflow-x: auto; margin: 6px 0 24px; }
+    .loom-pre .k { color: var(--amber); }
+    .loom-pre .c { color: var(--faint); }
+    .flow { list-style: none; padding-left: 0; margin: 6px 0 20px; }
+    .flow li { padding: 6px 0 6px 30px; position: relative; font-size: 15.5px; color: var(--text-soft); line-height: 1.6; }
+    .flow li::before { content: attr(data-n); position: absolute; left: 0; top: 6px; width: 20px; height: 20px; background: var(--amber-ink); color: var(--amber); border-radius: 6px; font-family: var(--mono); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+    .amber { color: var(--amber); }
+    .note { border-left: 2px solid var(--amber); background: var(--panel); padding: 16px 20px; border-radius: 0 10px 10px 0; margin: 22px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 32px 0 8px; }
+    /* .legal a (amber) would otherwise override the button label colors */
+    .cta-row .btn-primary { color: var(--amber-ink); }
+    .cta-row .btn-ghost { color: var(--text-soft); }
+    .lead { font-size: 19px; line-height: 1.55; color: var(--text); margin: 4px 0 24px; }
+    .lead strong { color: var(--text); font-weight: 600; }
+  </style>
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/loom">Loom on GitHub</a>
+  </div>
+</nav>
+
+<main class="legal">
+  <h1>Loom</h1>
+  <span class="updated">Declarative agent deployment · spec <span class="amber">nautloom/v1</span> · open source, MIT</span>
+
+  <p class="lead"><strong>Loom is the uniform, verifiable contract for running agents — any agent, any runtime.</strong> The manifest is the shared interface; the value is the verification and audit that makes non-deterministic agent work trustworthy and controllable at scale.</p>
+
+  <p><strong>Loom deploys a coding agent as a repeatable run.</strong> Instead of babysitting an agent in a terminal, you write a <em>Weave</em> — a small JSON file that declares the sandbox to run in, the goal, what "done" means, and what to report back. Loom spins the sandbox, runs the agent, checks the result, and ships it as a branch and a pull request.</p>
+
+  <p>Think of a Weave as a <span class="amber">manifest for an agent run</span> — the way a Kubernetes manifest describes a deployment, a Weave describes an agentic task.</p>
+
+  <h2>A Weave</h2>
+  <pre class="loom-pre">{
+  <span class="k">"spec"</span>: "nautloom/v1",
+  <span class="k">"kind"</span>: "Weave",
+  <span class="k">"metadata"</span>: { "name": "build-verify", "version": 1 },
+  <span class="k">"runtime"</span>: {
+    "provider": "gitvm",
+    "template": "agent-desktop",
+    "resources": { "vcpus": 4, "memoryMB": 8192, "ttl": 21600 }
+  },
+  <span class="k">"intent"</span>:     { "goal": "…what the agent should do…" },
+  <span class="k">"acceptance"</span>: [ <span class="c">/* checks that define done */</span> ],
+  <span class="k">"report"</span>:     { "include": ["summary", "tests", "video"] }
+}</pre>
+
+  <p><span class="mono amber">runtime</span> says where it runs, <span class="mono amber">intent</span> is the task, <span class="mono amber">acceptance</span> is what makes it a pass, and <span class="mono amber">report</span> is what you get back. Real examples — blank, quick-run, build-verify, ui-record, swarm — live in the <a href="https://github.com/48Nauts-Operator/loom/tree/main/examples">repo</a>.</p>
+
+  <h2>How a run works</h2>
+  <ol class="flow">
+    <li data-n="1">Spin an isolated sandbox — a GitVM microVM, fresh per run.</li>
+    <li data-n="2">Sync the working directory and goal into it.</li>
+    <li data-n="3">Run the agent (Claude Code or Codex) — live-streamed, secret-redacted log.</li>
+    <li data-n="4">Check acceptance — tests and criteria.</li>
+    <li data-n="5">Pull the code back and ship it: a branch and a PR.</li>
+    <li data-n="6">Report: a summary, test results, and a session recording.</li>
+  </ol>
+
+  <h2>The runtime — GitVM</h2>
+  <p>Weaves run on <strong>GitVM</strong>, a Firecracker microVM sandbox substrate. The default <span class="mono">agent-desktop</span> template is an Ubuntu desktop with a screen recorder and the agent CLIs — so every run is isolated, watchable, and recorded. One sandbox per working directory; parallel runs each get their own git worktree.</p>
+
+  <h2>Status</h2>
+  <div class="note">The Weave <strong>format</strong> is stable and portable — it's just JSON. The <strong>runner</strong> currently ships inside <a href="https://github.com/48Nauts-Operator/xNaut">xNAUT</a> (the native agent cockpit) and drives runs through GitVM. A standalone <span class="mono">loom</span> CLI — <span class="mono">loom run weave.json</span> outside xNAUT — is on the roadmap.</div>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/loom">Loom on GitHub</a>
+    <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Get xNAUT</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/loom.html">Loom</a>
+    <a href="https://github.com/48Nauts-Operator/loom">Loom on GitHub</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Loom — Deploy a Coding Agent as a Repeatable Run",
+  "description": "Loom is an open, declarative format for deploying a coding agent. A Weave (*.loom.json) describes the sandbox, goal, acceptance checks and report.",
+  "author": { "@type": "Organization", "name": "48Nauts" },
+  "url": "https://xnaut.dev/loom.html"
+}
+</script>
+</body>
+</html>

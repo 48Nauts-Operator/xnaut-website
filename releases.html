@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Releases | xNAUT</title>
+  <meta name="description" content="What shipped in each version of xNAUT — the terminal that runs your coding agents. Latest: v1.11.0, with the Designer, the mobile companion, and the long-running freeze fixed for good.">
+  <link rel="canonical" href="https://xnaut.dev/releases.html">
+  <meta property="og:title" content="xNAUT Releases">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.11.0 — Designer, mobile companion, and the long-running freeze fixed for good.">
+  <meta property="og:image" content="https://xnaut.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <style>
+    .rel { border-top: 1px solid var(--border-card); padding-top: 30px; margin-top: 38px; }
+    .rel:first-of-type { border-top: 0; padding-top: 0; margin-top: 22px; }
+    .rel-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+    .rel-head h2 { margin: 0; }
+    .rel-date { font-family: var(--mono); font-size: 12.5px; color: var(--faint); }
+    .tag-latest { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .04em;
+                  background: var(--amber-ink); color: var(--amber); border-radius: 6px; padding: 3px 8px; }
+    .rel-lead { font-size: 17px; line-height: 1.55; color: var(--text); margin: 8px 0 22px; }
+    .grp { margin: 22px 0 0; }
+    .grp h3 { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em;
+              text-transform: uppercase; color: var(--faint); margin: 0 0 10px; }
+    .grp ul { list-style: none; padding-left: 0; margin: 0; }
+    .grp li { padding: 7px 0 7px 22px; position: relative; font-size: 15.5px; line-height: 1.6; color: var(--text-soft); }
+    .grp li::before { content: ''; position: absolute; left: 4px; top: 15px; width: 5px; height: 5px;
+                      border-radius: 50%; background: var(--border-card); }
+    .grp.added li::before { background: var(--amber); }
+    .grp li strong { color: var(--text); font-weight: 600; }
+    .amber { color: var(--amber); }
+    .note { border-left: 2px solid var(--amber); background: var(--panel); padding: 16px 20px;
+            border-radius: 0 10px 10px 0; margin: 22px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
+    .past { list-style: none; padding-left: 0; margin: 10px 0 0; }
+    .past li { display: flex; gap: 14px; align-items: baseline; padding: 9px 0;
+               border-bottom: 1px solid var(--border-card); font-size: 15px; color: var(--text-soft); }
+    .past li:last-child { border-bottom: 0; }
+    .past .v { font-family: var(--mono); font-size: 13px; color: var(--amber); flex: 0 0 62px; }
+    .past .d { font-family: var(--mono); font-size: 12px; color: var(--faint); flex: 0 0 92px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 34px 0 8px; }
+    .cta-row .btn-primary { color: var(--amber-ink); }
+    .cta-row .btn-ghost { color: var(--text-soft); }
+  </style>
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<main class="legal">
+  <h1>Releases</h1>
+  <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.11.0</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">2 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Describe something and get a running application on a real domain — no build step, no deploy, just a link you can send. Plus the long-running freeze fixed for good, and two subsystems retired.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Designer.</strong> A tab in the project workspace that turns a sentence into a real, running application on a live hostname. A design is an actual project — Astro, Reveal.js or Next.js depending on what you asked for — scaffolded and edited by an agent, built and served in a sandbox, with the running site in the canvas and the chat beside it. Never a mock: the URL is shareable as it stands.</li>
+        <li><strong>Mobile companion.</strong> Your terminal sessions, files, git status, artifacts, task runner, and the Observatory and Multi-Agent Manager, on your phone over Tailscale. Nothing exposed to the internet.</li>
+        <li><strong>Validator.</strong> Before a build starts, the whole documentation chain is checked — contract coverage, stage completeness, cross-stage consistency, testability, build readiness — and the build is blocked on a FAIL. The report lands in the centre pane and you can talk to the Validator about it.</li>
+        <li><strong>Observatory.</strong> Every live session listed and one click from attaching, run rows that survive a reload, honest local-vs-sandbox labels.</li>
+        <li><strong>Help overlay</strong> for keyboard shortcuts, <strong>command snippets</strong> moved into a dropdown, and a <strong>work-log clock</strong> in the toolbar — one click to start, red while recording, click again for the summary.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The long-running freeze — both halves.</strong> Two independent causes, found weeks apart, in one build for the first time. Terminal output is now coalesced into one merged event per 16 ms, so a streaming agent no longer saturates the webview's main thread. And the PTY reader moved off the async pool onto its own thread, where a blocking read used to park one worker per open session — the reason keystrokes could stall for seconds with a few tabs open.</li>
+        <li><strong>Agent runs finish when the agent finishes.</strong> A headless <span class="amber">claude -p</span> can sit for minutes after its last message while it tears down. Runs now complete on the result event rather than waiting for the process to exit.</li>
+        <li><strong>Sandboxes are proven, not assumed.</strong> Spin-up starts the dev server, checks the public URL actually answers, and destroys the sandbox if it does not — instead of handing back a link that 502s. Size and lifetime now come from the template manifest rather than hardcoded numbers.</li>
+        <li>A single corrupt project manifest no longer blanks the whole Projects board.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Removed</h3>
+      <ul>
+        <li><strong>Ralph</strong>, the first agent flow. Every part of it had a better owner by now — one shared runner for dispatch, the Observatory for cost, a fetched model catalog for model choice, NautFlow for the pipeline.</li>
+        <li><strong>The Live Error Monitor.</strong> It only collected while its panel was open, and it could not see agent runs, builds or sandboxes at all.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      Upgrading from 1.10.x is worth it for the freeze fix alone if you keep long agent sessions open. Both mechanisms lived on separate branches until this release.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.11.0</a>
+      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>Earlier</h2>
+    </div>
+    <ul class="past">
+      <li><span class="v">1.9.2</span><span class="d">13 Jul 2026</span><span>Freeze diagnostics — backend panics written to a log instead of a silent hang. Per-chunk terminal logging made opt-in.</span></li>
+      <li><span class="v">1.9.1</span><span class="d">12 Jul 2026</span><span>Project Management over MCP: list, search, read, create and conflict-safe updates of documents in a project vault.</span></li>
+      <li><span class="v">1.9.0</span><span class="d">11 Jul 2026</span><span>Agent Loops — a visual builder with versioned definitions, bounded retries, approval gates and an emergency stop. Project-scoped Docs.</span></li>
+    </ul>
+    <p style="margin-top:18px;"><a href="https://github.com/48Nauts-Operator/xNaut/releases">Every build, including the 1.10.x line →</a></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "xNAUT Releases",
+  "description": "What shipped in each version of xNAUT. Latest: v1.11.0.",
+  "url": "https://xnaut.dev/releases.html"
+}
+</script>
+</body>
+</html>

@@ -235,3 +235,38 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
   .pane-side { display: none; }
   .pane-main { border-right: none; }
 }
+
+/* ---- install row (hero) ---- */
+.install-row { display: flex; align-items: stretch; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel-deep); overflow: hidden; max-width: 520px; margin: 26px 0 18px; }
+.install-row code { font-size: 13px; color: var(--text-soft); padding: 13px 15px; white-space: nowrap; overflow-x: auto; flex: 1 1 auto; }
+.install-row .install-copy { flex: 0 0 auto; border: 0; border-left: 1px solid var(--line-strong); background: transparent; color: var(--faint); font-size: 11px; letter-spacing: .06em; padding: 0 15px; cursor: pointer; }
+.install-row .install-copy:hover { color: var(--amber); }
+.install-row .install-copy.ok { color: var(--green); }
+
+/* ---- the signed record: the hero artefact ---- */
+.record { margin: 44px 0 0; background: var(--panel); border: 1px solid var(--border-card); border-radius: 14px; padding: 22px 24px 18px; max-width: 560px; }
+.record-head { display: flex; align-items: center; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.record .rec-title { font-size: 11px; letter-spacing: .09em; color: var(--muted); }
+.record .seal { margin-left: auto; font-size: 10px; letter-spacing: .1em; font-weight: 700; color: var(--green); border: 1px solid rgba(61,214,140,.4); border-radius: 999px; padding: 3px 10px; }
+.ledger { width: 100%; border-collapse: collapse; margin: 6px 0 0; font-size: 14px; }
+.ledger td { padding: 10px 0; border-bottom: 1px dotted var(--line-strong); color: var(--text-soft); }
+.ledger .num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text); }
+.ledger tfoot td { border-bottom: 0; padding-top: 14px; color: var(--text); font-weight: 600; }
+.ledger tfoot .num { color: var(--amber); }
+.record-foot { display: flex; align-items: center; gap: 14px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.record .hash { font-size: 11px; color: var(--faint); }
+.record .hash b { color: var(--text-soft); font-weight: 500; }
+.record .qr { margin-left: auto; width: 38px; height: 38px; border-radius: 5px; background-color: var(--text-soft); -webkit-mask-image: repeating-conic-gradient(#000 0 25%, transparent 0 50%); mask-image: repeating-conic-gradient(#000 0 25%, transparent 0 50%); -webkit-mask-size: 9px 9px; mask-size: 9px 9px; opacity: .7; }
+.record figcaption { margin-top: 16px; font-size: 12.5px; color: var(--faint); line-height: 1.6; }
+
+/* ---- NautFlow pipeline ---- */
+.flow { list-style: none; padding: 0; margin: 38px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.flow li { background: var(--panel); padding: 22px 20px 24px; display: flex; flex-direction: column; gap: 6px; }
+.flow .ph { font-size: 11px; color: var(--amber); letter-spacing: .08em; }
+.flow h3 { font-size: 18px; margin: 2px 0 0; }
+.flow .roles { font-size: 11px; color: var(--faint); margin: 0; letter-spacing: .04em; }
+.flow li p:last-child { margin: 8px 0 0; font-size: 13.5px; color: var(--text-soft); line-height: 1.65; }
+.gate { margin: 22px 0 0; display: flex; gap: 16px; align-items: flex-start; border: 1px solid rgba(245,184,64,.26); background: rgba(245,184,64,.05); border-radius: 12px; padding: 18px 20px; }
+.gate-tag { flex: 0 0 auto; font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--amber); border: 1px solid rgba(245,184,64,.35); border-radius: 5px; padding: 3px 8px; margin-top: 2px; }
+.gate p { margin: 0; font-size: 14.5px; color: var(--text-soft); }
+.gate b { color: var(--text); }

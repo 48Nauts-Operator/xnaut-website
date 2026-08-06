@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>xNAUT — The terminal built for the agent era</title>
-  <meta name="description" content="xNAUT is a native, 20 MB terminal that runs your AI coding agents, tracks their status live, and proves every hour of work — without sending a byte to the cloud.">
+  <title>xNAUT — Every hour of agent work, logged and provable</title>
+  <meta name="description" content="xNAUT runs your AI coding agents and notarises what they did — every command timestamped, chained into a SHA-256 Merkle tree, exported as a report your client can verify. Native, 20 MB, nothing leaves your machine.">
   <link rel="canonical" href="https://xnaut.dev/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="xNAUT">
-  <meta property="og:title" content="xNAUT — The terminal built for the agent era">
-  <meta property="og:description" content="Native 20 MB terminal for AI coding agents. Local-first AI, live agent status, cryptographically signed work sessions. Free &amp; open source.">
+  <meta property="og:title" content="xNAUT — Every hour of agent work, logged and provable">
+  <meta property="og:description" content="Every command timestamped and chained into a SHA-256 Merkle tree, exported as a report anyone can verify. Native, 20 MB, local-first. Free &amp; open source.">
   <meta property="og:url" content="https://xnaut.dev/">
   <meta property="og:image" content="https://xnaut.dev/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@xnautdev">
-  <meta name="twitter:title" content="xNAUT — The terminal built for the agent era">
+  <meta name="twitter:title" content="xNAUT — Every hour of agent work, logged and provable">
   <meta name="twitter:description" content="Native 20 MB terminal for AI coding agents. Local-first AI, live agent status, signed work sessions. Free &amp; open source.">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -53,59 +53,69 @@
 
 <header class="hero">
   <div class="pill badge-nobody mono"><span>Backed by</span><span class="nobody-mark">∅</span><span class="amber">Nobody</span><span class="sep">·</span><span>no funding, free forever</span></div>
-  <h1>The terminal built for the&nbsp;agent&nbsp;era.</h1>
-  <p class="sub">xNAUT is a native, 20&nbsp;MB terminal that runs your AI coding agents, tracks their status live, and proves every hour of work — without sending a byte to the cloud.</p>
+  <h1>Every hour of agent work, logged&nbsp;and&nbsp;provable.</h1>
+  <p class="sub">xNAUT runs your AI coding agents and notarises what they did. Every command, timestamped and chained into a SHA&#8209;256 Merkle tree, exported as a report your client can verify — without sending a byte to the cloud.</p>
+  <div class="install-row">
+    <code class="mono">brew install --cask 48nauts-operator/tap/xnaut</code>
+    <button class="install-copy mono" data-copy="brew install --cask 48nauts-operator/tap/xnaut" aria-label="Copy install command">copy</button>
+  </div>
   <div class="cta-row">
     <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest" data-download-mac>Download for macOS</a>
     <a class="btn btn-ghost mono" href="https://github.com/48Nauts-Operator/xNaut">git clone 48Nauts/xNaut</a>
   </div>
   <p class="footnote">Free &amp; open source · MIT · <span data-version>latest release</span> · Apple Silicon, Intel &amp; Windows x64</p>
 
-  <div class="term">
-    <div class="term-chrome">
-      <div class="term-lights"><i></i><i></i><i></i></div>
-      <div class="term-tabs mono">
-        <span class="tab tab-active"><span class="dot dot-amber"></span>xnaut</span>
-        <span class="tab">nautgate</span>
-        <span class="tab">infra</span>
-      </div>
-      <div class="term-agents mono">
-        <span class="pill pill-xs"><span class="dot dot-amber"></span>claude · working</span>
-        <span class="pill pill-xs"><span class="dot dot-green"></span>codex · done</span>
-      </div>
+  <figure class="record">
+    <div class="record-head mono">
+      <span class="rec-title">WORK SESSION — 2026-08-06</span>
+      <span class="seal">VERIFIED</span>
     </div>
-    <div class="term-panes mono">
-      <div class="pane pane-main">
-        <div class="ln muted">~/factory/xnaut on <span class="amber">feature/agent-runner</span></div>
-        <div class="ln"><span class="green">❯</span> claude "wire the status pills to the hook listener"</div>
-        <div class="ln dim">● Reading src/js/agent-runner.js…</div>
-        <div class="ln dim">● Editing commands.rs — hook listener on 127.0.0.1:9877</div>
-        <div class="ln green">✓ 2 files changed · tests passing</div>
-        <div class="ln"><span class="amber blink">▍</span></div>
-      </div>
-      <div class="pane pane-side">
-        <div class="ln label">WORKTREES</div>
-        <div class="ln">● feature/agent-runner&nbsp;&nbsp;<span class="amber">claude</span></div>
-        <div class="ln dim">○ feature/diff-notes&nbsp;&nbsp;&nbsp;&nbsp;<span class="green">merged</span></div>
-        <div class="ln dim">○ fix/crash-log-trim&nbsp;&nbsp;&nbsp;&nbsp;<span class="green">merged</span></div>
-        <div class="ln label" style="margin-top:14px">SESSION LOG</div>
-        <div class="ln dim">recording · 02:41:07 · <span class="amber">merkle ✓</span></div>
-      </div>
+    <table class="ledger">
+      <tbody>
+        <tr><td>Claude Code</td><td class="num mono">3 h 12 m</td></tr>
+        <tr><td>Codex</td><td class="num mono">0 h 51 m</td></tr>
+        <tr><td>Docker</td><td class="num mono">1 h 04 m</td></tr>
+        <tr><td>cargo · tests</td><td class="num mono">0 h 47 m</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total billable</td><td class="num mono">5 h 54 m</td></tr></tfoot>
+    </table>
+    <div class="record-foot mono">
+      <span class="hash">merkle root <b>a94f…c21e</b></span>
+      <span class="qr" aria-hidden="true"></span>
     </div>
-  </div>
+    <figcaption>Edit one line of this session and the root changes. That is the whole idea.</figcaption>
+  </figure>
 </header>
 
 <section class="stats">
-  <div class="stat"><b>20 MB</b><span>download for a native app, not 500 MB of Electron</span></div>
-  <div class="stat"><b>&lt;100 ms</b><span>to spawn a new PTY session</span></div>
-  <div class="stat"><b>16</b><span>split panes per tab, iTerm2-style</span></div>
+  <div class="stat"><b data-gh-downloads>513</b><span>downloads across every release</span></div>
+  <div class="stat"><b data-gh-releases>25</b><span>releases shipped, and counting</span></div>
+  <div class="stat"><b>20 MB</b><span>native app, not 500 MB of Electron</span></div>
   <div class="stat"><b class="amber">0</b><span>bytes required to leave your machine</span></div>
+</section>
+
+<section class="section flow-sec" id="flow">
+  <div class="section-head">
+    <p class="kicker mono">01 — NAUTFLOW</p>
+    <h2>The work has a shape. So does the tool.</h2>
+    <p class="body">An idea becomes a shipped change through fifteen stages and eight roles. xNAUT holds all of it — the documents, the tickets, the agents doing the work, and a Validator that refuses to let a build start on a broken chain of reasoning.</p>
+  </div>
+  <ol class="flow">
+    <li><span class="ph mono">01</span><h3>Discover</h3><p class="roles mono">Analyst</p><p>Idea · Concept · Business case</p></li>
+    <li><span class="ph mono">02</span><h3>Define</h3><p class="roles mono">PM · Architect · Security</p><p>Product requirements · Architecture · Data model · API design · Security review</p></li>
+    <li><span class="ph mono">03</span><h3>Plan</h3><p class="roles mono">Planner · PM</p><p>Development plan · Sprint stories · Executable tickets</p></li>
+    <li><span class="ph mono">04</span><h3>Deliver</h3><p class="roles mono">Builder · Reviewer</p><p>Build · Test and review · Release · Engram learning</p></li>
+  </ol>
+  <div class="gate">
+    <span class="gate-tag mono">GATE</span>
+    <p><b>The Validator sits between Plan and Deliver.</b> It reads the whole document chain and checks contract coverage, stage completeness, cross-stage consistency, testability and build readiness. A FAIL blocks the build — and it writes an acceptance script that runs against the thing you actually built, not against its own opinion of it.</p>
+  </div>
 </section>
 
 <section class="section" id="features">
   <div class="section-head split">
     <div>
-      <p class="kicker mono">01 — FEATURES</p>
+      <p class="kicker mono">02 — FEATURES</p>
       <h2>Your agents work here. So should your terminal.</h2>
     </div>
     <p class="section-aside">Every feature exists because running Claude Code, Codex, and friends in a plain terminal means losing track of who is doing what, where.</p>
@@ -190,7 +200,7 @@
 
 <section class="section pow" id="proof">
   <div class="pow-copy">
-    <p class="kicker mono">02 — PROOF OF WORK</p>
+    <p class="kicker mono">03 — PROOF OF WORK</p>
     <h2>Every billable hour, cryptographically signed.</h2>
     <p class="body">The Work Session Logger records every command with timestamps and duration, chains them into a SHA-256 Merkle tree, and exports a client-ready HTML report. A QR code on the report lets anyone verify the session wasn't edited after the fact.</p>
     <ul class="checks">
@@ -218,7 +228,7 @@
 </section>
 
 <section class="section ai" id="ai">
-  <p class="kicker mono">03 — LOCAL-FIRST AI</p>
+  <p class="kicker mono">04 — LOCAL-FIRST AI</p>
   <h2>Your model, your machine, your choice.</h2>
   <p class="body center">Explain Screen, AI chat and theme generation run against Ollama or LM Studio on localhost by default. Cloud providers are there when you want them — behind a privacy monitor that flags leaked keys and PII before a prompt leaves the app.</p>
   <div class="providers mono">
@@ -234,7 +244,7 @@
 
 <section class="section compare" id="compare">
   <div class="section-head">
-    <p class="kicker mono">04 — HOW IT STACKS UP</p>
+    <p class="kicker mono">05 — HOW IT STACKS UP</p>
     <h2>Bragging rights, itemized.</h2>
     <p class="body">Everyone's open source now. Nobody else fits a terminal, an agent fleet, and a notary into 20&nbsp;MB.</p>
   </div>
@@ -265,7 +275,7 @@
 
 <section class="section faq" id="faq">
   <div class="section-head">
-    <p class="kicker mono">05 — FAQ</p>
+    <p class="kicker mono">06 — FAQ</p>
     <h2>Frequently asked questions.</h2>
     <p class="body">Everything you need to know about xNAUT, your agents, and the ∅ funding model.</p>
   </div>
@@ -316,7 +326,7 @@
     </details>
     <details>
       <summary>How often does it ship?</summary>
-      <p>Fast — the release history speaks for itself: ten releases across v1.8 alone, from the diff viewer to the knowledge graph. Auto-update checks GitHub on startup, so you're one click behind at most. The <a href="https://github.com/48Nauts-Operator/xNaut/releases">changelog</a> is public.</p>
+      <p>Fast — twenty-five releases so far, the latest on 2 August 2026. Auto-update checks GitHub on startup, so you're one click behind at most, and everything that changed is on the <a href="/releases.html">releases page</a>.</p>
     </details>
   </div>
 </section>
@@ -382,7 +392,7 @@
     { "@type": "Question", "name": "How is xNAUT different from Orca?", "acceptedAnswer": { "@type": "Answer", "text": "Orca is an excellent open-source agent orchestrator built on Electron and VS Code's editor. xNAUT covers the same agent + worktree workflow in a native 20 MB app, and adds local-first AI features, a doc vault, visual agent loops, and cryptographically signed work sessions." } },
     { "@type": "Question", "name": "Does it run on Windows and Linux?", "acceptedAnswer": { "@type": "Answer", "text": "macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers ship with every release — treat them as early. No Linux builds yet." } },
     { "@type": "Question", "name": "Can my agents control xNAUT itself?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the built-in MCP server. Any MCP client can list projects, create and update tickets, and read or write project docs in the vault, all over localhost with a per-session token." } },
-    { "@type": "Question", "name": "How often does it ship?", "acceptedAnswer": { "@type": "Answer", "text": "Fast — ten releases across v1.8 alone. Auto-update checks GitHub on startup, so you're one click behind at most." } }
+    { "@type": "Question", "name": "How often does it ship?", "acceptedAnswer": { "@type": "Answer", "text": "Fast — twenty-five releases so far, the latest on 2 August 2026. Auto-update checks GitHub on startup, so you're one click behind at most." } }
   ]
 }
 </script>

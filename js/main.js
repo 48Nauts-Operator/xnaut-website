@@ -35,3 +35,28 @@
     });
   } catch { /* ponytail: releases page fallback is good enough */ }
 })();
+
+// Copy the install command from the hero.
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-copy]');
+  if (!b) return;
+  navigator.clipboard.writeText(b.dataset.copy).then(() => {
+    const prev = b.textContent;
+    b.textContent = 'copied'; b.classList.add('ok');
+    setTimeout(() => { b.textContent = prev; b.classList.remove('ok'); }, 1200);
+  }).catch(() => { /* clipboard blocked — the text is selectable anyway */ });
+});
+
+// Live adoption numbers, so the stats band cannot go stale the way the cask did.
+// Falls back silently to the numbers already in the markup.
+(async () => {
+  try {
+    const rs = await fetch('https://api.github.com/repos/48Nauts-Operator/xNaut/releases?per_page=100');
+    if (!rs.ok) return;
+    const releases = await rs.json();
+    const downloads = releases.reduce((n, r) => n + (r.assets || []).reduce((m, a) => m + (a.download_count || 0), 0), 0);
+    const fmt = (n) => n.toLocaleString('en-US');
+    if (downloads) document.querySelectorAll('[data-gh-downloads]').forEach(el => { el.textContent = fmt(downloads); });
+    if (releases.length) document.querySelectorAll('[data-gh-releases]').forEach(el => { el.textContent = fmt(releases.length); });
+  } catch { /* offline or rate-limited: the static numbers stand */ }
+})();

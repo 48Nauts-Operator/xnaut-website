@@ -250,25 +250,25 @@
   <div class="table-wrap">
     <table class="cmp mono">
       <thead>
-        <tr><th></th><th class="me">xNAUT</th><th>Warp</th><th>Cursor</th><th>Orca</th><th>Ghostty</th></tr>
+        <tr><th></th><th class="me">xNAUT</th><th>Warp</th><th>Cursor</th><th>Ghostty</th></tr>
       </thead>
       <tbody>
-        <tr><td>Price</td><td class="me">Free · MIT</td><td>$20/mo credits</td><td>$20/mo</td><td>Free · MIT</td><td>Free · MIT</td></tr>
-        <tr><td>Ships as</td><td class="me">20 MB native app</td><td>app + cloud</td><td>VS Code fork</td><td>Electron app</td><td>native binary</td></tr>
-        <tr><td>Full power, no account</td><td class="me">✓</td><td>AI needs account</td><td>—</td><td>✓</td><td>✓</td></tr>
-        <tr><td>AI fully on localhost</td><td class="me">✓ Ollama · LM Studio</td><td class="dim2">cloud credits</td><td class="dim2">cloud models</td><td>via your agent</td><td class="dim2">no AI</td></tr>
-        <tr><td>Any CLI agent, live status</td><td class="me">✓</td><td class="dim2">its own agents</td><td class="dim2">its own agents</td><td>✓</td><td>—</td></tr>
-        <tr><td>Visual agent-loop designer</td><td class="me">✓ nodes + gates</td><td class="dim2">cloud (Oz)</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>MCP server for agents</td><td class="me">✓ docs · tickets</td><td>—</td><td class="dim2">client only</td><td class="dim2">CLI, not MCP</td><td>—</td></tr>
-        <tr><td>Signed proof of billable work</td><td class="me">✓ Merkle + QR</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>Prompt privacy guard</td><td class="me">✓ keys · PII</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Price</td><td class="me">Free · MIT</td><td>$20/mo credits</td><td>$20/mo</td><td>Free · MIT</td></tr>
+        <tr><td>Ships as</td><td class="me">20 MB native app</td><td>app + cloud</td><td>VS Code fork</td><td>native binary</td></tr>
+        <tr><td>Full power, no account</td><td class="me">✓</td><td>AI needs account</td><td>—</td><td>✓</td></tr>
+        <tr><td>AI fully on localhost</td><td class="me">✓ Ollama · LM Studio</td><td class="dim2">cloud credits</td><td class="dim2">cloud models</td><td class="dim2">no AI</td></tr>
+        <tr><td>Any CLI agent, live status</td><td class="me">✓</td><td class="dim2">its own agents</td><td class="dim2">its own agents</td><td>—</td></tr>
+        <tr><td>Visual agent-loop designer</td><td class="me">✓ nodes + gates</td><td class="dim2">cloud (Oz)</td><td>—</td><td>—</td></tr>
+        <tr><td>MCP server for agents</td><td class="me">✓ docs · tickets</td><td>—</td><td class="dim2">client only</td><td>—</td></tr>
+        <tr><td>Signed proof of billable work</td><td class="me">✓ Merkle + QR</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Prompt privacy guard</td><td class="me">✓ keys · PII</td><td>—</td><td>—</td><td>—</td></tr>
       </tbody>
     </table>
   </div>
   <div class="punchline">
-    <p>Ghostty is a great terminal. Warp is a great subscription. Cursor is a great IDE. Orca is a great orchestrator.</p>
+    <p>Ghostty is a great terminal. Warp is a great subscription. Cursor is a great IDE.</p>
     <p class="amber">xNAUT is the whole bridge crew — in 20 MB, for free.</p>
-    <p class="fine">Snapshot July 2026. Warp: AGPL client, $20/mo Build plan for AI credits. Cursor: proprietary, $20/mo Pro; 3.x runs parallel/cloud agents — its own, not yours. Orca: MIT, BYO agent subscriptions. Ghostty: MIT, no AI by design.</p>
+    <p class="fine">Snapshot July 2026. Warp: AGPL client, $20/mo Build plan for AI credits. Cursor: proprietary, $20/mo Pro; 3.x runs parallel/cloud agents — its own, not yours. Ghostty: MIT, no AI by design.</p>
   </div>
 </section>
 
@@ -311,11 +311,7 @@
       <summary>Is xNAUT a Warp or Cursor alternative?</summary>
       <p>They solve a different problem. Warp is a terminal you subscribe to; Cursor is an editor. xNAUT is where agent work gets planned, run and recorded — it replaces Warp's terminal without the account, the credits or the cloud, and it sits beside Cursor rather than against it: Cursor for editing, xNAUT for running the fleet and proving the hours. Neither of them can hand you a signed record of what the agents did. See the comparison above for specifics.</p>
     </details>
-    <details>
-      <summary>How is xNAUT different from Orca?</summary>
-      <p>Orca is an excellent open-source agent orchestrator built on Electron and VS Code's editor. xNAUT covers the same agent + worktree workflow in a native 20 MB app, and adds what Orca doesn't have: local-first AI features, a doc vault, visual agent loops, and cryptographically signed work sessions.</p>
-    </details>
-    <details>
+        <details>
       <summary>Does it run on Windows and Linux?</summary>
       <p>macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers (.msi / .exe) ship with every release — treat them as early: the core terminal works, but workspace features that rely on zellij are macOS-first. No Linux builds yet.</p>
     </details>
@@ -388,7 +384,6 @@
     { "@type": "Question", "name": "How is a terminal with all this only a 20 MB download?", "acceptedAnswer": { "@type": "Answer", "text": "Rust + Tauri v2. The UI renders in your OS's built-in webview instead of shipping a bundled Chromium, so the whole app is a ~20 MB download where Electron apps ship hundreds of megabytes." } },
     { "@type": "Question", "name": "What exactly does 'proof of work' prove?", "acceptedAnswer": { "@type": "Answer", "text": "Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML with a QR verification code) proves the session wasn't edited after the fact. It proves integrity of the record, not the quality of the work." } },
     { "@type": "Question", "name": "Is xNAUT a Warp or Cursor alternative?", "acceptedAnswer": { "@type": "Answer", "text": "They solve a different problem. Warp is a terminal you subscribe to; Cursor is an editor. xNAUT is where agent work gets planned, run and recorded — it replaces Warp's terminal without the account, the credits or the cloud, and sits beside Cursor rather than against it. Neither can hand you a signed record of what the agents did." } },
-    { "@type": "Question", "name": "How is xNAUT different from Orca?", "acceptedAnswer": { "@type": "Answer", "text": "Orca is an excellent open-source agent orchestrator built on Electron and VS Code's editor. xNAUT covers the same agent + worktree workflow in a native 20 MB app, and adds local-first AI features, a doc vault, visual agent loops, and cryptographically signed work sessions." } },
     { "@type": "Question", "name": "Does it run on Windows and Linux?", "acceptedAnswer": { "@type": "Answer", "text": "macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers ship with every release — treat them as early. No Linux builds yet." } },
     { "@type": "Question", "name": "Can my agents control xNAUT itself?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the built-in MCP server. Any MCP client can list projects, create and update tickets, and read or write project docs in the vault, all over localhost with a per-session token." } },
     { "@type": "Question", "name": "How often does it ship?", "acceptedAnswer": { "@type": "Answer", "text": "Fast — twenty-five releases so far, the latest on 2 August 2026. Auto-update checks GitHub on startup, so you're one click behind at most." } }

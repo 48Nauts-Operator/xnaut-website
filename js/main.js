@@ -53,15 +53,25 @@ document.addEventListener('click', (e) => {
 });
 
 // Live adoption numbers, so the stats band cannot go stale the way the cask did.
-// Falls back silently to the numbers already in the markup.
+//
+// If the fetch fails — offline, or rate-limited, which is easy since this is an
+// unauthenticated API capped at 60/hour per IP — the stat is REMOVED rather than
+// left showing the number baked into the markup. A stale count does not look
+// broken, it looks like a fact, which is the worse failure. Release CI keeps the
+// markup values current as a floor (see release.yml), so what is shown is either
+// live or as-of-the-last-release, never arbitrarily old.
 (async () => {
+  const hide = () => document.querySelectorAll('[data-gh-downloads],[data-gh-releases]')
+    .forEach(el => { const s = el.closest('.stat'); if (s) s.hidden = true; });
   try {
     const rs = await fetch('https://api.github.com/repos/48Nauts-Operator/xNaut/releases?per_page=100');
-    if (!rs.ok) return;
+    if (!rs.ok) return hide();
     const releases = await rs.json();
+    if (!Array.isArray(releases) || !releases.length) return hide();
     const downloads = releases.reduce((n, r) => n + (r.assets || []).reduce((m, a) => m + (a.download_count || 0), 0), 0);
     const fmt = (n) => n.toLocaleString('en-US');
-    if (downloads) document.querySelectorAll('[data-gh-downloads]').forEach(el => { el.textContent = fmt(downloads); });
-    if (releases.length) document.querySelectorAll('[data-gh-releases]').forEach(el => { el.textContent = fmt(releases.length); });
-  } catch { /* offline or rate-limited: the static numbers stand */ }
+    if (!downloads) return hide();
+    document.querySelectorAll('[data-gh-downloads]').forEach(el => { el.textContent = fmt(downloads); });
+    document.querySelectorAll('[data-gh-releases]').forEach(el => { el.textContent = fmt(releases.length); });
+  } catch { hide(); }
 })();

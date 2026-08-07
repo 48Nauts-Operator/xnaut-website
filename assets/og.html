@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>xNAUT OG card source</title>
+<!--
+  Source for assets/og.png (1200x630 social card).
+  To re-shoot: serve the website root, open /assets/og.html at a 1200x630
+  viewport, screenshot, and save over assets/og.png.
+-->
+<style>
+  @font-face { font-family:'Space Grotesk'; src:url('../fonts/space-grotesk.woff2') format('woff2'); font-weight:300 700; }
+  @font-face { font-family:'JetBrains Mono'; src:url('../fonts/jetbrains-mono.woff2') format('woff2'); font-weight:100 800; }
+
+  html,body { margin:0; padding:0; background:#0A0B0D; }
+  .card {
+    width:1200px; height:630px; box-sizing:border-box;
+    background:#0A0B0D; color:#ECEDEF;
+    font-family:'Space Grotesk', system-ui, sans-serif;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:34px; text-align:center;
+    /* faint amber wash so the card is not a flat black rectangle in a timeline */
+    background-image:radial-gradient(120% 85% at 50% 0%, rgba(245,184,64,.09), transparent 62%);
+  }
+  .brand { display:flex; align-items:center; gap:18px; }
+  .mark {
+    width:66px; height:66px; border-radius:16px; background:#F5B840; color:#16130A;
+    display:grid; place-items:center;
+    font-family:'JetBrains Mono', monospace; font-size:27px; font-weight:700;
+  }
+  .word { font-size:62px; font-weight:600; letter-spacing:-.03em; }
+  h1 {
+    margin:0; font-size:56px; font-weight:600; line-height:1.14; letter-spacing:-.025em;
+    max-width:19ch;
+  }
+  h1 em { font-style:normal; color:#F5B840; }
+  .chips { display:flex; gap:14px; }
+  .chip {
+    font-family:'JetBrains Mono', monospace; font-size:19px; color:#B7BCC4;
+    border:1px solid #262A31; border-radius:999px; padding:11px 22px;
+  }
+  .chip.on { color:#3DD68C; border-color:rgba(61,214,140,.42); }
+  .url { font-family:'JetBrains Mono', monospace; font-size:20px; color:#5C626C; letter-spacing:.02em; }
+</style>
+
+<div class="card">
+  <div class="brand">
+    <span class="mark">xN</span>
+    <span class="word">xNAUT</span>
+  </div>
+  <h1>Every hour of agent work,<br><em>logged and provable.</em></h1>
+  <div class="chips">
+    <span class="chip">20&nbsp;MB native</span>
+    <span class="chip">local-first</span>
+    <span class="chip on">free forever</span>
+  </div>
+  <div class="url">xnaut.dev</div>
+</div>

@@ -2,15 +2,6 @@
 // Falls back to the releases page (hrefs already in the HTML) on any failure.
 (async () => {
   try {
-    const repo = await fetch('https://api.github.com/repos/48Nauts-Operator/xNaut').then(r => r.ok && r.json());
-    if (repo) {
-      const n = repo.stargazers_count;
-      const stars = n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
-      document.querySelectorAll('[data-stars]').forEach(el => { el.textContent = `★ ${stars}`; });
-    }
-  } catch { /* keep plain star glyph */ }
-
-  try {
     const res = await fetch('https://api.github.com/repos/48Nauts-Operator/xNaut/releases/latest');
     if (!res.ok) return;
     const rel = await res.json();
@@ -29,6 +20,20 @@
       if (isWin && win) { el.textContent = 'Download for Windows'; el.href = win; }
       else if (mac) el.href = mac;
     });
+    // Say only what this release actually ships. The site claimed Intel support
+    // for four releases while the Intel dmg was failing to build — deriving the
+    // list from the assets means the page cannot make that claim again.
+    const platforms = [];
+    if (asset(/aarch64\.dmg$/)) platforms.push('Apple Silicon');
+    if (asset(/x64\.dmg$/) || asset(/x86_64.*\.dmg$/)) platforms.push('Intel');
+    if (win) platforms.push('Windows x64');
+    if (platforms.length) {
+      const label = platforms.length > 1
+        ? platforms.slice(0, -1).join(', ') + ' & ' + platforms[platforms.length - 1]
+        : platforms[0];
+      document.querySelectorAll('[data-platforms]').forEach(el => { el.textContent = label; });
+    }
+
     document.querySelectorAll('[data-download]').forEach(el => {
       const url = isWin ? win : mac;
       if (url) el.href = url;

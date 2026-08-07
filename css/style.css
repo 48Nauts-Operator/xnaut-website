@@ -69,7 +69,7 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 .nav a:not(.btn):hover { color: var(--text); }
 .icon-link { display: inline-flex; align-items: center; padding: 8px; border-radius: 8px; }
 .icon-link:hover { background: var(--panel); }
-.gh-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid #2A2E36; border-radius: 8px; font-size: 13px !important; background: var(--panel); }
+.gh-pill { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 10px; border: 1px solid #2A2E36; border-radius: 8px; font-size: 13px !important; background: var(--panel); }
 .gh-pill:hover { border-color: #3A3E46; }
 
 /* ---- hero ---- */

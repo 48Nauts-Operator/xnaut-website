@@ -72,7 +72,7 @@
 
   <span class="post-eyebrow">Engineering</span>
   <h1>We read other people's code</h1>
-  <p class="post-lede">Four upgrades are landing in xNAUT's build stage in v1.13, and four more are designed. Not one of the ideas was ours. Here is where each came from, what it does for you, and why we would rather say that out loud than pretend otherwise.</p>
+  <p class="post-lede">Eight upgrades are landing in xNAUT's build stage in v1.13. Not one of the ideas was ours. Here is where each came from, what it does for you, and why we would rather say that out loud than pretend otherwise.</p>
   <p class="post-meta">8 August 2026 · 48Nauts</p>
 
   <h2>The problem we admitted to</h2>
@@ -85,7 +85,7 @@
 
   <h2>Landing in v1.13</h2>
 
-  <p>These four are built and merged. They arrive in the next release — if you are on v1.12.0 today, you do not have them yet.</p>
+  <p>All of these are built and merged. They arrive in the next release — if you are on v1.12.0 today, you do not have them yet.</p>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Your build gate now has a score, not a verdict</h3></div>
@@ -115,31 +115,33 @@
     <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0), scoped differently</div>
   </div>
 
-  <h2>Designed, not yet built</h2>
+  <h2>And four more, same release</h2>
 
   <div class="change">
-    <div class="change-top"><span class="tag soon">Planned</span><h3>Work can depend on other work</h3></div>
+    <div class="change-top"><span class="tag now">In v1.13</span><h3>Work can depend on other work</h3></div>
     <p>Today our planner is told to split a build only into pieces that are genuinely independent, because there was no way to express "the API needs the database schema first". That caps how much can run in parallel, and it forces genuinely sequential work into one long slice.</p>
-    <p>Soon a piece can declare what it depends on. Independent work still runs at full width; dependent work waits instead of guessing — and if a foundation fails, everything built on it is marked unreachable and <strong>never starts</strong>, instead of producing an hour of confidently wrong code.</p>
+    <p>A piece can now declare what it depends on. Independent work still runs at full width; dependent work waits instead of guessing — and if a foundation fails, everything built on it is marked unreachable and <strong>never starts</strong>, instead of producing an hour of confidently wrong code.</p>
+    <p>A waiting slice holds no worktree at all, so a slice that turns out unreachable leaves nothing behind to clean up.</p>
     <div class="credit">Execution model from <a href="https://github.com/lamalab-org/corral" rel="noopener">lamalab-org/corral</a> (BSD 3-Clause)</div>
   </div>
 
   <div class="change">
-    <div class="change-top"><span class="tag soon">Planned</span><h3>Bad plans are rejected before anything runs</h3></div>
+    <div class="change-top"><span class="tag now">In v1.13</span><h3>Bad plans are rejected before anything runs</h3></div>
     <p>We had designed this to detect an impossible plan while the build was running. Then we read someone else's, which checks the plan the moment it is written — every dependency must exist, loops are refused, depth is capped.</p>
-    <p>Strictly better, and it changed our design before we shipped ours. A plan is already wrong the second it is written; that is when you should be told, not forty minutes later.</p>
+    <p>Strictly better — and it changed our design before we shipped it. A plan is already wrong the second it is written; that is when you should be told, not forty minutes later.</p>
     <div class="credit">Validation approach from <a href="https://github.com/cdknorow/coral" rel="noopener">cdknorow/coral</a> (Apache 2.0)</div>
   </div>
 
   <div class="change">
-    <div class="change-top"><span class="tag soon">Planned</span><h3>A build slice that can honestly fail</h3></div>
-    <p>Right now a failed agent is restarted forever, which means a broken build is indistinguishable from a slow one and never finishes. It will soon be allowed to give up and say so.</p>
+    <div class="change-top"><span class="tag now">In v1.13</span><h3>A build slice that can honestly fail</h3></div>
+    <p>A failed agent used to be restarted forever, which meant a broken build was indistinguishable from a slow one and never finished — it sat there looking healthy. It now gives up after two attempts and says which slice died and why. Consolidation refuses to merge a build with a dead slice in it, rather than shipping whatever the survivors managed on top of a foundation that never landed.</p>
     <div class="credit">Ours — found while implementing the two above</div>
   </div>
 
   <div class="change">
-    <div class="change-top"><span class="tag soon">Planned</span><h3>Codex spend, tracked like Claude spend</h3></div>
-    <p>We report what Claude costs you per session and report nothing for Codex. Since you can now pick your provider per session, that gap matters. Codex writes its own transcripts; we will read them.</p>
+    <div class="change-top"><span class="tag now">In v1.13</span><h3>Codex spend, tracked like Claude spend</h3></div>
+    <p>We already read how much of your Codex <em>plan</em> you have consumed — but not what an individual session cost, which is the question once you can pick your provider per session. Codex writes its own transcripts, so now we read them: tokens in, cached, out, and an estimate per session.</p>
+    <p>One detail worth stating: cached input is billed at a fraction of fresh input, and on long sessions it dominates — one real transcript here was 179M cached of 189M input. Ignoring that distinction would overstate a session roughly tenfold. And the figure is a list-price estimate, not a bill: on a subscription the marginal cost is zero, so it means “what this would have cost on the API”.</p>
     <div class="credit">Approach from <a href="https://github.com/cdknorow/coral" rel="noopener">cdknorow/coral</a> (Apache 2.0)</div>
   </div>
 

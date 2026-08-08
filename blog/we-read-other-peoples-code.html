@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>We read other people's code — xNAUT</title>
+  <meta name="description" content="xNAUT's build stage got four upgrades this week. None of the ideas were ours. Here's where they came from, what's coming next, and why we say so out loud.">
+  <link rel="canonical" href="https://xnaut.dev/blog/we-read-other-peoples-code.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="We read other people's code">
+  <meta property="og:description" content="Four upgrades to xNAUT's build stage. None of the ideas were ours — here's where they came from, and what's coming next.">
+  <meta property="og:url" content="https://xnaut.dev/blog/we-read-other-peoples-code.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="We read other people's code">
+  <meta name="twitter:description" content="Four upgrades to xNAUT's build stage. None of the ideas were ours — here's where they came from, and what's coming next.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post h3 { font-size: 17px; margin: 0 0 8px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+
+    .change { background: var(--panel); border: 1px solid var(--border-card); border-radius: 12px; padding: 22px 24px; margin-bottom: 14px; }
+    .change-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; font-weight: 600; }
+    .tag.now { background: rgba(61,214,140,.12); color: var(--green); }
+    .tag.soon { background: rgba(245,184,64,.12); color: var(--amber); }
+    .change p { margin-bottom: 10px; font-size: 15.5px; }
+    .change p:last-of-type { margin-bottom: 0; }
+    .credit { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line-strong); }
+    .credit a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+    .credit a:hover { color: var(--amber); }
+
+    .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
+    .pull p { color: var(--text); font-size: 18px; margin: 0; }
+
+    .note-card { background: var(--panel-deep); border: 1px solid var(--line-strong); border-radius: 14px; padding: 28px; margin-top: 56px; }
+    .note-card .post-eyebrow { margin-bottom: 12px; display: block; }
+    .note-card p { color: var(--text); font-size: 17px; }
+    .note-card p:last-of-type { margin-bottom: 0; }
+    .sig { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-strong); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Engineering</span>
+  <h1>We read other people's code</h1>
+  <p class="post-lede">Four upgrades landed in xNAUT's build stage this week, and four more are designed. Not one of the ideas was ours. Here is where each came from, what it does for you, and why we would rather say that out loud than pretend otherwise.</p>
+  <p class="post-meta">8 August 2026 · 48Nauts</p>
+
+  <h2>The problem we admitted to</h2>
+
+  <p>xNAUT runs several coding agents at once. Each gets its own git worktree and its own terminal session, so they cannot collide and they survive a restart. That part has worked for a while.</p>
+
+  <p>What we finally admitted is that <strong>the manager watching them was blind.</strong> It reported things that were technically true and told you nothing useful: a gate that answered yes or no, a timer that interrupted every agent every five minutes regardless of what they were doing, agents that could not see each other's findings, and a build slice that could never actually fail — so a dead build looked exactly like a slow one.</p>
+
+  <p>Rather than invent our way out, we went and read how other people had solved the same five problems.</p>
+
+  <h2>What shipped</h2>
+
+  <div class="change">
+    <div class="change-top"><span class="tag now">Shipped</span><h3>Your build gate now has a score, not a verdict</h3></div>
+    <p>The acceptance gate was always running real checks — it just collapsed them to pass or fail at the last step. "Four checks failing" and "forty checks failing" were the same answer, so nothing watching could tell steady progress from going in circles.</p>
+    <p>It now reports how many checks pass out of how many. Same checks, same output — we just stopped throwing away the part with direction in it.</p>
+    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0)</div>
+  </div>
+
+  <div class="change">
+    <div class="change-top"><span class="tag now">Shipped</span><h3>Scores describe a commit, not a moment</h3></div>
+    <p>The detail we would have got wrong unaided: the gate runs against a throwaway checkout of one specific commit, not the live folder. Score the folder your agent is actively saving into and the number drifts for reasons that have nothing to do with progress.</p>
+    <p>Small distinction. It is the difference between a measurement and a rumour.</p>
+    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0)</div>
+  </div>
+
+  <div class="change">
+    <div class="change-top"><span class="tag now">Shipped</span><h3>Agents are interrupted when they stall, not on a timer</h3></div>
+    <p>The old behaviour nudged every agent every five minutes. That is wrong twice over: it breaks the concentration of one that is making progress, and it leaves one that has been stuck since the first minute alone for four more.</p>
+    <p>Now the score is tracked over time, and an agent is only interrupted when it <strong>stops improving</strong>. When it is, the message quotes the exact checks that are failing — the gate already knows, so there is no reason to make the agent go looking.</p>
+    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0)</div>
+  </div>
+
+  <div class="change">
+    <div class="change-top"><span class="tag now">Shipped</span><h3>Agents can read each other's notes</h3></div>
+    <p>Three agents working in parallel used to be completely blind to one another, so each could independently discover the same broken assumption and each pay for it. They now share a notes directory.</p>
+    <p>Here we deliberately did <em>not</em> copy what we found. The original scopes those notes to a single run and deletes them afterwards, which suits a research tool. Ours are scoped to the project and kept — because the second person to read them is you, weeks later, and they belong in your vault where you can search them on your phone.</p>
+    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0), scoped differently</div>
+  </div>
+
+  <h2>What is coming</h2>
+
+  <div class="change">
+    <div class="change-top"><span class="tag soon">Next</span><h3>Work can depend on other work</h3></div>
+    <p>Today our planner is told to split a build only into pieces that are genuinely independent, because there was no way to express "the API needs the database schema first". That caps how much can run in parallel, and it forces genuinely sequential work into one long slice.</p>
+    <p>Soon a piece can declare what it depends on. Independent work still runs at full width; dependent work waits instead of guessing — and if a foundation fails, everything built on it is marked unreachable and <strong>never starts</strong>, instead of producing an hour of confidently wrong code.</p>
+    <div class="credit">Execution model from <a href="https://github.com/lamalab-org/corral" rel="noopener">lamalab-org/corral</a> (BSD 3-Clause)</div>
+  </div>
+
+  <div class="change">
+    <div class="change-top"><span class="tag soon">Next</span><h3>Bad plans are rejected before anything runs</h3></div>
+    <p>We had designed this to detect an impossible plan while the build was running. Then we read someone else's, which checks the plan the moment it is written — every dependency must exist, loops are refused, depth is capped.</p>
+    <p>Strictly better, and it changed our design before we shipped ours. A plan is already wrong the second it is written; that is when you should be told, not forty minutes later.</p>
+    <div class="credit">Validation approach from <a href="https://github.com/cdknorow/coral" rel="noopener">cdknorow/coral</a> (Apache 2.0)</div>
+  </div>
+
+  <div class="change">
+    <div class="change-top"><span class="tag soon">Next</span><h3>A build slice that can honestly fail</h3></div>
+    <p>Right now a failed agent is restarted forever, which means a broken build is indistinguishable from a slow one and never finishes. It will soon be allowed to give up and say so.</p>
+    <div class="credit">Ours — found while implementing the two above</div>
+  </div>
+
+  <div class="change">
+    <div class="change-top"><span class="tag soon">Next</span><h3>Codex spend, tracked like Claude spend</h3></div>
+    <p>We report what Claude costs you per session and report nothing for Codex. Since you can now pick your provider per session, that gap matters. Codex writes its own transcripts; we will read them.</p>
+    <div class="credit">Approach from <a href="https://github.com/cdknorow/coral" rel="noopener">cdknorow/coral</a> (Apache 2.0)</div>
+  </div>
+
+  <h2>Why we credit all of it</h2>
+
+  <p>It would be easy to ship these as "new in xNAUT" and say nothing. We would rather not, for two reasons.</p>
+
+  <p>The first is simply that it is true, and the projects above deserve the traffic. The second is more practical: <strong>reading other people's solutions is the method</strong>, not an embarrassing shortcut on the way to a real one. Three of these changes exist because three separate teams solved the same problem differently, and seeing the differences was what made the right answer obvious.</p>
+
+  <div class="pull">
+    <p>One of them corrected a design we were a day away from building. We would never have found that by thinking harder about our own code.</p>
+  </div>
+
+  <p>So we are making it a habit rather than an accident: read a good codebase, regularly, and write down where every idea came from. You will see more posts like this one.</p>
+
+  <div class="note-card">
+    <span class="post-eyebrow">A note from the author</span>
+    <p>I firmly believe we are in the era of agentic learning. Many developers arrive at the same ideas but take different approaches. Inspecting those approaches can help any developer — no matter how senior — gain a new perspective on both the flow and the final solution.</p>
+    <p>That is part of xNAUT: a tool I build from the flows of many developers looking at similar problems and solving them differently. That is how I create a better product than I had yesterday.</p>
+    <div class="sig">Andre · 48Nauts</div>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

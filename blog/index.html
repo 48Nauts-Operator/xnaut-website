@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — xNAUT</title>
+  <meta name="description" content="Engineering notes from building xNAUT: what we changed, why, and where the ideas came from.">
+  <link rel="canonical" href="https://xnaut.dev/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="xNAUT — Blog">
+  <meta property="og:description" content="Engineering notes from building xNAUT: what we changed, why, and where the ideas came from.">
+  <meta property="og:url" content="https://xnaut.dev/blog/">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="xNAUT — Blog">
+  <meta name="twitter:description" content="Engineering notes from building xNAUT: what we changed, why, and where the ideas came from.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .blog-wrap { max-width: 780px; margin: 0 auto; padding: 72px 24px 96px; }
+    .blog-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .blog-wrap h1 { font-size: clamp(32px, 6vw, 48px); line-height: 1.06; margin: 14px 0 16px; }
+    .blog-intro { font-size: 18px; line-height: 1.62; color: var(--text-soft); max-width: 60ch; }
+
+    .posts { margin-top: 48px; display: flex; flex-direction: column; gap: 14px; }
+    .post-card {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 24px 26px;
+      transition: border-color .15s, background .15s;
+    }
+    .post-card:hover { border-color: var(--line-strong); background: var(--panel-deep); }
+    .post-card time { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+    .post-card h2 { font-size: 22px; margin: 8px 0 10px; color: var(--text); }
+    .post-card p { font-size: 15.5px; line-height: 1.65; color: var(--text-soft); margin: 0; }
+    .post-card .more { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 12.5px; color: var(--amber); }
+
+    .empty-note { margin-top: 40px; font-size: 14px; color: var(--faint); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<div class="blog-wrap">
+
+  <span class="blog-eyebrow">Blog</span>
+  <h1>Engineering notes</h1>
+  <p class="blog-intro">What we changed in xNAUT, why we changed it, and where the idea came from. We read other people's code regularly and credit it by name — the sources are in every post.</p>
+
+  <div class="posts">
+
+    <a class="post-card" href="/blog/we-read-other-peoples-code.html">
+      <time datetime="2026-08-08">8 August 2026</time>
+      <h2>We read other people's code</h2>
+      <p>Four upgrades landed in xNAUT's build stage this week, and four more are designed. Not one of the ideas was ours — here is where each came from, what it does for you, and why we would rather say so than pretend otherwise.</p>
+      <span class="more">Read →</span>
+    </a>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

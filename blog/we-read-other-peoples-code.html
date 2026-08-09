@@ -81,11 +81,11 @@
   <p class="post-lede">Eight upgrades are landing in xNAUT's build stage in v1.13. Almost none of them started as our idea. They came out of reading widely, testing what other people had already learned the hard way, and letting better approaches win. That is the part of open source we think matters most.</p>
   <p class="post-meta">8 August 2026 · André</p>
 
-  <h2>The problem we admitted to</h2>
+  <h2>The problem I was chasing</h2>
 
   <p>xNAUT runs several coding agents at once. Each gets its own git worktree and its own terminal session, so they cannot collide and they survive a restart. That part has worked for a while.</p>
 
-  <p>What we finally admitted is that <strong>the manager watching them was blind.</strong> It reported things that were technically true and told you nothing useful: a gate that answered yes or no, a timer that interrupted every agent every five minutes regardless of what they were doing, agents that could not see each other's findings, and a build slice that could never actually fail, so a dead build looked exactly like a slow one.</p>
+  <p>The flaw in our solution was that <strong>the manager watching them was blind.</strong> It reported things that were technically true and told you nothing useful: a gate that answered yes or no, a timer that interrupted every agent every five minutes regardless of what they were doing, agents that could not see each other's findings, and a build slice that could never actually fail, so a dead build looked exactly like a slow one.</p>
 
   <p>Rather than invent our way out, we went looking for how these problems had already been solved: in research codebases, in other tools, and in what people told us was not working for them. Most of what follows started as someone else's better answer.</p>
 
@@ -138,7 +138,7 @@
   </div>
 
   <div class="change">
-    <div class="change-top"><span class="tag now">In v1.13</span><h3>Codex spend, tracked like Claude spend</h3></div>
+    <div class="change-top"><span class="tag now">In v1.13</span><h3><a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a> spend, tracked like Claude spend</h3></div>
     <p>We already read how much of your Codex <em>plan</em> you have consumed, but not what an individual session cost, which is the question once you can pick your provider per session. Codex writes its own transcripts, so now we read them: tokens in, cached, out, and an estimate per session.</p>
     <p>One detail worth stating: cached input is billed at a fraction of fresh input, and on long sessions it dominates. One real transcript here was 179M cached of 189M input. Ignoring that distinction would overstate a session roughly tenfold. And the figure is a list-price estimate, not a bill: on a subscription the marginal cost is zero, so it means “what this would have cost on the API”.</p>
   </div>
@@ -181,7 +181,7 @@
       <li><a href="/blog/why-nautflow.html">Why NautFlow</a> <span>the origin story</span></li>
       <li><a href="/blog/how-nautflow-works.html">How NautFlow works</a> <span>the flow, stage by stage</span></li>
       <li><a href="/blog/design-before-code.html">Design, before code</a> <span>build the interface first</span></li>
-      <li><a href="/blog/where-the-agents-run.html">Where the agents actually run</a> <span>NautLoop and the sandbox fabric</span></li>
+      <li><a href="/blog/where-the-agents-run.html">Where the agents actually run</a> <span><a href="https://nautloop.com" target="_blank" rel="noopener">NautLoop</a> and the sandbox fabric</span></li>
     </ul>
   </nav>
 

@@ -34,6 +34,11 @@
     .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
     .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
     .pull p { color: var(--text); font-size: 18px; margin: 0; }
+    .figure { margin: 34px 0 8px; }
+    .figure video, .figure img { width: 100%; height: auto; display: block;
+      border: 1px solid var(--line-strong); border-radius: 10px; background: #000; }
+    .figure figcaption { font-family: var(--mono); font-size: 12px; color: var(--faint);
+      margin-top: 10px; line-height: 1.55; }
     .brief { background: var(--panel); border: 1px solid var(--border-card); border-radius: 12px; padding: 20px 24px; margin: 26px 0; }
     .brief ul { margin: 0; padding-left: 20px; }
     .brief li { color: var(--text-soft); font-size: 15.5px; line-height: 1.65; margin-bottom: 6px; }
@@ -100,6 +105,16 @@
   <p>Which is the whole point of doing it here rather than later. Cheap to change
   is not a nice property of the design stage; it <em>is</em> the design stage.</p>
 
+  <figure class="figure">
+    <video controls preload="none" playsinline
+           poster="/assets/designer-demo-poster.jpg"
+           width="1920" height="1272">
+      <source src="/assets/designer-demo.mp4" type="video/mp4">
+      Your browser cannot play this video. <a href="/assets/designer-demo.mp4">Download it instead.</a>
+    </video>
+    <figcaption>A website built in the Designer, start to finish, unedited and in real time. Seven minutes, one sentence of instruction, no build step and no deploy at the end of it.</figcaption>
+  </figure>
+
   <h2>The craft brief is doctrine, not a setting</h2>
 
   <p>Ask a model politely for "a clean, modern interface" and you get the average
@@ -151,7 +166,7 @@
     <ul>
       <li><a href="/blog/why-nautflow.html">Why NautFlow</a> <span>the origin story</span></li>
       <li><a href="/blog/how-nautflow-works.html">How NautFlow works</a> <span>the flow, stage by stage</span></li>
-      <li><a href="/blog/where-the-agents-run.html">Where the agents actually run</a> <span>NautLoop and the sandbox fabric</span></li>
+      <li><a href="/blog/where-the-agents-run.html">Where the agents actually run</a> <span><a href="https://nautloop.com" target="_blank" rel="noopener">NautLoop</a> and the sandbox fabric</span></li>
       <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key</a> <span>where the ideas came from</span></li>
     </ul>
   </nav>

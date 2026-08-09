@@ -158,7 +158,7 @@
       <text class="fg-s" x="588" y="214" text-anchor="middle">push · open PR</text>
 
       <text class="fg-s" x="236" y="278" text-anchor="middle">every event appended to one durable build log</text>
-      <text class="fg-s" x="588" y="278" text-anchor="middle">work runs in GitVM sandboxes</text>
+      <text class="fg-s" x="588" y="278" text-anchor="middle">work runs in <a href="https://nautloop.com" target="_blank" rel="noopener">GitVM</a> sandboxes</text>
     </svg>
     <figcaption>The flow, end to end. The gate is written before the build starts, which is the part that makes the rest of it mean anything.</figcaption>
   </figure>
@@ -271,6 +271,11 @@
 
   <p><strong>You can watch, and you can intervene.</strong> The terminals are right there. You can read what an agent is doing and type into its session. Nothing is hidden behind an abstraction that only reports success.</p>
 
+  <figure class="figure">
+    <img src="/assets/observatory.png" alt="The Observatory in xNAUT listing thirteen active agents, each a named terminal session with the command to attach to it, alongside plan usage meters and the status of a running multi-agent swarm." loading="lazy" width="1005" height="1907">
+    <figcaption>The Observatory: thirteen agents running at once, each a real terminal session you can attach to with one click. Plan consumption is across the top, because agents cost money and a number you cannot see is a number you will be surprised by.</figcaption>
+  </figure>
+
   <div class="callout">
     <span class="post-eyebrow">And everything is logged</span>
     <p>Because this is xNAUT, every command an agent runs is timestamped and chained into a SHA-256 Merkle tree as it happens. When the build finishes you have not only a working product but a report anyone can verify: what was done, in what order, by which agent.</p>
@@ -319,13 +324,23 @@
     Measure the folder and you will report a busy agent as idle.</p>
   </div>
 
+  <figure class="figure">
+    <img src="/assets/nautflow-logs.png" alt="The Build log tab in xNAUT showing 48 events from a four-slice build, with DEBUG, INFO, WARN and ERROR counts across the top, a sidebar listing each slice as a filterable source, and lines reporting gate scores such as 24 of 35." loading="lazy" width="1222" height="964">
+    <figcaption>A real build, mid-run. The gate reports <strong>24/35</strong> rather than pass or fail, which is what lets you tell progress from thrashing. The amber line is the plateau nudge firing: <em>gate flat and nothing written for 2 checks</em>. Lower down the manager recovers its plan and reports three slices running with one still waiting on a dependency.</figcaption>
+  </figure>
+
+  <figure class="figure">
+    <img src="/assets/nautflow-files.png" alt="The Files tab showing five changed files on a slice branch measured from its merge base, with an inline diff of the goal file the agent was given." loading="lazy" width="1222" height="963">
+    <figcaption>The same build's Files tab: <strong>5 files, +135</strong> measured from the merge base, against <strong>0 commits</strong>. A working-folder view would have called that agent idle. The open diff is the goal file itself, including the shared-notes protocol every agent on the project reads before it starts.</figcaption>
+  </figure>
+
   <h2>Where the work actually runs</h2>
 
   <p>There is a piece of this that is not xNAUT at all.
   <strong><a href="https://nautloop.com" target="_blank" rel="noopener">NautLoop</a></strong>
   is a sovereign sandbox platform, and <strong>GitVM</strong> is the fabric
   underneath it: isolated sandboxes where an agent's work genuinely runs, built
-  on Firecracker microVMs that boot in about two seconds, rather than everything
+  on <a href="https://firecracker-microvm.github.io" target="_blank" rel="noopener">Firecracker</a> microVMs that boot in about two seconds, rather than everything
   happening on your laptop and hoping nothing collides.</p>
 
   <p>Sovereign is meant literally rather than as a slogan. Sandboxes are pinned

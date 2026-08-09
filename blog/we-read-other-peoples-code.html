@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Community feedback is key to building a great open-source product — xNAUT</title>
-  <meta name="description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea — here is what research and community feedback changed, and what is coming next.">
+  <title>Community feedback is key to building a great open-source product · xNAUT</title>
+  <meta name="description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea. Here is what research and community feedback changed, and what is coming next.">
   <link rel="canonical" href="https://xnaut.dev/blog/we-read-other-peoples-code.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="xNAUT">
   <meta property="og:title" content="Community feedback is key to building a great open-source product">
-  <meta property="og:description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea — here is what research and community feedback changed, and what is coming next.">
+  <meta property="og:description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea. Here is what research and community feedback changed, and what is coming next.">
   <meta property="og:url" content="https://xnaut.dev/blog/we-read-other-peoples-code.html">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@xnautdev">
   <meta name="twitter:title" content="Community feedback is key to building a great open-source product">
-  <meta name="twitter:description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea — here is what research and community feedback changed, and what is coming next.">
+  <meta name="twitter:description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea. Here is what research and community feedback changed, and what is coming next.">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css?v=3">
@@ -72,25 +72,25 @@
 
   <span class="post-eyebrow">Engineering</span>
   <h1>Community feedback is key to building a great open-source product</h1>
-  <p class="post-lede">Eight upgrades are landing in xNAUT's build stage in v1.13. Almost none of them started as our idea. They came out of reading widely, testing what other people had already learned the hard way, and letting better approaches win — which is the part of open source we think matters most.</p>
+  <p class="post-lede">Eight upgrades are landing in xNAUT's build stage in v1.13. Almost none of them started as our idea. They came out of reading widely, testing what other people had already learned the hard way, and letting better approaches win. That is the part of open source we think matters most.</p>
   <p class="post-meta">8 August 2026 · 48Nauts</p>
 
   <h2>The problem we admitted to</h2>
 
   <p>xNAUT runs several coding agents at once. Each gets its own git worktree and its own terminal session, so they cannot collide and they survive a restart. That part has worked for a while.</p>
 
-  <p>What we finally admitted is that <strong>the manager watching them was blind.</strong> It reported things that were technically true and told you nothing useful: a gate that answered yes or no, a timer that interrupted every agent every five minutes regardless of what they were doing, agents that could not see each other's findings, and a build slice that could never actually fail — so a dead build looked exactly like a slow one.</p>
+  <p>What we finally admitted is that <strong>the manager watching them was blind.</strong> It reported things that were technically true and told you nothing useful: a gate that answered yes or no, a timer that interrupted every agent every five minutes regardless of what they were doing, agents that could not see each other's findings, and a build slice that could never actually fail, so a dead build looked exactly like a slow one.</p>
 
-  <p>Rather than invent our way out, we went looking for how these problems had already been solved — in research codebases, in other tools, and in what people told us was not working for them. Most of what follows started as someone else's better answer.</p>
+  <p>Rather than invent our way out, we went looking for how these problems had already been solved: in research codebases, in other tools, and in what people told us was not working for them. Most of what follows started as someone else's better answer.</p>
 
   <h2>Landing in v1.13</h2>
 
-  <p>All of these are built and merged. They arrive in the next release — if you are on v1.12.0 today, you do not have them yet.</p>
+  <p>All of these are built and merged. They arrive in the next release. If you are on v1.12.0 today, you do not have them yet.</p>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Your build gate now has a score, not a verdict</h3></div>
-    <p>The acceptance gate was always running real checks — it just collapsed them to pass or fail at the last step. "Four checks failing" and "forty checks failing" were the same answer, so nothing watching could tell steady progress from going in circles.</p>
-    <p>It now reports how many checks pass out of how many. Same checks, same output — we just stopped throwing away the part with direction in it.</p>
+    <p>The acceptance gate was always running real checks; it just collapsed them to pass or fail at the last step. "Four checks failing" and "forty checks failing" were the same answer, so nothing watching could tell steady progress from going in circles.</p>
+    <p>It now reports how many checks pass out of how many. Same checks, same output. We just stopped throwing away the part with direction in it.</p>
   </div>
 
   <div class="change">
@@ -102,13 +102,13 @@
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Agents are interrupted when they stall, not on a timer</h3></div>
     <p>The old behaviour nudged every agent every five minutes. That is wrong twice over: it breaks the concentration of one that is making progress, and it leaves one that has been stuck since the first minute alone for four more.</p>
-    <p>Now the score is tracked over time, and an agent is only interrupted when it <strong>stops improving</strong>. When it is, the message quotes the exact checks that are failing — the gate already knows, so there is no reason to make the agent go looking.</p>
+    <p>Now the score is tracked over time, and an agent is only interrupted when it <strong>stops improving</strong>. When it is, the message quotes the exact checks that are failing. The gate already knows, so there is no reason to make the agent go looking.</p>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Agents can read each other's notes</h3></div>
     <p>Three agents working in parallel used to be completely blind to one another, so each could independently discover the same broken assumption and each pay for it. They now share a notes directory.</p>
-    <p>Here we deliberately did <em>not</em> copy what we found. The original scopes those notes to a single run and deletes them afterwards, which suits a research tool. Ours are scoped to the project and kept — because the second person to read them is you, weeks later, and they belong in your vault where you can search them on your phone.</p>
+    <p>Here we deliberately did <em>not</em> copy what we found. The original scopes those notes to a single run and deletes them afterwards, which suits a research tool. Ours are scoped to the project and kept, because the second person to read them is you, weeks later, and they belong in your vault where you can search them on your phone.</p>
   </div>
 
   <h2>And four more, same release</h2>
@@ -116,25 +116,25 @@
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Work can depend on other work</h3></div>
     <p>Today our planner is told to split a build only into pieces that are genuinely independent, because there was no way to express "the API needs the database schema first". That caps how much can run in parallel, and it forces genuinely sequential work into one long slice.</p>
-    <p>A piece can now declare what it depends on. Independent work still runs at full width; dependent work waits instead of guessing — and if a foundation fails, everything built on it is marked unreachable and <strong>never starts</strong>, instead of producing an hour of confidently wrong code.</p>
+    <p>A piece can now declare what it depends on. Independent work still runs at full width; dependent work waits instead of guessing; and if a foundation fails, everything built on it is marked unreachable and <strong>never starts</strong>, instead of producing an hour of confidently wrong code.</p>
     <p>A waiting slice holds no worktree at all, so a slice that turns out unreachable leaves nothing behind to clean up.</p>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Bad plans are rejected before anything runs</h3></div>
-    <p>We had designed this to detect an impossible plan while the build was running. Then we read someone else's, which checks the plan the moment it is written — every dependency must exist, loops are refused, depth is capped.</p>
-    <p>Strictly better — and it changed our design before we shipped it. A plan is already wrong the second it is written; that is when you should be told, not forty minutes later.</p>
+    <p>We had designed this to detect an impossible plan while the build was running. Then we read someone else's, which checks the plan the moment it is written: every dependency must exist, loops are refused, depth is capped.</p>
+    <p>Strictly better, and it changed our design before we shipped it. A plan is already wrong the second it is written; that is when you should be told, not forty minutes later.</p>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>A build slice that can honestly fail</h3></div>
-    <p>A failed agent used to be restarted forever, which meant a broken build was indistinguishable from a slow one and never finished — it sat there looking healthy. It now gives up after two attempts and says which slice died and why. Consolidation refuses to merge a build with a dead slice in it, rather than shipping whatever the survivors managed on top of a foundation that never landed.</p>
+    <p>A failed agent used to be restarted forever, which meant a broken build was indistinguishable from a slow one and never finished; it sat there looking healthy. It now gives up after two attempts and says which slice died and why. Consolidation refuses to merge a build with a dead slice in it, rather than shipping whatever the survivors managed on top of a foundation that never landed.</p>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Codex spend, tracked like Claude spend</h3></div>
-    <p>We already read how much of your Codex <em>plan</em> you have consumed — but not what an individual session cost, which is the question once you can pick your provider per session. Codex writes its own transcripts, so now we read them: tokens in, cached, out, and an estimate per session.</p>
-    <p>One detail worth stating: cached input is billed at a fraction of fresh input, and on long sessions it dominates — one real transcript here was 179M cached of 189M input. Ignoring that distinction would overstate a session roughly tenfold. And the figure is a list-price estimate, not a bill: on a subscription the marginal cost is zero, so it means “what this would have cost on the API”.</p>
+    <p>We already read how much of your Codex <em>plan</em> you have consumed, but not what an individual session cost, which is the question once you can pick your provider per session. Codex writes its own transcripts, so now we read them: tokens in, cached, out, and an estimate per session.</p>
+    <p>One detail worth stating: cached input is billed at a fraction of fresh input, and on long sessions it dominates. One real transcript here was 179M cached of 189M input. Ignoring that distinction would overstate a session roughly tenfold. And the figure is a list-price estimate, not a bill: on a subscription the marginal cost is zero, so it means “what this would have cost on the API”.</p>
   </div>
 
   <h2>Why research beats invention</h2>
@@ -145,9 +145,7 @@
 
   <p>Three of these changes exist because three separate teams had solved the same
   problem in three different ways, and seeing the differences side by side was what
-  made the right answer obvious. One of them corrected a design we were a day away
-  from building — we would never have found that by thinking harder about our own
-  code.</p>
+  made the right answer obvious. One of them corrected a design we were a day away from building. We would never have found that by thinking harder about our own code.</p>
 
   <div class="pull">
     <p>The best feedback rarely arrives as a feature request. It arrives as someone
@@ -155,8 +153,7 @@
   </div>
 
   <p>The same is true of the feedback that comes directly. Several of the sharpest
-  corrections this cycle came from people simply describing what did not work for
-  them — a build that looked healthy while it was stuck, a number that told them
+  corrections this cycle came from people simply describing what did not work for them: a build that looked healthy while it was stuck, a number that told them
   nothing, an agent interrupted while it was doing fine. None of that arrived as a
   bug report. It arrived as a complaint, which is usually the more honest form.</p>
 
@@ -166,7 +163,7 @@
 
   <div class="note-card">
     <span class="post-eyebrow">A note from the author</span>
-    <p>I firmly believe we are in the era of agentic learning. Many developers arrive at the same ideas but take different approaches. Inspecting those approaches can help any developer — no matter how senior — gain a new perspective on both the flow and the final solution.</p>
+    <p>I firmly believe we are in the era of agentic learning. Many developers arrive at the same ideas but take different approaches. Inspecting those approaches can help any developer, no matter how senior, gain a new perspective on both the flow and the final solution.</p>
     <p>That is part of xNAUT: a tool I build from the flows of many developers looking at similar problems and solving them differently. That is how I create a better product than I had yesterday.</p>
     <div class="sig">André · 48Nauts</div>
   </div>

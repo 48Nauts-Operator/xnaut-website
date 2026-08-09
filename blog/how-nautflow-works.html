@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How NautFlow works — xNAUT</title>
-  <meta name="description" content="NautFlow turns a plain-language request into a validated document chain, a design you approve, and several coding agents building in parallel — each in its own worktree, with an acceptance gate written before the build starts.">
+  <title>How NautFlow works · xNAUT</title>
+  <meta name="description" content="NautFlow turns a plain-language request into a validated document chain, a design you approve, and several coding agents building in parallel, each in its own worktree, with an acceptance gate written before the build starts.">
   <link rel="canonical" href="https://xnaut.dev/blog/how-nautflow-works.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="xNAUT">
   <meta property="og:title" content="How NautFlow works">
-  <meta property="og:description" content="From a plain-language request to several agents building in parallel — and the gate that decides whether they actually finished.">
+  <meta property="og:description" content="From a plain-language request to several agents building in parallel, and the gate that decides whether they actually finished.">
   <meta property="og:url" content="https://xnaut.dev/blog/how-nautflow-works.html">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@xnautdev">
   <meta name="twitter:title" content="How NautFlow works">
-  <meta name="twitter:description" content="From a plain-language request to several agents building in parallel — and the gate that decides whether they actually finished.">
+  <meta name="twitter:description" content="From a plain-language request to several agents building in parallel, and the gate that decides whether they actually finished.">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css?v=3">
@@ -89,7 +89,7 @@
 
   <span class="post-eyebrow">Deep dive</span>
   <h1>How NautFlow works</h1>
-  <p class="post-lede">Most "AI builds your app" tools take a prompt and start writing files. NautFlow does something slower and, we think, more honest: it writes the documents first, has a second model attack them, gets your approval on a design, and only then lets several coding agents loose — each in its own worktree, judged by an acceptance test written <em>before</em> the build began.</p>
+  <p class="post-lede">Most "AI builds your app" tools take a prompt and start writing files. NautFlow does something slower and, we think, more honest: it writes the documents first, has a second model attack them, gets your approval on a design, and only then lets several coding agents loose, each in its own worktree, judged by an acceptance test written <em>before</em> the build began.</p>
   <p class="post-meta">1 August 2026 · 48Nauts</p>
 
   <h2>The problem with "just build it"</h2>
@@ -106,7 +106,7 @@
     <div class="stage-rail"><div class="stage-num">1</div><div class="stage-line"></div></div>
     <div class="stage-body">
       <h3>Your request, kept verbatim</h3>
-      <p>The first artifact is your own words, unedited, stored as the contract. Everything downstream is measured against this file — not against a summary of it, and not against a model's restatement of it.</p>
+      <p>The first artifact is your own words, unedited, stored as the contract. Everything downstream is measured against this file, not against a summary of it, and not against a model's restatement of it.</p>
       <p>A dialogue file sits beside it, capturing the clarifying conversation. If you agree to drop a feature, that agreement lives here in writing.</p>
     </div>
   </div>
@@ -115,7 +115,7 @@
     <div class="stage-rail"><div class="stage-num">2</div><div class="stage-line"></div></div>
     <div class="stage-body">
       <h3>The document chain</h3>
-      <p>Product requirements, architecture, data model, and executable tickets — each a separate document, each building on the one before. This is the part most tools skip, and it is the part that makes everything after it checkable.</p>
+      <p>Product requirements, architecture, data model, and executable tickets. Each is a separate document, each building on the one before. This is the part most tools skip, and it is the part that makes everything after it checkable.</p>
       <p>Tickets are the unit that matters: each carries concrete acceptance criteria, because a ticket you cannot verify is a ticket nobody can finish.</p>
     </div>
   </div>
@@ -123,14 +123,14 @@
   <div class="stage">
     <div class="stage-rail"><div class="stage-num">3</div><div class="stage-line"></div></div>
     <div class="stage-body">
-      <h3>The Validator — a second model, told to be hostile</h3>
+      <h3>The Validator: a second model, told to be hostile</h3>
       <p>Before a single line of product code is written, a different model reads <em>every</em> document and attacks the chain on five dimensions:</p>
       <ul class="artifact-list">
-        <li><span class="fname">Contract coverage</span> every feature you named is traced through the stages — or explicitly listed as dropped, with your sign-off in the dialogue. A silent substitution is a failure.</li>
+        <li><span class="fname">Contract coverage</span> every feature you named is traced through the stages, or explicitly listed as dropped, with your sign-off in the dialogue. A silent substitution is a failure.</li>
         <li><span class="fname">Stage completeness</span> no scaffold documents, no empty sections pretending to be finished.</li>
         <li><span class="fname">Cross-stage consistency</span> the data model matches the architecture matches the tickets.</li>
         <li><span class="fname">Testability</span> every ticket has criteria you could actually check.</li>
-        <li><span class="fname">Build readiness</span> nothing blocked. And any requirement naming an AI step must specify a real model call — a deterministic stand-in is a failure.</li>
+        <li><span class="fname">Build readiness</span> nothing blocked. And any requirement naming an AI step must specify a real model call; a deterministic stand-in is a failure.</li>
       </ul>
       <p>It ends with one line: <code>Verdict: PASS</code> or <code>Verdict: FAIL</code>, plus every finding written as <em>expected X, found Y</em>, with a proposal attached.</p>
     </div>
@@ -140,8 +140,8 @@
     <div class="stage-rail"><div class="stage-num">4</div><div class="stage-line"></div></div>
     <div class="stage-body">
       <h3>The acceptance gate, written before the build</h3>
-      <p>This is the piece we are most attached to. In the same pass, the Validator writes an executable test — a standalone Python script that checks the <em>built product</em> against the tickets' acceptance criteria. Files exist with real content. Commands exit zero. Endpoints answer. Pages contain what the spec demands.</p>
-      <p>One line per check, <code>PASS:</code> or <code>FAIL: expected X, found Y — fix: …</code>, and it must fail against an empty repository. If it passes on nothing, it tests nothing.</p>
+      <p>This is the piece we are most attached to. In the same pass, the Validator writes an executable test: a standalone Python script that checks the <em>built product</em> against the tickets' acceptance criteria. Files exist with real content. Commands exit zero. Endpoints answer. Pages contain what the spec demands.</p>
+      <p>One line per check, <code>PASS:</code> or <code>FAIL: expected X, found Y, fix: …</code>, and it must fail against an empty repository. If it passes on nothing, it tests nothing.</p>
       <div class="whybox">
         <h4>Why write the test first</h4>
         <p>Because a test written afterwards tests what was built. A test written beforehand tests what was <em>asked for</em>. Those are different documents, and the gap between them is exactly where "it looks done" hides.</p>
@@ -154,16 +154,16 @@
     <div class="stage-body">
       <h3>Design, before code</h3>
       <p>For anything with a user interface, a design pass drafts the primary screens as self-contained HTML mocks, rendered live in the centre pane while you steer from a chat beside them. Cheap to change, because nothing has been implemented yet.</p>
-      <p>The design agent runs with an explicit craft brief rather than being asked politely for something nice. That brief — restraint, deliberate spacing, real typographic hierarchy, asymmetry over grid-sameness — is what separates a considered layout from a component-library assembly, and it is doctrine, not a model setting.</p>
+      <p>The design agent runs with an explicit craft brief rather than being asked politely for something nice. That brief, which asks for restraint, deliberate spacing, real typographic hierarchy and asymmetry over grid-sameness, is what separates a considered layout from a component-library assembly, and it is doctrine, not a model setting.</p>
     </div>
   </div>
 
   <div class="stage">
     <div class="stage-rail"><div class="stage-num">6</div><div class="stage-line"></div></div>
     <div class="stage-body">
-      <h3>The build — several agents, real isolation</h3>
+      <h3>The build: several agents, real isolation</h3>
       <p>A Build manager reads the tickets and groups them into parallel slices, each a self-contained piece of work one agent owns end to end. Every ticket belongs to exactly one slice.</p>
-      <p>Each slice gets <strong>its own git worktree</strong> — a real, separate checkout on its own branch, so two agents editing the same file is not a thing that can happen — and <strong>its own terminal session</strong>, which survives you quitting the app. You watch them work, live, in the centre of the window. They are not hidden behind a spinner.</p>
+      <p>Each slice gets <strong>its own git worktree</strong>: a real, separate checkout on its own branch, so two agents editing the same file is not a thing that can happen. It also gets <strong>its own terminal session</strong>, which survives you quitting the app. You watch them work, live, in the centre of the window. They are not hidden behind a spinner.</p>
       <p>Each agent appends progress to a status log as it goes, and writes a report file only when everything it was assigned genuinely works.</p>
     </div>
   </div>
@@ -172,7 +172,7 @@
     <div class="stage-rail"><div class="stage-num">7</div><div class="stage-line"></div></div>
     <div class="stage-body">
       <h3>The manager that watches</h3>
-      <p>A supervisor loop checks on the build every couple of seconds. It notices when an agent has died and restarts it in the same worktree — keeping the code, discarding the dead process. It notices when a slice reports finished, closes its session cleanly, and marks it done.</p>
+      <p>A supervisor loop checks on the build every couple of seconds. It notices when an agent has died and restarts it in the same worktree, keeping the code and discarding the dead process. It notices when a slice reports finished, closes its session cleanly, and marks it done.</p>
       <p>And it nudges agents that have gone quiet, because an interactive coding agent will stop and ask a question, then wait forever for an answer nobody is there to give.</p>
     </div>
   </div>
@@ -192,7 +192,7 @@
     <p>Every stage produces an artifact the next stage is checked against. Nothing is judged by whether it looks right.</p>
   </div>
 
-  <p><strong>A second model attacks the plan.</strong> Self-review by the model that wrote something is close to worthless. The Validator's whole job is to find where the chain breaks, and it does that before any code exists — when fixing it costs a paragraph rather than a refactor.</p>
+  <p><strong>A second model attacks the plan.</strong> Self-review by the model that wrote something is close to worthless. The Validator's whole job is to find where the chain breaks, and it does that before any code exists, when fixing it costs a paragraph rather than a refactor.</p>
 
   <p><strong>The test predates the code.</strong> The gate is written from your requirements, not from the implementation, so it cannot be quietly shaped to fit whatever got built.</p>
 
@@ -202,7 +202,7 @@
 
   <div class="callout">
     <span class="post-eyebrow">And everything is logged</span>
-    <p>Because this is xNAUT, every command an agent runs is timestamped and chained into a SHA-256 Merkle tree as it happens. When the build finishes you have not only a working product but a report anyone can verify — what was done, in what order, by which agent.</p>
+    <p>Because this is xNAUT, every command an agent runs is timestamped and chained into a SHA-256 Merkle tree as it happens. When the build finishes you have not only a working product but a report anyone can verify: what was done, in what order, by which agent.</p>
     <p>That matters most when the work is billed. "Trust me, the AI did it" is not an invoice. A hash chain is.</p>
   </div>
 
@@ -210,7 +210,7 @@
 
   <p>NautFlow is honest about its own limits, and the gaps are the interesting part. Right now the build manager treats every slice as independent, because there is no way to say "the API needs the database schema first". The acceptance gate answers yes or no rather than telling you how close you are. Agents in parallel cannot read each other's findings.</p>
 
-  <p>All three are being worked on, and we will write about each as it lands — including where we borrowed the answer from.</p>
+  <p>All three are being worked on, and we will write about each as it lands, including where we borrowed the answer from.</p>
 
 </article>
 

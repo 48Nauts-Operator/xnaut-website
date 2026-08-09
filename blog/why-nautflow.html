@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Why NautFlow — xNAUT</title>
+  <title>Why NautFlow · xNAUT</title>
   <meta name="description" content="I got fed up with my tools. So I built my own terminal, then my own agent flow, then the thing that proves what the agents actually did. This is how xNAUT and NautFlow happened.">
   <link rel="canonical" href="https://xnaut.dev/blog/why-nautflow.html">
   <meta property="og:type" content="article">
@@ -65,12 +65,13 @@
   <h2>Being fed up is a legitimate reason to build something</h2>
 
   <p>This started about a year ago, sometime in early 2025. My day ran across
-  Warp, Pieces&nbsp;OS, iTerm, Cursor and VS&nbsp;Code, and every one of them was
+  <a href="https://www.warp.dev" target="_blank" rel="noopener">Warp</a>, <a href="https://pieces.app" target="_blank" rel="noopener">Pieces&nbsp;OS</a>, <a href="https://iterm2.com" target="_blank" rel="noopener">iTerm</a>, <a href="https://cursor.com" target="_blank" rel="noopener">Cursor</a> and <a href="https://code.visualstudio.com" target="_blank" rel="noopener">VS&nbsp;Code</a>, and every one of them was
   good at something and wrong for me in some specific, grinding way.</p>
 
   <p>Warp had an idea I loved. I do a lot of operations work, and a lot of it is
-  infrequent — a migration I run once a quarter, where the hard part is not the
-  work but remembering the exact incantation from three months ago. Having a
+  infrequent. A migration I run once a quarter, where the hard part is not the
+  work but remembering the right series of commands, in the right order, from
+  three months ago. Having a
   library of my own commands, right there, was genuinely the right answer to a
   real problem. And then at some point it was too simple for what I was doing
   with it, and I outgrew the thing I had liked.</p>
@@ -80,13 +81,17 @@
   wanted to work <em>in the terminal</em>, and have the other things arrive when
   I asked for them.</p>
 
-  <p>I tried the terminal-native AI tools too. Some were excellent early on — I
-  used one heavily for a while — and then I stopped, not because it broke, but
+  <p>I tried the terminal-native AI tools too. Some were excellent early on. I
+  used one heavily for a while and then stopped, not because it broke, but
   because the gap between what I wanted and what it did stopped closing.</p>
+
+  <p>Then one day the drive arrived fully formed. I did not want multiple tools
+  open any more. One, plus maybe a browser, and that is what my workspace should
+  look like. So I started building xNAUT.</p>
 
   <h2>So I built my own terminal</h2>
 
-  <p>The decision was less dramatic than it sounds. What the heck — let's just
+  <p>The decision was less dramatic than it sounds. What the heck, let's just
   try. I built xNAUT as a terminal first: my rules, my features, cut exactly to
   how I work. Then I used it every day, which is the only design process I
   actually trust. Things I needed got built. Things I thought I needed turned
@@ -97,25 +102,28 @@
     demo occasionally tells you what you want to hear.</p>
   </div>
 
-  <p>Cmux is worth naming here, because it had the feature I kept wanting: a
+  <p><a href="https://github.com/manaflow-ai/cmux" target="_blank" rel="noopener">Cmux</a> is worth naming here, because it had the feature I kept wanting: a
   browser sitting next to the coding terminal, so you can see the thing you are
   building while you build it. Right instinct. In practice the browser side had
-  enough problems that I never really settled into it. That combination — a good
-  idea I could not rely on — is what usually ends with me building it myself.</p>
+  enough problems that I never really settled into it. That combination of a good
+  idea I could not rely on is what usually ends with me building it myself.</p>
 
   <h2>The part where it went agentic</h2>
 
   <p>xNAUT had gone agent-first a while before, mostly for security audits and
   that kind of long, methodical work where you want something patient doing the
-  reading. Extending it into the workspace I actually wanted — everything in one
-  place, agents included — was a smaller step than starting over.</p>
+  reading. Extending it into the workspace I actually wanted, everything in one
+  place with agents included, was a smaller step than starting over.</p>
 
-  <p>Then I ran into the enterprise tools. Devin and that class of product: about
+  <p>Then I ran into the enterprise tools. <a href="https://devin.ai" target="_blank" rel="noopener">Devin</a> and that class of product: about
   $500 a month, and what you get for it is a <em>flow</em>. Stages. Something
   that walks the work from idea to finished rather than just answering you. The
   flow was the good idea. The execution did not convince me, and it could not do
-  what I already had running — several agents at once, in parallel, on the same
+  what I already had running: several agents at once, in parallel, on the same
   project.</p>
+
+  <p>And $500 a month is steep. So I thought: what if I build something like
+  that, for free?</p>
 
   <p>My multi-agent support at that point was early and far from perfect, but it
   worked. What I did not have was the flow around it: something that plans,
@@ -133,13 +141,13 @@
   damage regardless of who is right.</p>
 
   <p>So I built the proof into the tool. xNAUT keeps a verifiable record of what
-  actually happened in the terminal — a log you can hand to someone, that holds
-  up because it was written as the work happened rather than reconstructed
+  actually happened in the terminal. It is a log you can hand to someone, and it
+  holds up because it was written as the work happened rather than reconstructed
   afterwards. Nobody has to take my word for it now.</p>
 
   <p>That turned out to matter more than I expected, and for a reason I did not
   anticipate. It is not only about my hours any more. When agents do the work,
-  <strong>somebody is going to ask what they did</strong> — a client, an auditor,
+  <strong>somebody is going to ask what they did</strong>; a client, an auditor,
   a regulator, or you at 2am wondering why a file changed. Being able to show
   exactly what every agent did, step by step, is going to be a requirement in
   plenty of domains long before anyone writes it down as one.</p>
@@ -154,7 +162,7 @@
   <p>Not finished. I want to be straight about that, because the temptation with
   a post like this is to describe the destination and let you assume you have
   arrived. NautFlow is getting strongly there, and there is a good deal I still
-  want in it. It ships when it is right, and you can watch it happen — the
+  want in it. It ships when it is right, and you can watch it happen. The
   changelog is unusually honest for a product page, including the parts where we
   got something wrong and said so.</p>
 
@@ -168,7 +176,7 @@
   <div class="note-card">
     <span class="post-eyebrow">A note from the author</span>
     <p>Every tool I listed here is one I chose to use, and most of them are good.
-    Outgrowing something is not the same as it being bad — it usually means it
+    Outgrowing something is not the same as it being bad. It usually means it
     was good enough to take me to the point where my needs got specific. I would
     rather build the last ten percent myself than complain that nobody built it
     for me.</p>

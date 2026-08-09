@@ -51,6 +51,15 @@
     .more a:hover { color: var(--amber); }
     .more span { color: var(--faint); font-size: 13.5px; }
 
+    .thanks { background: var(--panel); border: 1px solid var(--border-card); border-radius: 12px; padding: 22px 24px; margin: 28px 0; }
+    .thanks .post-eyebrow { display: block; margin-bottom: 10px; }
+    .thanks p { font-size: 15.5px; margin-bottom: 12px; }
+    .thanks p:last-child { margin-bottom: 0; }
+    .thanks ul { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 9px; }
+    .thanks li { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+    .thanks li a { font-family: var(--mono); font-size: 14px; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+    .thanks li a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+    .thanks li span { font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
     .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
     .pull p { color: var(--text); font-size: 18px; margin: 0; }
 
@@ -152,6 +161,20 @@
   <p>Three of these changes exist because three separate teams had solved the same
   problem in three different ways, and seeing the differences side by side was what
   made the right answer obvious. One of them corrected a design we were a day away from building. We would never have found that by thinking harder about our own code.</p>
+
+  <div class="thanks">
+    <span class="post-eyebrow">Shoutout</span>
+    <p>Those three projects, with thanks. Each one is worth your time on its own,
+    and every mechanism we borrowed names its source in the file header:</p>
+    <ul>
+      <li><a href="https://github.com/Human-Agent-Society/CORAL" target="_blank" rel="noopener">Human-Agent-Society/CORAL</a> <span>Apache 2.0</span></li>
+      <li><a href="https://github.com/lamalab-org/corral" target="_blank" rel="noopener">lamalab-org/corral</a> <span>BSD 3-Clause</span></li>
+      <li><a href="https://github.com/cdknorow/coral" target="_blank" rel="noopener">cdknorow/coral</a> <span>Apache 2.0</span></li>
+    </ul>
+    <p>Three unrelated teams, three codebases that happen to share a name, and no
+    connection between them beyond having each thought hard about the same problem.
+    That coincidence is how we found all three.</p>
+  </div>
 
   <div class="pull">
     <p>The best feedback rarely arrives as a feature request. It arrives as someone

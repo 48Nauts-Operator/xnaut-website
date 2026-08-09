@@ -6,6 +6,8 @@
   <title>Where the agents actually run · xNAUT</title>
   <meta name="description" content="NautLoop and GitVM: sovereign sandboxes for AI agents. Firecracker microVMs that boot in about two seconds, pinned to a jurisdiction, with a control plane that holds none of your data.">
   <link rel="canonical" href="https://xnaut.dev/blog/where-the-agents-run.html">
+  <meta name="author" content="André">
+  <meta name="keywords" content="AI agent sandbox, Firecracker microVM, sovereign cloud, Swiss data residency, GitVM, NautLoop, jurisdiction pinned compute">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="xNAUT">
   <meta property="og:title" content="Where the agents actually run">
@@ -151,8 +153,8 @@
     <tbody>
       <tr><td>NautLoop</td><td>The control plane. EU-stationed, launches and manages sandboxes per region, and holds no tenant data of its own.</td></tr>
       <tr><td>GitVM</td><td>The sandbox fabric. Firecracker microVMs, roughly two-second boot, jurisdiction-pinned, built from templates.</td></tr>
-      <tr><td>NautGate</td><td>The per-node LLM gateway. Routing, per-tenant metering, and a model route-lock so a node can only reach the models it is allowed to.</td></tr>
-      <tr><td>Engram</td><td>Mesh and memory. Signed messaging between agents, and knowledge that persists across runs instead of being rediscovered every time.</td></tr>
+      <tr><td><a href="https://nautgate.dev" target="_blank" rel="noopener">NautGate</a></td><td>The per-node LLM gateway. Routing, per-tenant metering, and a model route-lock so a node can only reach the models it is allowed to.</td></tr>
+      <tr><td><a href="https://engrm.ai" target="_blank" rel="noopener">Engram</a></td><td>Mesh and memory. Signed messaging between agents, and knowledge that persists across runs instead of being rediscovered every time.</td></tr>
     </tbody>
   </table>
 

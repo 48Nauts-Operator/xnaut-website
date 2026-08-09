@@ -32,6 +32,9 @@
     .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
     .post strong { color: var(--text); font-weight: 600; }
     .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .figure { margin: 34px 0 8px; }
+    .figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line-strong); border-radius: 10px; }
+    .figure figcaption { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 10px; line-height: 1.55; }
     .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
     .pull p { color: var(--text); font-size: 18px; margin: 0; }
     .layers { width: 100%; border-collapse: collapse; margin: 24px 0 8px; font-size: 15px; }
@@ -107,6 +110,20 @@
   left in a sandbox and the sandbox goes away, so does the work, which is why
   pulling results out before stopping is part of the flow rather than an
   afterthought.</p>
+
+  <p>Template-based means a sandbox is not configured on the way up. It is built
+  from a rootfs image with the tooling already in it, so the two seconds is the
+  whole story rather than the start of a package install. Different work wants
+  different machines: a full development box with Docker and language runtimes,
+  a minimal one for a quick shell command, a hardened privacy substrate with
+  fail-closed networking, a security testing image for authorised engagements.
+  Each declares its own defaults for CPU, memory and time to live, and each is a
+  Dockerfile you can read.</p>
+
+  <figure class="figure">
+    <img src="/assets/gitvm.png" alt="The GitVM control panel showing six sandbox rootfs templates: pi-dev, base, kali-min, app-host, anon-min and a security testing harness, each with its base image, rootfs size, default CPU, memory and time-to-live." loading="lazy" width="1480" height="1121">
+    <figcaption>The template library in the GitVM control panel. Every sandbox starts from one of these, and the defaults it carries (vCPU, memory, TTL) are part of the template rather than something you remember to set.</figcaption>
+  </figure>
 
   <h2>Jurisdiction, and why it is not a checkbox</h2>
 

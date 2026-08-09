@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why NautFlow — xNAUT</title>
+  <meta name="description" content="I got fed up with my tools. So I built my own terminal, then my own agent flow, then the thing that proves what the agents actually did. This is how xNAUT and NautFlow happened.">
+  <link rel="canonical" href="https://xnaut.dev/blog/why-nautflow.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="Why NautFlow">
+  <meta property="og:description" content="I got fed up with my tools. So I built my own terminal, then my own agent flow, then the thing that proves what the agents actually did.">
+  <meta property="og:url" content="https://xnaut.dev/blog/why-nautflow.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="Why NautFlow">
+  <meta name="twitter:description" content="I got fed up with my tools. So I built my own terminal, then my own agent flow, then the thing that proves what the agents actually did.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
+    .pull p { color: var(--text); font-size: 18px; margin: 0; }
+    .note-card { background: var(--panel-deep); border: 1px solid var(--line-strong); border-radius: 14px; padding: 28px; margin-top: 56px; }
+    .note-card .post-eyebrow { margin-bottom: 12px; display: block; }
+    .note-card p { color: var(--text); font-size: 17px; }
+    .note-card p:last-of-type { margin-bottom: 0; }
+    .sig { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-strong); }
+    .series { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Origin</span>
+  <h1>Why NautFlow</h1>
+  <p class="post-lede">I did not set out to build a product. I set out to stop being annoyed by my own desk. This is the honest version of how a terminal turned into an agent workspace, and why the part I am proudest of is the boring one nobody asks for until the day they need it.</p>
+  <p class="post-meta">July 2026 · André · 48Nauts</p>
+
+  <h2>Being fed up is a legitimate reason to build something</h2>
+
+  <p>This started about a year ago, sometime in early 2025. My day ran across
+  Warp, Pieces&nbsp;OS, iTerm, Cursor and VS&nbsp;Code, and every one of them was
+  good at something and wrong for me in some specific, grinding way.</p>
+
+  <p>Warp had an idea I loved. I do a lot of operations work, and a lot of it is
+  infrequent — a migration I run once a quarter, where the hard part is not the
+  work but remembering the exact incantation from three months ago. Having a
+  library of my own commands, right there, was genuinely the right answer to a
+  real problem. And then at some point it was too simple for what I was doing
+  with it, and I outgrew the thing I had liked.</p>
+
+  <p>VS Code had the opposite failure. Too much of everything, all the time,
+  reaching for my attention. I did not want an IDE with a terminal in it. I
+  wanted to work <em>in the terminal</em>, and have the other things arrive when
+  I asked for them.</p>
+
+  <p>I tried the terminal-native AI tools too. Some were excellent early on — I
+  used one heavily for a while — and then I stopped, not because it broke, but
+  because the gap between what I wanted and what it did stopped closing.</p>
+
+  <h2>So I built my own terminal</h2>
+
+  <p>The decision was less dramatic than it sounds. What the heck — let's just
+  try. I built xNAUT as a terminal first: my rules, my features, cut exactly to
+  how I work. Then I used it every day, which is the only design process I
+  actually trust. Things I needed got built. Things I thought I needed turned
+  out to be nonsense and got deleted.</p>
+
+  <div class="pull">
+    <p>A tool you use every day tells you the truth about itself. A tool you
+    demo occasionally tells you what you want to hear.</p>
+  </div>
+
+  <p>Cmux is worth naming here, because it had the feature I kept wanting: a
+  browser sitting next to the coding terminal, so you can see the thing you are
+  building while you build it. Right instinct. In practice the browser side had
+  enough problems that I never really settled into it. That combination — a good
+  idea I could not rely on — is what usually ends with me building it myself.</p>
+
+  <h2>The part where it went agentic</h2>
+
+  <p>xNAUT had gone agent-first a while before, mostly for security audits and
+  that kind of long, methodical work where you want something patient doing the
+  reading. Extending it into the workspace I actually wanted — everything in one
+  place, agents included — was a smaller step than starting over.</p>
+
+  <p>Then I ran into the enterprise tools. Devin and that class of product: about
+  $500 a month, and what you get for it is a <em>flow</em>. Stages. Something
+  that walks the work from idea to finished rather than just answering you. The
+  flow was the good idea. The execution did not convince me, and it could not do
+  what I already had running — several agents at once, in parallel, on the same
+  project.</p>
+
+  <p>My multi-agent support at that point was early and far from perfect, but it
+  worked. What I did not have was the flow around it: something that plans,
+  splits the work, checks it, and only then calls it done. Not a prompt that
+  emits files and hopes. So I built my own version of what that flow should be,
+  and that is <strong>NautFlow</strong>.</p>
+
+  <h2>The feature I did not want to need</h2>
+
+  <p>Last year a client told me I had not worked the hours on my invoice.</p>
+
+  <p>That is an unpleasant conversation to have, and a worse one to lose, and the
+  thing that makes it unwinnable is that ordinarily you cannot prove it either
+  way. You have your word, they have their doubt, and the relationship takes the
+  damage regardless of who is right.</p>
+
+  <p>So I built the proof into the tool. xNAUT keeps a verifiable record of what
+  actually happened in the terminal — a log you can hand to someone, that holds
+  up because it was written as the work happened rather than reconstructed
+  afterwards. Nobody has to take my word for it now.</p>
+
+  <p>That turned out to matter more than I expected, and for a reason I did not
+  anticipate. It is not only about my hours any more. When agents do the work,
+  <strong>somebody is going to ask what they did</strong> — a client, an auditor,
+  a regulator, or you at 2am wondering why a file changed. Being able to show
+  exactly what every agent did, step by step, is going to be a requirement in
+  plenty of domains long before anyone writes it down as one.</p>
+
+  <div class="pull">
+    <p>I built it because one client doubted me. It stayed because agents make
+    that question normal.</p>
+  </div>
+
+  <h2>Where it actually is</h2>
+
+  <p>Not finished. I want to be straight about that, because the temptation with
+  a post like this is to describe the destination and let you assume you have
+  arrived. NautFlow is getting strongly there, and there is a good deal I still
+  want in it. It ships when it is right, and you can watch it happen — the
+  changelog is unusually honest for a product page, including the parts where we
+  got something wrong and said so.</p>
+
+  <p>But the shape is real, and it is the shape I wanted from the beginning: one
+  place, my rules, agents that do actual work in parallel, a flow that checks
+  them, and a record that proves it.</p>
+
+  <p class="series">This is the first in a series. The next posts get specific
+  about what NautFlow can do, and how each piece works.</p>
+
+  <div class="note-card">
+    <span class="post-eyebrow">A note from the author</span>
+    <p>Every tool I listed here is one I chose to use, and most of them are good.
+    Outgrowing something is not the same as it being bad — it usually means it
+    was good enough to take me to the point where my needs got specific. I would
+    rather build the last ten percent myself than complain that nobody built it
+    for me.</p>
+    <p class="sig">André · 48Nauts</p>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.13.3, with the build stage rebuilt around a durable log, a per-slice files view and dependency-aware slices.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.13.4, in which the Designer finally works without a sandbox.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.13.3, with the build stage rebuilt around a durable log, a per-slice files view and dependency-aware slices.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.13.4, in which the Designer finally works without a sandbox.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,8 +66,48 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.13.3</h2>
+      <h2>v1.13.4</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">9 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The Designer works without a sandbox. Until now it needed the GitVM CLI, an API key and Tailscale reach, which is 48Nauts infrastructure; for everyone else the Designer opened, said "Starting the sandbox", and never recovered. New designs now run on your own machine by default.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>A local runtime for the Designer.</strong> Your design is served from your own machine on a loopback port. No warm-up, no lease, no rsync, no tunnel, no teardown. It turned out to be a small change for a good reason: the design agent already ran on your machine and wrote straight into the vault, so the sandbox was only ever where the result was <em>served</em>. Publishing becomes a near no-op, and stopping a design cannot lose work because the vault is the working copy.</li>
+        <li><strong>A Local / Sandbox switch</strong> in the design header, per design rather than global, so one project can hold a throwaway you build locally and a client-facing one on a shareable URL. New designs default to local. Designs you already have keep the runtime they were created under, so none of them abandon a sandbox that is currently running.</li>
+        <li><strong>A durable log per design</strong>, in the same place as the build log, with a deadline on every sandbox call. A hang is now a reported failure with a duration attached instead of a spinner that tells you nothing.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Spin-up could hang forever on a sandbox that was working.</strong> <span class="amber">gitvm run</span> requested a terminal unconditionally, and xNAUT launches it without one, so SSH refused and exited before the remote command ran. xNAUT ignored that exit status and probed an empty port for seven minutes. Two of these calls were found still hung from 2 August, so it had been failing for at least a week. Every attempt to reproduce it by hand succeeded, because a shell has a terminal.</li>
+        <li><strong>The dev server never detached.</strong> Backgrounding it inside a subshell meant the remote command never returned, so the call held its SSH channel open for the caller's whole deadline while the page was already answering HTTP 200.</li>
+        <li><strong>A step that timed out but actually worked is no longer a failure.</strong> Spin-up now probes the URL before giving up, because whether something is serving is observable from outside. Deliberately narrow: only a caller-side deadline can be recovered this way, so a failed install still fails even if a stale placeholder answers.</li>
+        <li><strong>xNAUT stopped competing with the agent for the dev server.</strong> Locally the agent runs on the same machine and starts its own server to screenshot its work, so two servers existed for one project and the canvas showed the wrong one: a finished site on one port behind a holding page on another. Spin-up now adopts the server running in the design folder, and the canvas switches to the real site while the agent is still working rather than at the end.</li>
+        <li><strong>An unresponsive network drive could freeze the Designer.</strong> Adoption asks the system which process is listening, and that query walks every mounted volume, so a wedged network share blocked it indefinitely, on a five-second poll. Now bounded. Found when a backup jammed an SMB mount and the test suite hung on that exact call.</li>
+        <li><strong>The canvas could show <span class="amber">[object Object]</span> instead of your design.</strong> Worse than it looks: a status that never cleared kept the canvas on a spinner, so a finished site could not appear at all.</li>
+        <li>A design could get permanently stuck on its own sandbox, and the holding page is now evicted the moment a real project appears.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      If you have never been able to use the Designer, this is the release to try. It no longer needs anything from 48Nauts.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.13.4</a>
+      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.13.3</h2>
       <span class="rel-date">9 August 2026</span>
     </div>
 
@@ -125,8 +165,7 @@
     </div>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.13.3</a>
-      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.13.3">v1.13.3 on GitHub</a>
     </div>
   </section>
 
@@ -258,7 +297,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.13.3.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.13.4.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

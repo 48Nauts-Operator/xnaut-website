@@ -59,6 +59,20 @@
     .artifact-list li { display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--text-soft); }
     .artifact-list .fname { font-family: var(--mono); font-size: 12.5px; color: var(--amber); flex-shrink: 0; min-width: 168px; }
 
+    .figure { margin: 34px 0 8px; }
+    .figure svg { width: 100%; height: auto; display: block; }
+    .figure figcaption { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 10px; }
+    .fg-box { fill: var(--panel); stroke: var(--line-strong); }
+    .fg-accent { fill: none; stroke: var(--amber); }
+    .fg-t { fill: var(--text); font-family: ui-sans-serif, -apple-system, sans-serif; font-size: 12px; font-weight: 600; }
+    .fg-s { fill: var(--faint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9.5px; }
+    .fg-line { stroke: var(--line-strong); fill: none; }
+    .more { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .more h3 { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; margin: 0 0 12px; }
+    .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .more a { color: var(--text); text-decoration: none; font-size: 15.5px; }
+    .more a:hover { color: var(--amber); }
+    .more span { color: var(--faint); font-size: 13.5px; }
     .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
     .pull p { color: var(--text); font-size: 18px; margin: 0; }
 
@@ -90,7 +104,64 @@
   <span class="post-eyebrow">Deep dive</span>
   <h1>How NautFlow works</h1>
   <p class="post-lede">Most "AI builds your app" tools take a prompt and start writing files. NautFlow does something slower and, we think, more honest: it writes the documents first, has a second model attack them, gets your approval on a design, and only then lets several coding agents loose, each in its own worktree, judged by an acceptance test written <em>before</em> the build began.</p>
-  <p class="post-meta">1 August 2026 · 48Nauts</p>
+  <p class="post-meta">1 August 2026 · André</p>
+
+    <figure class="figure">
+    <svg viewBox="0 0 720 300" role="img" aria-label="NautFlow pipeline: capture, documents, hostile validation, design, parallel build in isolated worktrees, scored gate, integrator, pull request.">
+      <g class="fg-line" stroke-width="1">
+        <path d="M108 44 H160"/><path d="M268 44 H320"/><path d="M428 44 H480"/>
+        <path d="M588 56 V96"/>
+        <path d="M120 150 H176"/><path d="M120 190 H176"/><path d="M120 230 H176"/>
+        <path d="M296 150 H352"/><path d="M296 190 H352"/><path d="M296 230 H352"/>
+        <path d="M472 190 H528"/>
+      </g>
+
+      <rect class="fg-box" x="8"   y="24" width="100" height="40" rx="7"/>
+      <text class="fg-t" x="58"  y="42" text-anchor="middle">Idea</text>
+      <text class="fg-s" x="58"  y="56" text-anchor="middle">your words</text>
+
+      <rect class="fg-box" x="160" y="24" width="108" height="40" rx="7"/>
+      <text class="fg-t" x="214" y="42" text-anchor="middle">Documents</text>
+      <text class="fg-s" x="214" y="56" text-anchor="middle">reqs · arch · tickets</text>
+
+      <rect class="fg-box fg-accent" x="320" y="24" width="108" height="40" rx="7" stroke-width="1.4"/>
+      <text class="fg-t" x="374" y="42" text-anchor="middle">Validator</text>
+      <text class="fg-s" x="374" y="56" text-anchor="middle">hostile · writes gate</text>
+
+      <rect class="fg-box" x="480" y="24" width="108" height="40" rx="7"/>
+      <text class="fg-t" x="534" y="42" text-anchor="middle">Design</text>
+      <text class="fg-s" x="534" y="56" text-anchor="middle">you approve</text>
+
+      <text class="fg-s" x="608" y="80" text-anchor="middle">then build</text>
+
+      <rect class="fg-box" x="8" y="130" width="112" height="120" rx="7"/>
+      <text class="fg-t" x="64" y="176" text-anchor="middle">Build</text>
+      <text class="fg-t" x="64" y="192" text-anchor="middle">manager</text>
+      <text class="fg-s" x="64" y="212" text-anchor="middle">plans the slices</text>
+
+      <rect class="fg-box" x="176" y="132" width="120" height="34" rx="6"/>
+      <text class="fg-t" x="236" y="153" text-anchor="middle">slice · worktree</text>
+      <rect class="fg-box" x="176" y="172" width="120" height="34" rx="6"/>
+      <text class="fg-t" x="236" y="193" text-anchor="middle">slice · worktree</text>
+      <rect class="fg-box" x="176" y="212" width="120" height="34" rx="6"/>
+      <text class="fg-t" x="236" y="228" text-anchor="middle">slice · waiting</text>
+      <text class="fg-s" x="236" y="240" text-anchor="middle">on a dependency</text>
+
+      <rect class="fg-box fg-accent" x="352" y="132" width="120" height="114" rx="7" stroke-width="1.4"/>
+      <text class="fg-t" x="412" y="176" text-anchor="middle">Acceptance</text>
+      <text class="fg-t" x="412" y="192" text-anchor="middle">gate</text>
+      <text class="fg-s" x="412" y="212" text-anchor="middle">31 / 35 passing</text>
+
+      <rect class="fg-box" x="528" y="150" width="120" height="80" rx="7"/>
+      <text class="fg-t" x="588" y="182" text-anchor="middle">Integrator</text>
+      <text class="fg-s" x="588" y="200" text-anchor="middle">merge · verify</text>
+      <text class="fg-s" x="588" y="214" text-anchor="middle">push · open PR</text>
+
+      <text class="fg-s" x="236" y="278" text-anchor="middle">every event appended to one durable build log</text>
+      <text class="fg-s" x="588" y="278" text-anchor="middle">work runs in GitVM sandboxes</text>
+    </svg>
+    <figcaption>The flow, end to end. The gate is written before the build starts, which is the part that makes the rest of it mean anything.</figcaption>
+  </figure>
 
   <h2>The problem with "just build it"</h2>
 
@@ -206,11 +277,71 @@
     <p>That matters most when the work is billed. "Trust me, the AI did it" is not an invoice. A hash chain is.</p>
   </div>
 
-  <h2>Where it is going</h2>
+  <h2>What shipped since</h2>
 
-  <p>NautFlow is honest about its own limits, and the gaps are the interesting part. Right now the build manager treats every slice as independent, because there is no way to say "the API needs the database schema first". The acceptance gate answers yes or no rather than telling you how close you are. Agents in parallel cannot read each other's findings.</p>
+  <p>When this post first went up it ended with three honest gaps. All three are
+  closed in v1.13, so rather than quietly edit them out, here is what happened to
+  each.</p>
 
-  <p>All three are being worked on, and we will write about each as it lands, including where we borrowed the answer from.</p>
+  <p><strong>Slices can now depend on each other.</strong> The build manager used
+  to treat every slice as independent, so there was no way to say "the API needs
+  the database schema first". Now a plan can declare dependencies, and a slice
+  waits with no worktree and no agent until the work it needs has landed. If a
+  foundation fails, everything built on it is marked unreachable rather than
+  being started and then wasted.</p>
+
+  <p><strong>The gate reports a score, not a verdict.</strong> It always ran real
+  checks and then collapsed them to pass or fail, so "four failing" and "forty
+  failing" were the same answer. It now reports how many checks pass out of how
+  many, which is what makes it possible to tell steady progress from going in
+  circles.</p>
+
+  <p><strong>Agents can read each other's findings.</strong> Each slice gets a
+  shared notes directory, so the second agent to hit a problem can read what the
+  first one learned instead of rediscovering it.</p>
+
+  <h2>And a build you can actually watch</h2>
+
+  <p>Running real builds taught us something uncomfortable: the manager watching
+  the agents was reporting things that were true and useless. It held a single
+  status line that the next event overwrote, so the entire decision history of a
+  build existed for a few seconds and was then gone.</p>
+
+  <p>So every build now writes <strong>one durable log</strong>. Every event, with
+  a level and a source, appended to a file that is kept after the run. Filter it
+  by level, filter it to one slice, search it, tail it live, and reopen any
+  earlier build weeks later. Alongside it, a <strong>Files view</strong> shows
+  what each slice actually changed, measured against the commit it forked from
+  rather than the working folder, with the diff inline.</p>
+
+  <div class="pull">
+    <p>An agent that has already committed its work shows a clean working folder.
+    Measure the folder and you will report a busy agent as idle.</p>
+  </div>
+
+  <h2>Where the work actually runs</h2>
+
+  <p>There is a piece of this that is not xNAUT at all. <strong>GitVM</strong>,
+  which you will also see called <strong>NautLoop</strong>, is the execution
+  surface: isolated sandboxes where an agent's work genuinely runs, rather than
+  everything happening on your laptop and hoping nothing collides.</p>
+
+  <p>The division of labour is deliberate, and xNAUT's half is the small one.
+  xNAUT captures the intent, plans the work and triggers the run; GitVM does the
+  heavy lifting and hands back a branch. Keeping the workspace thin is what lets
+  the same flow drive work that is far too large or too messy to want anywhere
+  near your own machine.</p>
+
+  <p>That deserves its own post rather than a paragraph, and it is the next one.</p>
+
+  
+  <nav class="more">
+    <h3>More in this series</h3>
+    <ul>
+      <li><a href="/blog/why-nautflow.html">Why NautFlow</a> <span>the origin story</span></li>
+      <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key</a> <span>where the ideas came from</span></li>
+    </ul>
+  </nav>
 
 </article>
 

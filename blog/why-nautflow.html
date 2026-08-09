@@ -32,6 +32,12 @@
     .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
     .post strong { color: var(--text); font-weight: 600; }
     .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .more { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .more h3 { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; margin: 0 0 12px; }
+    .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .more a { color: var(--text); text-decoration: none; font-size: 15.5px; }
+    .more a:hover { color: var(--amber); }
+    .more span { color: var(--faint); font-size: 13.5px; }
     .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
     .pull p { color: var(--text); font-size: 18px; margin: 0; }
     .note-card { background: var(--panel-deep); border: 1px solid var(--line-strong); border-radius: 14px; padding: 28px; margin-top: 56px; }
@@ -60,7 +66,7 @@
   <span class="post-eyebrow">Origin</span>
   <h1>Why NautFlow</h1>
   <p class="post-lede">I did not set out to build a product. I set out to stop being annoyed by my own desk. This is the honest version of how a terminal turned into an agent workspace, and why the part I am proudest of is the boring one nobody asks for until the day they need it.</p>
-  <p class="post-meta">July 2026 · André · 48Nauts</p>
+  <p class="post-meta">July 2026 · André</p>
 
   <h2>Being fed up is a legitimate reason to build something</h2>
 
@@ -180,8 +186,17 @@
     was good enough to take me to the point where my needs got specific. I would
     rather build the last ten percent myself than complain that nobody built it
     for me.</p>
-    <p class="sig">André · 48Nauts</p>
+    <p class="sig">André</p>
   </div>
+
+
+  <nav class="more">
+    <h3>More in this series</h3>
+    <ul>
+      <li><a href="/blog/how-nautflow-works.html">How NautFlow works</a> <span>the flow, stage by stage</span></li>
+      <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key</a> <span>where the ideas came from</span></li>
+    </ul>
+  </nav>
 
 </article>
 

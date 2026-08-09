@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT — the terminal that runs your coding agents. Latest: v1.11.0, with the Designer, the mobile companion, and the long-running freeze fixed for good.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.13.3, with the build stage rebuilt around a durable log, a per-slice files view and dependency-aware slices.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.11.0 — Designer, mobile companion, and the long-running freeze fixed for good.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.13.3, with the build stage rebuilt around a durable log, a per-slice files view and dependency-aware slices.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -64,30 +64,145 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.11.0</h2>
+      <h2>v1.13.3</h2>
       <span class="tag-latest">LATEST</span>
-      <span class="rel-date">2 August 2026</span>
+      <span class="rel-date">9 August 2026</span>
     </div>
 
-    <p class="rel-lead">Describe something and get a running application on a real domain — no build step, no deploy, just a link you can send. Plus the long-running freeze fixed for good, and two subsystems retired.</p>
+    <p class="rel-lead">The build stage rebuilt around one idea: a build should be able to tell you what it did. A durable log that outlives the run, a per-slice view of what actually changed, slices that can declare dependencies on each other, and an acceptance gate that reports a score instead of a verdict. Several of the ideas came from reading other people's open-source work, and one of them corrected a design we were a day from shipping.</p>
 
     <div class="grp added">
       <h3>Added</h3>
       <ul>
-        <li><strong>Designer.</strong> A tab in the project workspace that turns a sentence into a real, running application on a live hostname. A design is an actual project — Astro, Reveal.js or Next.js depending on what you asked for — scaffolded and edited by an agent, built and served in a sandbox, with the running site in the canvas and the chat beside it. Never a mock: the URL is shareable as it stands.</li>
-        <li><strong>Mobile companion.</strong> Your terminal sessions, files, git status, artifacts, task runner, and the Observatory and Multi-Agent Manager, on your phone over Tailscale. Nothing exposed to the internet.</li>
-        <li><strong>Validator.</strong> Before a build starts, the whole documentation chain is checked — contract coverage, stage completeness, cross-stage consistency, testability, build readiness — and the build is blocked on a FAIL. The report lands in the centre pane and you can talk to the Validator about it.</li>
-        <li><strong>Observatory.</strong> Every live session listed and one click from attaching, run rows that survive a reload, honest local-vs-sandbox labels.</li>
-        <li><strong>Help overlay</strong> for keyboard shortcuts, <strong>command snippets</strong> moved into a dropdown, and a <strong>work-log clock</strong> in the toolbar — one click to start, red while recording, click again for the summary.</li>
+        <li><strong>A durable build log.</strong> Every build writes one append-only JSONL file with a level, source and timestamp per event, and it is kept after the run. The Build run pane gained <strong>Manager · Log · Files</strong> sub-tabs: the Log filters by level with live counts, filters by source, searches, tails, and can reopen any earlier build. Before this the manager held a single status string that the next event overwrote, so a build's entire decision history existed for a few seconds and was then gone.</li>
+        <li><strong>A Files view per slice.</strong> Changed files with line counts and an inline diff, measured from the slice's merge base rather than the working tree. An agent that has already committed shows a clean <span class="amber">git status</span> while having written hundreds of lines, so a working-tree view reports it as idle. The base is chosen by closest fork rather than by name; measured against <span class="amber">main</span>, a ten-file slice came out as 77 files and +8021 lines.</li>
+        <li><strong>Build slices can declare dependencies.</strong> The planner used to be told to avoid them, which capped parallelism at whatever happened to be independent. Work now splits the way it actually divides: independent slices run at full width, dependent ones wait, and if a foundation fails everything built on it is marked unreachable and never starts. A waiting slice holds no worktree, so an unreachable one leaves nothing behind.</li>
+        <li><strong>A bad dependency graph is rejected before anything runs.</strong> Cycles named, missing blockers reported, depth capped. A language model writes these plans, so a cycle is not a hypothetical.</li>
+        <li><strong>The acceptance gate reports a score, not a verdict.</strong> It always ran real checks and then collapsed them to an exit code, so "four checks failing" and "forty checks failing" were the same answer and nothing watching could tell progress from thrashing. It now reports passed-of-total. A gate that crashes and emits no check lines scores <em>null</em>, never zero; a crash is the absence of a measurement, not a bad one.</li>
+        <li><strong>Scores describe a commit.</strong> The gate runs inside a throwaway detached worktree of one commit, so a score cannot drift because an agent saved a file mid-run.</li>
+        <li><strong>Agents are interrupted when they stall, not on a timer.</strong> The old behaviour nudged everyone every five minutes, which breaks the concentration of an agent that is working and leaves a stuck one alone for four more. The score history is tracked and an agent is nudged only when it stops improving, and the nudge quotes the exact failing checks, since the gate already knows them.</li>
+        <li><strong>Agents on a project share notes.</strong> A directory of markdown notes, symlinked into every build worktree, so three agents cannot each independently discover the same broken assumption. Scoped per project and permanent, in the vault; readable in Obsidian, with a git history.</li>
+        <li><strong>The manager keeps its history.</strong> A levelled feed of what the manager decided and why, instead of its most recent sentence.</li>
+        <li><strong>Codex session cost.</strong> We already read how much of your Codex plan was consumed; now each session's tokens and an estimated cost, read from Codex's own transcripts. Cached input is priced separately, because on long sessions it dominates and ignoring it would overstate cost roughly tenfold. The figure is a list-price estimate, not a bill.</li>
+        <li><strong>Last activity per project in the sidebar.</strong> The newest of the last commit and the most recently modified file, so a project being actively edited does not read as nine days stale.</li>
       </ul>
     </div>
 
     <div class="grp">
       <h3>Fixed</h3>
       <ul>
-        <li><strong>The long-running freeze — both halves.</strong> Two independent causes, found weeks apart, in one build for the first time. Terminal output is now coalesced into one merged event per 16 ms, so a streaming agent no longer saturates the webview's main thread. And the PTY reader moved off the async pool onto its own thread, where a blocking read used to park one worker per open session — the reason keystrokes could stall for seconds with a few tabs open.</li>
+        <li><strong>Agents never received their goal.</strong> The instruction was word-split on its way through the launch chain and the agent CLI took only the first positional, so every agent started with the prompt <span class="amber">Read</span> and the rest was discarded. Some explored the worktree, found the goal file themselves and carried on; others asked "Read what?" and stopped. Which behaviour you got was luck, and it made a missing prompt look like a flaky agent. The prompt now travels in a file, so no quoting has to survive the chain.</li>
+        <li><strong>Every agent was reported as dead.</strong> The liveness probe shelled out to <span class="amber">pgrep -f</span>, which fails for <em>every</em> pattern under some locales: it exits non-zero with empty output while the spawn itself succeeded. The caller answers "dead" by force-killing the session, so healthy agents were destroyed and their slices eventually marked failed. It now uses <span class="amber">ps</span> with basename matching, and every inconclusive answer is treated as alive.</li>
+        <li><strong>Healthy agents were nudged and restarted.</strong> The stall detector read the acceptance gate, a completion metric, as a progress metric, so an agent writing code for four minutes without flipping a check looked stalled. Nudges now require the score flat and nothing written, where "written" includes the agent's own status log, which git cannot see because most repos ignore <span class="amber">*.log</span>.</li>
+        <li><strong>A build could report success while missing a slice.</strong> Recovering an in-flight build rebuilt it from live terminal sessions, so a slice held on a dependency, which by design has no session yet, was silently dropped. The build then went green and merged without it. The plan is now persisted, and a build recovered without it refuses to consolidate.</li>
+        <li><strong>A dead slice no longer stalls the whole build.</strong> A hopeless slice stayed "running", and because consolidation waits for nothing to be running, the build sat there looking healthy. It now gives up after two restarts and says which slice died and why, and consolidation refuses to merge a build with a dead slice rather than shipping the survivors on top of a foundation that never landed.</li>
+        <li><strong>The status pills stopped blinking in chorus.</strong> One tab per session is enforced where tabs are created rather than in each caller, so a double click no longer produces duplicates; and the pills use the sidebar's state vocabulary, where exactly one state animates. Previously both "working" and "waiting" pulsed, so idle sessions read as agents mid-thought.</li>
+        <li><strong>The project list stopped flashing every three seconds.</strong> The status poll rebuilt every row instead of updating the dots, which also restarted the animation on each tick.</li>
+        <li><strong>Opening a new session starts the agent.</strong> It created an empty terminal instead; the same command was used for attaching and for opening.</li>
+        <li><strong>Sessions can be killed from the project page.</strong> There was no control at all.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Removed</h3>
+      <ul>
+        <li><strong>The agent pills in the top bar.</strong> The sidebar already shows each project's agent state, so the strip restated it in a second place.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Patches since 1.13.0</h3>
+      <ul>
+        <li><strong>1.13.1.</strong> A design could get permanently stuck on its own sandbox. Opening it reported "Sandbox did not answer, destroying it and retrying" about a sandbox that was answering: running on the control plane, four hours left on the lease, HTTP 200 on its public URL. The design's own record had lost the sandbox id while the sandbox's state file still had it, and that combination wedges permanently, because reconnecting needs the first and creating a new one is refused by the second. xNAUT now adopts a sandbox it finds running, provided the control plane still knows it and the URL actually answers. The retry message also says why the sandbox did not start; it was a fixed string, so a genuine failure looked exactly like a slow boot.</li>
+        <li><strong>1.13.2 and 1.13.3.</strong> Windows packaging, broken and then fixed properly. 1.13.1 added a retry around macOS DMG packaging, written as a bash function in a step that runs on every platform; Windows runners default to PowerShell, so that leg failed before compiling anything and 1.13.1 shipped with no <span class="amber">.exe</span> or <span class="amber">.msi</span>. Forcing the step to bash fixed that and broke the OpenSSL build instead, by putting MSYS perl ahead of Strawberry Perl. The retry only ever mattered on macOS, so the build step is now split by platform.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      If you install from Homebrew, 1.13.1 and 1.13.2 were macOS-complete; only the Windows artifacts were missing. Windows users should go straight to 1.13.3.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.13.3</a>
+      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.12.0</h2>
+      <span class="rel-date">7 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Run the full agent harness against your own model, and keep terminal sessions alive after the app closes.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Run Claude Code and Codex against a local model.</strong> Opt-in harness routing: when a local endpoint is configured and reachable, an agent is pointed at it instead of a dead default. The full harness, just not Anthropic. An agent is never handed a base URL that does not answer, because a refused socket makes Claude retry silently rather than fail.</li>
+        <li><strong>All three harnesses in the + menu</strong>, each routed its own way: Claude Code, Codex and Pi. Pi uses its own provider config; Codex needs its own model provider setting rather than an environment variable. "Local (your LLM)" also appears in the NautFlow and loom model pickers.</li>
+        <li><strong>Terminal tabs are Zellij-backed and outlive the app.</strong> A named tab runs inside Zellij and detaches on close, so quitting no longer kills a long-running session. Gated behind an opt-in while pane nesting is unfinished.</li>
+        <li><strong>The Validator's acceptance gate is actually executed.</strong> Before this, the only references to the gate in the tree were the prompt that wrote it and the reset that deleted it.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A fresh install started with a dead UI.</strong> A missing element was dereferenced on a path reached only when no chat session had been saved, and the exception stopped the event listeners and the first tab from ever being created. <span class="amber">alert()</span> is a no-op in Tauri's WKWebView, so the error was invisible.</li>
+        <li>Claude local launch failed to spawn, from an empty working directory plus PATH and probe faults.</li>
+        <li>Every harness URL now comes from Settings; nothing is hardcoded. A model mismatch that surfaced as a bare HTTP 400 is now caught and named.</li>
+        <li><span class="amber">write_file</span> creates parent directories. The Agent harness switch sits in AI Providers, not the Tasks Mode tab.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Changed</h3>
+      <ul>
+        <li>Release CI updates the Homebrew cask on every tag, and installs <span class="amber">tauri-cli</span> with <span class="amber">--locked</span>. Without it, transitive dependencies re-resolved per build and a <span class="amber">zune-jpeg</span> bump broke the release.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.11.1</h2>
+      <span class="rel-date">3 August 2026</span>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A new design could never finish its first build.</strong> Spin-up probed the sandbox URL once, right after starting the dev server, and treated a 502 as a dead sandbox, destroying it and retrying. But a 502 there means the tunnel is fine and <span class="amber">npm install</span> is still running, so each retry threw away the install and hit the same wall: the chat looped on "Sandbox did not answer, destroying it and retrying" while the design folder stayed empty. A gateway error is now a reason to wait, with the wait shown in the chat, and only a genuine no-answer destroys and retries. The in-sandbox wait for the dev server to bind also went from 20 seconds to 300; twenty was never enough to install a project's dependencies.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.11.0</h2>
+      <span class="rel-date">2 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Describe something and get a running application on a real domain; no build step, no deploy, just a link you can send. Plus the long-running freeze fixed for good, and two subsystems retired.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Designer.</strong> A tab in the project workspace that turns a sentence into a real, running application on a live hostname. A design is an actual project (Astro, Reveal.js or Next.js depending on what you asked for), scaffolded and edited by an agent, built and served in a sandbox, with the running site in the canvas and the chat beside it. Never a mock: the URL is shareable as it stands.</li>
+        <li><strong>Mobile companion.</strong> Your terminal sessions, files, git status, artifacts, task runner, and the Observatory and Multi-Agent Manager, on your phone over Tailscale. Nothing exposed to the internet.</li>
+        <li><strong>Validator.</strong> Before a build starts, the whole documentation chain is checked for contract coverage, stage completeness, cross-stage consistency, testability and build readiness, and the build is blocked on a FAIL. The report lands in the centre pane and you can talk to the Validator about it.</li>
+        <li><strong>Observatory.</strong> Every live session listed and one click from attaching, run rows that survive a reload, honest local-vs-sandbox labels.</li>
+        <li><strong>Help overlay</strong> for keyboard shortcuts, <strong>command snippets</strong> moved into a dropdown, and a <strong>work-log clock</strong> in the toolbar; one click to start, red while recording, click again for the summary.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The long-running freeze, both halves.</strong> Two independent causes, found weeks apart, in one build for the first time. Terminal output is now coalesced into one merged event per 16 ms, so a streaming agent no longer saturates the webview's main thread. And the PTY reader moved off the async pool onto its own thread, where a blocking read used to park one worker per open session. That is the reason keystrokes could stall for seconds with a few tabs open.</li>
         <li><strong>Agent runs finish when the agent finishes.</strong> A headless <span class="amber">claude -p</span> can sit for minutes after its last message while it tears down. Runs now complete on the result event rather than waiting for the process to exit.</li>
-        <li><strong>Sandboxes are proven, not assumed.</strong> Spin-up starts the dev server, checks the public URL actually answers, and destroys the sandbox if it does not — instead of handing back a link that 502s. Size and lifetime now come from the template manifest rather than hardcoded numbers.</li>
+        <li><strong>Sandboxes are proven, not assumed.</strong> Spin-up starts the dev server, checks the public URL actually answers, and destroys the sandbox if it does not, instead of handing back a link that 502s. Size and lifetime now come from the template manifest rather than hardcoded numbers.</li>
         <li>A single corrupt project manifest no longer blanks the whole Projects board.</li>
       </ul>
     </div>
@@ -95,7 +210,7 @@
     <div class="grp">
       <h3>Removed</h3>
       <ul>
-        <li><strong>Ralph</strong>, the first agent flow. Every part of it had a better owner by now — one shared runner for dispatch, the Observatory for cost, a fetched model catalog for model choice, NautFlow for the pipeline.</li>
+        <li><strong>Ralph</strong>, the first agent flow. Every part of it had a better owner by now: one shared runner for dispatch, the Observatory for cost, a fetched model catalog for model choice, NautFlow for the pipeline.</li>
         <li><strong>The Live Error Monitor.</strong> It only collected while its panel was open, and it could not see agent runs, builds or sandboxes at all.</li>
       </ul>
     </div>
@@ -105,8 +220,7 @@
     </div>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.11.0</a>
-      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.11.0">v1.11.0 on GitHub</a>
     </div>
   </section>
 
@@ -115,9 +229,9 @@
       <h2>Earlier</h2>
     </div>
     <ul class="past">
-      <li><span class="v">1.9.2</span><span class="d">13 Jul 2026</span><span>Freeze diagnostics — backend panics written to a log instead of a silent hang. Per-chunk terminal logging made opt-in.</span></li>
+      <li><span class="v">1.9.2</span><span class="d">13 Jul 2026</span><span>Freeze diagnostics; backend panics written to a log instead of a silent hang. Per-chunk terminal logging made opt-in.</span></li>
       <li><span class="v">1.9.1</span><span class="d">12 Jul 2026</span><span>Project Management over MCP: list, search, read, create and conflict-safe updates of documents in a project vault.</span></li>
-      <li><span class="v">1.9.0</span><span class="d">11 Jul 2026</span><span>Agent Loops — a visual builder with versioned definitions, bounded retries, approval gates and an emergency stop. Project-scoped Docs.</span></li>
+      <li><span class="v">1.9.0</span><span class="d">11 Jul 2026</span><span>Agent Loops, a visual builder with versioned definitions, bounded retries, approval gates and an emergency stop. Project-scoped Docs.</span></li>
     </ul>
     <p style="margin-top:18px;"><a href="https://github.com/48Nauts-Operator/xNaut/releases">Every build, including the 1.10.x line →</a></p>
   </section>
@@ -142,7 +256,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.11.0.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.13.3.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

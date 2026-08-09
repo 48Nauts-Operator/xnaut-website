@@ -224,7 +224,7 @@
     <div class="stage-rail"><div class="stage-num">5</div><div class="stage-line"></div></div>
     <div class="stage-body">
       <h3>Design, before code</h3>
-      <p>For anything with a user interface, a design pass drafts the primary screens as self-contained HTML mocks, rendered live in the centre pane while you steer from a chat beside them. Cheap to change, because nothing has been implemented yet.</p>
+      <p>For anything with a user interface, a <a href="/blog/design-before-code.html">design pass</a> drafts the primary screens as self-contained HTML mocks, rendered live in the centre pane while you steer from a chat beside them. Cheap to change, because nothing has been implemented yet.</p>
       <p>The design agent runs with an explicit craft brief rather than being asked politely for something nice. That brief, which asks for restraint, deliberate spacing, real typographic hierarchy and asymmetry over grid-sameness, is what separates a considered layout from a component-library assembly, and it is doctrine, not a model setting.</p>
     </div>
   </div>
@@ -321,10 +321,18 @@
 
   <h2>Where the work actually runs</h2>
 
-  <p>There is a piece of this that is not xNAUT at all. <strong>GitVM</strong>,
-  which you will also see called <strong>NautLoop</strong>, is the execution
-  surface: isolated sandboxes where an agent's work genuinely runs, rather than
-  everything happening on your laptop and hoping nothing collides.</p>
+  <p>There is a piece of this that is not xNAUT at all.
+  <strong><a href="https://nautloop.com" target="_blank" rel="noopener">NautLoop</a></strong>
+  is a sovereign sandbox platform, and <strong>GitVM</strong> is the fabric
+  underneath it: isolated sandboxes where an agent's work genuinely runs, built
+  on Firecracker microVMs that boot in about two seconds, rather than everything
+  happening on your laptop and hoping nothing collides.</p>
+
+  <p>Sovereign is meant literally rather than as a slogan. Sandboxes are pinned
+  to a jurisdiction across infrastructure in the EU and Switzerland, and the
+  pinning is enforced: Swiss data routes to a Swiss node or the run fails, with
+  no quiet fallback to whichever region happened to be nearest. The control
+  plane starts and stops sandboxes and holds none of your content itself.</p>
 
   <p>The division of labour is deliberate, and xNAUT's half is the small one.
   xNAUT captures the intent, plans the work and triggers the run; GitVM does the
@@ -332,13 +340,15 @@
   the same flow drive work that is far too large or too messy to want anywhere
   near your own machine.</p>
 
-  <p>That deserves its own post rather than a paragraph, and it is the next one.</p>
+  <p>That deserves its own post rather than a paragraph, and it is the next one: <a href="/blog/where-the-agents-run.html">Where the agents actually run</a>.</p>
 
   
   <nav class="more">
     <h3>More in this series</h3>
     <ul>
       <li><a href="/blog/why-nautflow.html">Why NautFlow</a> <span>the origin story</span></li>
+      <li><a href="/blog/design-before-code.html">Design, before code</a> <span>build the interface first</span></li>
+      <li><a href="/blog/where-the-agents-run.html">Where the agents actually run</a> <span>NautLoop and the sandbox fabric</span></li>
       <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key</a> <span>where the ideas came from</span></li>
     </ul>
   </nav>

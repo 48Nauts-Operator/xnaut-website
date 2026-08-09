@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design, before code · xNAUT</title>
+  <meta name="description" content="Most tools take a prompt and start writing files, so you discover the design by reading the output. xNAUT's Designer draws the screens first, you steer them, and only then does anything get built.">
+  <link rel="canonical" href="https://xnaut.dev/blog/design-before-code.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="Design, before code">
+  <meta property="og:description" content="Draw the screens first, steer them, then build. The interface is a contract, not an output.">
+  <meta property="og:url" content="https://xnaut.dev/blog/design-before-code.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="Design, before code">
+  <meta name="twitter:description" content="Draw the screens first, steer them, then build. The interface is a contract, not an output.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
+    .pull p { color: var(--text); font-size: 18px; margin: 0; }
+    .brief { background: var(--panel); border: 1px solid var(--border-card); border-radius: 12px; padding: 20px 24px; margin: 26px 0; }
+    .brief ul { margin: 0; padding-left: 20px; }
+    .brief li { color: var(--text-soft); font-size: 15.5px; line-height: 1.65; margin-bottom: 6px; }
+    .brief li:last-child { margin-bottom: 0; }
+    .note-card { background: var(--panel-deep); border: 1px solid var(--line-strong); border-radius: 14px; padding: 28px; margin-top: 56px; }
+    .note-card .post-eyebrow { margin-bottom: 12px; display: block; }
+    .note-card p { color: var(--text); font-size: 17px; }
+    .note-card p:last-of-type { margin-bottom: 0; }
+    .sig { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-strong); }
+    .more { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .more h3 { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; margin: 0 0 12px; }
+    .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .more a { color: var(--text); text-decoration: none; font-size: 15.5px; }
+    .more a:hover { color: var(--amber); }
+    .more span { color: var(--faint); font-size: 13.5px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Designer</span>
+  <h1>Design, before code</h1>
+  <p class="post-lede">Prompt-to-app tools take a sentence and start writing files, which means you find out what the interface looks like by reading whatever came out. That is backwards. Draw the screens first, argue with them while they are cheap, and only then let anything be built.</p>
+  <p class="post-meta">9 August 2026 · André</p>
+
+  <h2>The interface is a contract too</h2>
+
+  <p>The rest of <a href="/blog/how-nautflow-works.html">NautFlow</a> is built on
+  one stubborn idea: write down what you are building before you build it, and
+  measure the result against that rather than against a model's summary of it.
+  Requirements, architecture, tickets, and an acceptance test written before a
+  line of product code exists.</p>
+
+  <p>The Designer is that same argument applied to the part users actually touch.
+  A screen is a decision about what matters, what is secondary and what is not
+  there at all. Discovering that decision after the code is written means either
+  living with it or paying to undo it.</p>
+
+  <div class="pull">
+    <p>Changing a layout in a mock costs a sentence. Changing it after the API,
+    the state and the tests are shaped around it costs a week.</p>
+  </div>
+
+  <h2>How it works</h2>
+
+  <p>For anything with a user interface, a design pass drafts the primary screens
+  as self-contained HTML mocks. They render live in the centre pane while you
+  steer from a chat beside them. No component library to fight, no toolchain to
+  install, nothing implemented yet. Move it, cut it, ask for a different
+  arrangement entirely, and the cost is the sentence you spent asking.</p>
+
+  <p>Which is the whole point of doing it here rather than later. Cheap to change
+  is not a nice property of the design stage; it <em>is</em> the design stage.</p>
+
+  <h2>The craft brief is doctrine, not a setting</h2>
+
+  <p>Ask a model politely for "a clean, modern interface" and you get the average
+  of every interface it has seen. That average is real and recognisable: rounded
+  cards in a neat grid, a hero, an accent colour doing all the work, and the
+  distinct feeling that a component library assembled itself while nobody was
+  looking.</p>
+
+  <p>So the design agent runs with an explicit craft brief instead:</p>
+
+  <div class="brief">
+    <ul>
+      <li><strong>Restraint.</strong> Fewer elements, more considered. When in doubt, remove.</li>
+      <li><strong>Deliberate spacing.</strong> Tight to group, generous to let things breathe. Not one uniform gap everywhere.</li>
+      <li><strong>Real typographic hierarchy.</strong> Weight and scale doing the work, so the eye knows where to land.</li>
+      <li><strong>Asymmetry over grid-sameness.</strong> A layout with a point of view, not four equal columns because there were four things.</li>
+    </ul>
+  </div>
+
+  <p>That brief is what separates a considered layout from a component-library
+  assembly, and it is doctrine rather than a model setting. It does not live in a
+  preferences panel where it can be forgotten. It is part of what the design
+  agent is, every time it runs.</p>
+
+  <h2>And then it is a real thing</h2>
+
+  <p>The part people tend not to believe until they see it: what comes out is not
+  a picture of an app. It is reachable. There is no separate publish step to
+  remember, no build-and-deploy dance between "I like this" and "someone else can
+  look at it".</p>
+
+  <p>That changes what the design stage is for. A mock you can send someone gets
+  real feedback, because they are reacting to the thing rather than imagining it
+  from a screenshot. Most of the useful corrections I have had on interfaces
+  arrived within a minute of someone actually clicking something.</p>
+
+  <h2>What it is not</h2>
+
+  <p>It is not a replacement for a designer. It is a way to get to the argument
+  faster, with something concrete to argue about. The taste still has to come from
+  somewhere, which is why the brief above exists in the first place.</p>
+
+  <p>And it is not an excuse to skip the documents. The design pass sits inside
+  the flow, after the requirements and the hostile review, not instead of them. A
+  beautiful screen for the wrong product is still the wrong product.</p>
+
+  <nav class="more">
+    <h3>More in this series</h3>
+    <ul>
+      <li><a href="/blog/why-nautflow.html">Why NautFlow</a> <span>the origin story</span></li>
+      <li><a href="/blog/how-nautflow-works.html">How NautFlow works</a> <span>the flow, stage by stage</span></li>
+      <li><a href="/blog/where-the-agents-run.html">Where the agents actually run</a> <span>NautLoop and the sandbox fabric</span></li>
+      <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key</a> <span>where the ideas came from</span></li>
+    </ul>
+  </nav>
+
+  <div class="note-card">
+    <span class="post-eyebrow">A note from the author</span>
+    <p>I have shipped enough interfaces that were technically correct and
+    unpleasant to use to know the difference is not effort, it is whether anyone
+    made a decision. A design that looks like every other design usually means
+    nobody chose anything. That is the failure the brief exists to prevent, and it
+    applies to me as much as to the agent.</p>
+    <p class="sig">André</p>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

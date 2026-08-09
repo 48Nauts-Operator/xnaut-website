@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where the agents actually run · xNAUT</title>
+  <meta name="description" content="NautLoop and GitVM: sovereign sandboxes for AI agents. Firecracker microVMs that boot in about two seconds, pinned to a jurisdiction, with a control plane that holds none of your data.">
+  <link rel="canonical" href="https://xnaut.dev/blog/where-the-agents-run.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="Where the agents actually run">
+  <meta property="og:description" content="NautLoop and GitVM: sovereign sandboxes for AI agents, pinned to a jurisdiction, with a control plane that holds none of your data.">
+  <meta property="og:url" content="https://xnaut.dev/blog/where-the-agents-run.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="Where the agents actually run">
+  <meta name="twitter:description" content="NautLoop and GitVM: sovereign sandboxes for AI agents, pinned to a jurisdiction, with a control plane that holds none of your data.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
+    .pull p { color: var(--text); font-size: 18px; margin: 0; }
+    .layers { width: 100%; border-collapse: collapse; margin: 24px 0 8px; font-size: 15px; }
+    .layers th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 600; padding: 0 12px 10px 0; border-bottom: 1px solid var(--line); }
+    .layers td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); color: var(--text-soft); vertical-align: top; }
+    .layers td:first-child { color: var(--text); font-weight: 600; white-space: nowrap; }
+    .note-card { background: var(--panel-deep); border: 1px solid var(--line-strong); border-radius: 14px; padding: 28px; margin-top: 56px; }
+    .note-card .post-eyebrow { margin-bottom: 12px; display: block; }
+    .note-card p { color: var(--text); font-size: 17px; }
+    .note-card p:last-of-type { margin-bottom: 0; }
+    .sig { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-strong); }
+    .more { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .more h3 { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; margin: 0 0 12px; }
+    .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .more a { color: var(--text); text-decoration: none; font-size: 15.5px; }
+    .more a:hover { color: var(--amber); }
+    .more span { color: var(--faint); font-size: 13.5px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Platform</span>
+  <h1>Where the agents actually run</h1>
+  <p class="post-lede">The last post ended on a piece that is not xNAUT at all. If agents are going to do real work, they need somewhere real to do it, and "your laptop, hopefully nothing collides" stops being an answer quite quickly. This is NautLoop, and the sandbox fabric underneath it.</p>
+  <p class="post-meta">9 August 2026 · André</p>
+
+  <h2>The problem with running agents on your machine</h2>
+
+  <p>An agent that can install packages, start servers, run migrations and delete
+  files is doing exactly what you asked it to do. The question is where. On your
+  laptop the blast radius is your laptop, several agents share one filesystem and
+  one set of ports, and the honest answer to "what did it touch" is that you are
+  not entirely sure.</p>
+
+  <p><a href="/blog/how-nautflow-works.html">NautFlow</a> handles part of this
+  with git worktrees, which is genuine isolation for source code and no isolation
+  at all for anything else. Two agents cannot edit the same file. They can both
+  bind port 3000, both write to the same database, and both install conflicting
+  global tooling.</p>
+
+  <div class="pull">
+    <p>A worktree isolates the code. It does nothing about the machine the code
+    is running on.</p>
+  </div>
+
+  <h2>GitVM: the sandbox fabric</h2>
+
+  <p><strong>GitVM</strong> is the layer that fixes that. Isolated, policy-governed
+  sandboxes built on <strong>Firecracker microVMs</strong>, template-based, booting
+  in around two seconds. Not containers sharing a kernel with each other and with
+  you, and not a full VM you wait a minute for.</p>
+
+  <p>Two seconds matters more than it sounds. A sandbox that takes a minute to
+  start is a resource you allocate carefully and reuse. A sandbox that starts in
+  two seconds is disposable, and disposable is what makes it safe: every run gets
+  a clean one, and nothing an agent did survives into the next job unless you
+  explicitly took it out.</p>
+
+  <p>That last point has a sharp edge worth naming. Teardown is real. If work is
+  left in a sandbox and the sandbox goes away, so does the work, which is why
+  pulling results out before stopping is part of the flow rather than an
+  afterthought.</p>
+
+  <h2>Jurisdiction, and why it is not a checkbox</h2>
+
+  <p>The reason I built this rather than renting somebody's agent cloud: for the
+  Swiss and German work I do, "where does the data live" is a question with a
+  legal answer, not a preference.</p>
+
+  <p>So the infrastructure spans two countries on purpose. <strong>Hetzner</strong>
+  for the EU, in Falkenstein and Helsinki. <strong>Infomaniak</strong> for
+  Switzerland. Sandboxes are pinned to a jurisdiction, and the pinning is
+  enforced rather than promised: Swiss data routes to a Swiss node, or it fails.
+  Not "falls back to the nearest region". Fails.</p>
+
+  <p>A fallback would be the more forgiving design and the wrong one. A silent
+  region fallback is exactly the failure you would never notice until it was a
+  problem, and by then it has already happened.</p>
+
+  <h2>The four layers</h2>
+
+  <p>NautLoop is the umbrella and the control plane. Underneath it there are four
+  parts, and they divide up like this:</p>
+
+  <table class="layers">
+    <thead><tr><th>Layer</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>NautLoop</td><td>The control plane. EU-stationed, launches and manages sandboxes per region, and holds no tenant data of its own.</td></tr>
+      <tr><td>GitVM</td><td>The sandbox fabric. Firecracker microVMs, roughly two-second boot, jurisdiction-pinned, built from templates.</td></tr>
+      <tr><td>NautGate</td><td>The per-node LLM gateway. Routing, per-tenant metering, and a model route-lock so a node can only reach the models it is allowed to.</td></tr>
+      <tr><td>Engram</td><td>Mesh and memory. Signed messaging between agents, and knowledge that persists across runs instead of being rediscovered every time.</td></tr>
+    </tbody>
+  </table>
+
+  <p>The control plane holding no data is the part I would push back on if someone
+  else claimed it, so: content lives only inside the sandbox that touched it. The
+  control plane starts things and stops things. It is not a place your work is
+  stored, which means it is not a place your work can leak from.</p>
+
+  <h2>Where xNAUT sits in this, honestly</h2>
+
+  <p>It would be flattering to describe xNAUT as the brain of the platform. It is
+  not. <strong>xNAUT is one use-case running on it.</strong></p>
+
+  <p>The swarm loop, the thing this blog has mostly been about, is a single
+  pattern among several. Private voice transcription on local models is another,
+  running with zero egress. Sovereign accounting and PII anonymisation are
+  verticals in progress. The platform is the product; the coding swarm is one
+  application of it.</p>
+
+  <p>I got this wrong in my own documentation for a while, with xNAUT drawn as the
+  orchestration brain and the platform as plumbing underneath. It is the other way
+  round, and the correction changed how the whole thing is built.</p>
+
+  <p>One consequence worth knowing if you use xNAUT: bring-your-own subscription,
+  where you run agents on your own Claude or Codex plan, applies to the swarm.
+  The sovereign verticals run on local open models instead. No frontier provider,
+  no key leaving the node.</p>
+
+  <h2>What this means for a build</h2>
+
+  <p>Practically: xNAUT captures the intent, plans the work and triggers the run.
+  GitVM does the heavy lifting and hands back a branch. Keeping the workspace thin
+  is deliberate, and it is what lets the same flow drive work that is far too
+  large, too long-running or too messy to want anywhere near your own machine.</p>
+
+  <p>The parts of this you can use today are the swarm loop and the transcription
+  use-case. The verticals are coming. As with everything else here, I would rather
+  tell you which is which than let the roadmap and the product blur together.</p>
+
+  <nav class="more">
+    <h3>More in this series</h3>
+    <ul>
+      <li><a href="/blog/why-nautflow.html">Why NautFlow</a> <span>the origin story</span></li>
+      <li><a href="/blog/how-nautflow-works.html">How NautFlow works</a> <span>the flow, stage by stage</span></li>
+      <li><a href="/blog/design-before-code.html">Design, before code</a> <span>build the interface first</span></li>
+      <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key</a> <span>where the ideas came from</span></li>
+    </ul>
+  </nav>
+
+  <div class="note-card">
+    <span class="post-eyebrow">A note from the author</span>
+    <p>Sovereignty gets used as a marketing word, so here is the test I hold this
+    to: can I show a client which physical machine, in which country, touched
+    their data, and can I show that the alternative was refused rather than
+    quietly permitted? If the answer is a diagram instead of a hostname, it is
+    not sovereignty. It is a brochure.</p>
+    <p class="sig">André</p>
+  </div>
+
+</article>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

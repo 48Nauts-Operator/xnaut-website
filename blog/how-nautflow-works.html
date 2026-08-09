@@ -60,6 +60,11 @@
     .artifact-list .fname { font-family: var(--mono); font-size: 12.5px; color: var(--amber); flex-shrink: 0; min-width: 168px; }
 
     .figure { margin: 34px 0 8px; }
+    .figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line-strong); border-radius: 10px; }
+    .figure a { display: block; }
+    /* Dense UI screenshots are unreadable squeezed into a 720px column, so the
+       landscape ones break out of it on wide viewports. */
+    .figure--wide { width: min(1120px, 92vw); margin-left: 50%; transform: translateX(-50%); }
     .figure svg { width: 100%; height: auto; display: block; }
     .figure figcaption { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 10px; }
     .fg-box { fill: var(--panel); stroke: var(--line-strong); }
@@ -271,8 +276,8 @@
 
   <p><strong>You can watch, and you can intervene.</strong> The terminals are right there. You can read what an agent is doing and type into its session. Nothing is hidden behind an abstraction that only reports success.</p>
 
-  <figure class="figure">
-    <img src="/assets/observatory.png" alt="The Observatory in xNAUT listing thirteen active agents, each a named terminal session with the command to attach to it, alongside plan usage meters and the status of a running multi-agent swarm." loading="lazy" width="1005" height="1907">
+  <figure class="figure figure--wide">
+    <a href="/assets/observatory.png" target="_blank" rel="noopener" title="Open full size"><img src="/assets/observatory.png" alt="The Observatory in xNAUT listing thirteen active agents, each a named terminal session with the command to attach to it, alongside plan usage meters and the status of a running multi-agent swarm." loading="lazy" width="1907" height="1005"></a>
     <figcaption>The Observatory: thirteen agents running at once, each a real terminal session you can attach to with one click. Plan consumption is across the top, because agents cost money and a number you cannot see is a number you will be surprised by.</figcaption>
   </figure>
 
@@ -325,12 +330,12 @@
   </div>
 
   <figure class="figure">
-    <img src="/assets/nautflow-logs.png" alt="The Build log tab in xNAUT showing 48 events from a four-slice build, with DEBUG, INFO, WARN and ERROR counts across the top, a sidebar listing each slice as a filterable source, and lines reporting gate scores such as 24 of 35." loading="lazy" width="1222" height="964">
+    <a href="/assets/nautflow-logs.png" target="_blank" rel="noopener" title="Open full size"><img src="/assets/nautflow-logs.png" alt="The Build log tab in xNAUT showing 48 events from a four-slice build, with DEBUG, INFO, WARN and ERROR counts across the top, a sidebar listing each slice as a filterable source, and lines reporting gate scores such as 24 of 35." loading="lazy" width="964" height="1222"></a>
     <figcaption>A real build, mid-run. The gate reports <strong>24/35</strong> rather than pass or fail, which is what lets you tell progress from thrashing. The amber line is the plateau nudge firing: <em>gate flat and nothing written for 2 checks</em>. Lower down the manager recovers its plan and reports three slices running with one still waiting on a dependency.</figcaption>
   </figure>
 
   <figure class="figure">
-    <img src="/assets/nautflow-files.png" alt="The Files tab showing five changed files on a slice branch measured from its merge base, with an inline diff of the goal file the agent was given." loading="lazy" width="1222" height="963">
+    <a href="/assets/nautflow-files.png" target="_blank" rel="noopener" title="Open full size"><img src="/assets/nautflow-files.png" alt="The Files tab showing five changed files on a slice branch measured from its merge base, with an inline diff of the goal file the agent was given." loading="lazy" width="963" height="1222"></a>
     <figcaption>The same build's Files tab: <strong>5 files, +135</strong> measured from the merge base, against <strong>0 commits</strong>. A working-folder view would have called that agent idle. The open diff is the goal file itself, including the shared-notes protocol every agent on the project reads before it starts.</figcaption>
   </figure>
 

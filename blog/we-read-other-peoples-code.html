@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>We read other people's code — xNAUT</title>
-  <meta name="description" content="xNAUT's build stage got four upgrades this week. None of the ideas were ours. Here's where they came from, what's coming next, and why we say so out loud.">
+  <title>Community feedback is key to building a great open-source product — xNAUT</title>
+  <meta name="description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea — here is what research and community feedback changed, and what is coming next.">
   <link rel="canonical" href="https://xnaut.dev/blog/we-read-other-peoples-code.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="xNAUT">
-  <meta property="og:title" content="We read other people's code">
-  <meta property="og:description" content="Four upgrades to xNAUT's build stage. None of the ideas were ours — here's where they came from, and what's coming next.">
+  <meta property="og:title" content="Community feedback is key to building a great open-source product">
+  <meta property="og:description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea — here is what research and community feedback changed, and what is coming next.">
   <meta property="og:url" content="https://xnaut.dev/blog/we-read-other-peoples-code.html">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@xnautdev">
-  <meta name="twitter:title" content="We read other people's code">
-  <meta name="twitter:description" content="Four upgrades to xNAUT's build stage. None of the ideas were ours — here's where they came from, and what's coming next.">
+  <meta name="twitter:title" content="Community feedback is key to building a great open-source product">
+  <meta name="twitter:description" content="Eight upgrades to xNAUT's build stage. Most began as someone else's better idea — here is what research and community feedback changed, and what is coming next.">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/style.css?v=3">
@@ -71,8 +71,8 @@
 <article class="post">
 
   <span class="post-eyebrow">Engineering</span>
-  <h1>We read other people's code</h1>
-  <p class="post-lede">Eight upgrades are landing in xNAUT's build stage in v1.13. Not one of the ideas was ours. Here is where each came from, what it does for you, and why we would rather say that out loud than pretend otherwise.</p>
+  <h1>Community feedback is key to building a great open-source product</h1>
+  <p class="post-lede">Eight upgrades are landing in xNAUT's build stage in v1.13. Almost none of them started as our idea. They came out of reading widely, testing what other people had already learned the hard way, and letting better approaches win — which is the part of open source we think matters most.</p>
   <p class="post-meta">8 August 2026 · 48Nauts</p>
 
   <h2>The problem we admitted to</h2>
@@ -81,7 +81,7 @@
 
   <p>What we finally admitted is that <strong>the manager watching them was blind.</strong> It reported things that were technically true and told you nothing useful: a gate that answered yes or no, a timer that interrupted every agent every five minutes regardless of what they were doing, agents that could not see each other's findings, and a build slice that could never actually fail — so a dead build looked exactly like a slow one.</p>
 
-  <p>Rather than invent our way out, we went and read how other people had solved the same five problems.</p>
+  <p>Rather than invent our way out, we went looking for how these problems had already been solved — in research codebases, in other tools, and in what people told us was not working for them. Most of what follows started as someone else's better answer.</p>
 
   <h2>Landing in v1.13</h2>
 
@@ -91,28 +91,24 @@
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Your build gate now has a score, not a verdict</h3></div>
     <p>The acceptance gate was always running real checks — it just collapsed them to pass or fail at the last step. "Four checks failing" and "forty checks failing" were the same answer, so nothing watching could tell steady progress from going in circles.</p>
     <p>It now reports how many checks pass out of how many. Same checks, same output — we just stopped throwing away the part with direction in it.</p>
-    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0)</div>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Scores describe a commit, not a moment</h3></div>
     <p>The detail we would have got wrong unaided: the gate runs against a throwaway checkout of one specific commit, not the live folder. Score the folder your agent is actively saving into and the number drifts for reasons that have nothing to do with progress.</p>
     <p>Small distinction. It is the difference between a measurement and a rumour.</p>
-    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0)</div>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Agents are interrupted when they stall, not on a timer</h3></div>
     <p>The old behaviour nudged every agent every five minutes. That is wrong twice over: it breaks the concentration of one that is making progress, and it leaves one that has been stuck since the first minute alone for four more.</p>
     <p>Now the score is tracked over time, and an agent is only interrupted when it <strong>stops improving</strong>. When it is, the message quotes the exact checks that are failing — the gate already knows, so there is no reason to make the agent go looking.</p>
-    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0)</div>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Agents can read each other's notes</h3></div>
     <p>Three agents working in parallel used to be completely blind to one another, so each could independently discover the same broken assumption and each pay for it. They now share a notes directory.</p>
     <p>Here we deliberately did <em>not</em> copy what we found. The original scopes those notes to a single run and deletes them afterwards, which suits a research tool. Ours are scoped to the project and kept — because the second person to read them is you, weeks later, and they belong in your vault where you can search them on your phone.</p>
-    <div class="credit">Idea from <a href="https://github.com/Human-Agent-Society/CORAL" rel="noopener">Human-Agent-Society/CORAL</a> (Apache 2.0), scoped differently</div>
   </div>
 
   <h2>And four more, same release</h2>
@@ -122,40 +118,51 @@
     <p>Today our planner is told to split a build only into pieces that are genuinely independent, because there was no way to express "the API needs the database schema first". That caps how much can run in parallel, and it forces genuinely sequential work into one long slice.</p>
     <p>A piece can now declare what it depends on. Independent work still runs at full width; dependent work waits instead of guessing — and if a foundation fails, everything built on it is marked unreachable and <strong>never starts</strong>, instead of producing an hour of confidently wrong code.</p>
     <p>A waiting slice holds no worktree at all, so a slice that turns out unreachable leaves nothing behind to clean up.</p>
-    <div class="credit">Execution model from <a href="https://github.com/lamalab-org/corral" rel="noopener">lamalab-org/corral</a> (BSD 3-Clause)</div>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Bad plans are rejected before anything runs</h3></div>
     <p>We had designed this to detect an impossible plan while the build was running. Then we read someone else's, which checks the plan the moment it is written — every dependency must exist, loops are refused, depth is capped.</p>
     <p>Strictly better — and it changed our design before we shipped it. A plan is already wrong the second it is written; that is when you should be told, not forty minutes later.</p>
-    <div class="credit">Validation approach from <a href="https://github.com/cdknorow/coral" rel="noopener">cdknorow/coral</a> (Apache 2.0)</div>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>A build slice that can honestly fail</h3></div>
     <p>A failed agent used to be restarted forever, which meant a broken build was indistinguishable from a slow one and never finished — it sat there looking healthy. It now gives up after two attempts and says which slice died and why. Consolidation refuses to merge a build with a dead slice in it, rather than shipping whatever the survivors managed on top of a foundation that never landed.</p>
-    <div class="credit">Ours — found while implementing the two above</div>
   </div>
 
   <div class="change">
     <div class="change-top"><span class="tag now">In v1.13</span><h3>Codex spend, tracked like Claude spend</h3></div>
     <p>We already read how much of your Codex <em>plan</em> you have consumed — but not what an individual session cost, which is the question once you can pick your provider per session. Codex writes its own transcripts, so now we read them: tokens in, cached, out, and an estimate per session.</p>
     <p>One detail worth stating: cached input is billed at a fraction of fresh input, and on long sessions it dominates — one real transcript here was 179M cached of 189M input. Ignoring that distinction would overstate a session roughly tenfold. And the figure is a list-price estimate, not a bill: on a subscription the marginal cost is zero, so it means “what this would have cost on the API”.</p>
-    <div class="credit">Approach from <a href="https://github.com/cdknorow/coral" rel="noopener">cdknorow/coral</a> (Apache 2.0)</div>
   </div>
 
-  <h2>Why we credit all of it</h2>
+  <h2>Why research beats invention</h2>
 
-  <p>It would be easy to ship these as "new in xNAUT" and say nothing. We would rather not, for two reasons.</p>
+  <p>It would be easy to ship these as "new in xNAUT" and leave it there. We would
+  rather be straight about the method: <strong>reading widely is the method</strong>,
+  not an embarrassing shortcut on the way to a real one.</p>
 
-  <p>The first is simply that it is true, and the projects above deserve the traffic. The second is more practical: <strong>reading other people's solutions is the method</strong>, not an embarrassing shortcut on the way to a real one. Three of these changes exist because three separate teams solved the same problem differently, and seeing the differences was what made the right answer obvious.</p>
+  <p>Three of these changes exist because three separate teams had solved the same
+  problem in three different ways, and seeing the differences side by side was what
+  made the right answer obvious. One of them corrected a design we were a day away
+  from building — we would never have found that by thinking harder about our own
+  code.</p>
 
   <div class="pull">
-    <p>One of them corrected a design we were a day away from building. We would never have found that by thinking harder about our own code.</p>
+    <p>The best feedback rarely arrives as a feature request. It arrives as someone
+    else's working solution to a problem you had convinced yourself was hard.</p>
   </div>
 
-  <p>So we are making it a habit rather than an accident: read a good codebase, regularly, and write down where every idea came from. You will see more posts like this one.</p>
+  <p>The same is true of the feedback that comes directly. Several of the sharpest
+  corrections this cycle came from people simply describing what did not work for
+  them — a build that looked healthy while it was stuck, a number that told them
+  nothing, an agent interrupted while it was doing fine. None of that arrived as a
+  bug report. It arrived as a complaint, which is usually the more honest form.</p>
+
+  <p>So we are making it a habit rather than an accident: read good code regularly,
+  listen to what people are actually frustrated by, and let the better approach win
+  even when it is not ours. You will see more posts like this one.</p>
 
   <div class="note-card">
     <span class="post-eyebrow">A note from the author</span>

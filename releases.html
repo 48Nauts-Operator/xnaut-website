@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.13.6, in which the Designer finally works without a sandbox.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.13.9, in which the Settings panel becomes reachable by keyboard and screen reader.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.13.6, in which the Designer finally works without a sandbox.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.13.9, in which the Settings panel becomes reachable by keyboard and screen reader.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,8 +66,93 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.13.6</h2>
+      <h2>v1.13.9</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">10 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The Settings panel could not be reached by keyboard or by a screen reader. All seven sections were plain <span class="amber">div</span>s: no role, no tab stop, no accessible name. It was found by the release test, which refused to press them rather than guess which one it was pressing, and the honest reading of that refusal was that the app was at fault, not the test.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The Settings sections are real buttons.</strong> AI, Tasks Mode, Appearance, Keyboard Shortcuts, Mobile, Nautify and Triggers now have a role, a tab stop and a name each, so you can tab to them and a screen reader can announce them. Hardening the test around the defect would have been fixing the wrong thing.</li>
+        <li><strong>Each section carries its own name, because visible text is not an address.</strong> "AI" is a substring of "Explain Screen", so the visible label is ambiguous and matching it could land on the wrong control. The close control had the same problem in a worse form: its only accessible name was <span class="amber">×</span>, which every tab close button also carries.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Also in this line</h3>
+      <ul>
+        <li><strong>The release test walks two levels deeper.</strong> It used to open each top-bar icon and stop, so every surface that is itself a menu counted as one control and its contents counted nowhere. It now replays a click path from a fresh page load, which also stops one broken surface poisoning every surface after it. What the app renders went from 351 controls to 1332; what the smoke test actually presses went from 11 of 150 to 19 of 157. The second number is smaller than it was flattering to believe, which is the point of measuring it.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.13.9</a>
+      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.13.8</h2>
+      <span class="rel-date">10 August 2026</span>
+    </div>
+
+    <p class="rel-lead">A fresh install was told it was broken. Open the Projects panel on a machine that has never configured Project Management and it painted a red error box, "Project Management module is disabled", with a Retry button that repainted the same box forever. That is the default state of a new install, so the first thing xNAUT said to a first-run user was that something had failed.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>An unconfigured module reads as setup, not as failure.</strong> The bug was ordering, not the backend. The panel asked for data first, every data call returns an error while the module is off, and so the one call that explains <em>why</em> was never made at all. A single catch block then treated "not set up yet" exactly like "the git command blew up". Status is now read first, and an unconfigured module gets a neutral empty state, the backend's own reason as the explanation, and an Open Settings button that deep-links the right card. A real failure still gets the red box, which is correct.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Also in this line</h3>
+      <ul>
+        <li><strong>A dashboard for test runs.</strong> One page over a directory of runs: the task that was sent, the agent's write-up as markdown, every screenshot, the video, and the bugs found across every run rather than only the last one. Statuses are passed, failed and <em>untested</em>, and untested is the point: folding "nothing was running to test" into passed reports a green run that tested nothing.</li>
+        <li><strong>Three test stubs were lying.</strong> Two of them described backend responses with fields the backend cannot return, so every test that touched those screens was passing against a shape that does not exist. A stub that lies is not a weak test, it is a test of something else.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.13.8">v1.13.8 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.13.7</h2>
+      <span class="rel-date">10 August 2026</span>
+    </div>
+
+    <p class="rel-lead">If your Mac runs macOS in Light appearance, xNAUT came up light, and the Appearance picker could not put it back. Reported from a machine where it had presumably always been true. Along with it, two errors the interface threw during ordinary use, both invisible because neither one stopped anything.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A Light-appearance Mac could hijack the whole UI.</strong> The stylesheet carried a light palette behind a system-appearance query, guarded so that anything explicitly choosing a theme would win. Nothing ever chose one. The guard therefore always matched, and every machine set to Light got the light token set for the entire app. The Appearance picker could not undo it because it recolours terminals and touches no theme token at all. The theme is now pinned, and light stays reachable for a future toggle.</li>
+        <li><strong>Two errors thrown while using the interface.</strong> The LLM provider submenu threw twice on every pass over the UI, from reading a property off something that is not an element. The worktree agent dropdown threw whenever the agent list came back empty, leaving it blank and unusable. Neither surfaced as a visible failure, which is why both survived: the console check in the test suite only looks for a different class of error, so a <span class="amber">TypeError</span> passed it silently.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Also in this line</h3>
+      <ul>
+        <li><strong>The test suite ran on nothing.</strong> <span class="amber">npm test</span> was pointed at a hardcoded Linux browser path, so on macOS it was dead. The release scenarios are now written from the user guide rather than from the code, and the app is served against a stub so every control it renders can be enumerated and counted.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.13.7">v1.13.7 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.13.6</h2>
       <span class="rel-date">9 August 2026</span>
     </div>
 
@@ -107,8 +192,7 @@
     </div>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.13.6</a>
-      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.13.6">v1.13.6 on GitHub</a>
     </div>
   </section>
 
@@ -304,7 +388,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.13.6.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.13.9.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

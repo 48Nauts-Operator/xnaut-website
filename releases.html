@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.13.9, in which the Settings panel becomes reachable by keyboard and screen reader.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.14.0, in which build slices are held to what they promised to produce.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.13.9, in which the Settings panel becomes reachable by keyboard and screen reader.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.14.0, in which build slices are held to what they promised to produce.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,8 +66,71 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.13.9</h2>
+      <h2>v1.14.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">14 August 2026</span>
+    </div>
+
+    <p class="rel-lead">A build stage that stops reporting success it did not have. Slices now declare what they are supposed to produce and are held to it, a failing slice fails instead of restarting forever, and verification runs where the work ran rather than being asserted afterwards.</p>
+
+    <div class="grp">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Verification where the work happened.</strong> The Sandbox Verify module is wired to the ticket panel, and Loops runs are bridged into GitVM sandbox verification. A run is now checked in the environment that produced it, instead of being reported finished and believed.</li>
+        <li><strong>Build slices declare their output ports, and are gated on delivering them.</strong> The typed handoff between slices was decorative: a declared type was never checked, and an explicit null counted as a produced value. Both are now real, so a slice that promises an artifact and returns nothing fails at the boundary rather than three steps later.</li>
+        <li><strong>A failing slice has a real failure state.</strong> Restarts were previously unbounded, which reads as work in progress and is not.</li>
+        <li><strong>The decision log.</strong> Decisions are recorded, summarised by an agent reading the build log, and read back as a brief. Settled entries are marked, because a summariser that keeps reporting fixed bugs as live is worse than no summary.</li>
+        <li><strong>Agents read what past runs learned.</strong> Engram recall is scoped strictly to the current project, so one project's lessons do not leak into another's context.</li>
+        <li><strong>Per-account usage labelling</strong> in the footer, and constrained Vault document tools in the MCP.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The update banner offered to update a version to itself, and covered the top bar while doing it.</strong> The version it compared against was a constant last edited at 1.5.0, so every release after that one concluded an update existed, including the one already running. Worse and entirely separate: the banner was fixed to the top of the window with no layout offset, so it sat <em>on</em> the toolbar. Measured rather than assumed, all nine top-bar controls returned the banner instead of themselves, and the only way out was the small dismiss button. That half landed on every user the moment a genuine update existed.</li>
+        <li><strong>A work log no longer dies with the app.</strong> The session was always written to disk; only the in-memory pointer to it was lost on quit. So the monitor stopped recording silently, the file stayed marked active forever, and the hours vanished from the project dashboard. On restart xNAUT now offers the session back, newest first, and asks. It never resumes by itself: time passes between the close and the relaunch that nobody worked, and where several logs were left open, adopting the newest silently would close whichever one was real.</li>
+        <li><strong>Local AI providers ignored the endpoint you configured.</strong> The address was a literal in the source, so a machine running LM Studio on any other port was told the connection was refused, naming a port that appears nowhere in its settings. The setting was right and the code was not reading it. The failure message now names the endpoint actually dialled.</li>
+        <li>A new NAUT-Flow case no longer copies the previous one, and the Knowledge Graph names the command and path when a scan returns nothing instead of reporting a null property error.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Removed</h3>
+      <ul>
+        <li><strong>AntBot.</strong> Both AI paths tried it before the provider you configured, which is why a missing binary was the first half of every AI error message. "Explain command" used to type a CLI invocation into your terminal, so the feature only worked if that CLI happened to be installed and it left a command in your shell history that you did not write. It now asks your configured provider and answers in the chat panel.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.14.0">v1.14.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.13.10</h2>
+      <span class="rel-date">10 August 2026</span>
+    </div>
+
+    <p class="rel-lead">A control that cannot be addressed by name cannot be tested, and seven screens went unchecked on every release because of one word.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The Settings menu item could not be pressed by name.</strong> The accessibility matcher works by substring, and three other controls contain the word: the Open Settings button added in 1.13.8, plus macOS's own "System Settings…" and "Show System Settings in Finder", which sit in the accessibility tree of every Mac app. Rather than guess which one it meant, the release test refused to press any of them, so all seven Settings sections went untested from that release onward. The item is now named "xNAUT settings", which collides with none of them.</li>
+        <li><strong>A guard test now covers every control the smoke test presses</strong>, not only the close buttons. A fix in 1.13.8 made a control unaddressable in 1.13.9 and nothing caught it until someone ran the test by hand against the shipped build.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.13.10">v1.13.10 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.13.9</h2>
       <span class="rel-date">10 August 2026</span>
     </div>
 
@@ -89,7 +152,7 @@
     </div>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.13.9</a>
+      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download v1.14.0</a>
       <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs">Read the docs</a>
     </div>
   </section>
@@ -388,7 +451,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.13.9.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.14.0.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

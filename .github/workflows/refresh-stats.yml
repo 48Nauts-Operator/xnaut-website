@@ -1,0 +1,90 @@
+name: Refresh release stats
+
+# The stats band on the home page shows live download and release counts fetched
+# from the GitHub API by js/main.js, and falls back to numbers baked into the
+# markup when that fetch fails. It fails often: the call is unauthenticated, so
+# it is capped at 60 requests an hour per IP and rate limiting is routine.
+#
+# Those fallbacks are only honest if something refreshes them. Nothing did. They
+# were written on 2026-08-07 as 513 downloads across 25 releases and were still
+# saying that a week later, by which point the real figures were 723 across 38.
+# xnaut's own release.yml carries a comment promising to refresh them "once per
+# release" followed by no step at all: the intent was written down and the work
+# never was.
+#
+# It lives here rather than in the xnaut repo on purpose. From there it would
+# need a cross-repo token, and the only one that exists is scoped to the
+# Homebrew tap and must stay that way. This repo's own GITHUB_TOKEN can write to
+# this repo, and an authenticated API call gets 1000 requests an hour instead of
+# 60, so the numbers are also more reliable here than in the browser.
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-stats
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the real counts and rewrite the fallbacks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # --paginate matters. There are more than 30 releases, and the API
+          # returns 30 per page by default, so an unpaginated call silently
+          # undercounts: 38 releases read as 25 or 30, and the download total
+          # drops by hundreds. That is exactly what the stale figures looked
+          # like, which is how a truncated read and a lost record become
+          # indistinguishable to whoever is reading the page.
+          gh api repos/48Nauts-Operator/xNaut/releases --paginate > /tmp/releases.json
+
+          RELEASES=$(jq -s 'add | length' /tmp/releases.json)
+          DOWNLOADS=$(jq -s 'add | [.[].assets[].download_count] | add // 0' /tmp/releases.json)
+
+          echo "releases=$RELEASES downloads=$DOWNLOADS"
+
+          # Refuse to write a number that is obviously wrong rather than
+          # replacing a stale figure with a broken one.
+          if [ "$RELEASES" -lt 1 ] || [ "$DOWNLOADS" -lt 1 ]; then
+            echo "refusing to write releases=$RELEASES downloads=$DOWNLOADS"
+            exit 1
+          fi
+
+          RELEASES="$RELEASES" DOWNLOADS="$DOWNLOADS" python3 - <<'PY'
+          import os, re, pathlib
+          p = pathlib.Path('index.html')
+          s = p.read_text()
+          d = f"{int(os.environ['DOWNLOADS']):,}"
+          r = f"{int(os.environ['RELEASES']):,}"
+          s, nd = re.subn(r'(<b data-gh-downloads>)[^<]*(</b>)', rf'\g<1>{d}\g<2>', s)
+          s, nr = re.subn(r'(<b data-gh-releases>)[^<]*(</b>)', rf'\g<1>{r}\g<2>', s)
+          assert nd == 1 and nr == 1, f'expected one of each, rewrote {nd} downloads and {nr} releases'
+          p.write_text(s)
+          print(f'wrote {d} downloads across {r} releases')
+          PY
+
+      - name: Commit if anything moved
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- index.html; then
+            echo "counts unchanged"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore(site): refresh the release stats fallback"
+          git push

@@ -57,9 +57,14 @@ document.addEventListener('click', (e) => {
 // If the fetch fails — offline, or rate-limited, which is easy since this is an
 // unauthenticated API capped at 60/hour per IP — the stat is REMOVED rather than
 // left showing the number baked into the markup. A stale count does not look
-// broken, it looks like a fact, which is the worse failure. Release CI keeps the
-// markup values current as a floor (see release.yml), so what is shown is either
-// live or as-of-the-last-release, never arbitrarily old.
+// broken, it looks like a fact, which is the worse failure. A daily job keeps the
+// markup values current as a floor (.github/workflows/refresh-stats.yml), so what
+// is shown is either live or at most a day old.
+//
+// That job exists because this note used to point at release.yml, which carries a
+// comment describing the refresh and no step that performs it. The baked figures
+// sat at 513 downloads across 25 releases for a week while the real numbers were
+// 723 across 38, so the page read as a reported drop rather than a stale cache.
 (async () => {
   const hide = () => document.querySelectorAll('[data-gh-downloads],[data-gh-releases]')
     .forEach(el => { const s = el.closest('.stat'); if (s) s.hidden = true; });

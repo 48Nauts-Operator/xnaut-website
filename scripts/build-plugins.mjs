@@ -157,8 +157,12 @@ const SHARED_STYLE = `  <style>
                font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
     .plg-conn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px;
                 background: var(--panel-deep); border: 1px solid var(--border-card); }
-    .plg-conn code { flex: 1 1 auto; overflow-x: auto; white-space: nowrap; font-family: var(--mono);
-                     font-size: 12.5px; color: var(--text-soft); }
+    /* min-width:0 on both, or the nowrap command sets the column's width and
+       the whole page scrolls sideways: measured 933px columns inside a 696px
+       grid before this line existed. */
+    .plg-conn { min-width: 0; }
+    .plg-conn code { flex: 1 1 auto; min-width: 0; overflow-x: auto; white-space: nowrap;
+                     font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); }
     .plg-copy { flex: 0 0 auto; padding: 3px 9px; border: 1px solid var(--border-card); border-radius: 6px;
                 background: transparent; color: var(--faint); font-family: var(--mono); font-size: 11px;
                 cursor: pointer; }
@@ -172,6 +176,10 @@ const SHARED_STYLE = `  <style>
 
 const INDEX_STYLE = `${SHARED_STYLE}
   <style>
+    /* .legal is the site's 760px reading column, right for a text page and far
+       too narrow for a catalogue. Widen it for this page only, and keep every
+       other .legal rule. */
+    main.legal.plg-page { max-width: 1240px; }
     .plg-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 28px 0 0; }
     .plg-search { flex: 1 1 220px; min-width: 190px; padding: 10px 14px; border: 1px solid var(--border-card);
                   border-radius: 10px; background: var(--panel-deep); color: var(--text);
@@ -189,10 +197,10 @@ const INDEX_STYLE = `${SHARED_STYLE}
     .plg-group[hidden] { display: none; }
     .plg-group h2 { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em;
                     text-transform: uppercase; color: var(--faint); margin: 0 0 12px; }
-    .plg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .plg { display: flex; flex-direction: column; gap: 11px; padding: 20px; background: var(--panel);
-           border: 1px solid var(--border-card); border-radius: 14px; text-decoration: none;
-           transition: border-color .15s; }
+    .plg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+    .plg { display: flex; flex-direction: column; gap: 11px; min-width: 0; padding: 20px;
+           background: var(--panel); border: 1px solid var(--border-card); border-radius: 14px;
+           text-decoration: none; transition: border-color .15s; }
     /* display:flex beats the hidden attribute, so filtering would show every
        card while claiming to have hidden them. */
     .plg[hidden] { display: none; }
@@ -207,8 +215,7 @@ const INDEX_STYLE = `${SHARED_STYLE}
                 font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
     .plg-foot .go { margin-left: auto; color: var(--amber); }
     .plg-empty { padding: 34px 0; color: var(--faint); font-size: 14px; }
-    @media (max-width: 900px) { .plg-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 620px) { .plg-grid { grid-template-columns: 1fr; } }
+    .plg-head h3 { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   </style>`;
 
 const DETAIL_STYLE = `${SHARED_STYLE}
@@ -249,7 +256,7 @@ const card = (plugin) => {
         <p>${esc(plugin.description)}</p>
         ${line ? `<span class="plg-conn"><code>${esc(line)}</code></span>` : ""}
         <span class="plg-foot">
-          <span class="plg-state${state ? "" : " ready"}">${esc(state || "no key needed")}</span>
+          <span class="plg-state${state ? "" : " ready"}">${esc(state || "no credential declared")}</span>
           ${skills ? `<span>${skills} skill${skills === 1 ? "" : "s"}</span>` : ""}
           <span class="go">open →</span>
         </span>
@@ -275,7 +282,7 @@ const filters = ["All", ...categories]
   .map((name, index) => `      <button class="plg-filter${index === 0 ? " on" : ""}" data-filter="${esc(name)}">${esc(name)}</button>`)
   .join("\n");
 
-const indexDescription = `${plugins.length} MCP servers xNAUT can hand an agent: ${readyCount} run with no credential, and ${skillCount} skills between them. Not a store — xNAUT reads the public registries and says which is which.`;
+const indexDescription = `${plugins.length} MCP servers xNAUT can hand an agent, shipping ${skillCount} skills between them. Not a store — xNAUT reads the public registries, runs what it can, and says which is which.`;
 
 const indexPage = `<!doctype html>
 <html lang="en">
@@ -289,16 +296,16 @@ ${head({
 
 ${navIndex}
 
-<main class="legal">
+<main class="legal plg-page">
   <h1>Plugins</h1>
   <span class="updated">Everything xNAUT can hand an agent</span>
 
   <p class="plg-lead">A plugin is an MCP server. xNAUT does not host, sell or repackage any of them: it reads the public registries, runs what it can, and says which is which. You configure one once in the plugin library, then hand it to a single agent with the <span class="mono">+</span> in that agent's header. Two gates, on purpose.</p>
 
   <section class="stats">
-    <div class="stat"><b>${plugins.length}</b><span>in the library</span></div>
-    <div class="stat"><b class="amber">${readyCount}</b><span>need no credential</span></div>
-    <div class="stat"><b>${skillCount}</b><span>skills between them</span></div>
+    <div class="stat"><b>${plugins.length}</b><span>plugins in the library</span></div>
+    <div class="stat"><b class="amber"><a href="/plugins/skills.html">${skillCount}</a></b><span>skills they ship</span></div>
+    <div class="stat"><b>${categories.length}</b><span>categories</span></div>
     <div class="stat"><b>0</b><span>accounts, payments or ratings</span></div>
   </section>
 
@@ -306,7 +313,7 @@ ${navIndex}
     <input class="plg-search" type="search" placeholder="Search plugins, categories, skills…" aria-label="Search plugins">
     <div class="plg-filters">
 ${filters}
-      <button class="plg-filter" data-ready-only>no key needed</button>
+      <button class="plg-filter" data-ready-only>no credential declared</button>
     </div>
   </div>
   <p class="plg-count" data-count>${plugins.length} plugins</p>
@@ -435,7 +442,7 @@ ${nav}
 
   <div class="plg-actions">
     <span class="plg-cat">${esc(plugin.category)}</span>
-    <span class="plg-state${state ? "" : " ready"}">${esc(state || "no key needed")}</span>
+    <span class="plg-state${state ? "" : " ready"}">${esc(state || "no credential declared")}</span>
     <button class="plg-copy" data-copy="${esc(plugin.id)}">copy id: ${esc(plugin.id)}</button>
     ${plugin.docs_url ? `<a class="plg-state" href="${esc(plugin.docs_url)}" rel="noopener noreferrer" target="_blank">source ↗</a>` : '<span class="plg-state">no source link</span>'}
   </div>
@@ -507,6 +514,87 @@ ${footer}
 `;
 };
 
+// ---------------------------------------------------------------- skills
+
+// Every skill, named, on one page. A skill name is the most specific thing in
+// this whole catalogue — nobody searches "MCP server for design", they search
+// "figma token extraction" — so the names are the long tail, and a count on a
+// card is worth nothing to anyone looking for one.
+const skillRows = plugins
+  .flatMap((plugin) => (plugin.skills || []).map((skill) => ({ skill, plugin })))
+  .sort((a, b) => a.skill.localeCompare(b.skill));
+
+const skillsDescription = `Every skill the ${plugins.length} plugins in xNAUT's library ship: ${skillRows.length} of them, with the plugin each one comes from.`;
+
+const skillsPage = `<!doctype html>
+<html lang="en">
+${head({
+  title: "Plugin skills | xNAUT",
+  description: skillsDescription,
+  canonical: "https://xnaut.dev/plugins/skills.html",
+  extraStyle: `${SHARED_STYLE}
+  <style>
+    main.legal.plg-page { max-width: 1240px; }
+    .plg-search { width: 100%; max-width: 420px; padding: 10px 14px; border: 1px solid var(--border-card);
+                  border-radius: 10px; background: var(--panel-deep); color: var(--text);
+                  font-family: var(--sans); font-size: 14px; margin: 26px 0 0; }
+    .plg-search:focus { outline: none; border-color: #3A3E46; }
+    .plg-count { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin: 14px 0 18px; }
+    .sk { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0 26px; margin: 0; padding: 0; list-style: none; }
+    .sk li { display: flex; gap: 12px; align-items: baseline; padding: 8px 0;
+             border-bottom: 1px solid var(--border-card); }
+    .sk li[hidden] { display: none; }
+    .sk code { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+               font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); }
+    .sk a { flex: 0 0 auto; font-size: 12.5px; color: var(--amber); text-decoration: none; }
+    .sk a:hover { text-decoration: underline; }
+  </style>
+`,
+})}
+<body>
+
+${nav}
+
+<main class="legal plg-page">
+  <p class="plg-state"><a href="/plugins/">Plugins</a> / Skills</p>
+  <h1>Plugin skills</h1>
+  <span class="updated">${skillRows.length} skills, from ${plugins.filter((p) => (p.skills || []).length).length} of the ${plugins.length} plugins</span>
+
+  <p class="plg-lead">A plugin gives an agent tools. A skill tells it when to reach for them, and what good use looks like. These ship with the plugins themselves; xNAUT does not write them.</p>
+
+  <input class="plg-search" type="search" placeholder="Search skills…" aria-label="Search skills">
+  <p class="plg-count" data-count>${skillRows.length} skills</p>
+
+  <ul class="sk">
+${skillRows.map(({ skill, plugin }) => `    <li data-search="${esc(`${skill} ${plugin.name}`.toLowerCase())}"><code>${esc(skill)}</code><a href="/plugins/${esc(plugin.id)}.html">${esc(plugin.name)}</a></li>`).join("\n")}
+  </ul>
+  <p class="plg-empty" data-empty hidden style="color:var(--faint);font-size:14px;">Nothing matches that.</p>
+</main>
+
+${footer}
+
+<script>
+  (function () {
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.sk li'));
+    var count = document.querySelector('[data-count]');
+    var empty = document.querySelector('[data-empty]');
+    document.querySelector('.plg-search').addEventListener('input', function (event) {
+      var term = event.target.value.trim().toLowerCase();
+      var shown = 0;
+      rows.forEach(function (row) {
+        var ok = !term || row.dataset.search.indexOf(term) !== -1;
+        row.hidden = !ok;
+        if (ok) shown += 1;
+      });
+      count.textContent = shown + (shown === 1 ? ' skill' : ' skills');
+      empty.hidden = shown !== 0;
+    });
+  })();
+</script>
+</body>
+</html>
+`;
+
 // ---------------------------------------------------------------- write
 
 const dir = new URL("../plugins/", import.meta.url);
@@ -525,6 +613,7 @@ for (const required of ['href="/css/style.css?v=4"', ".plg[hidden] { display: no
 }
 writeFileSync(new URL("index.html", dir), indexPage);
 writeFileSync(new URL("catalog.json", dir), `${JSON.stringify(plugins, null, 2)}\n`);
+writeFileSync(new URL("skills.html", dir), skillsPage);
 
 for (const plugin of plugins) {
   const page = detailPage(plugin);
@@ -541,8 +630,9 @@ sitemap = sitemap.replace(/ *<url>\s*<loc>https:\/\/xnaut\.dev\/plugins[^<]*<\/l
 const today = new Date().toISOString().slice(0, 10);
 const entries = [
   `  <url>\n    <loc>https://xnaut.dev/plugins/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n`,
+  `  <url>\n    <loc>https://xnaut.dev/plugins/skills.html</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`,
   ...plugins.map((plugin) => `  <url>\n    <loc>https://xnaut.dev/plugins/${plugin.id}.html</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`),
 ].join("");
 writeFileSync(sitemapPath, sitemap.replace("</urlset>", `${entries}</urlset>`));
 
-console.log(`wrote plugins/index.html + ${plugins.length} pages — ${readyCount} need no credential, ${skillCount} skills, ${categories.length} categories`);
+console.log(`wrote plugins/index.html + skills.html + ${plugins.length} pages — ${readyCount} need no credential, ${skillCount} skills, ${categories.length} categories`);

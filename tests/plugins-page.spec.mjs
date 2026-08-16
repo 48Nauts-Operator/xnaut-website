@@ -39,15 +39,16 @@ test('the index uses the site design, groups by category and filters', async ({ 
   await expect(page.locator('.plg:visible')).toHaveCount(design);
   await expect(page.locator('[data-group]:visible')).toHaveCount(1);
 
-  // "no key needed" is computed the way the app computes it.
+  // The filter says DECLARED, not verified: it reads what the entry declares,
+  // exactly as blocker() does in the app. Nothing here has been run.
   await page.getByRole('button', { name: 'All', exact: true }).click();
-  await page.getByRole('button', { name: 'no key needed' }).click();
+  await page.getByRole('button', { name: 'no credential declared' }).click();
   const ready = catalog.filter((p) => !(
     (p.transport === 'http' && !p.url) || (p.transport === 'stdio' && !p.command) || (p.required_env || []).length
   )).length;
   await expect(page.locator('.plg:visible')).toHaveCount(ready);
 
-  await page.getByRole('button', { name: 'no key needed' }).click();
+  await page.getByRole('button', { name: 'no credential declared' }).click();
   await page.locator('.plg-search').fill('zzzznope');
   await expect(page.locator('.plg:visible')).toHaveCount(0);
   await expect(page.locator('[data-empty]')).toBeVisible();
@@ -126,4 +127,34 @@ test('the home page links the plugins directory', async ({ page }) => {
   await page.locator('nav.nav').getByRole('link', { name: 'Plugins', exact: true }).click();
   await expect(page).toHaveURL(`${SITE}/plugins/`);
   await expect(page.locator('h1')).toHaveText('Plugins');
+});
+
+test('the stats band only claims what can be counted', async ({ page }) => {
+  // "116 need no credential" was on this band and was not a fact: it counted
+  // entries that DECLARE no credential, which is not the same as having been
+  // run without an account, and nothing here has been run.
+  await page.goto(`${SITE}/plugins/`);
+  const stats = page.locator('.stats');
+  await expect(stats).toContainText(`${catalog.length}`);
+  await expect(stats).toContainText('plugins in the library');
+  await expect(stats).not.toContainText('need no credential');
+  await expect(stats).not.toContainText('verified');
+
+  const skills = catalog.reduce((total, p) => total + (p.skills || []).length, 0);
+  await expect(stats.getByRole('link', { name: String(skills) })).toBeVisible();
+});
+
+test('every skill is named on the skills page, and links to its plugin', async ({ page }) => {
+  // The names are the long tail: nobody searches "MCP server for design", they
+  // search "figma token extraction".
+  const skills = catalog.flatMap((p) => (p.skills || []).map((skill) => ({ skill, id: p.id })));
+  await page.goto(`${SITE}/plugins/skills.html`);
+  await expect(page.locator('.sk li')).toHaveCount(skills.length);
+  await expect(page.locator('[data-count]')).toHaveText(`${skills.length} skills`);
+
+  const sample = skills[Math.floor(skills.length / 2)];
+  await page.locator('.plg-search').fill(sample.skill);
+  await expect(page.locator('.sk li:visible').first()).toContainText(sample.skill);
+  await page.locator('.sk li:visible').first().getByRole('link').click();
+  await expect(page).toHaveURL(new RegExp(`/plugins/${sample.id}\\.html$`));
 });

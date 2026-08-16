@@ -22,8 +22,12 @@
                font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
     .plg-conn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px;
                 background: var(--panel-deep); border: 1px solid var(--border-card); }
-    .plg-conn code { flex: 1 1 auto; overflow-x: auto; white-space: nowrap; font-family: var(--mono);
-                     font-size: 12.5px; color: var(--text-soft); }
+    /* min-width:0 on both, or the nowrap command sets the column's width and
+       the whole page scrolls sideways: measured 933px columns inside a 696px
+       grid before this line existed. */
+    .plg-conn { min-width: 0; }
+    .plg-conn code { flex: 1 1 auto; min-width: 0; overflow-x: auto; white-space: nowrap;
+                     font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); }
     .plg-copy { flex: 0 0 auto; padding: 3px 9px; border: 1px solid var(--border-card); border-radius: 6px;
                 background: transparent; color: var(--faint); font-family: var(--mono); font-size: 11px;
                 cursor: pointer; }
@@ -79,7 +83,7 @@
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
-    <span class="plg-state ready">no key needed</span>
+    <span class="plg-state ready">no credential declared</span>
     <button class="plg-copy" data-copy="railway">copy id: railway</button>
     <a class="plg-state" href="https://docs.railway.com/ai/claude-code-plugin" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>

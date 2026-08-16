@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Plugins | xNAUT</title>
-  <meta name="description" content="148 MCP servers xNAUT can hand an agent: 116 run with no credential, and 961 skills between them. Not a store — xNAUT reads the public registries and says which is which.">
+  <meta name="description" content="148 MCP servers xNAUT can hand an agent, shipping 961 skills between them. Not a store — xNAUT reads the public registries, runs what it can, and says which is which.">
   <link rel="canonical" href="https://xnaut.dev/plugins/">
   <meta name="author" content="André">
   <meta property="og:title" content="Plugins | xNAUT">
-  <meta property="og:description" content="148 MCP servers xNAUT can hand an agent: 116 run with no credential, and 961 skills between them. Not a store — xNAUT reads the public registries and says which is which.">
+  <meta property="og:description" content="148 MCP servers xNAUT can hand an agent, shipping 961 skills between them. Not a store — xNAUT reads the public registries, runs what it can, and says which is which.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -22,8 +22,12 @@
                font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
     .plg-conn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px;
                 background: var(--panel-deep); border: 1px solid var(--border-card); }
-    .plg-conn code { flex: 1 1 auto; overflow-x: auto; white-space: nowrap; font-family: var(--mono);
-                     font-size: 12.5px; color: var(--text-soft); }
+    /* min-width:0 on both, or the nowrap command sets the column's width and
+       the whole page scrolls sideways: measured 933px columns inside a 696px
+       grid before this line existed. */
+    .plg-conn { min-width: 0; }
+    .plg-conn code { flex: 1 1 auto; min-width: 0; overflow-x: auto; white-space: nowrap;
+                     font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); }
     .plg-copy { flex: 0 0 auto; padding: 3px 9px; border: 1px solid var(--border-card); border-radius: 6px;
                 background: transparent; color: var(--faint); font-family: var(--mono); font-size: 11px;
                 cursor: pointer; }
@@ -35,6 +39,10 @@
                 border-radius: 0 10px 10px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
   </style>
   <style>
+    /* .legal is the site's 760px reading column, right for a text page and far
+       too narrow for a catalogue. Widen it for this page only, and keep every
+       other .legal rule. */
+    main.legal.plg-page { max-width: 1240px; }
     .plg-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 28px 0 0; }
     .plg-search { flex: 1 1 220px; min-width: 190px; padding: 10px 14px; border: 1px solid var(--border-card);
                   border-radius: 10px; background: var(--panel-deep); color: var(--text);
@@ -52,10 +60,10 @@
     .plg-group[hidden] { display: none; }
     .plg-group h2 { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em;
                     text-transform: uppercase; color: var(--faint); margin: 0 0 12px; }
-    .plg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .plg { display: flex; flex-direction: column; gap: 11px; padding: 20px; background: var(--panel);
-           border: 1px solid var(--border-card); border-radius: 14px; text-decoration: none;
-           transition: border-color .15s; }
+    .plg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+    .plg { display: flex; flex-direction: column; gap: 11px; min-width: 0; padding: 20px;
+           background: var(--panel); border: 1px solid var(--border-card); border-radius: 14px;
+           text-decoration: none; transition: border-color .15s; }
     /* display:flex beats the hidden attribute, so filtering would show every
        card while claiming to have hidden them. */
     .plg[hidden] { display: none; }
@@ -70,8 +78,7 @@
                 font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
     .plg-foot .go { margin-left: auto; color: var(--amber); }
     .plg-empty { padding: 34px 0; color: var(--faint); font-size: 14px; }
-    @media (max-width: 900px) { .plg-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 620px) { .plg-grid { grid-template-columns: 1fr; } }
+    .plg-head h3 { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   </style>
   <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
 </head>
@@ -88,16 +95,16 @@
   </div>
 </nav>
 
-<main class="legal">
+<main class="legal plg-page">
   <h1>Plugins</h1>
   <span class="updated">Everything xNAUT can hand an agent</span>
 
   <p class="plg-lead">A plugin is an MCP server. xNAUT does not host, sell or repackage any of them: it reads the public registries, runs what it can, and says which is which. You configure one once in the plugin library, then hand it to a single agent with the <span class="mono">+</span> in that agent's header. Two gates, on purpose.</p>
 
   <section class="stats">
-    <div class="stat"><b>148</b><span>in the library</span></div>
-    <div class="stat"><b class="amber">116</b><span>need no credential</span></div>
-    <div class="stat"><b>961</b><span>skills between them</span></div>
+    <div class="stat"><b>148</b><span>plugins in the library</span></div>
+    <div class="stat"><b class="amber"><a href="/plugins/skills.html">961</a></b><span>skills they ship</span></div>
+    <div class="stat"><b>8</b><span>categories</span></div>
     <div class="stat"><b>0</b><span>accounts, payments or ratings</span></div>
   </section>
 
@@ -113,7 +120,7 @@
       <button class="plg-filter" data-filter="Business">Business</button>
       <button class="plg-filter" data-filter="Design">Design</button>
       <button class="plg-filter" data-filter="Other">Other</button>
-      <button class="plg-filter" data-ready-only>no key needed</button>
+      <button class="plg-filter" data-ready-only>no credential declared</button>
     </div>
   </div>
   <p class="plg-count" data-count>148 plugins</p>
@@ -127,7 +134,7 @@
         <p>Scan code for SAST findings, secrets and IaC vulnerabilities with Aikido.</p>
         <span class="plg-conn"><code>npx -y @aikidosec/mcp@1.0.17</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>3 skills</span>
           <span class="go">open →</span>
         </span>
@@ -138,7 +145,7 @@
         <p>Airwallex sandbox developer server for API exploration and test transactions.</p>
         <span class="plg-conn"><code>https://mcp.sandbox.airwallex.com/developer</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -149,7 +156,7 @@
         <p>Provision and manage Aiven-hosted PostgreSQL, Kafka, OpenSearch and ClickHouse services.</p>
         <span class="plg-conn"><code>https://mcp.aiven.live/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -160,7 +167,7 @@
         <p>Apollo GraphOS tools for schema design, federation and query work.</p>
         <span class="plg-conn"><code>https://mcp.apollographql.com</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>14 skills</span>
           <span class="go">open →</span>
         </span>
@@ -182,7 +189,7 @@
         <p>Build and deploy Atlassian Forge apps.</p>
         <span class="plg-conn"><code>https://mcp.atlassian.com/v1/forge/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -193,7 +200,7 @@
         <p>Proxy to the AWS MCP endpoint covering core AWS service APIs.</p>
         <span class="plg-conn"><code>uvx mcp-proxy-for-aws@1.6.4 https://aws-mcp.us-east-1.api.aws/mcp --skip-auth --metadata INSTALL_SOURCE=agent-toolkit-core</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>20 skills</span>
           <span class="go">open →</span>
         </span>
@@ -215,7 +222,7 @@
         <p>Generate and apply AWS infrastructure-as-code (CloudFormation, CDK, Terraform).</p>
         <span class="plg-conn"><code>uvx awslabs.aws-iac-mcp-server@latest</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>3 skills</span>
           <span class="go">open →</span>
         </span>
@@ -226,7 +233,7 @@
         <p>Build and deploy AWS serverless applications: Lambda, SAM and API Gateway.</p>
         <span class="plg-conn"><code>uvx awslabs.aws-serverless-mcp-server@latest --allow-write</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>7 skills</span>
           <span class="go">open →</span>
         </span>
@@ -237,7 +244,7 @@
         <p>Run AWS Transform modernization jobs for .NET, mainframe and VMware workloads.</p>
         <span class="plg-conn"><code>uvx awslabs.aws-transform-mcp-server@latest</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -248,7 +255,7 @@
         <p>Manage Azure resources: subscriptions, storage, Cosmos DB, AKS and Monitor.</p>
         <span class="plg-conn"><code>npx -y @azure/mcp@latest server start</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>31 skills</span>
           <span class="go">open →</span>
         </span>
@@ -259,7 +266,7 @@
         <p>Drive a real browser from the agent: navigate, click, fill and extract page content.</p>
         <span class="plg-conn"><code>uvx --python 3.12 browser-use@latest --cli-mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -270,7 +277,7 @@
         <p>Inspect and control Chrome: DOM, network, console, performance traces and screenshots.</p>
         <span class="plg-conn"><code>npx chrome-devtools-mcp@1.7.0</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -281,7 +288,7 @@
         <p>Circle codegen server for USDC and programmable wallet integration code.</p>
         <span class="plg-conn"><code>https://api.circle.com/v1/codegen/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>18 skills</span>
           <span class="go">open →</span>
         </span>
@@ -292,7 +299,7 @@
         <p>Query and manage ClickHouse Cloud services and databases.</p>
         <span class="plg-conn"><code>https://mcp.clickhouse.cloud/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>2 skills</span>
           <span class="go">open →</span>
         </span>
@@ -303,7 +310,7 @@
         <p>Manage Cloudflare zones, Workers, DNS and settings.</p>
         <span class="plg-conn"><code>https://mcp.cloudflare.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>13 skills</span>
           <span class="go">open →</span>
         </span>
@@ -314,7 +321,7 @@
         <p>The code knowledge graph: who calls what, trace a path, find dead code, impact of a change.</p>
         <span class="plg-conn"><code>codebase-memory-mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -325,7 +332,7 @@
         <p>Read CodSpeed performance benchmark runs and regressions.</p>
         <span class="plg-conn"><code>https://mcp.codspeed.io/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>2 skills</span>
           <span class="go">open →</span>
         </span>
@@ -336,7 +343,7 @@
         <p>Manage Confidence feature flags and experiments.</p>
         <span class="plg-conn"><code>https://mcp.confidence.dev/mcp/flags</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>12 skills</span>
           <span class="go">open →</span>
         </span>
@@ -347,7 +354,7 @@
         <p>Inspect and mutate Convex deployments: tables, functions and data.</p>
         <span class="plg-conn"><code>npx -y convex@latest mcp start</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>17 skills</span>
           <span class="go">open →</span>
         </span>
@@ -369,7 +376,7 @@
         <p>Query Expo/EAS projects, builds, updates and submissions.</p>
         <span class="plg-conn"><code>https://mcp.expo.dev/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>22 skills</span>
           <span class="go">open →</span>
         </span>
@@ -380,7 +387,7 @@
         <p>Read and write files under paths you name — and only those.</p>
         <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-filesystem</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -391,7 +398,7 @@
         <p>Manage Firebase projects: Firestore, Auth, Storage, Hosting and Functions.</p>
         <span class="plg-conn"><code>npx -y firebase-tools@latest mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -413,7 +420,7 @@
         <p>Issues, pull requests and code search on GitHub. Development here lives on Forgejo, so this is for mirrors and other people&#39;s repositories.</p>
         <span class="plg-conn"><code>https://api.githubcopilot.com/mcp/</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -424,7 +431,7 @@
         <p>Git and issue-tracker operations across GitHub, GitLab, Jira and Azure DevOps.</p>
         <span class="plg-conn"><code>npx -y @gitkraken/gk mcp --plugin --host=claude</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -435,7 +442,7 @@
         <p>GitLab projects, issues, merge requests and pipelines via the hosted API server.</p>
         <span class="plg-conn"><code>https://gitlab.com/api/v4/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -446,7 +453,7 @@
         <p>Google Cloud data toolbox server for Dataproc, notebooks and visualization.</p>
         <span class="plg-conn"><code>npx -y @toolbox-sdk/server@&gt;=1.1.0 --prebuilt dataproc --stdio --user-agent-metadata datacloud.codex</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>28 skills</span>
           <span class="go">open →</span>
         </span>
@@ -468,7 +475,7 @@
         <p>Query Grafana Cloud dashboards, datasources, alerts and incidents.</p>
         <span class="plg-conn"><code>https://mcp.grafana.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -479,7 +486,7 @@
         <p>Query Honeycomb observability data: events, traces and SLOs.</p>
         <span class="plg-conn"><code>https://mcp.honeycomb.io/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>11 skills</span>
           <span class="go">open →</span>
         </span>
@@ -490,7 +497,7 @@
         <p>Manage Hostinger VPS, domains, DNS, hosting and mail.</p>
         <span class="plg-conn"><code>npx hostinger-api-mcp@latest</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -512,7 +519,7 @@
         <p>Inspect and operate a cluster through your existing kubeconfig.</p>
         <span class="plg-conn"><code>npx -y mcp-server-kubernetes</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -523,7 +530,7 @@
         <p>Query LogRocket session replays, errors and frontend performance data.</p>
         <span class="plg-conn"><code>https://mcp.logrocket.com/mcp?toolsets=all</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -534,7 +541,7 @@
         <p>Manage Lovable projects and generated app deployments.</p>
         <span class="plg-conn"><code>https://mcp.lovable.dev/?src=cc-plugin</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -545,7 +552,7 @@
         <p>Connect to a MongoDB deployment: query collections, inspect schemas and run aggregations.</p>
         <span class="plg-conn"><code>npx -y mongodb-mcp-server@&lt;3</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>7 skills</span>
           <span class="go">open →</span>
         </span>
@@ -556,7 +563,7 @@
         <p>Manage Atlas clusters, database users, network access and backups.</p>
         <span class="plg-conn"><code>https://mcp.mongodb.com/</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -567,7 +574,7 @@
         <p>Manage Neon Postgres projects, branches and databases; run SQL.</p>
         <span class="plg-conn"><code>https://mcp.neon.tech/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>8 skills</span>
           <span class="go">open →</span>
         </span>
@@ -578,7 +585,7 @@
         <p>Create and manage Netlify sites, deploys, env vars and functions.</p>
         <span class="plg-conn"><code>https://netlify-mcp.netlify.app/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>16 skills</span>
           <span class="go">open →</span>
         </span>
@@ -589,7 +596,7 @@
         <p>Query New Relic entities, NRQL, alerts and APM data.</p>
         <span class="plg-conn"><code>https://mcp.newrelic.com/mcp/</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>3 skills</span>
           <span class="go">open →</span>
         </span>
@@ -611,7 +618,7 @@
         <p>Manage PlanetScale databases, branches and deploy requests; run queries.</p>
         <span class="plg-conn"><code>https://mcp.pscale.dev/mcp/planetscale</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -622,7 +629,7 @@
         <p>Drives a real browser: open a page, click, fill, screenshot, read the console.</p>
         <span class="plg-conn"><code>npx -y @playwright/mcp@latest</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -633,7 +640,7 @@
         <p>Read-only SQL against a Postgres database.</p>
         <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-postgres</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -644,7 +651,7 @@
         <p>Work with Postman collections, environments, mocks and API specs.</p>
         <span class="plg-conn"><code>https://mcp.postman.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>11 skills</span>
           <span class="go">open →</span>
         </span>
@@ -655,7 +662,7 @@
         <p>Manage Prisma schemas, migrations and Prisma Postgres databases.</p>
         <span class="plg-conn"><code>npx -y prisma mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -666,7 +673,7 @@
         <p>Query Logfire traces, logs and metrics.</p>
         <span class="plg-conn"><code>https://logfire-us.pydantic.dev/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>3 skills</span>
           <span class="go">open →</span>
         </span>
@@ -677,7 +684,7 @@
         <p>Manage Railway projects, services, deployments and variables.</p>
         <span class="plg-conn"><code>https://mcp.railway.com</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -688,7 +695,7 @@
         <p>Manage Render services, deploys, logs and environment groups.</p>
         <span class="plg-conn"><code>https://mcp.render.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>21 skills</span>
           <span class="go">open →</span>
         </span>
@@ -699,7 +706,7 @@
         <p>Query Rill dashboards and metrics from a local Rill Developer instance.</p>
         <span class="plg-conn"><code>http://localhost:9009/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>9 skills</span>
           <span class="go">open →</span>
         </span>
@@ -710,7 +717,7 @@
         <p>Work with SAP Cloud Application Programming models: CDS schemas, services and builds.</p>
         <span class="plg-conn"><code>npx -y @cap-js/mcp-server</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -721,7 +728,7 @@
         <p>Generate and modify SAP Fiori elements applications.</p>
         <span class="plg-conn"><code>npx --yes @sap-ux/fiori-mcp-server@latest fiori-mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -732,7 +739,7 @@
         <p>Inspect and query SAP HANA schemas, tables and procedures.</p>
         <span class="plg-conn"><code>npx -y -p hana-cli hana-cli-mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -743,7 +750,7 @@
         <p>Build SAP Mobile Development Kit applications and metadata.</p>
         <span class="plg-conn"><code>npx -y @sap/mdk-mcp-server</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -754,7 +761,7 @@
         <p>Build and lint SAP UI5 applications; look up UI5 API documentation.</p>
         <span class="plg-conn"><code>npx -y @ui5/mcp-server</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>8 skills</span>
           <span class="go">open →</span>
         </span>
@@ -765,7 +772,7 @@
         <p>A scratchpad for multi-step reasoning the model can revise as it goes.</p>
         <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-sequential-thinking</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -776,7 +783,7 @@
         <p>Semantic code retrieval and editing toolkit driven by language servers.</p>
         <span class="plg-conn"><code>uvx --from git+https://github.com/oraios/serena serena start-mcp-server</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -809,7 +816,7 @@
         <p>Look up Terraform providers, modules and registry docs; query Terraform Cloud.</p>
         <span class="plg-conn"><code>docker run -i --rm -e TFE_TOKEN=${TFE_TOKEN} hashicorp/terraform-mcp-server:0.4.0</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -820,7 +827,7 @@
         <p>Current time and timezone conversion, so an agent stops guessing what &#39;today&#39; is.</p>
         <span class="plg-conn"><code>uvx mcp-server-time</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -831,7 +838,7 @@
         <p>Create, run and deploy Val Town serverless functions and HTTP endpoints.</p>
         <span class="plg-conn"><code>https://api.val.town/v3/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>11 skills</span>
           <span class="go">open →</span>
         </span>
@@ -842,7 +849,7 @@
         <p>Search Vercel docs, list projects and deployments, inspect logs.</p>
         <span class="plg-conn"><code>https://mcp.vercel.com</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>37 skills</span>
           <span class="go">open →</span>
         </span>
@@ -853,7 +860,7 @@
         <p>Manage Wix sites, apps, headless projects and design system components.</p>
         <span class="plg-conn"><code>https://mcp.wix.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -864,7 +871,7 @@
         <p>Deploy and manage Zoho Catalyst serverless functions and data stores.</p>
         <span class="plg-conn"><code>https://catalyst.zohomcp.com/mcp/message</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>16 skills</span>
           <span class="go">open →</span>
         </span>
@@ -875,7 +882,7 @@
         <p>Query and configure Zscaler ZIA, ZPA and ZDX policies and reporting.</p>
         <span class="plg-conn"><code>uvx zscaler-mcp@0.15.3</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -891,7 +898,7 @@
         <p>Search AWS documentation, API references and regional availability.</p>
         <span class="plg-conn"><code>https://knowledge-mcp.global.api.aws</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>8 skills</span>
           <span class="go">open →</span>
         </span>
@@ -913,7 +920,7 @@
         <p>Current library and framework documentation, fetched per question instead of recalled from training data.</p>
         <span class="plg-conn"><code>npx -y @upstash/context7-mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -957,7 +964,7 @@
         <p>Search Hugging Face models, datasets, Spaces and papers.</p>
         <span class="plg-conn"><code>https://huggingface.co/mcp?login</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>26 skills</span>
           <span class="go">open →</span>
         </span>
@@ -968,7 +975,7 @@
         <p>Search Microsoft Learn documentation for Azure, .NET and Microsoft 365.</p>
         <span class="plg-conn"><code>https://learn.microsoft.com/api/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>3 skills</span>
           <span class="go">open →</span>
         </span>
@@ -979,7 +986,7 @@
         <p>Search documentation sites hosted on Mintlify.</p>
         <span class="plg-conn"><code>https://mintlify.com/docs/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -990,7 +997,7 @@
         <p>Web search, page scraping and structured web-data extraction.</p>
         <span class="plg-conn"><code>https://mcp.nimbleway.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>15 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1001,7 +1008,7 @@
         <p>Search Qt framework documentation and API references.</p>
         <span class="plg-conn"><code>https://qt-docs-mcp.qt.io/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>12 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1034,7 +1041,7 @@
         <p>Search Twilio and SendGrid developer documentation.</p>
         <span class="plg-conn"><code>https://mcp.twilio.com/docs</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>2 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1061,7 +1068,7 @@
         <p>Search the Atlan data catalog for assets, lineage and glossary terms.</p>
         <span class="plg-conn"><code>https://mcp.atlan.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1072,7 +1079,7 @@
         <p>Search Bigdata.com financial and market research content.</p>
         <span class="plg-conn"><code>https://mcp.bigdata.com</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>27 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1083,7 +1090,7 @@
         <p>Search, read and manage Dropbox files and folders.</p>
         <span class="plg-conn"><code>https://mcp.dropbox.com/claude_app_mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1105,7 +1112,7 @@
         <p>Search Drive and read documents.</p>
         <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-gdrive</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1116,7 +1123,7 @@
         <p>A knowledge graph the agent writes to and reads back across runs.</p>
         <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-memory</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1127,7 +1134,7 @@
         <p>Search the vault, the knowledge base, tickets and memories in one place.</p>
         <span class="plg-conn"><code>nautdocs-mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1160,7 +1167,7 @@
         <p>Query and mutate Sanity content datasets and schemas.</p>
         <span class="plg-conn"><code>https://mcp.sanity.io</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>7 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1176,7 +1183,7 @@
         <p>Create and manage Asana tasks, search projects, update assignments and track progress.</p>
         <span class="plg-conn"><code>https://mcp.asana.com/v2/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1187,7 +1194,7 @@
         <p>Atlassian&#39;s own hosted server: Jira issues and Confluence pages.</p>
         <span class="plg-conn"><code>https://mcp.atlassian.com/v1/sse</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1198,7 +1205,7 @@
         <p>Issues, projects and cycles in Linear.</p>
         <span class="plg-conn"><code>https://mcp.linear.app/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1220,7 +1227,7 @@
         <p>Read and update monday.com boards, items, columns and updates.</p>
         <span class="plg-conn"><code>https://mcp.monday.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>9 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1242,7 +1249,7 @@
         <p>Manage Rootly incidents, alerts, on-call schedules and retrospectives.</p>
         <span class="plg-conn"><code>https://mcp.rootly.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>18 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1253,7 +1260,7 @@
         <p>Errors and traces from Sentry, including the issue an agent is asked to fix.</p>
         <span class="plg-conn"><code>https://mcp.sentry.dev/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1280,7 +1287,7 @@
         <p>Search meetings, transcripts, action items, calendar events and emails.</p>
         <span class="plg-conn"><code>https://circleback.ai/api/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1291,7 +1298,7 @@
         <p>Read, search, draft and send mail.</p>
         <span class="plg-conn"><code>npx -y @gongrzhe/server-gmail-autoauth-mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1313,7 +1320,7 @@
         <p>Search Intercom conversations and contacts, look up companies and manage Help Center articles.</p>
         <span class="plg-conn"><code>https://mcp.intercom.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>4 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1324,7 +1331,7 @@
         <p>Send transactional email and manage Resend domains, audiences and broadcasts.</p>
         <span class="plg-conn"><code>https://mcp.resend.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>5 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1346,7 +1353,7 @@
         <p>Build and manage Synthflow AI voice agents and call workflows.</p>
         <span class="plg-conn"><code>https://mcp.synthflow.ai/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>2 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1357,7 +1364,7 @@
         <p>Search posts and users, read timelines and mentions, manage lists, bookmarks and mutes.</p>
         <span class="plg-conn"><code>https://api.x.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1384,7 +1391,7 @@
         <p>Payments, payouts, FX and account data through Airwallex AgentOS.</p>
         <span class="plg-conn"><code>https://mcp.airwallex.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>5 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1395,7 +1402,7 @@
         <p>Query Amplitude product analytics: events, charts and cohorts.</p>
         <span class="plg-conn"><code>https://mcp.amplitude.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>36 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1406,7 +1413,7 @@
         <p>Prospect search, contact and company enrichment, lists, sequences and one-off emails.</p>
         <span class="plg-conn"><code>https://mcp.apollo.io/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>4 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1417,7 +1424,7 @@
         <p>Search candidates and jobs, prep for interviews and manage recruiting pipeline tasks.</p>
         <span class="plg-conn"><code>https://mcp.ashbyhq.com/mcp/v1</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1428,7 +1435,7 @@
         <p>Find and enrich people and companies, run research agents and trigger Clay workflows.</p>
         <span class="plg-conn"><code>https://api.clay.com/v3/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1450,7 +1457,7 @@
         <p>Query Fullstory session and behavioural analytics data.</p>
         <span class="plg-conn"><code>https://api.fullstory.com/mcp/fullstory</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>3 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1483,7 +1490,7 @@
         <p>Find and verify professional email addresses and enrich company data.</p>
         <span class="plg-conn"><code>https://mcp.hunter.io/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>13 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1494,7 +1501,7 @@
         <p>Request LegalZoom attorney consultations and legal service workflows.</p>
         <span class="plg-conn"><code>https://www.legalzoom.com/mcp/claude/v1</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -1505,7 +1512,7 @@
         <p>B2B contact and company data lookup and enrichment.</p>
         <span class="plg-conn"><code>https://mcp.lusha.com/mcp/claude</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1516,7 +1523,7 @@
         <p>Mercado Pago payments, preferences and merchant API operations.</p>
         <span class="plg-conn"><code>https://mcp.mercadopago.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>4 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1527,7 +1534,7 @@
         <p>Query expenses, travel bookings, policies, approvals and cards.</p>
         <span class="plg-conn"><code>https://mcp.navan.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1549,7 +1556,7 @@
         <p>Query Pigment business planning models and metrics.</p>
         <span class="plg-conn"><code>https://pigment.app/api/mcp/public/{your-mcp-id}</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>12 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1560,7 +1567,7 @@
         <p>Query PostHog product analytics, feature flags, session replays and insights.</p>
         <span class="plg-conn"><code>https://mcp.posthog.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>137 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1571,7 +1578,7 @@
         <p>Retrieve AI visibility, sentiment and citation reports; run Profound agents.</p>
         <span class="plg-conn"><code>https://mcp.tryprofound.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1582,7 +1589,7 @@
         <p>Read and configure RevenueCat projects, products, entitlements and subscriber data.</p>
         <span class="plg-conn"><code>https://mcp.revenuecat.ai/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>16 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1604,7 +1611,7 @@
         <p>Create shipping labels, compare carrier rates and track parcels.</p>
         <span class="plg-conn"><code>https://mcp.shippo.com</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>9 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1615,7 +1622,7 @@
         <p>Payments, customers and subscriptions. Read-only until you give it a key that can do more.</p>
         <span class="plg-conn"><code>https://mcp.stripe.com</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1626,7 +1633,7 @@
         <p>SumUp merchant, transaction and payout API access.</p>
         <span class="plg-conn"><code>https://mcp.sumup.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1637,7 +1644,7 @@
         <p>Query Vanta compliance controls, tests, evidence and vendor risk.</p>
         <span class="plg-conn"><code>https://mcp.vanta.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>3 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1648,7 +1655,7 @@
         <p>Query marketing data: ad spend, campaigns and analytics from connected sources.</p>
         <span class="plg-conn"><code>https://mcp.windsor.ai</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>1 skill</span>
           <span class="go">open →</span>
         </span>
@@ -1659,7 +1666,7 @@
         <p>B2B company and contact intelligence lookup and enrichment.</p>
         <span class="plg-conn"><code>https://mcp.zoominfo.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>35 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1686,7 +1693,7 @@
         <p>Edit images and run Adobe creative workflows: background removal, vectorization, retouching.</p>
         <span class="plg-conn"><code>https://adobe-creativity.adobe.io/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>7 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1697,7 +1704,7 @@
         <p>Create and edit Canva designs, apply brand checks and resize for social.</p>
         <span class="plg-conn"><code>https://mcp.canva.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1708,7 +1715,7 @@
         <p>Manage Cloudinary assets, transformations and structured metadata.</p>
         <span class="plg-conn"><code>https://asset-management.mcp.cloudinary.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>2 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1719,7 +1726,7 @@
         <p>Diagrams as data. Runs locally on port 3001.</p>
         <span class="plg-conn"><code>http://127.0.0.1:3001/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           
           <span class="go">open →</span>
         </span>
@@ -1741,7 +1748,7 @@
         <p>Read and create Miro boards, frames and sticky notes.</p>
         <span class="plg-conn"><code>https://mcp.miro.com/</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>7 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1757,7 +1764,7 @@
         <p>Local file editing, terminal commands and process control on the host machine.</p>
         <span class="plg-conn"><code>npx -y @wonderwhy-er/desktop-commander@latest</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>6 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1768,7 +1775,7 @@
         <p>Geocoding, directions, isochrones and map style tooling.</p>
         <span class="plg-conn"><code>https://mcp.mapbox.com/mcp</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>19 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1779,7 +1786,7 @@
         <p>Run Zapier actions across connected apps from a single endpoint.</p>
         <span class="plg-conn"><code>https://mcp.zapier.com/api/v1/connect</code></span>
         <span class="plg-foot">
-          <span class="plg-state ready">no key needed</span>
+          <span class="plg-state ready">no credential declared</span>
           <span>4 skills</span>
           <span class="go">open →</span>
         </span>
@@ -1876,7 +1883,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Plugins",
-  "description": "148 MCP servers xNAUT can hand an agent: 116 run with no credential, and 961 skills between them. Not a store — xNAUT reads the public registries and says which is which.",
+  "description": "148 MCP servers xNAUT can hand an agent, shipping 961 skills between them. Not a store — xNAUT reads the public registries, runs what it can, and says which is which.",
   "url": "https://xnaut.dev/plugins/",
   "mainEntity": {
     "@type": "ItemList",

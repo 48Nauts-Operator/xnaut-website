@@ -19,9 +19,16 @@ test.beforeEach(async ({ request }) => {
 });
 
 test('the index uses the site design, groups by category and filters', async ({ page }) => {
+  // js/main.js fetches release counts from the unauthenticated GitHub API,
+  // which is capped at 60 requests an hour per IP, so a run of these tests can
+  // exhaust it and log a 403. main.js already removes the stat rather than
+  // showing a stale number, so that is the page working, not failing.
+  // The console text for a failed request is just "Failed to load resource:
+  // …403", with the URL only in the message's location, so both are checked.
   const errors = [];
+  const fromGitHub = (message) => `${message.text()} ${message.location()?.url || ''}`.includes('api.github.com');
   page.on('pageerror', (e) => errors.push(String(e)));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  page.on('console', (m) => { if (m.type() === 'error' && !fromGitHub(m)) errors.push(m.text()); });
   await page.goto(`${SITE}/plugins/`);
 
   // The site's own chrome, not a new one.

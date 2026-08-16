@@ -4,13 +4,21 @@
 //
 //   node scripts/probe-endpoints.mjs
 //
-// One unauthenticated MCP `initialize` per endpoint. NO credentials and no
-// headers are sent, ever: the question is what a stranger gets, which is
-// exactly what a reader of the page is about to be.
+// One unauthenticated MCP `initialize` per endpoint. No credentials are ever
+// sent: the question is what a stranger gets, which is exactly what a reader of
+// the page is about to be.
 //
 // Why this exists: 82 of the 95 hosted entries DECLARE no credential, so the
-// library reads them as ready. Probed on 2026-08-16, 80 answered 401 or 403.
+// library reads them as ready. Probed on 2026-08-16, most answered 401 or 403.
 // A declaration is not a measurement.
+//
+// It sends xNAUT's own User-Agent, and that detail is load-bearing. The first
+// version of this probe was written in Python, whose urllib announces itself as
+// `Python-urllib/3.9`, and Cloudflare answers THAT with a bare 403 and no
+// WWW-Authenticate. 34 endpoints were recorded as refusing outright when they
+// were only refusing a scraper. Measured on mcp.sentry.dev: no User-Agent gives
+// 401 with an OAuth challenge, `Python-urllib/3.9` gives 403, xNAUT's gives 401.
+// A measurement tool that changes the answer is worse than no measurement.
 //
 // Local (stdio) plugins are deliberately NOT probed. Finding out whether
 // `npx -y some-package` works means running a stranger's code on this machine,
@@ -30,7 +38,11 @@ const probe = async (plugin) => {
   try {
     const response = await fetch(plugin.url, {
       method: 'POST', body,
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' },
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json, text/event-stream',
+        'User-Agent': 'xNAUT/1.16.2 (+https://xnaut.dev)',
+      },
       signal: AbortSignal.timeout(15000),
     });
     if (response.status === 401 || response.status === 403) return 'auth';

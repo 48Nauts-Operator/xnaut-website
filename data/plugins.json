@@ -1,0 +1,2228 @@
+[
+  {
+    "id": "context7",
+    "name": "Context7",
+    "description": "Current library and framework documentation, fetched per question instead of recalled from training data.",
+    "category": "Docs & search",
+    "skills": [],
+    "docs_url": "https://github.com/upstash/context7"
+  },
+  {
+    "id": "exa",
+    "name": "Exa",
+    "description": "Neural web search built for agents: full page contents, not a list of links.",
+    "category": "Docs & search",
+    "skills": [],
+    "docs_url": "https://github.com/exa-labs/exa-mcp-server"
+  },
+  {
+    "id": "brave-search",
+    "name": "Brave Search",
+    "description": "Independent web index. A second opinion when one search engine keeps returning the same three pages.",
+    "category": "Docs & search",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "description": "Read and write Notion pages and databases.",
+    "category": "Knowledge",
+    "skills": [],
+    "docs_url": "https://github.com/makenotion/notion-mcp-server"
+  },
+  {
+    "id": "obsidian",
+    "name": "Obsidian",
+    "description": "Search and edit an Obsidian vault.",
+    "category": "Knowledge",
+    "skills": [],
+    "docs_url": "https://github.com/MarkusPfundstein/mcp-obsidian"
+  },
+  {
+    "id": "memory",
+    "name": "Memory",
+    "description": "A knowledge graph the agent writes to and reads back across runs.",
+    "category": "Knowledge",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "engram",
+    "name": "Engram",
+    "description": "Your own memory service. Set its URL before enabling — the library does not guess where your services run.",
+    "category": "Knowledge",
+    "skills": []
+  },
+  {
+    "id": "lineary",
+    "name": "Lineary",
+    "description": "48Nauts ticket and issue tracking. Set its URL before enabling.",
+    "category": "Work tracking",
+    "skills": []
+  },
+  {
+    "id": "linear",
+    "name": "Linear",
+    "description": "Issues, projects and cycles in Linear.",
+    "category": "Work tracking",
+    "skills": [],
+    "docs_url": "https://linear.app/docs/mcp"
+  },
+  {
+    "id": "sentry",
+    "name": "Sentry",
+    "description": "Errors and traces from Sentry, including the issue an agent is asked to fix.",
+    "category": "Work tracking",
+    "skills": [],
+    "docs_url": "https://docs.sentry.io/product/sentry-mcp/"
+  },
+  {
+    "id": "gmail",
+    "name": "Gmail",
+    "description": "Read, search, draft and send mail.",
+    "category": "Comms",
+    "skills": [],
+    "docs_url": "https://github.com/gongrzhe/server-gmail-autoauth-mcp"
+  },
+  {
+    "id": "google-calendar",
+    "name": "Google Calendar",
+    "description": "Read and create calendar events.",
+    "category": "Comms",
+    "skills": [],
+    "docs_url": "https://github.com/nspady/google-calendar-mcp"
+  },
+  {
+    "id": "slack",
+    "name": "Slack",
+    "description": "Read channels and post messages as a bot user.",
+    "category": "Comms",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "description": "Issues, pull requests and code search on GitHub. Development here lives on Forgejo, so this is for mirrors and other people's repositories.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/github/github-mcp-server"
+  },
+  {
+    "id": "playwright",
+    "name": "Playwright",
+    "description": "Drives a real browser: open a page, click, fill, screenshot, read the console.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/microsoft/playwright-mcp"
+  },
+  {
+    "id": "filesystem",
+    "name": "Filesystem",
+    "description": "Read and write files under paths you name — and only those.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "postgres",
+    "name": "Postgres",
+    "description": "Read-only SQL against a Postgres database.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "sequential-thinking",
+    "name": "Sequential Thinking",
+    "description": "A scratchpad for multi-step reasoning the model can revise as it goes.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "figma",
+    "name": "Figma",
+    "description": "Reads Figma files so a build can follow the actual design rather than a screenshot of it.",
+    "category": "Design",
+    "skills": [],
+    "docs_url": "https://github.com/GLips/Figma-Context-MCP"
+  },
+  {
+    "id": "excalidraw",
+    "name": "Excalidraw",
+    "description": "Diagrams as data. Runs locally on port 3001.",
+    "category": "Design",
+    "skills": []
+  },
+  {
+    "id": "forgejo",
+    "name": "Forgejo",
+    "description": "Issues and pull requests on the Forgejo host where development actually lives. GitHub is only a mirror here.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/seepine/gitea-mcp"
+  },
+  {
+    "id": "codebase-memory",
+    "name": "Codebase Memory",
+    "description": "The code knowledge graph: who calls what, trace a path, find dead code, impact of a change.",
+    "category": "Dev",
+    "skills": []
+  },
+  {
+    "id": "nautdocs",
+    "name": "NautDocs",
+    "description": "Search the vault, the knowledge base, tickets and memories in one place.",
+    "category": "Knowledge",
+    "skills": []
+  },
+  {
+    "id": "kubernetes",
+    "name": "Kubernetes",
+    "description": "Inspect and operate a cluster through your existing kubeconfig.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/Flux159/mcp-server-kubernetes"
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "description": "Query and manage a Supabase project: tables, migrations, edge functions.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/supabase-community/supabase-mcp"
+  },
+  {
+    "id": "magic-21st",
+    "name": "21st.dev Magic",
+    "description": "Generates React UI components from a description, in the style of 21st.dev.",
+    "category": "Design",
+    "skills": [],
+    "docs_url": "https://github.com/21st-dev/magic-mcp"
+  },
+  {
+    "id": "firecrawl",
+    "name": "Firecrawl",
+    "description": "Scrapes and crawls sites into clean markdown, including pages that need JavaScript.",
+    "category": "Docs & search",
+    "skills": [],
+    "docs_url": "https://github.com/mendableai/firecrawl-mcp-server"
+  },
+  {
+    "id": "tavily",
+    "name": "Tavily",
+    "description": "Search and extract, tuned for agents rather than humans.",
+    "category": "Docs & search",
+    "skills": [],
+    "docs_url": "https://github.com/tavily-ai/tavily-mcp"
+  },
+  {
+    "id": "todoist",
+    "name": "Todoist",
+    "description": "Tasks, projects and due dates in Todoist.",
+    "category": "Work tracking",
+    "skills": [],
+    "docs_url": "https://github.com/Doist/todoist-mcp"
+  },
+  {
+    "id": "atlassian",
+    "name": "Jira & Confluence",
+    "description": "Atlassian's own hosted server: Jira issues and Confluence pages.",
+    "category": "Work tracking",
+    "skills": [],
+    "docs_url": "https://support.atlassian.com/atlassian-rovo-mcp-server/"
+  },
+  {
+    "id": "google-drive",
+    "name": "Google Drive",
+    "description": "Search Drive and read documents.",
+    "category": "Knowledge",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "airtable",
+    "name": "Airtable",
+    "description": "Read and write Airtable bases as structured records.",
+    "category": "Knowledge",
+    "skills": [],
+    "docs_url": "https://github.com/domdomegg/airtable-mcp-server"
+  },
+  {
+    "id": "stripe",
+    "name": "Stripe",
+    "description": "Payments, customers and subscriptions. Read-only until you give it a key that can do more.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://docs.stripe.com/mcp"
+  },
+  {
+    "id": "time",
+    "name": "Time",
+    "description": "Current time and timezone conversion, so an agent stops guessing what 'today' is.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "adobe-for-creativity",
+    "name": "Adobe Creative Cloud",
+    "description": "Edit images and run Adobe creative workflows: background removal, vectorization, retouching.",
+    "category": "Design",
+    "skills": [
+      "adobe-batch-edit-photos",
+      "adobe-create-pdfs-from-data",
+      "adobe-create-social-variations",
+      "adobe-design-from-template",
+      "adobe-edit-quick-cut",
+      "adobe-resize-photos-and-videos",
+      "adobe-retouch-portraits"
+    ],
+    "docs_url": "https://github.com/adobe/skills/tree/main/plugins/creative-cloud/adobe-for-creativity"
+  },
+  {
+    "id": "aikido",
+    "name": "Aikido Security",
+    "description": "Scan code for SAST findings, secrets and IaC vulnerabilities with Aikido.",
+    "category": "Dev",
+    "skills": [
+      "issues",
+      "scan",
+      "setup"
+    ],
+    "docs_url": "https://github.com/AikidoSec/aikido-claude-plugin"
+  },
+  {
+    "id": "airwallex-agentos",
+    "name": "Airwallex",
+    "description": "Payments, payouts, FX and account data through Airwallex AgentOS.",
+    "category": "Business",
+    "skills": [
+      "awx-best-practices",
+      "beneficiary-creation",
+      "card-provisioning",
+      "contract-to-billing",
+      "manage-cashflow"
+    ],
+    "docs_url": "https://www.airwallex.com/docs"
+  },
+  {
+    "id": "airwallex-dev",
+    "name": "Airwallex Developer (sandbox)",
+    "description": "Airwallex sandbox developer server for API exploration and test transactions.",
+    "category": "Dev",
+    "skills": [
+      "airwallex-ai-provider-card-mit",
+      "airwallex-billing-checkout",
+      "airwallex-dropin",
+      "airwallex-hpp",
+      "airwallex-kyc",
+      "airwallex-split-card"
+    ],
+    "docs_url": "https://www.airwallex.com/docs"
+  },
+  {
+    "id": "aiven",
+    "name": "Aiven",
+    "description": "Provision and manage Aiven-hosted PostgreSQL, Kafka, OpenSearch and ClickHouse services.",
+    "category": "Dev",
+    "skills": [
+      "aiven-getting-started"
+    ],
+    "docs_url": "https://aiven.io"
+  },
+  {
+    "id": "amplitude",
+    "name": "Amplitude",
+    "description": "Query Amplitude product analytics: events, charts and cohorts.",
+    "category": "Business",
+    "skills": [
+      "add-analytics-instrumentation",
+      "analyze-account-health",
+      "analyze-ai-topics",
+      "analyze-chart",
+      "analyze-dashboard",
+      "analyze-experiment",
+      "analyze-experiment-consolidated",
+      "analyze-feedback",
+      "build-charts-with-typed-params",
+      "chart-link-analysis",
+      "compare-user-journeys",
+      "create-chart",
+      "create-dashboard",
+      "daily-brief",
+      "debug-replay",
+      "diagnose-errors",
+      "diff-intake",
+      "discover-analytics-patterns",
+      "discover-event-surfaces",
+      "discover-opportunities",
+      "instrument-events",
+      "investigate-ai-session",
+      "live-data-forensics",
+      "manage-amp-context",
+      "monitor-ai-quality",
+      "monitor-experiments",
+      "monitor-experiments-consolidated",
+      "monitor-reliability",
+      "replay-ux-audit",
+      "review-agent-insights",
+      "scheduled-report-refresh",
+      "taxonomy",
+      "use-amp-guides-surveys",
+      "user-cohort-forensics",
+      "weekly-brief",
+      "what-would-lenny-do"
+    ],
+    "docs_url": "https://github.com/amplitude/mcp-marketplace"
+  },
+  {
+    "id": "apollo",
+    "name": "Apollo.io",
+    "description": "Prospect search, contact and company enrichment, lists, sequences and one-off emails.",
+    "category": "Business",
+    "skills": [
+      "analytics",
+      "enrich-lead",
+      "prospect",
+      "sequence-load"
+    ],
+    "docs_url": "https://www.apollo.io/"
+  },
+  {
+    "id": "apollo-skills",
+    "name": "Apollo GraphOS",
+    "description": "Apollo GraphOS tools for schema design, federation and query work.",
+    "category": "Dev",
+    "skills": [
+      "apollo-client",
+      "apollo-connectors",
+      "apollo-federation",
+      "apollo-ios",
+      "apollo-kotlin",
+      "apollo-mcp-server",
+      "apollo-router",
+      "apollo-router-plugin-creator",
+      "apollo-server",
+      "graphql-operations",
+      "graphql-schema",
+      "rover",
+      "rust-best-practices",
+      "skill-creator"
+    ],
+    "docs_url": "https://www.apollographql.com"
+  },
+  {
+    "id": "appwrite",
+    "name": "Appwrite",
+    "description": "Manage Appwrite projects: databases, users, functions and storage.",
+    "category": "Dev",
+    "skills": [
+      "cli",
+      "dart",
+      "dotnet",
+      "go",
+      "kotlin",
+      "php",
+      "python",
+      "ruby",
+      "rust",
+      "swift",
+      "typescript"
+    ],
+    "docs_url": "https://appwrite.io"
+  },
+  {
+    "id": "asana",
+    "name": "Asana",
+    "description": "Create and manage Asana tasks, search projects, update assignments and track progress.",
+    "category": "Work tracking",
+    "skills": [],
+    "docs_url": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/asana"
+  },
+  {
+    "id": "ashby",
+    "name": "Ashby",
+    "description": "Search candidates and jobs, prep for interviews and manage recruiting pipeline tasks.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://docs.ashbyhq.com/ashby-mcp-server-beta"
+  },
+  {
+    "id": "atlan",
+    "name": "Atlan",
+    "description": "Search the Atlan data catalog for assets, lineage and glossary terms.",
+    "category": "Knowledge",
+    "skills": [],
+    "docs_url": "https://docs.atlan.com/"
+  },
+  {
+    "id": "aws-agents",
+    "name": "AWS Knowledge",
+    "description": "Search AWS documentation, API references and regional availability.",
+    "category": "Docs & search",
+    "skills": [
+      "agents-build",
+      "agents-connect",
+      "agents-debug",
+      "agents-deploy",
+      "agents-get-started",
+      "agents-harden",
+      "agents-optimize",
+      "agents-pay"
+    ],
+    "docs_url": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  {
+    "id": "aws-agents-for-devsecops",
+    "name": "AWS DevSecOps Agent",
+    "description": "AWS DevOps agent endpoint for pipeline, security and remediation tasks.",
+    "category": "Dev",
+    "skills": [
+      "analyzing-release-readiness",
+      "chatting-with-aws-devops-agent",
+      "coordinating-multi-space-devops-agent",
+      "diff-scanning-with-aws-security-agent",
+      "investigating-incidents-with-aws-devops-agent",
+      "pentesting-with-aws-security-agent",
+      "remediating-with-aws-security-agent",
+      "running-release-tests",
+      "scanning-with-aws-security-agent",
+      "setup",
+      "setup-devops-agent",
+      "setup-security-agent",
+      "threat-modeling-with-aws-security-agent"
+    ],
+    "docs_url": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  {
+    "id": "aws-core",
+    "name": "AWS API Proxy",
+    "description": "Proxy to the AWS MCP endpoint covering core AWS service APIs.",
+    "category": "Dev",
+    "skills": [
+      "amazon-bedrock",
+      "aws-ai-ml",
+      "aws-billing-and-cost-management",
+      "aws-blocks",
+      "aws-cdk",
+      "aws-cloudformation",
+      "aws-compute",
+      "aws-containers",
+      "aws-database",
+      "aws-deployment",
+      "aws-iam",
+      "aws-messaging-and-streaming",
+      "aws-observability",
+      "aws-sdk-js-v3-usage",
+      "aws-sdk-python-usage",
+      "aws-sdk-swift-usage",
+      "aws-secrets-manager",
+      "aws-serverless",
+      "launch-with-aws",
+      "signing-in-to-aws"
+    ],
+    "docs_url": "https://github.com/aws/agent-toolkit-for-aws"
+  },
+  {
+    "id": "aws-serverless",
+    "name": "AWS Serverless",
+    "description": "Build and deploy AWS serverless applications: Lambda, SAM and API Gateway.",
+    "category": "Dev",
+    "skills": [
+      "api-gateway",
+      "aws-lambda",
+      "aws-lambda-durable-functions",
+      "aws-lambda-managed-instances",
+      "aws-lambda-microvms",
+      "aws-serverless-deployment",
+      "aws-step-functions"
+    ],
+    "docs_url": "https://github.com/awslabs/agent-plugins"
+  },
+  {
+    "id": "aws-transform",
+    "name": "AWS Transform",
+    "description": "Run AWS Transform modernization jobs for .NET, mainframe and VMware workloads.",
+    "category": "Dev",
+    "skills": [
+      "aws-transform"
+    ],
+    "docs_url": "https://github.com/awslabs/agent-plugins"
+  },
+  {
+    "id": "azure",
+    "name": "Azure",
+    "description": "Manage Azure resources: subscriptions, storage, Cosmos DB, AKS and Monitor.",
+    "category": "Dev",
+    "skills": [
+      "airunway-aks-setup",
+      "appinsights-instrumentation",
+      "azure-ai",
+      "azure-aigateway",
+      "azure-app-onboard",
+      "azure-app-onboard-prereq",
+      "azure-cloud-migrate",
+      "azure-compliance",
+      "azure-compute",
+      "azure-cost",
+      "azure-deploy",
+      "azure-diagnostics",
+      "azure-enterprise-infra-planner",
+      "azure-kubernetes",
+      "azure-kusto",
+      "azure-kusto-graph",
+      "azure-kusto-irql",
+      "azure-kusto-irql-graph",
+      "azure-messaging",
+      "azure-prepare",
+      "azure-quotas",
+      "azure-reliability",
+      "azure-resource-lookup",
+      "azure-resource-visualizer",
+      "azure-storage",
+      "azure-upgrade",
+      "azure-validate",
+      "entra-agent-id",
+      "entra-app-registration",
+      "microsoft-foundry",
+      "python-appservice-deploy"
+    ],
+    "docs_url": "https://github.com/microsoft/azure-skills"
+  },
+  {
+    "id": "bigdata-com",
+    "name": "Bigdata.com",
+    "description": "Search Bigdata.com financial and market research content.",
+    "category": "Knowledge",
+    "skills": [
+      "bigdata-catalyst-monitor",
+      "bigdata-company-brief",
+      "bigdata-country-analysis",
+      "bigdata-country-sector-analysis",
+      "bigdata-cross-sector",
+      "bigdata-earnings-digest",
+      "bigdata-earnings-preview",
+      "bigdata-earnings-quality-screen",
+      "bigdata-earnings-reaction",
+      "bigdata-g7-comparison",
+      "bigdata-investment-memo",
+      "bigdata-moat-governance-review",
+      "bigdata-peer-comparables",
+      "bigdata-post-ipo-day1",
+      "bigdata-post-ipo-day14",
+      "bigdata-post-ipo-day179",
+      "bigdata-post-ipo-day365",
+      "bigdata-pre-ipo-analysis",
+      "bigdata-quick-take",
+      "bigdata-regional-comparison",
+      "bigdata-risk-assessment",
+      "bigdata-scenario-analysis",
+      "bigdata-sector-analysis",
+      "bigdata-sector-playbook",
+      "bigdata-thematic-research",
+      "bigdata-valuation-snapshot",
+      "bigdata-variant-perception"
+    ],
+    "docs_url": "https://docs.bigdata.com"
+  },
+  {
+    "id": "browser-use",
+    "name": "Browser Use",
+    "description": "Drive a real browser from the agent: navigate, click, fill and extract page content.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://browser-use.com"
+  },
+  {
+    "id": "canva",
+    "name": "Canva",
+    "description": "Create and edit Canva designs, apply brand checks and resize for social.",
+    "category": "Design",
+    "skills": [
+      "brand-check",
+      "bulk-create",
+      "edit-design",
+      "get-design-feedback",
+      "implement-feedback",
+      "resize-for-social-media"
+    ],
+    "docs_url": "https://www.canva.com"
+  },
+  {
+    "id": "catalyst-by-zoho",
+    "name": "Zoho Catalyst",
+    "description": "Deploy and manage Zoho Catalyst serverless functions and data stores.",
+    "category": "Dev",
+    "skills": [
+      "catalyst-appsail",
+      "catalyst-authentication",
+      "catalyst-basics",
+      "catalyst-by-zoho",
+      "catalyst-cache",
+      "catalyst-datastore",
+      "catalyst-functions",
+      "catalyst-nosql",
+      "catalyst-pricing",
+      "catalyst-sdk",
+      "catalyst-signals",
+      "catalyst-slate",
+      "catalyst-smartbrowz",
+      "catalyst-stratus",
+      "catalyst-zia",
+      "catalyst-zoho-mcp"
+    ],
+    "docs_url": "https://catalyst.zoho.com/"
+  },
+  {
+    "id": "chrome-devtools-mcp",
+    "name": "Chrome DevTools",
+    "description": "Inspect and control Chrome: DOM, network, console, performance traces and screenshots.",
+    "category": "Dev",
+    "skills": [
+      "a11y-debugging",
+      "chrome-devtools",
+      "chrome-devtools-cli",
+      "debug-optimize-lcp",
+      "memory-leak-debugging",
+      "troubleshooting"
+    ],
+    "docs_url": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+  },
+  {
+    "id": "circle-skills",
+    "name": "Circle",
+    "description": "Circle codegen server for USDC and programmable wallet integration code.",
+    "category": "Dev",
+    "skills": [
+      "accept-agent-payments",
+      "agent-wallet-policy",
+      "bridge-stablecoin",
+      "fund-agent-wallet",
+      "pay-via-agent-wallet",
+      "recover-eco-funds",
+      "swap-tokens",
+      "unify-balance",
+      "use-agent-wallet",
+      "use-arc",
+      "use-circle-cli",
+      "use-circle-wallets",
+      "use-developer-controlled-wallets",
+      "use-gateway",
+      "use-modular-wallets",
+      "use-smart-contract-platform",
+      "use-usdc",
+      "use-user-controlled-wallets"
+    ],
+    "docs_url": "https://www.circle.com"
+  },
+  {
+    "id": "circleback",
+    "name": "Circleback",
+    "description": "Search meetings, transcripts, action items, calendar events and emails.",
+    "category": "Comms",
+    "skills": [],
+    "docs_url": "https://github.com/circlebackai/claude-code-plugin.git"
+  },
+  {
+    "id": "clay",
+    "name": "Clay",
+    "description": "Find and enrich people and companies, run research agents and trigger Clay workflows.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://university.clay.com/docs/connect-to-clay-mcp"
+  },
+  {
+    "id": "clickhouse",
+    "name": "ClickHouse Cloud",
+    "description": "Query and manage ClickHouse Cloud services and databases.",
+    "category": "Dev",
+    "skills": [
+      "clickhouse-best-practices",
+      "setup"
+    ],
+    "docs_url": "https://github.com/ClickHouse/clickhouse-claude-code-plugin"
+  },
+  {
+    "id": "cloudflare",
+    "name": "Cloudflare",
+    "description": "Manage Cloudflare zones, Workers, DNS and settings.",
+    "category": "Dev",
+    "skills": [
+      "agents-sdk",
+      "cloudflare",
+      "cloudflare-email-service",
+      "cloudflare-one",
+      "cloudflare-one-migrations",
+      "durable-objects",
+      "sandbox-migrate-to-next",
+      "sandbox-next",
+      "sandbox-stable",
+      "turnstile-spin",
+      "web-perf",
+      "workers-best-practices",
+      "wrangler"
+    ],
+    "docs_url": "https://github.com/cloudflare/skills"
+  },
+  {
+    "id": "cloudinary",
+    "name": "Cloudinary",
+    "description": "Manage Cloudinary assets, transformations and structured metadata.",
+    "category": "Design",
+    "skills": [
+      "cloudinary-docs",
+      "cloudinary-transformations"
+    ],
+    "docs_url": "https://cloudinary.com/documentation"
+  },
+  {
+    "id": "codspeed",
+    "name": "CodSpeed",
+    "description": "Read CodSpeed performance benchmark runs and regressions.",
+    "category": "Dev",
+    "skills": [
+      "codspeed-optimize",
+      "codspeed-setup-harness"
+    ],
+    "docs_url": "https://codspeed.io"
+  },
+  {
+    "id": "confidence",
+    "name": "Confidence",
+    "description": "Manage Confidence feature flags and experiments.",
+    "category": "Dev",
+    "skills": [
+      "analyze-project",
+      "migrate-eppo",
+      "migrate-optimizely",
+      "migrate-posthog",
+      "migrate-statsig",
+      "onboard-confidence",
+      "onboard-confidence-dry-run",
+      "setup-warehouse",
+      "setup-warehouse-bigquery",
+      "setup-warehouse-databricks",
+      "setup-warehouse-redshift",
+      "setup-warehouse-snowflake"
+    ],
+    "docs_url": "https://confidence.spotify.com"
+  },
+  {
+    "id": "convex",
+    "name": "Convex",
+    "description": "Inspect and mutate Convex deployments: tables, functions and data.",
+    "category": "Dev",
+    "skills": [
+      "add",
+      "agent",
+      "auth",
+      "billing",
+      "convex-authz",
+      "crons",
+      "design",
+      "domains",
+      "env",
+      "improve-convex-plugin",
+      "labs-quickstart",
+      "migrate",
+      "quickstart",
+      "seed",
+      "suggest",
+      "test",
+      "workflow"
+    ],
+    "docs_url": "https://github.com/get-convex/convex-backend-skill"
+  },
+  {
+    "id": "data-agent-kit-starter-pack",
+    "name": "Google Data Agent Kit",
+    "description": "Google Cloud data toolbox server for Dataproc, notebooks and visualization.",
+    "category": "Dev",
+    "skills": [
+      "accidental-data-loss-prevention",
+      "bigquery-ai-ml",
+      "bigquery-bigframes",
+      "bigquery-data-transfer-service",
+      "bigquery-graph",
+      "bigquery-sql",
+      "building-data-apps",
+      "data-autocleaning",
+      "dataform-bigquery",
+      "dbt-bigquery",
+      "discovering-gcp-data-assets",
+      "enforcing-resource-attribution",
+      "federate-lakehouse-catalog",
+      "gcloud-auth-verification",
+      "gcp-composer-troubleshooting",
+      "gcp-data-pipelines",
+      "gcp-dataflow",
+      "gcp-managed-airflow-dag-authoring",
+      "gcp-managed-airflow-migrations",
+      "gcp-managed-airflow-recommendations",
+      "gcp-pipeline-orchestration",
+      "gcp-pipeline-resource-provisioning",
+      "gcp-spark",
+      "gcs-security-assessment",
+      "google-cloud-storage-basics",
+      "managing-python-dependencies",
+      "ml-best-practices",
+      "notebook-guidance"
+    ],
+    "docs_url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
+  },
+  {
+    "id": "datadog",
+    "name": "Datadog",
+    "description": "Query Datadog metrics, logs, traces, monitors and incidents.",
+    "category": "Dev",
+    "skills": [
+      "ddconfig",
+      "ddsetup",
+      "ddtoolsets"
+    ],
+    "docs_url": "https://www.datadoghq.com/"
+  },
+  {
+    "id": "deploy-on-aws",
+    "name": "AWS IaC",
+    "description": "Generate and apply AWS infrastructure-as-code (CloudFormation, CDK, Terraform).",
+    "category": "Dev",
+    "skills": [
+      "aws-architecture-diagram",
+      "deploy",
+      "elastic-beanstalk"
+    ],
+    "docs_url": "https://github.com/awslabs/agent-plugins"
+  },
+  {
+    "id": "desktop-commander",
+    "name": "Desktop Commander",
+    "description": "Local file editing, terminal commands and process control on the host machine.",
+    "category": "Other",
+    "skills": [
+      "ai-tools-setup",
+      "computer-health-check",
+      "desktop-commander-overview",
+      "knowledge-base",
+      "obsidian-vault",
+      "terminal"
+    ],
+    "docs_url": "https://desktopcommander.app"
+  },
+  {
+    "id": "docusign",
+    "name": "Docusign",
+    "description": "Work with eSignature envelopes and templates, Maestro workflows and Navigator agreements.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://developers.docusign.com/platform/mcp-server/"
+  },
+  {
+    "id": "dropbox",
+    "name": "Dropbox",
+    "description": "Search, read and manage Dropbox files and folders.",
+    "category": "Knowledge",
+    "skills": [
+      "clean-up-dropbox-content",
+      "collect-files-with-request",
+      "find-dropbox-content",
+      "inspect-dropbox-file",
+      "organize-dropbox-folder",
+      "share-dropbox-content"
+    ],
+    "docs_url": "https://www.dropbox.com"
+  },
+  {
+    "id": "expo",
+    "name": "Expo",
+    "description": "Query Expo/EAS projects, builds, updates and submissions.",
+    "category": "Dev",
+    "skills": [
+      "eas-app-stores",
+      "eas-hosting",
+      "eas-observe",
+      "eas-simulator",
+      "eas-update-insights",
+      "eas-workflows",
+      "expo-app-clip",
+      "expo-brownfield",
+      "expo-data-fetching",
+      "expo-design-system",
+      "expo-dev-client",
+      "expo-dom",
+      "expo-examples",
+      "expo-module",
+      "expo-native-ui",
+      "expo-project-structure",
+      "expo-router",
+      "expo-skill-feedback",
+      "expo-tailwind-setup",
+      "expo-ui",
+      "expo-upgrade",
+      "expo-web-to-native"
+    ],
+    "docs_url": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
+  },
+  {
+    "id": "firebase",
+    "name": "Firebase",
+    "description": "Manage Firebase projects: Firestore, Auth, Storage, Hosting and Functions.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/firebase"
+  },
+  {
+    "id": "forge-skills",
+    "name": "Atlassian Forge",
+    "description": "Build and deploy Atlassian Forge apps.",
+    "category": "Dev",
+    "skills": [
+      "forge-app-builder",
+      "forge-app-review",
+      "forge-connector",
+      "forge-cost-optimizer",
+      "forge-debugger",
+      "forge-security-review"
+    ],
+    "docs_url": "https://developer.atlassian.com/platform/forge/"
+  },
+  {
+    "id": "fullstory",
+    "name": "Fullstory",
+    "description": "Query Fullstory session and behavioural analytics data.",
+    "category": "Business",
+    "skills": [
+      "comparisons",
+      "general-analysis",
+      "session-review"
+    ],
+    "docs_url": "https://www.fullstory.com"
+  },
+  {
+    "id": "gitkraken",
+    "name": "GitKraken",
+    "description": "Git and issue-tracker operations across GitHub, GitLab, Jira and Azure DevOps.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://www.gitkraken.com"
+  },
+  {
+    "id": "gitlab",
+    "name": "GitLab",
+    "description": "GitLab projects, issues, merge requests and pipelines via the hosted API server.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/gitlab"
+  },
+  {
+    "id": "gong",
+    "name": "Gong",
+    "description": "Account summaries, deal insights and call briefs from Gong.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://help.gong.io/docs/about-gong-mcp-server"
+  },
+  {
+    "id": "grafana-cloud-mcp",
+    "name": "Grafana Cloud",
+    "description": "Query Grafana Cloud dashboards, datasources, alerts and incidents.",
+    "category": "Dev",
+    "skills": [
+      "grafana-cloud-mcp-tools"
+    ],
+    "docs_url": "https://grafana.com"
+  },
+  {
+    "id": "grafana-mcp",
+    "name": "Grafana (self-hosted)",
+    "description": "Query a self-hosted Grafana: dashboards, datasources, alerts and Loki/Prometheus data.",
+    "category": "Dev",
+    "skills": [
+      "grafana-mcp-tools"
+    ],
+    "docs_url": "https://grafana.com"
+  },
+  {
+    "id": "greptile",
+    "name": "Greptile",
+    "description": "Natural-language search and Q&A over indexed codebases.",
+    "category": "Docs & search",
+    "skills": [],
+    "docs_url": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/greptile"
+  },
+  {
+    "id": "honeycomb",
+    "name": "Honeycomb",
+    "description": "Query Honeycomb observability data: events, traces and SLOs.",
+    "category": "Dev",
+    "skills": [
+      "beeline-migration",
+      "create-honeycomb-board",
+      "metrics-queries",
+      "observability-fundamentals",
+      "otel-genai-instrumentation",
+      "otel-instrumentation",
+      "otel-migration",
+      "production-investigation",
+      "query-patterns",
+      "slos-and-triggers",
+      "verify-recent-trace"
+    ],
+    "docs_url": "https://www.honeycomb.io"
+  },
+  {
+    "id": "hostinger",
+    "name": "Hostinger",
+    "description": "Manage Hostinger VPS, domains, DNS, hosting and mail.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://www.hostinger.com"
+  },
+  {
+    "id": "hubspot",
+    "name": "HubSpot",
+    "description": "Search and update contacts, companies, deals and tickets; work with conversations and marketing email.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/integrate-with-the-remote-hubspot-mcp-server"
+  },
+  {
+    "id": "huggingface-skills",
+    "name": "Hugging Face",
+    "description": "Search Hugging Face models, datasets, Spaces and papers.",
+    "category": "Docs & search",
+    "skills": [
+      "hf-cli",
+      "hf-cloud-aws-context-discovery",
+      "hf-cloud-python-env-setup",
+      "hf-cloud-sagemaker-deployment-planner",
+      "hf-cloud-sagemaker-iam-preflight",
+      "hf-cloud-sagemaker-production-defaults",
+      "hf-cloud-serving-image-selection",
+      "hf-mcp",
+      "hf-mem",
+      "huggingface-best",
+      "huggingface-community-evals",
+      "huggingface-datasets",
+      "huggingface-gradio",
+      "huggingface-llm-trainer",
+      "huggingface-local-models",
+      "huggingface-lora-space-builder",
+      "huggingface-paper-publisher",
+      "huggingface-papers",
+      "huggingface-spaces",
+      "huggingface-tool-builder",
+      "huggingface-trackio",
+      "huggingface-vision-trainer",
+      "huggingface-zerogpu",
+      "train-sentence-transformers",
+      "transformers-js",
+      "trl-training"
+    ],
+    "docs_url": "https://github.com/huggingface/skills.git"
+  },
+  {
+    "id": "hunter",
+    "name": "Hunter",
+    "description": "Find and verify professional email addresses and enrich company data.",
+    "category": "Business",
+    "skills": [
+      "build-sequences",
+      "check-usage",
+      "company-enrichment",
+      "company-lists",
+      "discover",
+      "domain-search",
+      "email-finder",
+      "email-verifier",
+      "lead-lists",
+      "manage-leads",
+      "person-enrichment",
+      "prospecting",
+      "push-to-crm"
+    ],
+    "docs_url": "https://hunter.io"
+  },
+  {
+    "id": "intercom",
+    "name": "Intercom",
+    "description": "Search Intercom conversations and contacts, look up companies and manage Help Center articles.",
+    "category": "Comms",
+    "skills": [
+      "customer-360",
+      "install-cli",
+      "install-messenger",
+      "intercom-analysis"
+    ],
+    "docs_url": "https://github.com/intercom/claude-plugin-external"
+  },
+  {
+    "id": "jfrog",
+    "name": "JFrog",
+    "description": "Query JFrog Artifactory and Xray for artifacts, builds and vulnerabilities.",
+    "category": "Dev",
+    "skills": [
+      "jfrog",
+      "jfrog-ai-catalog-skills",
+      "jfrog-mcp-management",
+      "jfrog-package-safety-and-download",
+      "jfrog-reference-architecture",
+      "jfrog-setup-package-managers"
+    ],
+    "docs_url": "https://jfrog.com"
+  },
+  {
+    "id": "legalzoom",
+    "name": "LegalZoom",
+    "description": "Request LegalZoom attorney consultations and legal service workflows.",
+    "category": "Business",
+    "skills": [
+      "attorney-assist"
+    ],
+    "docs_url": "https://www.legalzoom.com/"
+  },
+  {
+    "id": "logfire",
+    "name": "Pydantic Logfire",
+    "description": "Query Logfire traces, logs and metrics.",
+    "category": "Dev",
+    "skills": [
+      "logfire-instrumentation",
+      "logfire-query",
+      "logfire-ui"
+    ],
+    "docs_url": "https://github.com/pydantic/skills/tree/main/plugins/logfire"
+  },
+  {
+    "id": "logrocket",
+    "name": "LogRocket",
+    "description": "Query LogRocket session replays, errors and frontend performance data.",
+    "category": "Dev",
+    "skills": [
+      "use-logrocket"
+    ],
+    "docs_url": "https://logrocket.com"
+  },
+  {
+    "id": "lovable",
+    "name": "Lovable",
+    "description": "Manage Lovable projects and generated app deployments.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://lovable.dev"
+  },
+  {
+    "id": "lusha",
+    "name": "Lusha",
+    "description": "B2B contact and company data lookup and enrichment.",
+    "category": "Business",
+    "skills": [
+      "enrich-contact",
+      "lookalike-prospect",
+      "outreach-research",
+      "outreach-sequence",
+      "prospect",
+      "signal-prospect"
+    ],
+    "docs_url": "https://www.lusha.com"
+  },
+  {
+    "id": "mapbox",
+    "name": "Mapbox",
+    "description": "Geocoding, directions, isochrones and map style tooling.",
+    "category": "Other",
+    "skills": [
+      "mapbox-android-patterns",
+      "mapbox-cartography",
+      "mapbox-data-visualization-patterns",
+      "mapbox-flutter-patterns",
+      "mapbox-geospatial-operations",
+      "mapbox-google-maps-migration",
+      "mapbox-ios-patterns",
+      "mapbox-location-grounding",
+      "mapbox-maplibre-migration",
+      "mapbox-mcp-devkit-patterns",
+      "mapbox-mcp-runtime-patterns",
+      "mapbox-search-integration",
+      "mapbox-search-patterns",
+      "mapbox-store-locator-patterns",
+      "mapbox-style-patterns",
+      "mapbox-style-quality",
+      "mapbox-token-security",
+      "mapbox-web-integration-patterns",
+      "mapbox-web-performance-patterns"
+    ],
+    "docs_url": "https://www.mapbox.com"
+  },
+  {
+    "id": "mercadopago",
+    "name": "Mercado Pago",
+    "description": "Mercado Pago payments, preferences and merchant API operations.",
+    "category": "Business",
+    "skills": [
+      "mp-integrate",
+      "mp-review",
+      "mp-test-setup",
+      "mp-webhooks"
+    ],
+    "docs_url": "https://github.com/mercadopago/mercadopago-claude-marketplace/tree/main/plugins/mercadopago"
+  },
+  {
+    "id": "microsoft-docs",
+    "name": "Microsoft Learn",
+    "description": "Search Microsoft Learn documentation for Azure, .NET and Microsoft 365.",
+    "category": "Docs & search",
+    "skills": [
+      "microsoft-code-reference",
+      "microsoft-docs",
+      "microsoft-skill-creator"
+    ],
+    "docs_url": "https://github.com/microsoftdocs/mcp"
+  },
+  {
+    "id": "mintlify",
+    "name": "Mintlify",
+    "description": "Search documentation sites hosted on Mintlify.",
+    "category": "Docs & search",
+    "skills": [
+      "mintlify"
+    ],
+    "docs_url": "https://www.mintlify.com/"
+  },
+  {
+    "id": "miro",
+    "name": "Miro",
+    "description": "Read and create Miro boards, frames and sticky notes.",
+    "category": "Design",
+    "skills": [
+      "miro-browse",
+      "miro-code-explain-on-board",
+      "miro-code-review",
+      "miro-code-spec",
+      "miro-diagram",
+      "miro-doc",
+      "miro-table"
+    ],
+    "docs_url": "https://miro.com"
+  },
+  {
+    "id": "monday-crm",
+    "name": "monday.com",
+    "description": "Read and update monday.com boards, items, columns and updates.",
+    "category": "Work tracking",
+    "skills": [
+      "activity-insights",
+      "automate-crm",
+      "daily-briefing",
+      "data-cleanup",
+      "forecast",
+      "log-activity",
+      "meeting-to-deal",
+      "run-sequence",
+      "workspace-builder"
+    ],
+    "docs_url": "https://monday.com"
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB (local)",
+    "description": "Connect to a MongoDB deployment: query collections, inspect schemas and run aggregations.",
+    "category": "Dev",
+    "skills": [
+      "mongodb-atlas-stream-processing",
+      "mongodb-connection",
+      "mongodb-mcp-setup",
+      "mongodb-natural-language-querying",
+      "mongodb-query-optimizer",
+      "mongodb-schema-design",
+      "mongodb-search-and-ai"
+    ],
+    "docs_url": "https://www.mongodb.com/docs/mcp-server/overview/"
+  },
+  {
+    "id": "mongodb-atlas",
+    "name": "MongoDB Atlas",
+    "description": "Manage Atlas clusters, database users, network access and backups.",
+    "category": "Dev",
+    "skills": [
+      "mongodb-atlas-stream-processing",
+      "mongodb-connection",
+      "mongodb-natural-language-querying",
+      "mongodb-query-optimizer",
+      "mongodb-schema-design",
+      "mongodb-search-and-ai"
+    ],
+    "docs_url": "https://www.mongodb.com/docs/mcp-server/get-started/"
+  },
+  {
+    "id": "navan",
+    "name": "Navan",
+    "description": "Query expenses, travel bookings, policies, approvals and cards.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://developer.navan.com/mcp/"
+  },
+  {
+    "id": "neon",
+    "name": "Neon",
+    "description": "Manage Neon Postgres projects, branches and databases; run SQL.",
+    "category": "Dev",
+    "skills": [
+      "claimable-postgres",
+      "neon",
+      "neon-ai-gateway",
+      "neon-functions",
+      "neon-object-storage",
+      "neon-postgres",
+      "neon-postgres-branches",
+      "neon-postgres-egress-optimizer"
+    ],
+    "docs_url": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
+  },
+  {
+    "id": "netlify-skills",
+    "name": "Netlify",
+    "description": "Create and manage Netlify sites, deploys, env vars and functions.",
+    "category": "Dev",
+    "skills": [
+      "netlify-access-control",
+      "netlify-agent-runner",
+      "netlify-ai-gateway",
+      "netlify-blobs",
+      "netlify-caching",
+      "netlify-config",
+      "netlify-database",
+      "netlify-deploy",
+      "netlify-edge-functions",
+      "netlify-forms",
+      "netlify-frameworks",
+      "netlify-functions",
+      "netlify-identity",
+      "netlify-image-cdn",
+      "netlify-mcp-servers",
+      "skill-creator"
+    ],
+    "docs_url": "https://github.com/netlify/context-and-tools"
+  },
+  {
+    "id": "newrelic",
+    "name": "New Relic",
+    "description": "Query New Relic entities, NRQL, alerts and APM data.",
+    "category": "Dev",
+    "skills": [
+      "apm",
+      "finops",
+      "kubernetes"
+    ],
+    "docs_url": "https://newrelic.com"
+  },
+  {
+    "id": "nimble",
+    "name": "Nimble",
+    "description": "Web search, page scraping and structured web-data extraction.",
+    "category": "Docs & search",
+    "skills": [
+      "brand-mention-monitor",
+      "company-deep-dive",
+      "competitor-intel",
+      "competitor-positioning",
+      "healthcare-providers-enrich",
+      "healthcare-providers-extract",
+      "healthcare-providers-verify",
+      "launch-monitor",
+      "local-places",
+      "market-finder",
+      "meeting-prep",
+      "nimble-databricks-data-products",
+      "nimble-web-expert",
+      "seo-intel",
+      "talent-sourcing"
+    ],
+    "docs_url": "https://docs.nimbleway.com/integrations/agent-skills/plugin-installation"
+  },
+  {
+    "id": "pagerduty",
+    "name": "PagerDuty",
+    "description": "Read and act on PagerDuty incidents, services, schedules and on-call rotations.",
+    "category": "Work tracking",
+    "skills": [],
+    "docs_url": "https://github.com/PagerDuty/claude-code-plugins"
+  },
+  {
+    "id": "paypal",
+    "name": "PayPal (sandbox)",
+    "description": "PayPal sandbox server for orders, invoices, subscriptions and disputes.",
+    "category": "Business",
+    "skills": [
+      "paypal-best-practices",
+      "paypal-routing"
+    ],
+    "docs_url": "https://developer.paypal.com/"
+  },
+  {
+    "id": "pigment",
+    "name": "Pigment",
+    "description": "Query Pigment business planning models and metrics.",
+    "category": "Business",
+    "skills": [
+      "analyzing-pigment-data",
+      "building-pigment-frames",
+      "designing-boards",
+      "designing-views",
+      "formatting-and-highlighting",
+      "integrating-pigment-data",
+      "modeling-pigment-applications",
+      "optimizing-pigment-performance",
+      "planning-cycles-pigment-applications",
+      "securing-pigment-applications",
+      "solving-specific-use-cases",
+      "writing-pigment-formulas"
+    ],
+    "docs_url": "https://www.pigment.com"
+  },
+  {
+    "id": "pinecone",
+    "name": "Pinecone",
+    "description": "Manage Pinecone indexes and run vector search.",
+    "category": "Dev",
+    "skills": [
+      "assistant",
+      "cli",
+      "docs",
+      "full-text-search",
+      "help",
+      "mcp",
+      "n8n",
+      "query",
+      "quickstart"
+    ],
+    "docs_url": "https://github.com/pinecone-io/pinecone-claude-code-plugin"
+  },
+  {
+    "id": "planetscale",
+    "name": "PlanetScale",
+    "description": "Manage PlanetScale databases, branches and deploy requests; run queries.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://planetscale.com/"
+  },
+  {
+    "id": "posthog",
+    "name": "PostHog",
+    "description": "Query PostHog product analytics, feature flags, session replays and insights.",
+    "category": "Business",
+    "skills": [
+      "analyzing-expensive-users",
+      "analyzing-experiment-session-replays",
+      "assessing-heatmaps",
+      "auditing-endpoints",
+      "auditing-experiments-flags",
+      "auditing-warehouse-source-health",
+      "auditing-warehouse-view-health",
+      "authoring-error-tracking-alerts",
+      "authoring-log-alerts",
+      "authoring-scouts",
+      "building-a-dashboard",
+      "building-workflows",
+      "checking-deploy-timing",
+      "choosing-trend-or-slope-view",
+      "cleaning-up-stale-feature-flags",
+      "configuring-experiment-analytics",
+      "configuring-experiment-rollout",
+      "consuming-endpoints-from-client-code",
+      "copying-endpoints-across-projects",
+      "copying-flags-across-projects",
+      "creating-ai-subscription",
+      "creating-an-endpoint",
+      "creating-experiments",
+      "creating-online-evaluations",
+      "creating-replay-vision-scanners",
+      "debugging-local-replay",
+      "debugging-signals-pipeline",
+      "debugging-surveys",
+      "designing-email-templates",
+      "diagnosing-ci-and-merge-bottlenecks",
+      "diagnosing-endpoint-performance",
+      "diagnosing-experiment-results",
+      "diagnosing-failed-warehouse-syncs",
+      "diagnosing-missing-recordings",
+      "diagnosing-sdk-health",
+      "diagnosing-stacktrace-symbolication",
+      "downloading-batch-export-files",
+      "exploring-ai-failures",
+      "exploring-apm-traces",
+      "exploring-autocapture-events",
+      "exploring-endpoint-execution-logs",
+      "exploring-live-traffic",
+      "exploring-llm-clusters",
+      "exploring-llm-costs",
+      "exploring-llm-evaluations",
+      "exploring-llm-traces",
+      "exploring-mcp-intent-clusters",
+      "exploring-mcp-sessions",
+      "exploring-mcp-tool-quality",
+      "exploring-mcp-tool-usage",
+      "exploring-replay-vision-observations",
+      "exploring-scouts",
+      "feature-usage-feed",
+      "filtering-bot-traffic",
+      "finding-deleted-feature-flags",
+      "finding-experiments",
+      "finding-replay-for-issue",
+      "finding-sessions-to-watch",
+      "formatting-insight-axes",
+      "grouping-noisy-errors",
+      "improving-mcp-tools",
+      "inbox-exploration",
+      "instrument-error-tracking",
+      "instrument-feature-flags",
+      "instrument-integration",
+      "instrument-llm-analytics",
+      "instrument-logs",
+      "instrument-product-analytics",
+      "investigate-metric",
+      "investigating-ci-failures",
+      "investigating-error-issue",
+      "investigating-logs",
+      "investigating-metric-anomalies",
+      "investigating-replay",
+      "managing-endpoint-versions",
+      "managing-experiment-lifecycle",
+      "managing-path-cleaning-rules",
+      "managing-reminders",
+      "managing-streamlit-apps",
+      "managing-subscriptions",
+      "modeling-activation-metrics",
+      "modeling-conversion-metrics",
+      "modeling-dimension-tables",
+      "modeling-product-usage-metrics",
+      "modeling-revenue-metrics",
+      "modeling-warehouse-foundations",
+      "planning-voice-agent-user-interviews",
+      "querying-posthog-data",
+      "resolving-ingestion-warnings",
+      "review-hog-authoring",
+      "review-hog-blind-spots-general",
+      "review-hog-perspective-contracts-security",
+      "review-hog-perspective-logic-correctness",
+      "review-hog-perspective-performance-reliability",
+      "review-hog-validation-criteria",
+      "setting-up-a-custom-rest-source",
+      "setting-up-a-data-warehouse-source",
+      "setting-up-data-catalog",
+      "setting-up-support-slack-locally",
+      "signals",
+      "signals-scout-ai-observability",
+      "signals-scout-anomaly-detection",
+      "signals-scout-apm",
+      "signals-scout-conversations",
+      "signals-scout-csp-violations",
+      "signals-scout-customer-analytics",
+      "signals-scout-data-pipelines",
+      "signals-scout-data-warehouse",
+      "signals-scout-error-tracking",
+      "signals-scout-experiments",
+      "signals-scout-feature-flags",
+      "signals-scout-general",
+      "signals-scout-health-checks",
+      "signals-scout-inbox-validation",
+      "signals-scout-insight-alerts",
+      "signals-scout-logs",
+      "signals-scout-mcp-tool-calls",
+      "signals-scout-observability-gaps",
+      "signals-scout-product-analytics",
+      "signals-scout-replay-vision",
+      "signals-scout-revenue-analytics",
+      "signals-scout-session-replay",
+      "signals-scout-skills-store",
+      "signals-scout-surveys",
+      "signals-scout-tasks",
+      "signals-scout-web-analytics",
+      "signals-scout-web-vitals",
+      "skills-store",
+      "suggesting-data-imports",
+      "suppressing-noisy-errors",
+      "testing-mcp-tools-locally",
+      "triaging-error-issues",
+      "triaging-visual-review-runs",
+      "tuning-incremental-sync-config",
+      "turning-engineering-analytics-into-insights",
+      "working-with-skills",
+      "writing-streamlit-apps"
+    ],
+    "docs_url": "https://posthog.com/docs/model-context-protocol"
+  },
+  {
+    "id": "postman",
+    "name": "Postman",
+    "description": "Work with Postman collections, environments, mocks and API specs.",
+    "category": "Dev",
+    "skills": [
+      "agent-ready-apis",
+      "deploy-flow",
+      "generate-spec",
+      "get-flow-run",
+      "list-flows",
+      "postman-cli",
+      "postman-context",
+      "postman-knowledge",
+      "run-collection",
+      "send-request",
+      "trigger-flow"
+    ],
+    "docs_url": "https://learning.postman.com/docs/developer/postman-mcp-server/"
+  },
+  {
+    "id": "prisma",
+    "name": "Prisma",
+    "description": "Manage Prisma schemas, migrations and Prisma Postgres databases.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://prisma.io"
+  },
+  {
+    "id": "profound",
+    "name": "Profound",
+    "description": "Retrieve AI visibility, sentiment and citation reports; run Profound agents.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://docs.tryprofound.com/mcp/overview"
+  },
+  {
+    "id": "qt-development-skills",
+    "name": "Qt Docs",
+    "description": "Search Qt framework documentation and API references.",
+    "category": "Docs & search",
+    "skills": [
+      "qt-cmake-project",
+      "qt-cpp-docs",
+      "qt-cpp-review",
+      "qt-figma-component-generation",
+      "qt-figma-token-extraction",
+      "qt-qml",
+      "qt-qml-docs",
+      "qt-qml-profiler",
+      "qt-qml-review",
+      "qt-qml-test",
+      "qt-qml-test-run",
+      "qt-ui-design"
+    ],
+    "docs_url": "https://www.qt.io/"
+  },
+  {
+    "id": "railway",
+    "name": "Railway",
+    "description": "Manage Railway projects, services, deployments and variables.",
+    "category": "Dev",
+    "skills": [
+      "use-railway"
+    ],
+    "docs_url": "https://docs.railway.com/ai/claude-code-plugin"
+  },
+  {
+    "id": "render",
+    "name": "Render",
+    "description": "Manage Render services, deploys, logs and environment groups.",
+    "category": "Dev",
+    "skills": [
+      "render-background-workers",
+      "render-blueprints",
+      "render-cli",
+      "render-cron-jobs",
+      "render-debug",
+      "render-deploy",
+      "render-disks",
+      "render-docker",
+      "render-domains",
+      "render-env-vars",
+      "render-keyvalue",
+      "render-mcp",
+      "render-migrate-from-heroku",
+      "render-monitor",
+      "render-networking",
+      "render-postgres",
+      "render-private-services",
+      "render-scaling",
+      "render-static-sites",
+      "render-web-services",
+      "render-workflows"
+    ],
+    "docs_url": "https://render.com"
+  },
+  {
+    "id": "resend",
+    "name": "Resend",
+    "description": "Send transactional email and manage Resend domains, audiences and broadcasts.",
+    "category": "Comms",
+    "skills": [
+      "agent-email-inbox",
+      "email-best-practices",
+      "react-email",
+      "resend",
+      "resend-cli"
+    ],
+    "docs_url": "https://resend.com"
+  },
+  {
+    "id": "revenuecat",
+    "name": "RevenueCat",
+    "description": "Read and configure RevenueCat projects, products, entitlements and subscriber data.",
+    "category": "Business",
+    "skills": [
+      "create-revenuecat-project",
+      "integrate-revenuecat",
+      "revenuecat",
+      "revenuecat-charts",
+      "revenuecat-customer-center",
+      "revenuecat-entitlements-gate",
+      "revenuecat-experiment-analysis",
+      "revenuecat-identify-user",
+      "revenuecat-migrate",
+      "revenuecat-paywall",
+      "revenuecat-purchase-flow",
+      "revenuecat-sdk-compatibility",
+      "revenuecat-status",
+      "revenuecat-store-state",
+      "revenuecat-testing-setup",
+      "revenuecat-troubleshoot"
+    ],
+    "docs_url": "https://www.revenuecat.com"
+  },
+  {
+    "id": "rill",
+    "name": "Rill Developer",
+    "description": "Query Rill dashboards and metrics from a local Rill Developer instance.",
+    "category": "Dev",
+    "skills": [
+      "rill-analysis",
+      "rill-canvas",
+      "rill-connector",
+      "rill-development",
+      "rill-explore",
+      "rill-metrics-view",
+      "rill-model",
+      "rill-rillyaml",
+      "rill-theme"
+    ],
+    "docs_url": "https://docs.rilldata.com/developers/build/ai-configuration"
+  },
+  {
+    "id": "rootly",
+    "name": "Rootly",
+    "description": "Manage Rootly incidents, alerts, on-call schedules and retrospectives.",
+    "category": "Work tracking",
+    "skills": [
+      "action",
+      "alert",
+      "announce",
+      "ask",
+      "brief",
+      "cover",
+      "deploy-check",
+      "handoff",
+      "lookup",
+      "my",
+      "oncall",
+      "respond",
+      "retro",
+      "setup",
+      "status",
+      "swap",
+      "test",
+      "trend"
+    ],
+    "docs_url": "https://rootly.com"
+  },
+  {
+    "id": "salesforce",
+    "name": "Salesforce",
+    "description": "Query, search, create, update and traverse Salesforce records.",
+    "category": "Business",
+    "skills": [],
+    "docs_url": "https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/cursor.html"
+  },
+  {
+    "id": "sanity",
+    "name": "Sanity",
+    "description": "Query and mutate Sanity content datasets and schemas.",
+    "category": "Knowledge",
+    "skills": [
+      "content-experimentation-best-practices",
+      "content-modeling-best-practices",
+      "portable-text-conversion",
+      "portable-text-serialization",
+      "sanity-best-practices",
+      "sanity-migration",
+      "seo-aeo-best-practices"
+    ],
+    "docs_url": "https://www.sanity.io"
+  },
+  {
+    "id": "sap-cds-mcp",
+    "name": "SAP CAP (CDS)",
+    "description": "Work with SAP Cloud Application Programming models: CDS schemas, services and builds.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://cap.cloud.sap/"
+  },
+  {
+    "id": "sap-fiori-mcp-server",
+    "name": "SAP Fiori Tools",
+    "description": "Generate and modify SAP Fiori elements applications.",
+    "category": "Dev",
+    "skills": [
+      "sap-fiori-add-visual-filter",
+      "sap-fiori-analytical-chart",
+      "sap-fiori-app-development",
+      "sap-fiori-create-cli",
+      "sap-fiori-eslint-plugin",
+      "sap-fiori-opa5-test-development"
+    ],
+    "docs_url": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
+  },
+  {
+    "id": "sap-hana-cli",
+    "name": "SAP HANA CLI",
+    "description": "Inspect and query SAP HANA schemas, tables and procedures.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/SAP-samples/hana-cli-claude-plugin"
+  },
+  {
+    "id": "sap-mdk-server",
+    "name": "SAP MDK",
+    "description": "Build SAP Mobile Development Kit applications and metadata.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://help.sap.com/docs/MDK"
+  },
+  {
+    "id": "serena",
+    "name": "Serena",
+    "description": "Semantic code retrieval and editing toolkit driven by language servers.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/serena"
+  },
+  {
+    "id": "shippo",
+    "name": "Shippo",
+    "description": "Create shipping labels, compare carrier rates and track parcels.",
+    "category": "Business",
+    "skills": [
+      "address-validation",
+      "batch-shipping",
+      "label-purchase",
+      "rate-shopping",
+      "shipping-analysis",
+      "shippo-best-practices",
+      "shippo-support-ticket",
+      "tracking",
+      "upgrade-shippo"
+    ],
+    "docs_url": "https://docs.goshippo.com"
+  },
+  {
+    "id": "sonatype-guide",
+    "name": "Sonatype",
+    "description": "Check open-source dependencies for vulnerabilities and policy violations.",
+    "category": "Dev",
+    "skills": [
+      "sonatype-guide"
+    ],
+    "docs_url": "https://github.com/sonatype/sonatype-guide-claude-plugin.git"
+  },
+  {
+    "id": "sourcegraph",
+    "name": "Sourcegraph",
+    "description": "Code search and navigation across your Sourcegraph instance.",
+    "category": "Docs & search",
+    "skills": [
+      "searching-sourcegraph"
+    ],
+    "docs_url": "https://sourcegraph.com"
+  },
+  {
+    "id": "sumup",
+    "name": "SumUp",
+    "description": "SumUp merchant, transaction and payout API access.",
+    "category": "Business",
+    "skills": [
+      "sumup",
+      "sumup-best-practices",
+      "sumup-debug",
+      "sumup-mcp",
+      "sumup-testing",
+      "upgrade-sumup"
+    ],
+    "docs_url": "https://www.sumup.com/"
+  },
+  {
+    "id": "synthflow",
+    "name": "Synthflow",
+    "description": "Build and manage Synthflow AI voice agents and call workflows.",
+    "category": "Comms",
+    "skills": [
+      "call-review",
+      "prompt-review"
+    ],
+    "docs_url": "https://synthflow.ai"
+  },
+  {
+    "id": "terraform",
+    "name": "Terraform",
+    "description": "Look up Terraform providers, modules and registry docs; query Terraform Cloud.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/terraform"
+  },
+  {
+    "id": "twilio-developer-kit",
+    "name": "Twilio Docs",
+    "description": "Search Twilio and SendGrid developer documentation.",
+    "category": "Docs & search",
+    "skills": [
+      "sendgrid",
+      "twilio"
+    ],
+    "docs_url": "https://www.twilio.com"
+  },
+  {
+    "id": "ui5",
+    "name": "SAP UI5",
+    "description": "Build and lint SAP UI5 applications; look up UI5 API documentation.",
+    "category": "Dev",
+    "skills": [
+      "ui5-best-practices",
+      "ui5-best-practices-accessibility",
+      "ui5-best-practices-integration-cards",
+      "ui5-best-practices-mdc",
+      "ui5-best-practices-opa5",
+      "ui5-best-practices-qunit",
+      "ui5-best-practices-smart-controls",
+      "ui5-best-practices-tables"
+    ],
+    "docs_url": "https://github.com/UI5/plugins-coding-agents"
+  },
+  {
+    "id": "valtown",
+    "name": "Val Town",
+    "description": "Create, run and deploy Val Town serverless functions and HTTP endpoints.",
+    "category": "Dev",
+    "skills": [
+      "blob-storage",
+      "client-side-js",
+      "create-skill",
+      "cron-and-intervals",
+      "email",
+      "http-endpoints",
+      "oauth",
+      "react-ui",
+      "restricted-access",
+      "sqlite-storage",
+      "third-party-integrations"
+    ],
+    "docs_url": "https://val.town"
+  },
+  {
+    "id": "vanta",
+    "name": "Vanta",
+    "description": "Query Vanta compliance controls, tests, evidence and vendor risk.",
+    "category": "Business",
+    "skills": [
+      "fix-test",
+      "list-tests",
+      "test-remediation"
+    ],
+    "docs_url": "https://help.vanta.com/en/articles/14094979-connecting-to-vanta-mcp#h_887ce3f337"
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "description": "Search Vercel docs, list projects and deployments, inspect logs.",
+    "category": "Dev",
+    "skills": [
+      "ai-gateway",
+      "ai-sdk",
+      "auth",
+      "benchmark-agents",
+      "benchmark-e2e",
+      "benchmark-sandbox",
+      "benchmark-testing",
+      "bootstrap",
+      "cdn-caching",
+      "chat-sdk",
+      "deployments-cicd",
+      "env-vars",
+      "eve",
+      "knowledge-update",
+      "marketplace",
+      "microfrontends",
+      "next-cache-components",
+      "next-forge",
+      "next-upgrade",
+      "nextjs",
+      "plugin-audit",
+      "react-best-practices",
+      "release",
+      "routing-middleware",
+      "runtime-cache",
+      "shadcn",
+      "turbopack",
+      "vercel-agent",
+      "vercel-cli",
+      "vercel-connect",
+      "vercel-firewall",
+      "vercel-functions",
+      "vercel-plugin-eval",
+      "vercel-sandbox",
+      "vercel-storage",
+      "verification",
+      "workflow"
+    ],
+    "docs_url": "https://github.com/vercel/vercel-plugin"
+  },
+  {
+    "id": "windsor-ai",
+    "name": "Windsor.ai",
+    "description": "Query marketing data: ad spend, campaigns and analytics from connected sources.",
+    "category": "Business",
+    "skills": [
+      "business-data"
+    ],
+    "docs_url": "https://windsor.ai"
+  },
+  {
+    "id": "wix",
+    "name": "Wix",
+    "description": "Manage Wix sites, apps, headless projects and design system components.",
+    "category": "Dev",
+    "skills": [
+      "wix-app",
+      "wix-design-system",
+      "wix-docs",
+      "wix-headless",
+      "wix-manage",
+      "wix-vibe-headless"
+    ],
+    "docs_url": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
+  },
+  {
+    "id": "x",
+    "name": "X",
+    "description": "Search posts and users, read timelines and mentions, manage lists, bookmarks and mutes.",
+    "category": "Comms",
+    "skills": [],
+    "docs_url": "https://docs.x.com/tools/mcp"
+  },
+  {
+    "id": "zapier",
+    "name": "Zapier",
+    "description": "Run Zapier actions across connected apps from a single endpoint.",
+    "category": "Other",
+    "skills": [
+      "zapier-demo",
+      "zapier-explore",
+      "zapier-onboard",
+      "zapier-status"
+    ],
+    "docs_url": "https://github.com/zapier/zapier-mcp/tree/main/plugins/zapier"
+  },
+  {
+    "id": "zoom-plugin",
+    "name": "Zoom",
+    "description": "Search Zoom meetings and recordings, pull summaries and transcripts, work with Zoom Docs.",
+    "category": "Comms",
+    "skills": [
+      "build-zoom-bot",
+      "build-zoom-meeting-app",
+      "choose-zoom-approach",
+      "cobrowse-sdk",
+      "contact-center",
+      "debug-zoom",
+      "debug-zoom-integration",
+      "design-mcp-workflow",
+      "general",
+      "meeting-sdk",
+      "oauth",
+      "phone",
+      "plan-zoom-integration",
+      "plan-zoom-product",
+      "probe-sdk",
+      "rest-api",
+      "rivet-sdk",
+      "rtms",
+      "scribe",
+      "setup-zoom-marketplace-app",
+      "setup-zoom-mcp",
+      "setup-zoom-oauth",
+      "start",
+      "summarizer",
+      "team-chat",
+      "translator",
+      "ui-toolkit",
+      "video-sdk",
+      "virtual-agent",
+      "webhooks",
+      "websockets",
+      "zoom-apps-sdk",
+      "zoom-mcp"
+    ],
+    "docs_url": "https://developers.zoom.us/"
+  },
+  {
+    "id": "zoominfo",
+    "name": "ZoomInfo",
+    "description": "B2B company and contact intelligence lookup and enrichment.",
+    "category": "Business",
+    "skills": [
+      "account-health",
+      "account-relationship-recap",
+      "account-research",
+      "ae-cs-handoff",
+      "build-list",
+      "buying-committee",
+      "call-coaching",
+      "call-recap",
+      "commitment-ledger",
+      "company-intent-monitor",
+      "company-news-monitor",
+      "competitor-analysis",
+      "contact-relationship-recap",
+      "daily-brief",
+      "decision-process-mapper",
+      "draft-follow-up",
+      "email-thread-summarizer",
+      "engagement-timeline",
+      "enrich-company",
+      "enrich-contact",
+      "exec-brief",
+      "find-similar",
+      "meeting-prep",
+      "mutual-action-plan",
+      "next-best-action",
+      "objection-blocker-tracker",
+      "personalize-email",
+      "qbr-prep",
+      "recommend-contacts",
+      "renewal-prep",
+      "score-accounts",
+      "score-leads",
+      "tam-sizer",
+      "tech-stack-snapshot",
+      "why-now"
+    ],
+    "docs_url": "https://www.zoominfo.com"
+  },
+  {
+    "id": "zscaler",
+    "name": "Zscaler",
+    "description": "Query and configure Zscaler ZIA, ZPA and ZDX policies and reporting.",
+    "category": "Dev",
+    "skills": [],
+    "docs_url": "https://github.com/zscaler/zscaler-mcp-server"
+  }
+]

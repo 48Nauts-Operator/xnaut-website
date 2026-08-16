@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Docs &amp; search</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(140 38% 26%);color:hsl(140 70% 74%)" aria-hidden="true">G</span><h1>Greptile</h1></div>
   <p class="plg-lead">Natural-language search and Q&amp;A over indexed codebases.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Docs &amp; search</span>
-    <span class="plg-state ready">answered with no account</span>
+    <span class="plg-state ready" title="checked 2026-08-16">open access</span>
     <button class="plg-copy" data-copy="greptile">copy id: greptile</button>
     <a class="plg-state" href="https://github.com/anthropics/claude-plugins-public/tree/main/external_plugins/greptile" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,21 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://api.greptile.com/mcp</code><button class="plg-copy" data-copy="https://api.greptile.com/mcp">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
   <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>answered with no account.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <ul class="plg-env"><li><b>GREPTILE_API_KEY</b><span>required — you paste it once, into your own machine's plugin library</span></li></ul>
+    <h2>Setup</h2>
+    <ul class="plg-env"><li><b>GREPTILE_API_KEY</b><span>paste it once, into your own plugin library</span></li></ul>
     <div class="plg-note">Needs a Greptile API key.</div>
   </section>
 
   <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>None. The connector gives an agent the tools; a skill would tell it when to reach for them.</p>
+    <h2>What it can do · 12 tools</h2>
+    <ul class="plg-env"><li><b>list_custom_context</b><span>List organization custom context with optional filtering by type and generation source</span></li><li><b>get_custom_context</b><span>Get detailed custom context information including evidence and linked comments. Linked comments include source: &quot;pr&quot; | &quot;headless&quot;; headless entries have codeRev</span></li><li><b>search_custom_context</b><span>Search custom context by content using text search</span></li><li><b>list_merge_requests</b><span>List merge requests/PRs. Can filter by repository (name+remote+defaultBranch), branch, author, or state. For GitHub: Works best with gh CLI installed for curren</span></li><li><b>list_pull_requests</b><span>List pull requests (alias for list_merge_requests). Can filter by repository, branch, author, or state. GitHub tip: Use gh CLI for best results with current bra</span></li><li><b>get_merge_request</b><span>Get detailed merge request information including metadata, statistics, Greptile comments, and review analysis. Analyzes which review comments have been addresse</span></li><li><b>list_merge_request_comments</b><span>Get all comments for a PR including Greptile review comments (clearly marked with sourceType), human comments, and other bot comments. Greptile comments may inc</span></li><li><b>list_code_reviews</b><span>List code reviews with optional filtering by repository and status. Reviews dispatched via the CLI return source: &quot;headless&quot; with mergeRequest: null; PR reviews</span></li><li><b>get_code_review</b><span>Get detailed code review information including body, status, summary citations, and customer-provided review metadata (branch, baseSha, headSha, changedFiles, i</span></li><li><b>trigger_code_review</b><span>Trigger a code review for a pull request/merge request. Currently supports GitHub and GitLab only.</span></li><li><b>search_greptile_comments</b><span>Search specifically for Greptile review comments across all merge requests. Returns comments with clear identification as Greptile-generated, including any code</span></li><li><b>create_custom_context</b><span>Create a new custom context for an organization</span></li></ul>
   </section>
 
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
-  </section>
+  
 
   <section class="plg-sec">
     <h2>Also in Docs &amp; search</h2>

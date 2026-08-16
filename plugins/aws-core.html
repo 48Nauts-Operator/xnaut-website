@@ -80,6 +80,7 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(351 38% 26%);color:hsl(351 70% 74%)" aria-hidden="true">A</span><h1>AWS API Proxy</h1></div>
   <p class="plg-lead">Proxy to the AWS MCP endpoint covering core AWS service APIs.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
@@ -91,36 +92,21 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>uvx mcp-proxy-for-aws@1.6.4 https://aws-mcp.us-east-1.api.aws/mcp --skip-auth --metadata INSTALL_SOURCE=agent-toolkit-core</code><button class="plg-copy" data-copy="uvx mcp-proxy-for-aws@1.6.4 https://aws-mcp.us-east-1.api.aws/mcp --skip-auth --metadata INSTALL_SOURCE=agent-toolkit-core">copy</button></div>
-    <p style="margin-top:10px;">Started by xNAUT when an agent that holds this plugin runs. Nothing is installed globally.</p>
+    <p style="margin-top:10px;">Started by xNAUT when an agent holding this plugin runs. Nothing is installed globally.</p>
+  </section>
+
+  <section class="plg-sec">
+    <h2>Setup</h2>
+    
+    <div class="plg-note">One package (mcp-proxy-for-aws) also backs the Amplify, data-analytics, SageMaker and Location plugins.</div>
   </section>
 
   
 
   <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
-    <div class="plg-note">One package (mcp-proxy-for-aws) also backs the Amplify, data-analytics, SageMaker and Location plugins.</div>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>20 skills. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>Skills it ships · 20</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>amazon-bedrock</li><li>aws-ai-ml</li><li>aws-billing-and-cost-management</li><li>aws-blocks</li><li>aws-cdk</li><li>aws-cloudformation</li><li>aws-compute</li><li>aws-containers</li><li>aws-database</li><li>aws-deployment</li><li>aws-iam</li><li>aws-messaging-and-streaming</li><li>aws-observability</li><li>aws-sdk-js-v3-usage</li><li>aws-sdk-python-usage</li><li>aws-sdk-swift-usage</li><li>aws-secrets-manager</li><li>aws-serverless</li><li>launch-with-aws</li><li>signing-in-to-aws</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

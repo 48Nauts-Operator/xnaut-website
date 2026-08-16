@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(190 38% 26%);color:hsl(190 70% 74%)" aria-hidden="true">R</span><h1>Render</h1></div>
   <p class="plg-lead">Manage Render services, deploys, logs and environment groups.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
-    <span class="plg-state">sign-in required</span>
+    <span class="plg-state" title="checked 2026-08-16">needs a sign-in</span>
     <button class="plg-copy" data-copy="render">copy id: render</button>
     <a class="plg-state" href="https://render.com" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,21 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://mcp.render.com/mcp</code><button class="plg-copy" data-copy="https://mcp.render.com/mcp">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
   <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>sign-in required.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
+    <h2>Setup</h2>
+    
     <div class="plg-note">OAuth on first connection.</div>
   </section>
 
+  
+
   <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>21 skills. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>Skills it ships · 21</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>render-background-workers</li><li>render-blueprints</li><li>render-cli</li><li>render-cron-jobs</li><li>render-debug</li><li>render-deploy</li><li>render-disks</li><li>render-docker</li><li>render-domains</li><li>render-env-vars</li><li>render-keyvalue</li><li>render-mcp</li><li>render-migrate-from-heroku</li><li>render-monitor</li><li>render-networking</li><li>render-postgres</li><li>render-private-services</li><li>render-scaling</li><li>render-static-sites</li><li>render-web-services</li><li>render-workflows</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

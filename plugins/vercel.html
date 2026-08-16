@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(191 38% 26%);color:hsl(191 70% 74%)" aria-hidden="true">V</span><h1>Vercel</h1></div>
   <p class="plg-lead">Search Vercel docs, list projects and deployments, inspect logs.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
-    <span class="plg-state">sign-in required</span>
+    <span class="plg-state" title="checked 2026-08-16">needs a sign-in</span>
     <button class="plg-copy" data-copy="vercel">copy id: vercel</button>
     <a class="plg-state" href="https://github.com/vercel/vercel-plugin" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,21 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://mcp.vercel.com</code><button class="plg-copy" data-copy="https://mcp.vercel.com">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
   <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>sign-in required.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
+    <h2>Setup</h2>
+    
     <div class="plg-note">Read-only; OAuth on first connection.</div>
   </section>
 
+  
+
   <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>37 skills. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>Skills it ships · 37</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>ai-gateway</li><li>ai-sdk</li><li>auth</li><li>benchmark-agents</li><li>benchmark-e2e</li><li>benchmark-sandbox</li><li>benchmark-testing</li><li>bootstrap</li><li>cdn-caching</li><li>chat-sdk</li><li>deployments-cicd</li><li>env-vars</li><li>eve</li><li>knowledge-update</li><li>marketplace</li><li>microfrontends</li><li>next-cache-components</li><li>next-forge</li><li>next-upgrade</li><li>nextjs</li><li>plugin-audit</li><li>react-best-practices</li><li>release</li><li>routing-middleware</li><li>runtime-cache</li><li>shadcn</li><li>turbopack</li><li>vercel-agent</li><li>vercel-cli</li><li>vercel-connect</li><li>vercel-firewall</li><li>vercel-functions</li><li>vercel-plugin-eval</li><li>vercel-sandbox</li><li>vercel-storage</li><li>verification</li><li>workflow</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

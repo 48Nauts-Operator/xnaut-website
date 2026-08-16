@@ -80,6 +80,7 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(30 38% 26%);color:hsl(30 70% 74%)" aria-hidden="true">K</span><h1>Kubernetes</h1></div>
   <p class="plg-lead">Inspect and operate a cluster through your existing kubeconfig.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
@@ -91,36 +92,18 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>npx -y mcp-server-kubernetes</code><button class="plg-copy" data-copy="npx -y mcp-server-kubernetes">copy</button></div>
-    <p style="margin-top:10px;">Started by xNAUT when an agent that holds this plugin runs. Nothing is installed globally.</p>
+    <p style="margin-top:10px;">Started by xNAUT when an agent holding this plugin runs. Nothing is installed globally.</p>
+  </section>
+
+  <section class="plg-sec">
+    <h2>Setup</h2>
+    
+    <div class="plg-note">Uses the current kubectl context. Point it at the right cluster before enabling.</div>
   </section>
 
   
 
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
-    <div class="plg-note">Uses the current kubectl context. Point it at the right cluster before enabling.</div>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>None. The connector gives an agent the tools; a skill would tell it when to reach for them.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
-  </section>
+  
 
   <section class="plg-sec">
     <h2>Also in Dev</h2>

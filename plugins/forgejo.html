@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Forgejo — MCP plugin for xNAUT</title>
-  <meta name="description" content="Issues and pull requests on the Forgejo host where development actually lives. GitHub is only a mirror here. An MCP server your xNAUT agents can use.">
+  <meta name="description" content="Issues, pull requests and repositories on a self-hosted Forgejo or Gitea instance. An MCP server your xNAUT agents can use.">
   <link rel="canonical" href="https://xnaut.dev/plugins/forgejo.html">
   <meta name="author" content="André">
   <meta property="og:title" content="Forgejo — MCP plugin for xNAUT">
-  <meta property="og:description" content="Issues and pull requests on the Forgejo host where development actually lives. GitHub is only a mirror here. An MCP server your xNAUT agents can use.">
+  <meta property="og:description" content="Issues, pull requests and repositories on a self-hosted Forgejo or Gitea instance. An MCP server your xNAUT agents can use.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -79,7 +79,8 @@
 <main class="legal">
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(268 38% 26%);color:hsl(268 70% 74%)" aria-hidden="true">F</span><h1>Forgejo</h1></div>
-  <p class="plg-lead">Issues and pull requests on the Forgejo host where development actually lives. GitHub is only a mirror here.</p>
+  <p class="plg-lead">Issues, pull requests and repositories on a self-hosted Forgejo or Gitea instance.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
@@ -91,36 +92,18 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>npx -y gitea-mcp</code><button class="plg-copy" data-copy="npx -y gitea-mcp">copy</button></div>
-    <p style="margin-top:10px;">Started by xNAUT when an agent that holds this plugin runs. Nothing is installed globally.</p>
+    <p style="margin-top:10px;">Started by xNAUT when an agent holding this plugin runs. Nothing is installed globally.</p>
+  </section>
+
+  <section class="plg-sec">
+    <h2>Setup</h2>
+    <ul class="plg-env"><li><b>GITEA_ACCESS_TOKEN</b><span>paste it once, into your own plugin library</span></li></ul>
+    <div class="plg-note">Forgejo speaks the Gitea API, so the client is gitea-mcp: the npm package forgejo-mcp ships no executable and npx cannot run it. Needs a Forgejo access token with repository scope, and the host URL of your instance.</div>
   </section>
 
   
 
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <ul class="plg-env"><li><b>GITEA_ACCESS_TOKEN</b><span>required — you paste it once, into your own machine's plugin library</span></li></ul>
-    <div class="plg-note">Forgejo speaks the Gitea API, so the client is gitea-mcp. The npm package forgejo-mcp ships no executable — npx cannot run it, which verification catches. Token: the one in ~/.config/forgejo/token.</div>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>None. The connector gives an agent the tools; a skill would tell it when to reach for them.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
-  </section>
+  
 
   <section class="plg-sec">
     <h2>Also in Dev</h2>
@@ -150,7 +133,7 @@
   "@type": "SoftwareApplication",
   "name": "Forgejo",
   "applicationCategory": "DeveloperApplication",
-  "description": "Issues and pull requests on the Forgejo host where development actually lives. GitHub is only a mirror here.",
+  "description": "Issues, pull requests and repositories on a self-hosted Forgejo or Gitea instance.",
   "url": "https://xnaut.dev/plugins/forgejo.html",
   "operatingSystem": "macOS, Windows",
   "isAccessibleForFree": true,

@@ -7,7 +7,7 @@
   "linear": "auth",
   "sentry": "auth",
   "github": "auth",
-  "excalidraw": "unreachable",
+  "excalidraw": "local",
   "atlassian": "auth",
   "stripe": "auth",
   "adobe-for-creativity": "auth",
@@ -78,7 +78,7 @@
   "render": "auth",
   "resend": "auth",
   "revenuecat": "auth",
-  "rill": "unreachable",
+  "rill": "local",
   "rootly": "auth",
   "salesforce": "auth",
   "sanity": "auth",
@@ -97,5 +97,251 @@
   "zapier": "auth",
   "zoom-plugin": "auth",
   "zoominfo": "auth"
+ },
+ "tools": {
+  "apollo-skills": [
+   {
+    "name": "GetTopOperations",
+    "description": "Identify the most-used operations on a graph variant for a time range, with request counts, types, and signatures. Use to find high-traffic operations, detect u"
+   },
+   {
+    "name": "GetPersistedQueryListStatus",
+    "description": "Check whether a graph variant has a Persisted Query List (PQL) and its current build (revision and operation count). Use to assess PQL configuration — a product"
+   },
+   {
+    "name": "GetLaunchHistory",
+    "description": "Retrieve recent launches for a graph variant (most recent first) to detect deployment instability such as repeated failures or frequent superseded launches. Eac"
+   },
+   {
+    "name": "ApolloConnectorsSpec",
+    "description": "Returns the Apollo Connectors specification for guidance on creating or modifying GraphQL schemas that use @connect or @source."
+   },
+   {
+    "name": "GetLaunch",
+    "description": "Inspect a single launch by ID for full detail: status, timestamps, which subgraphs changed, composition errors, and the schema diff summary. Use to drill into a"
+   },
+   {
+    "name": "GetSubgraphMetrics",
+    "description": "Top subgraphs/connectors by traffic/health for a graph over a time window, as compact CSV (header row + one row per subgraph per day). Columns: start timestamp,"
+   },
+   {
+    "name": "GetMyIdentity",
+    "description": "Resolve the caller's identity from their API key. Call this FIRST when the user asks about \"my graph\" but has not provided a graph ID. For a graph/service key, "
+   },
+   {
+    "name": "ApolloDocsRead",
+    "description": "Reads an Apollo documentation page by slug in chunks. Use slugs returned by ApolloDocsSearch."
+   },
+   {
+    "name": "GetOperationMetrics",
+    "description": "Top operations by usage/health for a graph over a time window, as compact CSV (header row + one row per operation per day). Columns: start timestamp, end exclus"
+   },
+   {
+    "name": "GetLatestLaunch",
+    "description": "Inspect the most recent launch for a graph variant: status, completion time, subgraph changes, composition errors, and a schema diff summary vs the previous lau"
+   },
+   {
+    "name": "GetVariantDetails",
+    "description": "Retrieve detailed metadata for a graph variant: federation version, subgraph inventory (names), router status and any pending router version, and the current ro"
+   },
+   {
+    "name": "ApolloDocsSearch",
+    "description": "Searches official Apollo documentation for GraphQL, GraphOS, Apollo Router, Apollo Client, MCP Server, schema design, deployment, and Connectors. Returns URLs, "
+   },
+   {
+    "name": "GetLintResults",
+    "description": "Retrieve schema lint violations from a graph's most recent check workflows: each diagnostic's coordinate, severity level, message, rule, and source location, pl"
+   }
+  ],
+  "aws-agents": [
+   {
+    "name": "aws___read_documentation",
+    "description": "Fetch full AWS doc pages as markdown. `search_documentation` already returns verbatim page chunks, so don't re-read a URL whose chunk you already have to \"confi"
+   },
+   {
+    "name": "aws___search_documentation",
+    "description": "AWS docs search. Each result's `context` is verbatim page text -- a real chunk of the actual page, not a short snippet -- and usually already contains the answe"
+   },
+   {
+    "name": "aws___list_regions",
+    "description": "Retrieve a list of all AWS regions."
+   },
+   {
+    "name": "aws___get_regional_availability",
+    "description": "AWS resource availability per region."
+   },
+   {
+    "name": "aws___retrieve_skill",
+    "description": "Retrieve an AWS skill (workflows, references). Returns SKILL.md, or `file` if given."
+   }
+  ],
+  "circle-skills": [
+   {
+    "name": "search_circle_documentation",
+    "description": "Use this tool to search the official Circle documentation for any information about the Circle developer suite."
+   },
+   {
+    "name": "get_circle_product_summary",
+    "description": "Get a summary of a specific Circle Web3 product and its capabilities."
+   },
+   {
+    "name": "list_available_coding_resources",
+    "description": "List all available coding resources for a specific Circle product."
+   },
+   {
+    "name": "get_coding_resource_details",
+    "description": "Get detailed information about specific coding resources."
+   }
+  ],
+  "forge-skills": [
+   {
+    "name": "forge-development-guide",
+    "description": "Comprehensive guide for Forge app development. Covers architecture, best practices, CLI usage, and deployment. Essential for all Forge developers."
+   },
+   {
+    "name": "forge-ui-kit-developer-guide",
+    "description": "Developer guide for Forge UI Kit. Covers React components, hooks, bridge APIs, security, and best practices for building modern Forge UIs. Agents MUST call this"
+   },
+   {
+    "name": "forge-backend-developer-guide",
+    "description": "Developer guide for backend of the forge app. Covers architecture overview, best practices for building modern application backends. Agents MUST call this befor"
+   },
+   {
+    "name": "forge-app-manifest-guide",
+    "description": "Guide about properly configuring a Forge app manifest.yaml file. Agents MUST read this before making changes to the manifest."
+   },
+   {
+    "name": "confluence-macro-developer-guide",
+    "description": "Developer guide for building Confluence macros with Forge UI Kit. Covers macro-specific concepts, configuration UI development, context access, and best practic"
+   },
+   {
+    "name": "jira-service-management-assets-guide",
+    "description": "Developer guide for building JSM (Jira Service Management) apps that integrate with Assets CMDB. Covers Assets API patterns, AQL (Assets Query Language), object"
+   },
+   {
+    "name": "list-forge-modules",
+    "description": "Lists all available Forge modules (extension points) organized by Atlassian product (Jira, Confluence, etc.). Use this to discover where your app can extend fun"
+   },
+   {
+    "name": "atlassian-design-tokens",
+    "description": "Get a list of Atlassian Design System Tokens for UI Kit Box components that support XCSS."
+   },
+   {
+    "name": "search-forge-docs",
+    "description": "Search Forge documentation for specific details like component props, API methods with required scopes, manifest syntax, and code examples. Returns focused docu"
+   }
+  ],
+  "greptile": [
+   {
+    "name": "list_custom_context",
+    "description": "List organization custom context with optional filtering by type and generation source"
+   },
+   {
+    "name": "get_custom_context",
+    "description": "Get detailed custom context information including evidence and linked comments. Linked comments include source: \"pr\" | \"headless\"; headless entries have codeRev"
+   },
+   {
+    "name": "search_custom_context",
+    "description": "Search custom context by content using text search"
+   },
+   {
+    "name": "list_merge_requests",
+    "description": "List merge requests/PRs. Can filter by repository (name+remote+defaultBranch), branch, author, or state. For GitHub: Works best with gh CLI installed for curren"
+   },
+   {
+    "name": "list_pull_requests",
+    "description": "List pull requests (alias for list_merge_requests). Can filter by repository, branch, author, or state. GitHub tip: Use gh CLI for best results with current bra"
+   },
+   {
+    "name": "get_merge_request",
+    "description": "Get detailed merge request information including metadata, statistics, Greptile comments, and review analysis. Analyzes which review comments have been addresse"
+   },
+   {
+    "name": "list_merge_request_comments",
+    "description": "Get all comments for a PR including Greptile review comments (clearly marked with sourceType), human comments, and other bot comments. Greptile comments may inc"
+   },
+   {
+    "name": "list_code_reviews",
+    "description": "List code reviews with optional filtering by repository and status. Reviews dispatched via the CLI return source: \"headless\" with mergeRequest: null; PR reviews"
+   },
+   {
+    "name": "get_code_review",
+    "description": "Get detailed code review information including body, status, summary citations, and customer-provided review metadata (branch, baseSha, headSha, changedFiles, i"
+   },
+   {
+    "name": "trigger_code_review",
+    "description": "Trigger a code review for a pull request/merge request. Currently supports GitHub and GitLab only."
+   },
+   {
+    "name": "search_greptile_comments",
+    "description": "Search specifically for Greptile review comments across all merge requests. Returns comments with clear identification as Greptile-generated, including any code"
+   },
+   {
+    "name": "create_custom_context",
+    "description": "Create a new custom context for an organization"
+   }
+  ],
+  "microsoft-docs": [
+   {
+    "name": "microsoft_docs_search",
+    "description": "Search official Microsoft/Azure documentation to find the most relevant and trustworthy content for a user's query. This tool returns up to 10 high-quality cont"
+   },
+   {
+    "name": "microsoft_code_sample_search",
+    "description": "Search for code snippets and examples in official Microsoft Learn documentation. This tool retrieves relevant code samples from Microsoft documentation pages pr"
+   },
+   {
+    "name": "microsoft_docs_fetch",
+    "description": "Fetch and convert a Microsoft Learn documentation webpage to markdown format. This tool retrieves the latest complete content of Microsoft documentation webpage"
+   }
+  ],
+  "mintlify": [
+   {
+    "name": "search_mintlify",
+    "description": "Search across the Mintlify knowledge base to find relevant information, code examples, API references, and guides. Use this tool when you need to answer questio"
+   },
+   {
+    "name": "query_docs_filesystem_mintlify",
+    "description": "Run a read-only shell-like query against a virtualized, in-memory filesystem rooted at `/` that contains ONLY the Mintlify documentation pages and OpenAPI specs"
+   },
+   {
+    "name": "submit_feedback",
+    "description": "Report a problem with this documentation site so the docs team can fix it. Use when a documentation page is incorrect, outdated, confusing, incomplete, or has a"
+   }
+  ],
+  "qt-development-skills": [
+   {
+    "name": "qt_documentation_search",
+    "description": "Call qt_documentation_search when: (a) you're about to claim a signal/slot/property/default exists, (b) the API is in Qt 6.7+ or a non-core module (MQTT, OPC UA"
+   },
+   {
+    "name": "qt_documentation_read",
+    "description": "Read the full content of a specific Qt documentation page. Use the filename shown in search results."
+   }
+  ],
+  "sonatype-guide": [
+   {
+    "name": "getComponentVersion",
+    "description": "Returns detailed analysis of a specific dependency or multiple dependencies with metadata about quality, license"
+   },
+   {
+    "name": "getLatestComponentVersion",
+    "description": "Returns the latest version of a dependency or multiple dependencies with quality, license and security data."
+   },
+   {
+    "name": "getRecommendedComponentVersions",
+    "description": "Returns top dependency version recommendations ranked by Developer Trust Score with"
+   }
+  ],
+  "twilio-developer-kit": [
+   {
+    "name": "twilio__retrieve",
+    "description": "Fetch full parameter schemas and response details for one or more Twilio API operations or documentation articles. Use this after twilio__search to get the comp"
+   },
+   {
+    "name": "twilio__search",
+    "description": "Search Twilio documentation and API operations by natural language query. Use source=\"docs\" for conceptual guides and setup questions, source=\"api\" for finding "
+   }
+  ]
  }
 }

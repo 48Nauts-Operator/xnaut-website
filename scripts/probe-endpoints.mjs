@@ -31,7 +31,14 @@ const body = JSON.stringify({
   params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'xnaut-survey', version: '1' } },
 });
 
+// A loopback URL is the READER'S machine, not a service. Probing it measures
+// whichever laptop happened to run the build, which is worse than not
+// measuring: excalidraw.html published "did not answer, checked 2026-08-16"
+// when all that means is that this machine was not running Excalidraw.
+const LOOPBACK = /^https?:\/\/(127\.0\.0\.1|localhost|\[::1\]|0\.0\.0\.0)(:|\/|$)/i;
+
 const probe = async (plugin) => {
+  if (LOOPBACK.test(plugin.url || '')) return 'local';
   // ${JFROG_URL}/mcp and friends: the entry has no endpoint until its owner
   // supplies one, so there is nothing to ask.
   if (!/^https?:\/\//.test(plugin.url || '')) return 'needs-its-url';
@@ -47,11 +54,47 @@ const probe = async (plugin) => {
     });
     if (response.status === 401 || response.status === 403) return 'auth';
     if (!response.ok) return `http-${response.status}`;
-    return (await response.text()).includes('"result"') ? 'open' : 'answered';
+    const text = await response.text();
+    if (!text.includes('"result"')) return 'answered';
+    // It answered, so ask what it can actually do. The tool list is the only
+    // capability statement that is not somebody's marketing.
+    const session = response.headers.get('mcp-session-id');
+    const tools = await listTools(plugin.url, session).catch(() => []);
+    if (tools.length) toolsByPlugin[plugin.id] = tools;
+    return 'open';
   } catch {
     return 'unreachable';
   }
 };
+
+const toolsByPlugin = {};
+
+// A streamable-HTTP server may answer either JSON or an SSE frame; both carry
+// the same JSON-RPC envelope, so the text is scanned rather than parsed by
+// content type.
+async function listTools(url, session) {
+  const headers = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json, text/event-stream',
+    'User-Agent': 'xNAUT/1.16.2 (+https://xnaut.dev)',
+  };
+  if (session) headers['Mcp-Session-Id'] = session;
+  await fetch(url, {
+    method: 'POST', headers, signal: AbortSignal.timeout(10000),
+    body: JSON.stringify({ jsonrpc: '2.0', method: 'notifications/initialized' }),
+  }).catch(() => {});
+  const response = await fetch(url, {
+    method: 'POST', headers, signal: AbortSignal.timeout(15000),
+    body: JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} }),
+  });
+  const text = await response.text();
+  const start = text.indexOf('{"jsonrpc"') === -1 ? text.indexOf('{') : text.indexOf('{"jsonrpc"');
+  const payload = JSON.parse(text.slice(start));
+  return (payload.result?.tools || []).map((tool) => ({
+    name: tool.name,
+    description: String(tool.description || '').split('\n')[0].slice(0, 160),
+  }));
+}
 
 const hosted = catalog.filter((plugin) => plugin.transport === 'http');
 const results = {};
@@ -67,5 +110,6 @@ writeFileSync(new URL('../plugins/reachability.json', import.meta.url),
     checked: new Date().toISOString().slice(0, 10),
     method: 'unauthenticated MCP initialize, HTTP POST, no credentials sent',
     results,
+    tools: toolsByPlugin,
   }, null, 1)}\n`);
 console.log(`probed ${hosted.length} hosted endpoints:`, counts);

@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(4 38% 26%);color:hsl(4 70% 74%)" aria-hidden="true">H</span><h1>Honeycomb</h1></div>
   <p class="plg-lead">Query Honeycomb observability data: events, traces and SLOs.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
-    <span class="plg-state">sign-in required</span>
+    <span class="plg-state" title="checked 2026-08-16">needs a sign-in</span>
     <button class="plg-copy" data-copy="honeycomb">copy id: honeycomb</button>
     <a class="plg-state" href="https://www.honeycomb.io" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,17 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://mcp.honeycomb.io/mcp</code><button class="plg-copy" data-copy="https://mcp.honeycomb.io/mcp">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
-  <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>sign-in required.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
+  
+
+  
 
   <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
-    
-  </section>
-
-  <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>11 skills. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>Skills it ships · 11</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>beeline-migration</li><li>create-honeycomb-board</li><li>metrics-queries</li><li>observability-fundamentals</li><li>otel-genai-instrumentation</li><li>otel-instrumentation</li><li>otel-migration</li><li>production-investigation</li><li>query-patterns</li><li>slos-and-triggers</li><li>verify-recent-trace</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries. The description is the registry's own; we have not independently run this one.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

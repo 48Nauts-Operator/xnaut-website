@@ -53,7 +53,7 @@ test('the index uses the site design, groups by category and filters', async ({ 
   // what it declares, because running it to find out would mean executing a
   // stranger's code on this machine.
   await page.getByRole('button', { name: 'All', exact: true }).click();
-  await page.getByRole('button', { name: 'usable with no account' }).click();
+  await page.getByRole('button', { name: 'no sign-in' }).click();
   const ready = catalog.filter((p) => {
     const measured = reach.results[p.id];
     if (measured) return measured === 'open';
@@ -61,7 +61,7 @@ test('the index uses the site design, groups by category and filters', async ({ 
   }).length;
   await expect(page.locator('.plg:visible')).toHaveCount(ready);
 
-  await page.getByRole('button', { name: 'usable with no account' }).click();
+  await page.getByRole('button', { name: 'no sign-in' }).click();
   await page.locator('.plg-search').fill('zzzznope');
   await expect(page.locator('.plg:visible')).toHaveCount(0);
   await expect(page.locator('[data-empty]')).toBeVisible();
@@ -78,8 +78,7 @@ test('a card opens the plugin its own page, with skills and the connector', asyn
   await expect(page.locator('h1')).toHaveText('Context7');
   // The connector is the most useful fact on the page, and it is the app's.
   await expect(page.locator('.plg-conn code').first()).toContainText('@upstash/context7-mcp');
-  await expect(page.getByRole('heading', { name: 'Skills it ships' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Credentials' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Connector' })).toBeVisible();
   // "source", not "docs": it points at the repository.
   await expect(page.getByRole('link', { name: /source/ })).toHaveAttribute('href', /github\.com|upstash/);
   // Back to the catalogue.
@@ -172,21 +171,39 @@ test('every skill is named on the skills page, and links to its plugin', async (
   await expect(page).toHaveURL(new RegExp(`/plugins/${sample.id}\\.html$`));
 });
 
-test('a hosted endpoint states what it answered, not what it claims', async ({ page }) => {
-  // 82 of the 95 hosted entries DECLARE no credential. Probed unauthenticated
-  // on 2026-08-16, 80 answered 401 or 403. The card must carry the measurement.
+test('a page says what the plugin needs and what it can do, and nothing else', async ({ page }) => {
+  // xNAUT is open source and vets nobody. A plugin page is a catalogue entry:
+  // what it is, what it needs, what it can do. Not a verdict, and not a lecture.
   const refusing = Object.entries(reach.results).filter(([, state]) => state === 'auth');
   const open = Object.entries(reach.results).filter(([, state]) => state === 'open');
   expect(refusing.length).toBeGreaterThan(50);
-  expect(open.length).toBeGreaterThan(0);
 
   await page.goto(`${SITE}/plugins/${refusing[0][0]}.html`);
-  await expect(page.getByRole('heading', { name: 'What we measured' })).toBeVisible();
-  await expect(page.locator('main')).toContainText('sign-in required');
-  await expect(page.locator('main')).toContainText(reach.checked);
-  // It must not read as a verdict on the vendor.
-  await expect(page.locator('main')).toContainText('Not a security audit');
+  await expect(page.locator('main')).toContainText('needs a sign-in');
+  await expect(page.locator('main')).toContainText('xNAUT supports this plugin');
+  await expect(page.locator('main')).not.toContainText('security audit');
+  await expect(page.locator('main')).not.toContainText('What we measured');
 
-  await page.goto(`${SITE}/plugins/${open[0][0]}.html`);
-  await expect(page.locator('main')).toContainText('answered with no account');
+  // Where a server told us its tools, the page lists them.
+  const withTools = open.map(([id]) => id).find((id) => (reach.tools || {})[id]?.length);
+  expect(withTools).toBeTruthy();
+  await page.goto(`${SITE}/plugins/${withTools}.html`);
+  const tools = reach.tools[withTools];
+  await expect(page.getByRole('heading', { name: new RegExp(`What it can do . ${tools.length} tool`) })).toBeVisible();
+  await expect(page.locator('main')).toContainText(tools[0].name);
+
+  // Exactly one connector block, not the two an earlier edit left behind.
+  await expect(page.getByRole('heading', { name: 'Connector' })).toHaveCount(1);
+});
+
+test('a loopback plugin is never presented as measured', async ({ page }) => {
+  // 127.0.0.1 is the READER's machine. The page published "did not answer,
+  // checked 2026-08-16", which only said that the build machine was not running
+  // Excalidraw.
+  const local = Object.entries(reach.results).filter(([, state]) => state === 'local');
+  expect(local.length).toBeGreaterThan(0);
+  await page.goto(`${SITE}/plugins/${local[0][0]}.html`);
+  await expect(page.locator('main')).toContainText('runs on your machine');
+  await expect(page.locator('main')).not.toContainText('did not answer');
+  await expect(page.locator('main')).not.toContainText(reach.checked);
 });

@@ -90,20 +90,31 @@ try {
   reachability = JSON.parse(readFileSync(new URL("../plugins/reachability.json", import.meta.url), "utf8"));
 } catch { /* no probe run yet: the page simply says nothing about reachability */ }
 
+// Setup facts, not verdicts: what a reader has to do before this thing works.
 const REACH_LABEL = {
-  open: "answered with no account",
-  auth: "sign-in required",
-  answered: "answered, non-standard reply",
-  unreachable: "did not answer",
-  "needs-its-url": "needs its URL",
+  local: "runs on your machine",
+  open: "open access",
+  auth: "needs a sign-in",
+  answered: "responds",
+  unreachable: "did not respond",
+  "needs-its-url": "needs your own URL",
 };
 // A probe result we have no label for must never fall back to the DECLARED
 // state: an endpoint that answered 307 was being shown as ready because
 // "http-307" was not in the map above.
+// The tools a server actually reported when asked. Not a verification badge —
+// xNAUT is open source and does not vet anyone's server — just the most useful
+// fact a catalogue entry can carry: what it can do.
+const toolsFor = (plugin) => (reachability.tools || {})[plugin.id] || [];
+
+// Returns the raw state as well as its label. Comparing display text was a bug
+// waiting to happen and duly happened: the label was reworded and the checks
+// against the old wording silently stopped matching, so every open endpoint
+// dropped out of the "no sign-in" filter.
 const reach = (plugin) => {
   const state = reachability.results[plugin.id];
   if (!state) return null;
-  return REACH_LABEL[state] || `answered ${state.replace("http-", "HTTP ")}`;
+  return { state, label: REACH_LABEL[state] || `answered ${state.replace("http-", "HTTP ")}` };
 };
 
 // The same rule as blocker() in src-tauri/src/plugins.rs, so the site and the
@@ -276,18 +287,20 @@ const DETAIL_STYLE = `${SHARED_STYLE}
 
 const card = (plugin) => {
   const state = blocker(plugin);
-  // A measurement outranks a declaration wherever we have one.
+  // What the server said about itself outranks what its entry claims.
   const measured = reach(plugin);
+  const tools = toolsFor(plugin).length;
   const line = connector(plugin);
   const skills = (plugin.skills || []).length;
-  const haystack = `${plugin.name} ${plugin.description} ${plugin.category} ${(plugin.skills || []).join(" ")} ${line} ${measured || ""}`;
+  const haystack = `${plugin.name} ${plugin.description} ${plugin.category} ${(plugin.skills || []).join(" ")} ${line} ${measured?.label || ""}`;
   return `      <a class="plg" href="/plugins/${esc(plugin.id)}.html" data-category="${esc(plugin.category)}"
-         data-ready="${measured ? (measured === "answered with no account" ? "1" : "0") : (state ? "0" : "1")}" data-search="${esc(haystack.toLowerCase())}">
+         data-ready="${measured ? (measured.state === "open" ? "1" : "0") : (state ? "0" : "1")}" data-search="${esc(haystack.toLowerCase())}">
         <span class="plg-head">${tile(plugin)}<h3>${esc(plugin.name)}</h3><span class="plg-cat">${esc(plugin.category)}</span></span>
         <p>${esc(plugin.description)}</p>
         ${line ? `<span class="plg-conn"><code>${esc(line)}</code></span>` : ""}
         <span class="plg-foot">
-          <span class="plg-state${measured === "answered with no account" ? " ready" : ""}">${esc(measured || state || "no credential declared")}</span>
+          <span class="plg-state${measured?.state === "open" ? " ready" : ""}"${measured && measured.state !== "local" ? ` title="checked ${esc(reachability.checked)}"` : ""}>${esc(measured?.label || state || "no credential declared")}</span>
+          ${tools ? `<span>${tools} tool${tools === 1 ? "" : "s"}</span>` : ""}
           ${skills ? `<span>${skills} skill${skills === 1 ? "" : "s"}</span>` : ""}
           <span class="go">open →</span>
         </span>
@@ -331,20 +344,20 @@ ${navIndex}
   <h1>Plugins</h1>
   <span class="updated">Everything xNAUT can hand an agent</span>
 
-  <p class="plg-lead">A plugin is an MCP server. xNAUT does not host, sell or repackage any of them: it reads the public registries, runs what it can, and says which is which. Every hosted endpoint here was sent an unauthenticated <span class="mono">initialize</span> on ${reachability.checked || "the build date"}, and each card says what came back rather than what its entry claims. You configure one once in the plugin library, then hand it to a single agent with the <span class="mono">+</span> in that agent's header. Two gates, on purpose.</p>
+  <p class="plg-lead">A plugin is an MCP server, written by whoever wrote it. xNAUT is open source and hosts, sells and vets none of them: this is a catalogue of what you can point it at, with the connector, the setup and the tools each one reports. You configure one once in the plugin library, then hand it to a single agent with the <span class="mono">+</span> in that agent's header. Two gates, on purpose.</p>
 
   <section class="stats">
     <div class="stat"><b>${plugins.length}</b><span>plugins in the library</span></div>
     <div class="stat"><b class="amber"><a href="/plugins/skills.html">${skillCount}</a></b><span>skills they ship</span></div>
     <div class="stat"><b>${categories.length}</b><span>categories</span></div>
-    <div class="stat"><b>0</b><span>accounts, payments or ratings</span></div>
+    <div class="stat"><b>0</b><span>hosted, sold or vetted by us</span></div>
   </section>
 
   <div class="plg-tools">
     <input class="plg-search" type="search" placeholder="Search plugins, categories, skills…" aria-label="Search plugins">
     <div class="plg-filters">
 ${filters}
-      <button class="plg-filter" data-ready-only>usable with no account</button>
+      <button class="plg-filter" data-ready-only>no sign-in</button>
     </div>
   </div>
   <p class="plg-count" data-count>${plugins.length} plugins</p>
@@ -447,6 +460,7 @@ ${plugins.map((plugin, index) => `      { "@type": "ListItem", "position": ${ind
 const detailPage = (plugin) => {
   const state = blocker(plugin);
   const measured = reach(plugin);
+  const tools = toolsFor(plugin);
   const line = connector(plugin);
   const skills = plugin.skills || [];
   const related = plugins
@@ -471,10 +485,11 @@ ${nav}
   <p class="plg-state"><a href="/plugins/">Plugins</a> / ${esc(plugin.category)}</p>
   <div class="plg-hero">${tile(plugin, "plg-mark big")}<h1>${esc(plugin.name)}</h1></div>
   <p class="plg-lead">${esc(plugin.description)}</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">${esc(plugin.category)}</span>
-    <span class="plg-state${measured === "answered with no account" ? " ready" : ""}">${esc(measured || state || "no credential declared")}</span>
+    <span class="plg-state${measured?.state === "open" ? " ready" : ""}"${measured && measured.state !== "local" ? ` title="checked ${esc(reachability.checked)}"` : ""}>${esc(measured?.label || state || "no credential declared")}</span>
     <button class="plg-copy" data-copy="${esc(plugin.id)}">copy id: ${esc(plugin.id)}</button>
     ${plugin.docs_url ? `<a class="plg-state" href="${esc(plugin.docs_url)}" rel="noopener noreferrer" target="_blank">source ↗</a>` : '<span class="plg-state">no source link</span>'}
   </div>
@@ -482,49 +497,31 @@ ${nav}
   ${line ? `<section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>${esc(line)}</code><button class="plg-copy" data-copy="${esc(line)}">copy</button></div>
-    <p style="margin-top:10px;">${plugin.transport === "http"
-      ? "An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed."
-      : "Started by xNAUT when an agent that holds this plugin runs. Nothing is installed globally."}</p>
+    <p style="margin-top:10px;">${measured?.state === "local"
+      ? "A server on your own machine. Start it first; xNAUT does not launch it."
+      : plugin.transport === "http"
+        ? "A hosted endpoint. xNAUT talks to it directly, and nothing is installed."
+        : "Started by xNAUT when an agent holding this plugin runs. Nothing is installed globally."}</p>
   </section>` : ""}
 
-  ${measured ? `<section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>${esc(measured)}.</b> On ${esc(reachability.checked)} we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>` : ""}
-
-  <section class="plg-sec">
-    <h2>Credentials</h2>
+  ${(plugin.required_env || []).length || plugin.note ? `<section class="plg-sec">
+    <h2>Setup</h2>
     ${(plugin.required_env || []).length
-      ? `<ul class="plg-env">${plugin.required_env.map((name) => `<li><b>${esc(name)}</b><span>required — you paste it once, into your own machine's plugin library</span></li>`).join("")}</ul>`
-      : "<p>None. It runs as soon as it is switched on.</p>"}
+      ? `<ul class="plg-env">${plugin.required_env.map((name) => `<li><b>${esc(name)}</b><span>paste it once, into your own plugin library</span></li>`).join("")}</ul>`
+      : ""}
     ${plugin.note ? `<div class="plg-note">${esc(plugin.note)}</div>` : ""}
-  </section>
+  </section>` : ""}
 
-  <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    ${skills.length
-      ? `<p>${skills.length} skill${skills.length === 1 ? "" : "s"}. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
-    <ul class="plg-skills">${skills.map((skill) => `<li>${esc(skill)}</li>`).join("")}</ul>`
-      : "<p>None. The connector gives an agent the tools; a skill would tell it when to reach for them.</p>"}
-  </section>
+  ${tools.length ? `<section class="plg-sec">
+    <h2>What it can do · ${tools.length} tool${tools.length === 1 ? "" : "s"}</h2>
+    <ul class="plg-env">${tools.map((tool) => `<li><b>${esc(tool.name)}</b><span>${esc(tool.description || "")}</span></li>`).join("")}</ul>
+  </section>` : ""}
 
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>${plugin.seeded === false ? "Added in this xNAUT install." : plugin.note
-      ? "Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did."
-      : "Entry compiled from the public plugin registries. The description is the registry's own; we have not independently run this one."}</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
-  </section>
+  ${skills.length ? `<section class="plg-sec">
+    <h2>Skills it ships · ${skills.length}</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
+    <ul class="plg-skills">${skills.map((skill) => `<li>${esc(skill)}</li>`).join("")}</ul>
+  </section>` : ""}
 
   ${related.length ? `<section class="plg-sec">
     <h2>Also in ${esc(plugin.category)}</h2>

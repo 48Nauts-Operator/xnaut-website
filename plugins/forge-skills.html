@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(304 38% 26%);color:hsl(304 70% 74%)" aria-hidden="true">A</span><h1>Atlassian Forge</h1></div>
   <p class="plg-lead">Build and deploy Atlassian Forge apps.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
-    <span class="plg-state ready">answered with no account</span>
+    <span class="plg-state ready" title="checked 2026-08-16">open access</span>
     <button class="plg-copy" data-copy="forge-skills">copy id: forge-skills</button>
     <a class="plg-state" href="https://developer.atlassian.com/platform/forge/" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,24 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://mcp.atlassian.com/v1/forge/mcp</code><button class="plg-copy" data-copy="https://mcp.atlassian.com/v1/forge/mcp">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
   <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>answered with no account.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
+    <h2>Setup</h2>
+    
     <div class="plg-note">A second URL serves the Atlassian design system server.</div>
   </section>
 
   <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>6 skills. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>What it can do · 9 tools</h2>
+    <ul class="plg-env"><li><b>forge-development-guide</b><span>Comprehensive guide for Forge app development. Covers architecture, best practices, CLI usage, and deployment. Essential for all Forge developers.</span></li><li><b>forge-ui-kit-developer-guide</b><span>Developer guide for Forge UI Kit. Covers React components, hooks, bridge APIs, security, and best practices for building modern Forge UIs. Agents MUST call this</span></li><li><b>forge-backend-developer-guide</b><span>Developer guide for backend of the forge app. Covers architecture overview, best practices for building modern application backends. Agents MUST call this befor</span></li><li><b>forge-app-manifest-guide</b><span>Guide about properly configuring a Forge app manifest.yaml file. Agents MUST read this before making changes to the manifest.</span></li><li><b>confluence-macro-developer-guide</b><span>Developer guide for building Confluence macros with Forge UI Kit. Covers macro-specific concepts, configuration UI development, context access, and best practic</span></li><li><b>jira-service-management-assets-guide</b><span>Developer guide for building JSM (Jira Service Management) apps that integrate with Assets CMDB. Covers Assets API patterns, AQL (Assets Query Language), object</span></li><li><b>list-forge-modules</b><span>Lists all available Forge modules (extension points) organized by Atlassian product (Jira, Confluence, etc.). Use this to discover where your app can extend fun</span></li><li><b>atlassian-design-tokens</b><span>Get a list of Atlassian Design System Tokens for UI Kit Box components that support XCSS.</span></li><li><b>search-forge-docs</b><span>Search Forge documentation for specific details like component props, API methods with required scopes, manifest syntax, and code examples. Returns focused docu</span></li></ul>
+  </section>
+
+  <section class="plg-sec">
+    <h2>Skills it ships · 6</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>forge-app-builder</li><li>forge-app-review</li><li>forge-connector</li><li>forge-cost-optimizer</li><li>forge-debugger</li><li>forge-security-review</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

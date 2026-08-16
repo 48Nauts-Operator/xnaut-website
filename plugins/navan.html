@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Business</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(232 38% 26%);color:hsl(232 70% 74%)" aria-hidden="true">N</span><h1>Navan</h1></div>
   <p class="plg-lead">Query expenses, travel bookings, policies, approvals and cards.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Business</span>
-    <span class="plg-state">sign-in required</span>
+    <span class="plg-state" title="checked 2026-08-16">needs a sign-in</span>
     <button class="plg-copy" data-copy="navan">copy id: navan</button>
     <a class="plg-state" href="https://developer.navan.com/mcp/" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,14 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://mcp.navan.com/mcp</code><button class="plg-copy" data-copy="https://mcp.navan.com/mcp">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
-  <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>sign-in required.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
+  
 
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
-    
-  </section>
+  
 
-  <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>None. The connector gives an agent the tools; a skill would tell it when to reach for them.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries. The description is the registry's own; we have not independently run this one.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
-  </section>
+  
 
   <section class="plg-sec">
     <h2>Also in Business</h2>

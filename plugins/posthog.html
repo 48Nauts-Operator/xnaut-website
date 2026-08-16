@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Business</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(112 38% 26%);color:hsl(112 70% 74%)" aria-hidden="true">P</span><h1>PostHog</h1></div>
   <p class="plg-lead">Query PostHog product analytics, feature flags, session replays and insights.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Business</span>
-    <span class="plg-state">sign-in required</span>
+    <span class="plg-state" title="checked 2026-08-16">needs a sign-in</span>
     <button class="plg-copy" data-copy="posthog">copy id: posthog</button>
     <a class="plg-state" href="https://posthog.com/docs/model-context-protocol" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,17 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://mcp.posthog.com/mcp</code><button class="plg-copy" data-copy="https://mcp.posthog.com/mcp">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
-  <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>sign-in required.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
+  
+
+  
 
   <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
-    
-  </section>
-
-  <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>137 skills. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>Skills it ships · 137</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>analyzing-expensive-users</li><li>analyzing-experiment-session-replays</li><li>assessing-heatmaps</li><li>auditing-endpoints</li><li>auditing-experiments-flags</li><li>auditing-warehouse-source-health</li><li>auditing-warehouse-view-health</li><li>authoring-error-tracking-alerts</li><li>authoring-log-alerts</li><li>authoring-scouts</li><li>building-a-dashboard</li><li>building-workflows</li><li>checking-deploy-timing</li><li>choosing-trend-or-slope-view</li><li>cleaning-up-stale-feature-flags</li><li>configuring-experiment-analytics</li><li>configuring-experiment-rollout</li><li>consuming-endpoints-from-client-code</li><li>copying-endpoints-across-projects</li><li>copying-flags-across-projects</li><li>creating-ai-subscription</li><li>creating-an-endpoint</li><li>creating-experiments</li><li>creating-online-evaluations</li><li>creating-replay-vision-scanners</li><li>debugging-local-replay</li><li>debugging-signals-pipeline</li><li>debugging-surveys</li><li>designing-email-templates</li><li>diagnosing-ci-and-merge-bottlenecks</li><li>diagnosing-endpoint-performance</li><li>diagnosing-experiment-results</li><li>diagnosing-failed-warehouse-syncs</li><li>diagnosing-missing-recordings</li><li>diagnosing-sdk-health</li><li>diagnosing-stacktrace-symbolication</li><li>downloading-batch-export-files</li><li>exploring-ai-failures</li><li>exploring-apm-traces</li><li>exploring-autocapture-events</li><li>exploring-endpoint-execution-logs</li><li>exploring-live-traffic</li><li>exploring-llm-clusters</li><li>exploring-llm-costs</li><li>exploring-llm-evaluations</li><li>exploring-llm-traces</li><li>exploring-mcp-intent-clusters</li><li>exploring-mcp-sessions</li><li>exploring-mcp-tool-quality</li><li>exploring-mcp-tool-usage</li><li>exploring-replay-vision-observations</li><li>exploring-scouts</li><li>feature-usage-feed</li><li>filtering-bot-traffic</li><li>finding-deleted-feature-flags</li><li>finding-experiments</li><li>finding-replay-for-issue</li><li>finding-sessions-to-watch</li><li>formatting-insight-axes</li><li>grouping-noisy-errors</li><li>improving-mcp-tools</li><li>inbox-exploration</li><li>instrument-error-tracking</li><li>instrument-feature-flags</li><li>instrument-integration</li><li>instrument-llm-analytics</li><li>instrument-logs</li><li>instrument-product-analytics</li><li>investigate-metric</li><li>investigating-ci-failures</li><li>investigating-error-issue</li><li>investigating-logs</li><li>investigating-metric-anomalies</li><li>investigating-replay</li><li>managing-endpoint-versions</li><li>managing-experiment-lifecycle</li><li>managing-path-cleaning-rules</li><li>managing-reminders</li><li>managing-streamlit-apps</li><li>managing-subscriptions</li><li>modeling-activation-metrics</li><li>modeling-conversion-metrics</li><li>modeling-dimension-tables</li><li>modeling-product-usage-metrics</li><li>modeling-revenue-metrics</li><li>modeling-warehouse-foundations</li><li>planning-voice-agent-user-interviews</li><li>querying-posthog-data</li><li>resolving-ingestion-warnings</li><li>review-hog-authoring</li><li>review-hog-blind-spots-general</li><li>review-hog-perspective-contracts-security</li><li>review-hog-perspective-logic-correctness</li><li>review-hog-perspective-performance-reliability</li><li>review-hog-validation-criteria</li><li>setting-up-a-custom-rest-source</li><li>setting-up-a-data-warehouse-source</li><li>setting-up-data-catalog</li><li>setting-up-support-slack-locally</li><li>signals</li><li>signals-scout-ai-observability</li><li>signals-scout-anomaly-detection</li><li>signals-scout-apm</li><li>signals-scout-conversations</li><li>signals-scout-csp-violations</li><li>signals-scout-customer-analytics</li><li>signals-scout-data-pipelines</li><li>signals-scout-data-warehouse</li><li>signals-scout-error-tracking</li><li>signals-scout-experiments</li><li>signals-scout-feature-flags</li><li>signals-scout-general</li><li>signals-scout-health-checks</li><li>signals-scout-inbox-validation</li><li>signals-scout-insight-alerts</li><li>signals-scout-logs</li><li>signals-scout-mcp-tool-calls</li><li>signals-scout-observability-gaps</li><li>signals-scout-product-analytics</li><li>signals-scout-replay-vision</li><li>signals-scout-revenue-analytics</li><li>signals-scout-session-replay</li><li>signals-scout-skills-store</li><li>signals-scout-surveys</li><li>signals-scout-tasks</li><li>signals-scout-web-analytics</li><li>signals-scout-web-vitals</li><li>skills-store</li><li>suggesting-data-imports</li><li>suppressing-noisy-errors</li><li>testing-mcp-tools-locally</li><li>triaging-error-issues</li><li>triaging-visual-review-runs</li><li>tuning-incremental-sync-config</li><li>turning-engineering-analytics-into-insights</li><li>working-with-skills</li><li>writing-streamlit-apps</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries. The description is the registry's own; we have not independently run this one.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

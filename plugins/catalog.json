@@ -288,7 +288,7 @@
   {
     "id": "forgejo",
     "name": "Forgejo",
-    "description": "Issues and pull requests on the Forgejo host where development actually lives. GitHub is only a mirror here.",
+    "description": "Issues, pull requests and repositories on a self-hosted Forgejo or Gitea instance.",
     "category": "Dev",
     "transport": "stdio",
     "command": "npx",
@@ -299,7 +299,7 @@
     "required_env": [
       "GITEA_ACCESS_TOKEN"
     ],
-    "note": "Forgejo speaks the Gitea API, so the client is gitea-mcp. The npm package forgejo-mcp ships no executable — npx cannot run it, which verification catches. Token: the one in ~/.config/forgejo/token.",
+    "note": "Forgejo speaks the Gitea API, so the client is gitea-mcp: the npm package forgejo-mcp ships no executable and npx cannot run it. Needs a Forgejo access token with repository scope, and the host URL of your instance.",
     "docs_url": "https://github.com/seepine/gitea-mcp",
     "seeded": true
   },

@@ -80,10 +80,11 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(344 38% 26%);color:hsl(344 70% 74%)" aria-hidden="true">S</span><h1>Sonatype</h1></div>
   <p class="plg-lead">Check open-source dependencies for vulnerabilities and policy violations.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
-    <span class="plg-state ready">answered with no account</span>
+    <span class="plg-state ready" title="checked 2026-08-16">open access</span>
     <button class="plg-copy" data-copy="sonatype-guide">copy id: sonatype-guide</button>
     <a class="plg-state" href="https://github.com/sonatype/sonatype-guide-claude-plugin.git" rel="noopener noreferrer" target="_blank">source ↗</a>
   </div>
@@ -91,40 +92,24 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>https://mcp.guide.sonatype.com/mcp</code><button class="plg-copy" data-copy="https://mcp.guide.sonatype.com/mcp">copy</button></div>
-    <p style="margin-top:10px;">An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed.</p>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
   </section>
 
   <section class="plg-sec">
-    <h2>What we measured</h2>
-    <p><b>answered with no account.</b> On 2026-08-16 we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
-    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <ul class="plg-env"><li><b>SONATYPE_GUIDE_TOKEN</b><span>required — you paste it once, into your own machine's plugin library</span></li></ul>
+    <h2>Setup</h2>
+    <ul class="plg-env"><li><b>SONATYPE_GUIDE_TOKEN</b><span>paste it once, into your own plugin library</span></li></ul>
     <div class="plg-note">Needs a Sonatype token.</div>
   </section>
 
   <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>1 skill. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>What it can do · 3 tools</h2>
+    <ul class="plg-env"><li><b>getComponentVersion</b><span>Returns detailed analysis of a specific dependency or multiple dependencies with metadata about quality, license</span></li><li><b>getLatestComponentVersion</b><span>Returns the latest version of a dependency or multiple dependencies with quality, license and security data.</span></li><li><b>getRecommendedComponentVersions</b><span>Returns top dependency version recommendations ranked by Developer Trust Score with</span></li></ul>
+  </section>
+
+  <section class="plg-sec">
+    <h2>Skills it ships · 1</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>sonatype-guide</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries, then run and described by 48Nauts — the setup note above is ours, and it exists because someone ran this and watched what it did.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

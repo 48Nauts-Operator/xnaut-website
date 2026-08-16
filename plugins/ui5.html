@@ -80,6 +80,7 @@
   <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
   <div class="plg-hero"><span class="plg-mark big" style="background:hsl(185 38% 26%);color:hsl(185 70% 74%)" aria-hidden="true">S</span><h1>SAP UI5</h1></div>
   <p class="plg-lead">Build and lint SAP UI5 applications; look up UI5 API documentation.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
 
   <div class="plg-actions">
     <span class="plg-cat">Dev</span>
@@ -91,36 +92,17 @@
   <section class="plg-sec">
     <h2>Connector</h2>
     <div class="plg-conn"><code>npx -y @ui5/mcp-server</code><button class="plg-copy" data-copy="npx -y @ui5/mcp-server">copy</button></div>
-    <p style="margin-top:10px;">Started by xNAUT when an agent that holds this plugin runs. Nothing is installed globally.</p>
+    <p style="margin-top:10px;">Started by xNAUT when an agent holding this plugin runs. Nothing is installed globally.</p>
   </section>
 
   
 
-  <section class="plg-sec">
-    <h2>Credentials</h2>
-    <p>None. It runs as soon as it is switched on.</p>
-    
-  </section>
+  
 
   <section class="plg-sec">
-    <h2>Skills it ships</h2>
-    <p>8 skills. The connector gives an agent the tools; a skill tells it when to reach for them.</p>
+    <h2>Skills it ships · 8</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
     <ul class="plg-skills"><li>ui5-best-practices</li><li>ui5-best-practices-accessibility</li><li>ui5-best-practices-integration-cards</li><li>ui5-best-practices-mdc</li><li>ui5-best-practices-opa5</li><li>ui5-best-practices-qunit</li><li>ui5-best-practices-smart-controls</li><li>ui5-best-practices-tables</li></ul>
-  </section>
-
-  <section class="plg-sec">
-    <h2>How it reaches your agent</h2>
-    <ol class="plg-steps">
-      <li>The library holds it, with your credential, on your machine.</li>
-      <li>You hand it to one agent with the <span class="mono">+</span> in that agent's header. No other agent gets it.</li>
-    </ol>
-    <p>Two gates, on purpose. A chat turn never uses a plugin; a build run gets the ones that agent holds.</p>
-  </section>
-
-  <section class="plg-sec">
-    <h2>Provenance</h2>
-    <p>Entry compiled from the public plugin registries. The description is the registry's own; we have not independently run this one.</p>
-    <p class="plg-state">No stars, no download counts, no verification badge: we do not have those numbers and we are not going to invent them.</p>
   </section>
 
   <section class="plg-sec">

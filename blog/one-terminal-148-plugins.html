@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One terminal, 148 plugins · xNAUT</title>
+  <meta name="description" content="xNAUT 1.16: a message to an agent is a question again, a build asks where before it touches anything, and 148 MCP servers are one click from any agent.">
+  <link rel="canonical" href="https://xnaut.dev/blog/one-terminal-148-plugins.html">
+  <meta name="author" content="André">
+  <meta name="keywords" content="MCP servers, model context protocol, coding agent plugins, Claude Code MCP, Codex MCP, agent tools, xNAUT 1.16">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="One terminal, 148 plugins">
+  <meta property="og:description" content="A message is a question again, a build asks where before it touches anything, and 148 MCP servers are one click from any agent.">
+  <meta property="og:url" content="https://xnaut.dev/blog/one-terminal-148-plugins.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="One terminal, 148 plugins">
+  <meta name="twitter:description" content="A message is a question again, a build asks where before it touches anything, and 148 MCP servers are one click from any agent.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .more { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .more h3 { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; margin: 0 0 12px; }
+    .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .more a { color: var(--text); text-decoration: none; font-size: 15.5px; }
+    .more span { color: var(--faint); font-size: 13.5px; }
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "One terminal, 148 plugins",
+  "description": "A message is a question again, a build asks where before it touches anything, and 148 MCP servers are one click from any agent.",
+  "image": "https://xnaut.dev/assets/og-v2.png",
+  "author": { "@type": "Person", "name": "André" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "48Nauts",
+    "logo": { "@type": "ImageObject", "url": "https://xnaut.dev/favicon.svg" }
+  },
+  "datePublished": "2026-08-16",
+  "dateModified": "2026-08-16",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://xnaut.dev/blog/one-terminal-148-plugins.html" },
+  "isPartOf": { "@type": "Blog", "name": "xNAUT blog", "@id": "https://xnaut.dev/blog/" }
+}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Release</span>
+  <h1>One terminal, 148 plugins</h1>
+  <p class="post-lede">A message is a question again, a build asks where before it touches anything, and 148 MCP servers are one click from any agent. The agent system in 1.16 was rebuilt around one correction: asking an agent a question should not start a coding session.</p>
+  <p class="post-meta">16 August 2026 · André</p>
+
+  <h2>A message was starting a build</h2>
+
+  <p>Every message to an agent used to launch a coding CLI in a zellij worktree.
+  "What is the status of the release?" opened a session, cloned a worktree and
+  waited for a harness to boot, in order to answer a question that needed no
+  code at all. The fix is not clever: a message goes to the agent's own model
+  and comes back as an answer.</p>
+
+  <p>When a request really does need code, the agent says so and xNAUT asks
+  <strong>where</strong>. The run happens in a worktree under
+  <code>.worktrees/</code>, never in the checkout you have open, and the
+  repository is asked for once per thread rather than every time you speak.</p>
+
+  <h2>148 plugins, and what that actually means</h2>
+
+  <p>A plugin in xNAUT is an <strong>MCP server</strong>: someone else's
+  program, speaking a protocol your agent understands. The library now holds
+  148 of them, from the ones we run every day to the compiled contents of the
+  public registries. Between them they ship <strong>961 skills</strong>, which
+  is the more interesting number: a connector gives an agent tools, a skill
+  tells it when to reach for them.</p>
+
+  <p>Two gates, on purpose. A plugin is configured once, on your machine, with
+  your credential. Then it is handed to <strong>one</strong> agent, with the
+  <code>+</code> in that agent's header. Nothing is pooled, and a chat turn
+  never quietly acquires a capability you granted to something else.</p>
+
+  <p>xNAUT hosts none of them, sells none of them and vets none of them. The
+  catalogue says what each one is, what it needs and what tools it reports, and
+  the rest is your call. <a href="/plugins/">Browse the catalogue →</a></p>
+
+  <h2>Agents that repair their own connectors</h2>
+
+  <p>The Forgejo plugin was broken in the most ordinary way: the npm package
+  named <code>forgejo-mcp</code> ships no executable, so <code>npx</code> could
+  never run it. The interesting part is what happened next. Asked to add it, the
+  agent inspected the package, found that it had no binary, searched for one
+  that did, discovered that Forgejo speaks the Gitea API, repaired the plugin to
+  use <code>gitea-mcp</code> and connected it.</p>
+
+  <p>That is the difference between an assistant that explains an error and one
+  that fixes it. The same agent will also switch a plugin on, write a document
+  into the split pane beside your conversation, or draw the diagram it is
+  describing.</p>
+
+  <h2>Your plan, not another API bill</h2>
+
+  <p>xNAUT drives the coding CLI you already have. If you pay for Claude or for
+  Codex, that subscription is what pays, and there is no key to paste. If you
+  have neither, add an API key and it overrides everything. That is the whole
+  configuration story.</p>
+
+  <h2>Also in 1.16</h2>
+
+  <p>The Librarian became an agent rather than a pane, so it searches and writes
+  the vault through tools. The Mesh inbox lets an agent ask you a question,
+  request approval before something irreversible, or leave you a task, and a
+  question parks until you answer it and survives a restart. There is a skills
+  library. And the whole interface zooms with Cmd + and Cmd -, which matters
+  more than it sounds like it does.</p>
+
+  <p>Windows shipped a version late: 1.16.0 built on macOS and died at link time
+  on Windows because SQLite is a system library on one and not the other.
+  <a href="/releases.html">The release notes</a> have the detail.</p>
+
+</article>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

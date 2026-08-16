@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plugin skills | xNAUT</title>
+  <meta name="description" content="Every skill the 148 plugins in xNAUT&#39;s library ship: 961 of them, with the plugin each one comes from.">
+  <link rel="canonical" href="https://xnaut.dev/plugins/skills.html">
+  <meta name="author" content="André">
+  <meta property="og:title" content="Plugin skills | xNAUT">
+  <meta property="og:description" content="Every skill the 148 plugins in xNAUT&#39;s library ship: 961 of them, with the plugin each one comes from.">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <style>
+    .plg-lead { font-size: 17px; line-height: 1.55; color: var(--text-soft); margin: 22px 0 0; max-width: 74ch; }
+    .plg-mark { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px;
+                border-radius: 9px; font-family: var(--mono); font-size: 13px; font-weight: 700; }
+    .plg-mark.big { width: 46px; height: 46px; flex-basis: 46px; border-radius: 12px; font-size: 19px; }
+    .plg-cat { padding: 3px 8px; border: 1px solid var(--border-card); border-radius: 6px;
+               font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+    .plg-conn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px;
+                background: var(--panel-deep); border: 1px solid var(--border-card); }
+    /* min-width:0 on both, or the nowrap command sets the column's width and
+       the whole page scrolls sideways: measured 933px columns inside a 696px
+       grid before this line existed. */
+    .plg-conn { min-width: 0; }
+    .plg-conn code { flex: 1 1 auto; min-width: 0; overflow-x: auto; white-space: nowrap;
+                     font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); }
+    .plg-copy { flex: 0 0 auto; padding: 3px 9px; border: 1px solid var(--border-card); border-radius: 6px;
+                background: transparent; color: var(--faint); font-family: var(--mono); font-size: 11px;
+                cursor: pointer; }
+    .plg-copy:hover { color: var(--text-soft); }
+    .plg-copy.ok { color: var(--green); border-color: var(--green); }
+    .plg-state { font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+    .plg-state.ready { color: var(--green); }
+    .plg-note { border-left: 2px solid var(--amber); background: var(--panel); padding: 16px 20px;
+                border-radius: 0 10px 10px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
+  </style>
+  <style>
+    main.legal.plg-page { max-width: 1240px; }
+    .plg-search { width: 100%; max-width: 420px; padding: 10px 14px; border: 1px solid var(--border-card);
+                  border-radius: 10px; background: var(--panel-deep); color: var(--text);
+                  font-family: var(--sans); font-size: 14px; margin: 26px 0 0; }
+    .plg-search:focus { outline: none; border-color: #3A3E46; }
+    .plg-count { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin: 14px 0 18px; }
+    .sk { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0 26px; margin: 0; padding: 0; list-style: none; }
+    .sk li { display: flex; gap: 12px; align-items: baseline; padding: 8px 0;
+             border-bottom: 1px solid var(--border-card); }
+    .sk li[hidden] { display: none; }
+    .sk code { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+               font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); }
+    .sk a { flex: 0 0 auto; font-size: 12.5px; color: var(--amber); text-decoration: none; }
+    .sk a:hover { text-decoration: underline; }
+  </style>
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/plugins/">← All plugins</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<main class="legal plg-page">
+  <p class="plg-state"><a href="/plugins/">Plugins</a> / Skills</p>
+  <h1>Plugin skills</h1>
+  <span class="updated">961 skills, from 86 of the 148 plugins</span>
+
+  <p class="plg-lead">A plugin gives an agent tools. A skill tells it when to reach for them, and what good use looks like. These ship with the plugins themselves; xNAUT does not write them.</p>
+
+  <input class="plg-search" type="search" placeholder="Search skills…" aria-label="Search skills">
+  <p class="plg-count" data-count>961 skills</p>
+
+  <ul class="sk">
+    <li data-search="a11y-debugging chrome devtools"><code>a11y-debugging</code><a href="/plugins/chrome-devtools-mcp.html">Chrome DevTools</a></li>
+    <li data-search="accept-agent-payments circle"><code>accept-agent-payments</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="accidental-data-loss-prevention google data agent kit"><code>accidental-data-loss-prevention</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="account-health zoominfo"><code>account-health</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="account-relationship-recap zoominfo"><code>account-relationship-recap</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="account-research zoominfo"><code>account-research</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="action rootly"><code>action</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="activity-insights monday.com"><code>activity-insights</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="add convex"><code>add</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="add-analytics-instrumentation amplitude"><code>add-analytics-instrumentation</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="address-validation shippo"><code>address-validation</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="adobe-batch-edit-photos adobe creative cloud"><code>adobe-batch-edit-photos</code><a href="/plugins/adobe-for-creativity.html">Adobe Creative Cloud</a></li>
+    <li data-search="adobe-create-pdfs-from-data adobe creative cloud"><code>adobe-create-pdfs-from-data</code><a href="/plugins/adobe-for-creativity.html">Adobe Creative Cloud</a></li>
+    <li data-search="adobe-create-social-variations adobe creative cloud"><code>adobe-create-social-variations</code><a href="/plugins/adobe-for-creativity.html">Adobe Creative Cloud</a></li>
+    <li data-search="adobe-design-from-template adobe creative cloud"><code>adobe-design-from-template</code><a href="/plugins/adobe-for-creativity.html">Adobe Creative Cloud</a></li>
+    <li data-search="adobe-edit-quick-cut adobe creative cloud"><code>adobe-edit-quick-cut</code><a href="/plugins/adobe-for-creativity.html">Adobe Creative Cloud</a></li>
+    <li data-search="adobe-resize-photos-and-videos adobe creative cloud"><code>adobe-resize-photos-and-videos</code><a href="/plugins/adobe-for-creativity.html">Adobe Creative Cloud</a></li>
+    <li data-search="adobe-retouch-portraits adobe creative cloud"><code>adobe-retouch-portraits</code><a href="/plugins/adobe-for-creativity.html">Adobe Creative Cloud</a></li>
+    <li data-search="ae-cs-handoff zoominfo"><code>ae-cs-handoff</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="agent convex"><code>agent</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="agent-email-inbox resend"><code>agent-email-inbox</code><a href="/plugins/resend.html">Resend</a></li>
+    <li data-search="agent-ready-apis postman"><code>agent-ready-apis</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="agent-wallet-policy circle"><code>agent-wallet-policy</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="agents-build aws knowledge"><code>agents-build</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-connect aws knowledge"><code>agents-connect</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-debug aws knowledge"><code>agents-debug</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-deploy aws knowledge"><code>agents-deploy</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-get-started aws knowledge"><code>agents-get-started</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-harden aws knowledge"><code>agents-harden</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-optimize aws knowledge"><code>agents-optimize</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-pay aws knowledge"><code>agents-pay</code><a href="/plugins/aws-agents.html">AWS Knowledge</a></li>
+    <li data-search="agents-sdk cloudflare"><code>agents-sdk</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="ai-gateway vercel"><code>ai-gateway</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="ai-sdk vercel"><code>ai-sdk</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="ai-tools-setup desktop commander"><code>ai-tools-setup</code><a href="/plugins/desktop-commander.html">Desktop Commander</a></li>
+    <li data-search="airunway-aks-setup azure"><code>airunway-aks-setup</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="airwallex-ai-provider-card-mit airwallex developer (sandbox)"><code>airwallex-ai-provider-card-mit</code><a href="/plugins/airwallex-dev.html">Airwallex Developer (sandbox)</a></li>
+    <li data-search="airwallex-billing-checkout airwallex developer (sandbox)"><code>airwallex-billing-checkout</code><a href="/plugins/airwallex-dev.html">Airwallex Developer (sandbox)</a></li>
+    <li data-search="airwallex-dropin airwallex developer (sandbox)"><code>airwallex-dropin</code><a href="/plugins/airwallex-dev.html">Airwallex Developer (sandbox)</a></li>
+    <li data-search="airwallex-hpp airwallex developer (sandbox)"><code>airwallex-hpp</code><a href="/plugins/airwallex-dev.html">Airwallex Developer (sandbox)</a></li>
+    <li data-search="airwallex-kyc airwallex developer (sandbox)"><code>airwallex-kyc</code><a href="/plugins/airwallex-dev.html">Airwallex Developer (sandbox)</a></li>
+    <li data-search="airwallex-split-card airwallex developer (sandbox)"><code>airwallex-split-card</code><a href="/plugins/airwallex-dev.html">Airwallex Developer (sandbox)</a></li>
+    <li data-search="aiven-getting-started aiven"><code>aiven-getting-started</code><a href="/plugins/aiven.html">Aiven</a></li>
+    <li data-search="alert rootly"><code>alert</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="amazon-bedrock aws api proxy"><code>amazon-bedrock</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="analytics apollo.io"><code>analytics</code><a href="/plugins/apollo.html">Apollo.io</a></li>
+    <li data-search="analyze-account-health amplitude"><code>analyze-account-health</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="analyze-ai-topics amplitude"><code>analyze-ai-topics</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="analyze-chart amplitude"><code>analyze-chart</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="analyze-dashboard amplitude"><code>analyze-dashboard</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="analyze-experiment amplitude"><code>analyze-experiment</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="analyze-experiment-consolidated amplitude"><code>analyze-experiment-consolidated</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="analyze-feedback amplitude"><code>analyze-feedback</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="analyze-project confidence"><code>analyze-project</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="analyzing-expensive-users posthog"><code>analyzing-expensive-users</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="analyzing-experiment-session-replays posthog"><code>analyzing-experiment-session-replays</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="analyzing-pigment-data pigment"><code>analyzing-pigment-data</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="analyzing-release-readiness aws devsecops agent"><code>analyzing-release-readiness</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="announce rootly"><code>announce</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="api-gateway aws serverless"><code>api-gateway</code><a href="/plugins/aws-serverless.html">AWS Serverless</a></li>
+    <li data-search="apm new relic"><code>apm</code><a href="/plugins/newrelic.html">New Relic</a></li>
+    <li data-search="apollo-client apollo graphos"><code>apollo-client</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-connectors apollo graphos"><code>apollo-connectors</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-federation apollo graphos"><code>apollo-federation</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-ios apollo graphos"><code>apollo-ios</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-kotlin apollo graphos"><code>apollo-kotlin</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-mcp-server apollo graphos"><code>apollo-mcp-server</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-router apollo graphos"><code>apollo-router</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-router-plugin-creator apollo graphos"><code>apollo-router-plugin-creator</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="apollo-server apollo graphos"><code>apollo-server</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="appinsights-instrumentation azure"><code>appinsights-instrumentation</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="ask rootly"><code>ask</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="assessing-heatmaps posthog"><code>assessing-heatmaps</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="assistant pinecone"><code>assistant</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="attorney-assist legalzoom"><code>attorney-assist</code><a href="/plugins/legalzoom.html">LegalZoom</a></li>
+    <li data-search="auditing-endpoints posthog"><code>auditing-endpoints</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="auditing-experiments-flags posthog"><code>auditing-experiments-flags</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="auditing-warehouse-source-health posthog"><code>auditing-warehouse-source-health</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="auditing-warehouse-view-health posthog"><code>auditing-warehouse-view-health</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="auth convex"><code>auth</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="auth vercel"><code>auth</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="authoring-error-tracking-alerts posthog"><code>authoring-error-tracking-alerts</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="authoring-log-alerts posthog"><code>authoring-log-alerts</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="authoring-scouts posthog"><code>authoring-scouts</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="automate-crm monday.com"><code>automate-crm</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="aws-ai-ml aws api proxy"><code>aws-ai-ml</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-architecture-diagram aws iac"><code>aws-architecture-diagram</code><a href="/plugins/deploy-on-aws.html">AWS IaC</a></li>
+    <li data-search="aws-billing-and-cost-management aws api proxy"><code>aws-billing-and-cost-management</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-blocks aws api proxy"><code>aws-blocks</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-cdk aws api proxy"><code>aws-cdk</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-cloudformation aws api proxy"><code>aws-cloudformation</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-compute aws api proxy"><code>aws-compute</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-containers aws api proxy"><code>aws-containers</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-database aws api proxy"><code>aws-database</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-deployment aws api proxy"><code>aws-deployment</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-iam aws api proxy"><code>aws-iam</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-lambda aws serverless"><code>aws-lambda</code><a href="/plugins/aws-serverless.html">AWS Serverless</a></li>
+    <li data-search="aws-lambda-durable-functions aws serverless"><code>aws-lambda-durable-functions</code><a href="/plugins/aws-serverless.html">AWS Serverless</a></li>
+    <li data-search="aws-lambda-managed-instances aws serverless"><code>aws-lambda-managed-instances</code><a href="/plugins/aws-serverless.html">AWS Serverless</a></li>
+    <li data-search="aws-lambda-microvms aws serverless"><code>aws-lambda-microvms</code><a href="/plugins/aws-serverless.html">AWS Serverless</a></li>
+    <li data-search="aws-messaging-and-streaming aws api proxy"><code>aws-messaging-and-streaming</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-observability aws api proxy"><code>aws-observability</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-sdk-js-v3-usage aws api proxy"><code>aws-sdk-js-v3-usage</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-sdk-python-usage aws api proxy"><code>aws-sdk-python-usage</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-sdk-swift-usage aws api proxy"><code>aws-sdk-swift-usage</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-secrets-manager aws api proxy"><code>aws-secrets-manager</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-serverless aws api proxy"><code>aws-serverless</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="aws-serverless-deployment aws serverless"><code>aws-serverless-deployment</code><a href="/plugins/aws-serverless.html">AWS Serverless</a></li>
+    <li data-search="aws-step-functions aws serverless"><code>aws-step-functions</code><a href="/plugins/aws-serverless.html">AWS Serverless</a></li>
+    <li data-search="aws-transform aws transform"><code>aws-transform</code><a href="/plugins/aws-transform.html">AWS Transform</a></li>
+    <li data-search="awx-best-practices airwallex"><code>awx-best-practices</code><a href="/plugins/airwallex-agentos.html">Airwallex</a></li>
+    <li data-search="azure-ai azure"><code>azure-ai</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-aigateway azure"><code>azure-aigateway</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-app-onboard azure"><code>azure-app-onboard</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-app-onboard-prereq azure"><code>azure-app-onboard-prereq</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-cloud-migrate azure"><code>azure-cloud-migrate</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-compliance azure"><code>azure-compliance</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-compute azure"><code>azure-compute</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-cost azure"><code>azure-cost</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-deploy azure"><code>azure-deploy</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-diagnostics azure"><code>azure-diagnostics</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-enterprise-infra-planner azure"><code>azure-enterprise-infra-planner</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-kubernetes azure"><code>azure-kubernetes</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-kusto azure"><code>azure-kusto</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-kusto-graph azure"><code>azure-kusto-graph</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-kusto-irql azure"><code>azure-kusto-irql</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-kusto-irql-graph azure"><code>azure-kusto-irql-graph</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-messaging azure"><code>azure-messaging</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-prepare azure"><code>azure-prepare</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-quotas azure"><code>azure-quotas</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-reliability azure"><code>azure-reliability</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-resource-lookup azure"><code>azure-resource-lookup</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-resource-visualizer azure"><code>azure-resource-visualizer</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-storage azure"><code>azure-storage</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-upgrade azure"><code>azure-upgrade</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="azure-validate azure"><code>azure-validate</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="batch-shipping shippo"><code>batch-shipping</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="beeline-migration honeycomb"><code>beeline-migration</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="benchmark-agents vercel"><code>benchmark-agents</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="benchmark-e2e vercel"><code>benchmark-e2e</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="benchmark-sandbox vercel"><code>benchmark-sandbox</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="benchmark-testing vercel"><code>benchmark-testing</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="beneficiary-creation airwallex"><code>beneficiary-creation</code><a href="/plugins/airwallex-agentos.html">Airwallex</a></li>
+    <li data-search="bigdata-catalyst-monitor bigdata.com"><code>bigdata-catalyst-monitor</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-company-brief bigdata.com"><code>bigdata-company-brief</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-country-analysis bigdata.com"><code>bigdata-country-analysis</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-country-sector-analysis bigdata.com"><code>bigdata-country-sector-analysis</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-cross-sector bigdata.com"><code>bigdata-cross-sector</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-earnings-digest bigdata.com"><code>bigdata-earnings-digest</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-earnings-preview bigdata.com"><code>bigdata-earnings-preview</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-earnings-quality-screen bigdata.com"><code>bigdata-earnings-quality-screen</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-earnings-reaction bigdata.com"><code>bigdata-earnings-reaction</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-g7-comparison bigdata.com"><code>bigdata-g7-comparison</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-investment-memo bigdata.com"><code>bigdata-investment-memo</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-moat-governance-review bigdata.com"><code>bigdata-moat-governance-review</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-peer-comparables bigdata.com"><code>bigdata-peer-comparables</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-post-ipo-day1 bigdata.com"><code>bigdata-post-ipo-day1</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-post-ipo-day14 bigdata.com"><code>bigdata-post-ipo-day14</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-post-ipo-day179 bigdata.com"><code>bigdata-post-ipo-day179</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-post-ipo-day365 bigdata.com"><code>bigdata-post-ipo-day365</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-pre-ipo-analysis bigdata.com"><code>bigdata-pre-ipo-analysis</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-quick-take bigdata.com"><code>bigdata-quick-take</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-regional-comparison bigdata.com"><code>bigdata-regional-comparison</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-risk-assessment bigdata.com"><code>bigdata-risk-assessment</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-scenario-analysis bigdata.com"><code>bigdata-scenario-analysis</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-sector-analysis bigdata.com"><code>bigdata-sector-analysis</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-sector-playbook bigdata.com"><code>bigdata-sector-playbook</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-thematic-research bigdata.com"><code>bigdata-thematic-research</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-valuation-snapshot bigdata.com"><code>bigdata-valuation-snapshot</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigdata-variant-perception bigdata.com"><code>bigdata-variant-perception</code><a href="/plugins/bigdata-com.html">Bigdata.com</a></li>
+    <li data-search="bigquery-ai-ml google data agent kit"><code>bigquery-ai-ml</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="bigquery-bigframes google data agent kit"><code>bigquery-bigframes</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="bigquery-data-transfer-service google data agent kit"><code>bigquery-data-transfer-service</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="bigquery-graph google data agent kit"><code>bigquery-graph</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="bigquery-sql google data agent kit"><code>bigquery-sql</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="billing convex"><code>billing</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="blob-storage val town"><code>blob-storage</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="bootstrap vercel"><code>bootstrap</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="brand-check canva"><code>brand-check</code><a href="/plugins/canva.html">Canva</a></li>
+    <li data-search="brand-mention-monitor nimble"><code>brand-mention-monitor</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="bridge-stablecoin circle"><code>bridge-stablecoin</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="brief rootly"><code>brief</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="build-charts-with-typed-params amplitude"><code>build-charts-with-typed-params</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="build-list zoominfo"><code>build-list</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="build-sequences hunter"><code>build-sequences</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="build-zoom-bot zoom"><code>build-zoom-bot</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="build-zoom-meeting-app zoom"><code>build-zoom-meeting-app</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="building-a-dashboard posthog"><code>building-a-dashboard</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="building-data-apps google data agent kit"><code>building-data-apps</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="building-pigment-frames pigment"><code>building-pigment-frames</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="building-workflows posthog"><code>building-workflows</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="bulk-create canva"><code>bulk-create</code><a href="/plugins/canva.html">Canva</a></li>
+    <li data-search="business-data windsor.ai"><code>business-data</code><a href="/plugins/windsor-ai.html">Windsor.ai</a></li>
+    <li data-search="buying-committee zoominfo"><code>buying-committee</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="call-coaching zoominfo"><code>call-coaching</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="call-recap zoominfo"><code>call-recap</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="call-review synthflow"><code>call-review</code><a href="/plugins/synthflow.html">Synthflow</a></li>
+    <li data-search="card-provisioning airwallex"><code>card-provisioning</code><a href="/plugins/airwallex-agentos.html">Airwallex</a></li>
+    <li data-search="catalyst-appsail zoho catalyst"><code>catalyst-appsail</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-authentication zoho catalyst"><code>catalyst-authentication</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-basics zoho catalyst"><code>catalyst-basics</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-by-zoho zoho catalyst"><code>catalyst-by-zoho</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-cache zoho catalyst"><code>catalyst-cache</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-datastore zoho catalyst"><code>catalyst-datastore</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-functions zoho catalyst"><code>catalyst-functions</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-nosql zoho catalyst"><code>catalyst-nosql</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-pricing zoho catalyst"><code>catalyst-pricing</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-sdk zoho catalyst"><code>catalyst-sdk</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-signals zoho catalyst"><code>catalyst-signals</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-slate zoho catalyst"><code>catalyst-slate</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-smartbrowz zoho catalyst"><code>catalyst-smartbrowz</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-stratus zoho catalyst"><code>catalyst-stratus</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-zia zoho catalyst"><code>catalyst-zia</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="catalyst-zoho-mcp zoho catalyst"><code>catalyst-zoho-mcp</code><a href="/plugins/catalyst-by-zoho.html">Zoho Catalyst</a></li>
+    <li data-search="cdn-caching vercel"><code>cdn-caching</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="chart-link-analysis amplitude"><code>chart-link-analysis</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="chat-sdk vercel"><code>chat-sdk</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="chatting-with-aws-devops-agent aws devsecops agent"><code>chatting-with-aws-devops-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="check-usage hunter"><code>check-usage</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="checking-deploy-timing posthog"><code>checking-deploy-timing</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="choose-zoom-approach zoom"><code>choose-zoom-approach</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="choosing-trend-or-slope-view posthog"><code>choosing-trend-or-slope-view</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="chrome-devtools chrome devtools"><code>chrome-devtools</code><a href="/plugins/chrome-devtools-mcp.html">Chrome DevTools</a></li>
+    <li data-search="chrome-devtools-cli chrome devtools"><code>chrome-devtools-cli</code><a href="/plugins/chrome-devtools-mcp.html">Chrome DevTools</a></li>
+    <li data-search="claimable-postgres neon"><code>claimable-postgres</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="clean-up-dropbox-content dropbox"><code>clean-up-dropbox-content</code><a href="/plugins/dropbox.html">Dropbox</a></li>
+    <li data-search="cleaning-up-stale-feature-flags posthog"><code>cleaning-up-stale-feature-flags</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="cli appwrite"><code>cli</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="cli pinecone"><code>cli</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="clickhouse-best-practices clickhouse cloud"><code>clickhouse-best-practices</code><a href="/plugins/clickhouse.html">ClickHouse Cloud</a></li>
+    <li data-search="client-side-js val town"><code>client-side-js</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="cloudflare cloudflare"><code>cloudflare</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="cloudflare-email-service cloudflare"><code>cloudflare-email-service</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="cloudflare-one cloudflare"><code>cloudflare-one</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="cloudflare-one-migrations cloudflare"><code>cloudflare-one-migrations</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="cloudinary-docs cloudinary"><code>cloudinary-docs</code><a href="/plugins/cloudinary.html">Cloudinary</a></li>
+    <li data-search="cloudinary-transformations cloudinary"><code>cloudinary-transformations</code><a href="/plugins/cloudinary.html">Cloudinary</a></li>
+    <li data-search="cobrowse-sdk zoom"><code>cobrowse-sdk</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="codspeed-optimize codspeed"><code>codspeed-optimize</code><a href="/plugins/codspeed.html">CodSpeed</a></li>
+    <li data-search="codspeed-setup-harness codspeed"><code>codspeed-setup-harness</code><a href="/plugins/codspeed.html">CodSpeed</a></li>
+    <li data-search="collect-files-with-request dropbox"><code>collect-files-with-request</code><a href="/plugins/dropbox.html">Dropbox</a></li>
+    <li data-search="commitment-ledger zoominfo"><code>commitment-ledger</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="company-deep-dive nimble"><code>company-deep-dive</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="company-enrichment hunter"><code>company-enrichment</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="company-intent-monitor zoominfo"><code>company-intent-monitor</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="company-lists hunter"><code>company-lists</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="company-news-monitor zoominfo"><code>company-news-monitor</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="compare-user-journeys amplitude"><code>compare-user-journeys</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="comparisons fullstory"><code>comparisons</code><a href="/plugins/fullstory.html">Fullstory</a></li>
+    <li data-search="competitor-analysis zoominfo"><code>competitor-analysis</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="competitor-intel nimble"><code>competitor-intel</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="competitor-positioning nimble"><code>competitor-positioning</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="computer-health-check desktop commander"><code>computer-health-check</code><a href="/plugins/desktop-commander.html">Desktop Commander</a></li>
+    <li data-search="configuring-experiment-analytics posthog"><code>configuring-experiment-analytics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="configuring-experiment-rollout posthog"><code>configuring-experiment-rollout</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="consuming-endpoints-from-client-code posthog"><code>consuming-endpoints-from-client-code</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="contact-center zoom"><code>contact-center</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="contact-relationship-recap zoominfo"><code>contact-relationship-recap</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="content-experimentation-best-practices sanity"><code>content-experimentation-best-practices</code><a href="/plugins/sanity.html">Sanity</a></li>
+    <li data-search="content-modeling-best-practices sanity"><code>content-modeling-best-practices</code><a href="/plugins/sanity.html">Sanity</a></li>
+    <li data-search="contract-to-billing airwallex"><code>contract-to-billing</code><a href="/plugins/airwallex-agentos.html">Airwallex</a></li>
+    <li data-search="convex-authz convex"><code>convex-authz</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="coordinating-multi-space-devops-agent aws devsecops agent"><code>coordinating-multi-space-devops-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="copying-endpoints-across-projects posthog"><code>copying-endpoints-across-projects</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="copying-flags-across-projects posthog"><code>copying-flags-across-projects</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="cover rootly"><code>cover</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="create-chart amplitude"><code>create-chart</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="create-dashboard amplitude"><code>create-dashboard</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="create-honeycomb-board honeycomb"><code>create-honeycomb-board</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="create-revenuecat-project revenuecat"><code>create-revenuecat-project</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="create-skill val town"><code>create-skill</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="creating-ai-subscription posthog"><code>creating-ai-subscription</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="creating-an-endpoint posthog"><code>creating-an-endpoint</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="creating-experiments posthog"><code>creating-experiments</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="creating-online-evaluations posthog"><code>creating-online-evaluations</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="creating-replay-vision-scanners posthog"><code>creating-replay-vision-scanners</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="cron-and-intervals val town"><code>cron-and-intervals</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="crons convex"><code>crons</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="customer-360 intercom"><code>customer-360</code><a href="/plugins/intercom.html">Intercom</a></li>
+    <li data-search="daily-brief amplitude"><code>daily-brief</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="daily-brief zoominfo"><code>daily-brief</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="daily-briefing monday.com"><code>daily-briefing</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="dart appwrite"><code>dart</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="data-autocleaning google data agent kit"><code>data-autocleaning</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="data-cleanup monday.com"><code>data-cleanup</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="dataform-bigquery google data agent kit"><code>dataform-bigquery</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="dbt-bigquery google data agent kit"><code>dbt-bigquery</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="ddconfig datadog"><code>ddconfig</code><a href="/plugins/datadog.html">Datadog</a></li>
+    <li data-search="ddsetup datadog"><code>ddsetup</code><a href="/plugins/datadog.html">Datadog</a></li>
+    <li data-search="ddtoolsets datadog"><code>ddtoolsets</code><a href="/plugins/datadog.html">Datadog</a></li>
+    <li data-search="debug-optimize-lcp chrome devtools"><code>debug-optimize-lcp</code><a href="/plugins/chrome-devtools-mcp.html">Chrome DevTools</a></li>
+    <li data-search="debug-replay amplitude"><code>debug-replay</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="debug-zoom zoom"><code>debug-zoom</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="debug-zoom-integration zoom"><code>debug-zoom-integration</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="debugging-local-replay posthog"><code>debugging-local-replay</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="debugging-signals-pipeline posthog"><code>debugging-signals-pipeline</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="debugging-surveys posthog"><code>debugging-surveys</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="decision-process-mapper zoominfo"><code>decision-process-mapper</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="deploy aws iac"><code>deploy</code><a href="/plugins/deploy-on-aws.html">AWS IaC</a></li>
+    <li data-search="deploy-check rootly"><code>deploy-check</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="deploy-flow postman"><code>deploy-flow</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="deployments-cicd vercel"><code>deployments-cicd</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="design convex"><code>design</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="design-mcp-workflow zoom"><code>design-mcp-workflow</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="designing-boards pigment"><code>designing-boards</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="designing-email-templates posthog"><code>designing-email-templates</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="designing-views pigment"><code>designing-views</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="desktop-commander-overview desktop commander"><code>desktop-commander-overview</code><a href="/plugins/desktop-commander.html">Desktop Commander</a></li>
+    <li data-search="diagnose-errors amplitude"><code>diagnose-errors</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="diagnosing-ci-and-merge-bottlenecks posthog"><code>diagnosing-ci-and-merge-bottlenecks</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="diagnosing-endpoint-performance posthog"><code>diagnosing-endpoint-performance</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="diagnosing-experiment-results posthog"><code>diagnosing-experiment-results</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="diagnosing-failed-warehouse-syncs posthog"><code>diagnosing-failed-warehouse-syncs</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="diagnosing-missing-recordings posthog"><code>diagnosing-missing-recordings</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="diagnosing-sdk-health posthog"><code>diagnosing-sdk-health</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="diagnosing-stacktrace-symbolication posthog"><code>diagnosing-stacktrace-symbolication</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="diff-intake amplitude"><code>diff-intake</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="diff-scanning-with-aws-security-agent aws devsecops agent"><code>diff-scanning-with-aws-security-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="discover hunter"><code>discover</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="discover-analytics-patterns amplitude"><code>discover-analytics-patterns</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="discover-event-surfaces amplitude"><code>discover-event-surfaces</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="discover-opportunities amplitude"><code>discover-opportunities</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="discovering-gcp-data-assets google data agent kit"><code>discovering-gcp-data-assets</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="docs pinecone"><code>docs</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="domain-search hunter"><code>domain-search</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="domains convex"><code>domains</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="dotnet appwrite"><code>dotnet</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="downloading-batch-export-files posthog"><code>downloading-batch-export-files</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="draft-follow-up zoominfo"><code>draft-follow-up</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="durable-objects cloudflare"><code>durable-objects</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="eas-app-stores expo"><code>eas-app-stores</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="eas-hosting expo"><code>eas-hosting</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="eas-observe expo"><code>eas-observe</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="eas-simulator expo"><code>eas-simulator</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="eas-update-insights expo"><code>eas-update-insights</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="eas-workflows expo"><code>eas-workflows</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="edit-design canva"><code>edit-design</code><a href="/plugins/canva.html">Canva</a></li>
+    <li data-search="elastic-beanstalk aws iac"><code>elastic-beanstalk</code><a href="/plugins/deploy-on-aws.html">AWS IaC</a></li>
+    <li data-search="email val town"><code>email</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="email-best-practices resend"><code>email-best-practices</code><a href="/plugins/resend.html">Resend</a></li>
+    <li data-search="email-finder hunter"><code>email-finder</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="email-thread-summarizer zoominfo"><code>email-thread-summarizer</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="email-verifier hunter"><code>email-verifier</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="enforcing-resource-attribution google data agent kit"><code>enforcing-resource-attribution</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="engagement-timeline zoominfo"><code>engagement-timeline</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="enrich-company zoominfo"><code>enrich-company</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="enrich-contact lusha"><code>enrich-contact</code><a href="/plugins/lusha.html">Lusha</a></li>
+    <li data-search="enrich-contact zoominfo"><code>enrich-contact</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="enrich-lead apollo.io"><code>enrich-lead</code><a href="/plugins/apollo.html">Apollo.io</a></li>
+    <li data-search="entra-agent-id azure"><code>entra-agent-id</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="entra-app-registration azure"><code>entra-app-registration</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="env convex"><code>env</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="env-vars vercel"><code>env-vars</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="eve vercel"><code>eve</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="exec-brief zoominfo"><code>exec-brief</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="exploring-ai-failures posthog"><code>exploring-ai-failures</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-apm-traces posthog"><code>exploring-apm-traces</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-autocapture-events posthog"><code>exploring-autocapture-events</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-endpoint-execution-logs posthog"><code>exploring-endpoint-execution-logs</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-live-traffic posthog"><code>exploring-live-traffic</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-llm-clusters posthog"><code>exploring-llm-clusters</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-llm-costs posthog"><code>exploring-llm-costs</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-llm-evaluations posthog"><code>exploring-llm-evaluations</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-llm-traces posthog"><code>exploring-llm-traces</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-mcp-intent-clusters posthog"><code>exploring-mcp-intent-clusters</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-mcp-sessions posthog"><code>exploring-mcp-sessions</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-mcp-tool-quality posthog"><code>exploring-mcp-tool-quality</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-mcp-tool-usage posthog"><code>exploring-mcp-tool-usage</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-replay-vision-observations posthog"><code>exploring-replay-vision-observations</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="exploring-scouts posthog"><code>exploring-scouts</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="expo-app-clip expo"><code>expo-app-clip</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-brownfield expo"><code>expo-brownfield</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-data-fetching expo"><code>expo-data-fetching</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-design-system expo"><code>expo-design-system</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-dev-client expo"><code>expo-dev-client</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-dom expo"><code>expo-dom</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-examples expo"><code>expo-examples</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-module expo"><code>expo-module</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-native-ui expo"><code>expo-native-ui</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-project-structure expo"><code>expo-project-structure</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-router expo"><code>expo-router</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-skill-feedback expo"><code>expo-skill-feedback</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-tailwind-setup expo"><code>expo-tailwind-setup</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-ui expo"><code>expo-ui</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-upgrade expo"><code>expo-upgrade</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="expo-web-to-native expo"><code>expo-web-to-native</code><a href="/plugins/expo.html">Expo</a></li>
+    <li data-search="feature-usage-feed posthog"><code>feature-usage-feed</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="federate-lakehouse-catalog google data agent kit"><code>federate-lakehouse-catalog</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="filtering-bot-traffic posthog"><code>filtering-bot-traffic</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="find-dropbox-content dropbox"><code>find-dropbox-content</code><a href="/plugins/dropbox.html">Dropbox</a></li>
+    <li data-search="find-similar zoominfo"><code>find-similar</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="finding-deleted-feature-flags posthog"><code>finding-deleted-feature-flags</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="finding-experiments posthog"><code>finding-experiments</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="finding-replay-for-issue posthog"><code>finding-replay-for-issue</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="finding-sessions-to-watch posthog"><code>finding-sessions-to-watch</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="finops new relic"><code>finops</code><a href="/plugins/newrelic.html">New Relic</a></li>
+    <li data-search="fix-test vanta"><code>fix-test</code><a href="/plugins/vanta.html">Vanta</a></li>
+    <li data-search="forecast monday.com"><code>forecast</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="forge-app-builder atlassian forge"><code>forge-app-builder</code><a href="/plugins/forge-skills.html">Atlassian Forge</a></li>
+    <li data-search="forge-app-review atlassian forge"><code>forge-app-review</code><a href="/plugins/forge-skills.html">Atlassian Forge</a></li>
+    <li data-search="forge-connector atlassian forge"><code>forge-connector</code><a href="/plugins/forge-skills.html">Atlassian Forge</a></li>
+    <li data-search="forge-cost-optimizer atlassian forge"><code>forge-cost-optimizer</code><a href="/plugins/forge-skills.html">Atlassian Forge</a></li>
+    <li data-search="forge-debugger atlassian forge"><code>forge-debugger</code><a href="/plugins/forge-skills.html">Atlassian Forge</a></li>
+    <li data-search="forge-security-review atlassian forge"><code>forge-security-review</code><a href="/plugins/forge-skills.html">Atlassian Forge</a></li>
+    <li data-search="formatting-and-highlighting pigment"><code>formatting-and-highlighting</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="formatting-insight-axes posthog"><code>formatting-insight-axes</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="full-text-search pinecone"><code>full-text-search</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="fund-agent-wallet circle"><code>fund-agent-wallet</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="gcloud-auth-verification google data agent kit"><code>gcloud-auth-verification</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-composer-troubleshooting google data agent kit"><code>gcp-composer-troubleshooting</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-data-pipelines google data agent kit"><code>gcp-data-pipelines</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-dataflow google data agent kit"><code>gcp-dataflow</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-managed-airflow-dag-authoring google data agent kit"><code>gcp-managed-airflow-dag-authoring</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-managed-airflow-migrations google data agent kit"><code>gcp-managed-airflow-migrations</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-managed-airflow-recommendations google data agent kit"><code>gcp-managed-airflow-recommendations</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-pipeline-orchestration google data agent kit"><code>gcp-pipeline-orchestration</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-pipeline-resource-provisioning google data agent kit"><code>gcp-pipeline-resource-provisioning</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcp-spark google data agent kit"><code>gcp-spark</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="gcs-security-assessment google data agent kit"><code>gcs-security-assessment</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="general zoom"><code>general</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="general-analysis fullstory"><code>general-analysis</code><a href="/plugins/fullstory.html">Fullstory</a></li>
+    <li data-search="generate-spec postman"><code>generate-spec</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="get-design-feedback canva"><code>get-design-feedback</code><a href="/plugins/canva.html">Canva</a></li>
+    <li data-search="get-flow-run postman"><code>get-flow-run</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="go appwrite"><code>go</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="google-cloud-storage-basics google data agent kit"><code>google-cloud-storage-basics</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="grafana-cloud-mcp-tools grafana cloud"><code>grafana-cloud-mcp-tools</code><a href="/plugins/grafana-cloud-mcp.html">Grafana Cloud</a></li>
+    <li data-search="grafana-mcp-tools grafana (self-hosted)"><code>grafana-mcp-tools</code><a href="/plugins/grafana-mcp.html">Grafana (self-hosted)</a></li>
+    <li data-search="graphql-operations apollo graphos"><code>graphql-operations</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="graphql-schema apollo graphos"><code>graphql-schema</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="grouping-noisy-errors posthog"><code>grouping-noisy-errors</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="handoff rootly"><code>handoff</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="healthcare-providers-enrich nimble"><code>healthcare-providers-enrich</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="healthcare-providers-extract nimble"><code>healthcare-providers-extract</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="healthcare-providers-verify nimble"><code>healthcare-providers-verify</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="help pinecone"><code>help</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="hf-cli hugging face"><code>hf-cli</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-cloud-aws-context-discovery hugging face"><code>hf-cloud-aws-context-discovery</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-cloud-python-env-setup hugging face"><code>hf-cloud-python-env-setup</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-cloud-sagemaker-deployment-planner hugging face"><code>hf-cloud-sagemaker-deployment-planner</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-cloud-sagemaker-iam-preflight hugging face"><code>hf-cloud-sagemaker-iam-preflight</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-cloud-sagemaker-production-defaults hugging face"><code>hf-cloud-sagemaker-production-defaults</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-cloud-serving-image-selection hugging face"><code>hf-cloud-serving-image-selection</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-mcp hugging face"><code>hf-mcp</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="hf-mem hugging face"><code>hf-mem</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="http-endpoints val town"><code>http-endpoints</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="huggingface-best hugging face"><code>huggingface-best</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-community-evals hugging face"><code>huggingface-community-evals</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-datasets hugging face"><code>huggingface-datasets</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-gradio hugging face"><code>huggingface-gradio</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-llm-trainer hugging face"><code>huggingface-llm-trainer</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-local-models hugging face"><code>huggingface-local-models</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-lora-space-builder hugging face"><code>huggingface-lora-space-builder</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-paper-publisher hugging face"><code>huggingface-paper-publisher</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-papers hugging face"><code>huggingface-papers</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-spaces hugging face"><code>huggingface-spaces</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-tool-builder hugging face"><code>huggingface-tool-builder</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-trackio hugging face"><code>huggingface-trackio</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-vision-trainer hugging face"><code>huggingface-vision-trainer</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="huggingface-zerogpu hugging face"><code>huggingface-zerogpu</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="implement-feedback canva"><code>implement-feedback</code><a href="/plugins/canva.html">Canva</a></li>
+    <li data-search="improve-convex-plugin convex"><code>improve-convex-plugin</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="improving-mcp-tools posthog"><code>improving-mcp-tools</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="inbox-exploration posthog"><code>inbox-exploration</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="inspect-dropbox-file dropbox"><code>inspect-dropbox-file</code><a href="/plugins/dropbox.html">Dropbox</a></li>
+    <li data-search="install-cli intercom"><code>install-cli</code><a href="/plugins/intercom.html">Intercom</a></li>
+    <li data-search="install-messenger intercom"><code>install-messenger</code><a href="/plugins/intercom.html">Intercom</a></li>
+    <li data-search="instrument-error-tracking posthog"><code>instrument-error-tracking</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="instrument-events amplitude"><code>instrument-events</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="instrument-feature-flags posthog"><code>instrument-feature-flags</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="instrument-integration posthog"><code>instrument-integration</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="instrument-llm-analytics posthog"><code>instrument-llm-analytics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="instrument-logs posthog"><code>instrument-logs</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="instrument-product-analytics posthog"><code>instrument-product-analytics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="integrate-revenuecat revenuecat"><code>integrate-revenuecat</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="integrating-pigment-data pigment"><code>integrating-pigment-data</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="intercom-analysis intercom"><code>intercom-analysis</code><a href="/plugins/intercom.html">Intercom</a></li>
+    <li data-search="investigate-ai-session amplitude"><code>investigate-ai-session</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="investigate-metric posthog"><code>investigate-metric</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="investigating-ci-failures posthog"><code>investigating-ci-failures</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="investigating-error-issue posthog"><code>investigating-error-issue</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="investigating-incidents-with-aws-devops-agent aws devsecops agent"><code>investigating-incidents-with-aws-devops-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="investigating-logs posthog"><code>investigating-logs</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="investigating-metric-anomalies posthog"><code>investigating-metric-anomalies</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="investigating-replay posthog"><code>investigating-replay</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="issues aikido security"><code>issues</code><a href="/plugins/aikido.html">Aikido Security</a></li>
+    <li data-search="jfrog jfrog"><code>jfrog</code><a href="/plugins/jfrog.html">JFrog</a></li>
+    <li data-search="jfrog-ai-catalog-skills jfrog"><code>jfrog-ai-catalog-skills</code><a href="/plugins/jfrog.html">JFrog</a></li>
+    <li data-search="jfrog-mcp-management jfrog"><code>jfrog-mcp-management</code><a href="/plugins/jfrog.html">JFrog</a></li>
+    <li data-search="jfrog-package-safety-and-download jfrog"><code>jfrog-package-safety-and-download</code><a href="/plugins/jfrog.html">JFrog</a></li>
+    <li data-search="jfrog-reference-architecture jfrog"><code>jfrog-reference-architecture</code><a href="/plugins/jfrog.html">JFrog</a></li>
+    <li data-search="jfrog-setup-package-managers jfrog"><code>jfrog-setup-package-managers</code><a href="/plugins/jfrog.html">JFrog</a></li>
+    <li data-search="knowledge-base desktop commander"><code>knowledge-base</code><a href="/plugins/desktop-commander.html">Desktop Commander</a></li>
+    <li data-search="knowledge-update vercel"><code>knowledge-update</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="kotlin appwrite"><code>kotlin</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="kubernetes new relic"><code>kubernetes</code><a href="/plugins/newrelic.html">New Relic</a></li>
+    <li data-search="label-purchase shippo"><code>label-purchase</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="labs-quickstart convex"><code>labs-quickstart</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="launch-monitor nimble"><code>launch-monitor</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="launch-with-aws aws api proxy"><code>launch-with-aws</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="lead-lists hunter"><code>lead-lists</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="list-flows postman"><code>list-flows</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="list-tests vanta"><code>list-tests</code><a href="/plugins/vanta.html">Vanta</a></li>
+    <li data-search="live-data-forensics amplitude"><code>live-data-forensics</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="local-places nimble"><code>local-places</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="log-activity monday.com"><code>log-activity</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="logfire-instrumentation pydantic logfire"><code>logfire-instrumentation</code><a href="/plugins/logfire.html">Pydantic Logfire</a></li>
+    <li data-search="logfire-query pydantic logfire"><code>logfire-query</code><a href="/plugins/logfire.html">Pydantic Logfire</a></li>
+    <li data-search="logfire-ui pydantic logfire"><code>logfire-ui</code><a href="/plugins/logfire.html">Pydantic Logfire</a></li>
+    <li data-search="lookalike-prospect lusha"><code>lookalike-prospect</code><a href="/plugins/lusha.html">Lusha</a></li>
+    <li data-search="lookup rootly"><code>lookup</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="manage-amp-context amplitude"><code>manage-amp-context</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="manage-cashflow airwallex"><code>manage-cashflow</code><a href="/plugins/airwallex-agentos.html">Airwallex</a></li>
+    <li data-search="manage-leads hunter"><code>manage-leads</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="managing-endpoint-versions posthog"><code>managing-endpoint-versions</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="managing-experiment-lifecycle posthog"><code>managing-experiment-lifecycle</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="managing-path-cleaning-rules posthog"><code>managing-path-cleaning-rules</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="managing-python-dependencies google data agent kit"><code>managing-python-dependencies</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="managing-reminders posthog"><code>managing-reminders</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="managing-streamlit-apps posthog"><code>managing-streamlit-apps</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="managing-subscriptions posthog"><code>managing-subscriptions</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="mapbox-android-patterns mapbox"><code>mapbox-android-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-cartography mapbox"><code>mapbox-cartography</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-data-visualization-patterns mapbox"><code>mapbox-data-visualization-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-flutter-patterns mapbox"><code>mapbox-flutter-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-geospatial-operations mapbox"><code>mapbox-geospatial-operations</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-google-maps-migration mapbox"><code>mapbox-google-maps-migration</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-ios-patterns mapbox"><code>mapbox-ios-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-location-grounding mapbox"><code>mapbox-location-grounding</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-maplibre-migration mapbox"><code>mapbox-maplibre-migration</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-mcp-devkit-patterns mapbox"><code>mapbox-mcp-devkit-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-mcp-runtime-patterns mapbox"><code>mapbox-mcp-runtime-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-search-integration mapbox"><code>mapbox-search-integration</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-search-patterns mapbox"><code>mapbox-search-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-store-locator-patterns mapbox"><code>mapbox-store-locator-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-style-patterns mapbox"><code>mapbox-style-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-style-quality mapbox"><code>mapbox-style-quality</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-token-security mapbox"><code>mapbox-token-security</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-web-integration-patterns mapbox"><code>mapbox-web-integration-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="mapbox-web-performance-patterns mapbox"><code>mapbox-web-performance-patterns</code><a href="/plugins/mapbox.html">Mapbox</a></li>
+    <li data-search="market-finder nimble"><code>market-finder</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="marketplace vercel"><code>marketplace</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="mcp pinecone"><code>mcp</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="meeting-prep nimble"><code>meeting-prep</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="meeting-prep zoominfo"><code>meeting-prep</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="meeting-sdk zoom"><code>meeting-sdk</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="meeting-to-deal monday.com"><code>meeting-to-deal</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="memory-leak-debugging chrome devtools"><code>memory-leak-debugging</code><a href="/plugins/chrome-devtools-mcp.html">Chrome DevTools</a></li>
+    <li data-search="metrics-queries honeycomb"><code>metrics-queries</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="microfrontends vercel"><code>microfrontends</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="microsoft-code-reference microsoft learn"><code>microsoft-code-reference</code><a href="/plugins/microsoft-docs.html">Microsoft Learn</a></li>
+    <li data-search="microsoft-docs microsoft learn"><code>microsoft-docs</code><a href="/plugins/microsoft-docs.html">Microsoft Learn</a></li>
+    <li data-search="microsoft-foundry azure"><code>microsoft-foundry</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="microsoft-skill-creator microsoft learn"><code>microsoft-skill-creator</code><a href="/plugins/microsoft-docs.html">Microsoft Learn</a></li>
+    <li data-search="migrate convex"><code>migrate</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="migrate-eppo confidence"><code>migrate-eppo</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="migrate-optimizely confidence"><code>migrate-optimizely</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="migrate-posthog confidence"><code>migrate-posthog</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="migrate-statsig confidence"><code>migrate-statsig</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="mintlify mintlify"><code>mintlify</code><a href="/plugins/mintlify.html">Mintlify</a></li>
+    <li data-search="miro-browse miro"><code>miro-browse</code><a href="/plugins/miro.html">Miro</a></li>
+    <li data-search="miro-code-explain-on-board miro"><code>miro-code-explain-on-board</code><a href="/plugins/miro.html">Miro</a></li>
+    <li data-search="miro-code-review miro"><code>miro-code-review</code><a href="/plugins/miro.html">Miro</a></li>
+    <li data-search="miro-code-spec miro"><code>miro-code-spec</code><a href="/plugins/miro.html">Miro</a></li>
+    <li data-search="miro-diagram miro"><code>miro-diagram</code><a href="/plugins/miro.html">Miro</a></li>
+    <li data-search="miro-doc miro"><code>miro-doc</code><a href="/plugins/miro.html">Miro</a></li>
+    <li data-search="miro-table miro"><code>miro-table</code><a href="/plugins/miro.html">Miro</a></li>
+    <li data-search="ml-best-practices google data agent kit"><code>ml-best-practices</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="modeling-activation-metrics posthog"><code>modeling-activation-metrics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="modeling-conversion-metrics posthog"><code>modeling-conversion-metrics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="modeling-dimension-tables posthog"><code>modeling-dimension-tables</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="modeling-pigment-applications pigment"><code>modeling-pigment-applications</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="modeling-product-usage-metrics posthog"><code>modeling-product-usage-metrics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="modeling-revenue-metrics posthog"><code>modeling-revenue-metrics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="modeling-warehouse-foundations posthog"><code>modeling-warehouse-foundations</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="mongodb-atlas-stream-processing mongodb (local)"><code>mongodb-atlas-stream-processing</code><a href="/plugins/mongodb.html">MongoDB (local)</a></li>
+    <li data-search="mongodb-atlas-stream-processing mongodb atlas"><code>mongodb-atlas-stream-processing</code><a href="/plugins/mongodb-atlas.html">MongoDB Atlas</a></li>
+    <li data-search="mongodb-connection mongodb (local)"><code>mongodb-connection</code><a href="/plugins/mongodb.html">MongoDB (local)</a></li>
+    <li data-search="mongodb-connection mongodb atlas"><code>mongodb-connection</code><a href="/plugins/mongodb-atlas.html">MongoDB Atlas</a></li>
+    <li data-search="mongodb-mcp-setup mongodb (local)"><code>mongodb-mcp-setup</code><a href="/plugins/mongodb.html">MongoDB (local)</a></li>
+    <li data-search="mongodb-natural-language-querying mongodb (local)"><code>mongodb-natural-language-querying</code><a href="/plugins/mongodb.html">MongoDB (local)</a></li>
+    <li data-search="mongodb-natural-language-querying mongodb atlas"><code>mongodb-natural-language-querying</code><a href="/plugins/mongodb-atlas.html">MongoDB Atlas</a></li>
+    <li data-search="mongodb-query-optimizer mongodb (local)"><code>mongodb-query-optimizer</code><a href="/plugins/mongodb.html">MongoDB (local)</a></li>
+    <li data-search="mongodb-query-optimizer mongodb atlas"><code>mongodb-query-optimizer</code><a href="/plugins/mongodb-atlas.html">MongoDB Atlas</a></li>
+    <li data-search="mongodb-schema-design mongodb (local)"><code>mongodb-schema-design</code><a href="/plugins/mongodb.html">MongoDB (local)</a></li>
+    <li data-search="mongodb-schema-design mongodb atlas"><code>mongodb-schema-design</code><a href="/plugins/mongodb-atlas.html">MongoDB Atlas</a></li>
+    <li data-search="mongodb-search-and-ai mongodb (local)"><code>mongodb-search-and-ai</code><a href="/plugins/mongodb.html">MongoDB (local)</a></li>
+    <li data-search="mongodb-search-and-ai mongodb atlas"><code>mongodb-search-and-ai</code><a href="/plugins/mongodb-atlas.html">MongoDB Atlas</a></li>
+    <li data-search="monitor-ai-quality amplitude"><code>monitor-ai-quality</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="monitor-experiments amplitude"><code>monitor-experiments</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="monitor-experiments-consolidated amplitude"><code>monitor-experiments-consolidated</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="monitor-reliability amplitude"><code>monitor-reliability</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="mp-integrate mercado pago"><code>mp-integrate</code><a href="/plugins/mercadopago.html">Mercado Pago</a></li>
+    <li data-search="mp-review mercado pago"><code>mp-review</code><a href="/plugins/mercadopago.html">Mercado Pago</a></li>
+    <li data-search="mp-test-setup mercado pago"><code>mp-test-setup</code><a href="/plugins/mercadopago.html">Mercado Pago</a></li>
+    <li data-search="mp-webhooks mercado pago"><code>mp-webhooks</code><a href="/plugins/mercadopago.html">Mercado Pago</a></li>
+    <li data-search="mutual-action-plan zoominfo"><code>mutual-action-plan</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="my rootly"><code>my</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="n8n pinecone"><code>n8n</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="neon neon"><code>neon</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="neon-ai-gateway neon"><code>neon-ai-gateway</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="neon-functions neon"><code>neon-functions</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="neon-object-storage neon"><code>neon-object-storage</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="neon-postgres neon"><code>neon-postgres</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="neon-postgres-branches neon"><code>neon-postgres-branches</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="neon-postgres-egress-optimizer neon"><code>neon-postgres-egress-optimizer</code><a href="/plugins/neon.html">Neon</a></li>
+    <li data-search="netlify-access-control netlify"><code>netlify-access-control</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-agent-runner netlify"><code>netlify-agent-runner</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-ai-gateway netlify"><code>netlify-ai-gateway</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-blobs netlify"><code>netlify-blobs</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-caching netlify"><code>netlify-caching</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-config netlify"><code>netlify-config</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-database netlify"><code>netlify-database</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-deploy netlify"><code>netlify-deploy</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-edge-functions netlify"><code>netlify-edge-functions</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-forms netlify"><code>netlify-forms</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-frameworks netlify"><code>netlify-frameworks</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-functions netlify"><code>netlify-functions</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-identity netlify"><code>netlify-identity</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-image-cdn netlify"><code>netlify-image-cdn</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="netlify-mcp-servers netlify"><code>netlify-mcp-servers</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="next-best-action zoominfo"><code>next-best-action</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="next-cache-components vercel"><code>next-cache-components</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="next-forge vercel"><code>next-forge</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="next-upgrade vercel"><code>next-upgrade</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="nextjs vercel"><code>nextjs</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="nimble-databricks-data-products nimble"><code>nimble-databricks-data-products</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="nimble-web-expert nimble"><code>nimble-web-expert</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="notebook-guidance google data agent kit"><code>notebook-guidance</code><a href="/plugins/data-agent-kit-starter-pack.html">Google Data Agent Kit</a></li>
+    <li data-search="oauth val town"><code>oauth</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="oauth zoom"><code>oauth</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="objection-blocker-tracker zoominfo"><code>objection-blocker-tracker</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="observability-fundamentals honeycomb"><code>observability-fundamentals</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="obsidian-vault desktop commander"><code>obsidian-vault</code><a href="/plugins/desktop-commander.html">Desktop Commander</a></li>
+    <li data-search="onboard-confidence confidence"><code>onboard-confidence</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="onboard-confidence-dry-run confidence"><code>onboard-confidence-dry-run</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="oncall rootly"><code>oncall</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="optimizing-pigment-performance pigment"><code>optimizing-pigment-performance</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="organize-dropbox-folder dropbox"><code>organize-dropbox-folder</code><a href="/plugins/dropbox.html">Dropbox</a></li>
+    <li data-search="otel-genai-instrumentation honeycomb"><code>otel-genai-instrumentation</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="otel-instrumentation honeycomb"><code>otel-instrumentation</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="otel-migration honeycomb"><code>otel-migration</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="outreach-research lusha"><code>outreach-research</code><a href="/plugins/lusha.html">Lusha</a></li>
+    <li data-search="outreach-sequence lusha"><code>outreach-sequence</code><a href="/plugins/lusha.html">Lusha</a></li>
+    <li data-search="pay-via-agent-wallet circle"><code>pay-via-agent-wallet</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="paypal-best-practices paypal (sandbox)"><code>paypal-best-practices</code><a href="/plugins/paypal.html">PayPal (sandbox)</a></li>
+    <li data-search="paypal-routing paypal (sandbox)"><code>paypal-routing</code><a href="/plugins/paypal.html">PayPal (sandbox)</a></li>
+    <li data-search="pentesting-with-aws-security-agent aws devsecops agent"><code>pentesting-with-aws-security-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="person-enrichment hunter"><code>person-enrichment</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="personalize-email zoominfo"><code>personalize-email</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="phone zoom"><code>phone</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="php appwrite"><code>php</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="plan-zoom-integration zoom"><code>plan-zoom-integration</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="plan-zoom-product zoom"><code>plan-zoom-product</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="planning-cycles-pigment-applications pigment"><code>planning-cycles-pigment-applications</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="planning-voice-agent-user-interviews posthog"><code>planning-voice-agent-user-interviews</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="plugin-audit vercel"><code>plugin-audit</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="portable-text-conversion sanity"><code>portable-text-conversion</code><a href="/plugins/sanity.html">Sanity</a></li>
+    <li data-search="portable-text-serialization sanity"><code>portable-text-serialization</code><a href="/plugins/sanity.html">Sanity</a></li>
+    <li data-search="postman-cli postman"><code>postman-cli</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="postman-context postman"><code>postman-context</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="postman-knowledge postman"><code>postman-knowledge</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="probe-sdk zoom"><code>probe-sdk</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="production-investigation honeycomb"><code>production-investigation</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="prompt-review synthflow"><code>prompt-review</code><a href="/plugins/synthflow.html">Synthflow</a></li>
+    <li data-search="prospect apollo.io"><code>prospect</code><a href="/plugins/apollo.html">Apollo.io</a></li>
+    <li data-search="prospect lusha"><code>prospect</code><a href="/plugins/lusha.html">Lusha</a></li>
+    <li data-search="prospecting hunter"><code>prospecting</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="push-to-crm hunter"><code>push-to-crm</code><a href="/plugins/hunter.html">Hunter</a></li>
+    <li data-search="python appwrite"><code>python</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="python-appservice-deploy azure"><code>python-appservice-deploy</code><a href="/plugins/azure.html">Azure</a></li>
+    <li data-search="qbr-prep zoominfo"><code>qbr-prep</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="qt-cmake-project qt docs"><code>qt-cmake-project</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-cpp-docs qt docs"><code>qt-cpp-docs</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-cpp-review qt docs"><code>qt-cpp-review</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-figma-component-generation qt docs"><code>qt-figma-component-generation</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-figma-token-extraction qt docs"><code>qt-figma-token-extraction</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-qml qt docs"><code>qt-qml</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-qml-docs qt docs"><code>qt-qml-docs</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-qml-profiler qt docs"><code>qt-qml-profiler</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-qml-review qt docs"><code>qt-qml-review</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-qml-test qt docs"><code>qt-qml-test</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-qml-test-run qt docs"><code>qt-qml-test-run</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="qt-ui-design qt docs"><code>qt-ui-design</code><a href="/plugins/qt-development-skills.html">Qt Docs</a></li>
+    <li data-search="query pinecone"><code>query</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="query-patterns honeycomb"><code>query-patterns</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="querying-posthog-data posthog"><code>querying-posthog-data</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="quickstart convex"><code>quickstart</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="quickstart pinecone"><code>quickstart</code><a href="/plugins/pinecone.html">Pinecone</a></li>
+    <li data-search="rate-shopping shippo"><code>rate-shopping</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="react-best-practices vercel"><code>react-best-practices</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="react-email resend"><code>react-email</code><a href="/plugins/resend.html">Resend</a></li>
+    <li data-search="react-ui val town"><code>react-ui</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="recommend-contacts zoominfo"><code>recommend-contacts</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="recover-eco-funds circle"><code>recover-eco-funds</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="release vercel"><code>release</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="remediating-with-aws-security-agent aws devsecops agent"><code>remediating-with-aws-security-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="render-background-workers render"><code>render-background-workers</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-blueprints render"><code>render-blueprints</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-cli render"><code>render-cli</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-cron-jobs render"><code>render-cron-jobs</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-debug render"><code>render-debug</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-deploy render"><code>render-deploy</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-disks render"><code>render-disks</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-docker render"><code>render-docker</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-domains render"><code>render-domains</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-env-vars render"><code>render-env-vars</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-keyvalue render"><code>render-keyvalue</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-mcp render"><code>render-mcp</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-migrate-from-heroku render"><code>render-migrate-from-heroku</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-monitor render"><code>render-monitor</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-networking render"><code>render-networking</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-postgres render"><code>render-postgres</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-private-services render"><code>render-private-services</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-scaling render"><code>render-scaling</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-static-sites render"><code>render-static-sites</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-web-services render"><code>render-web-services</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="render-workflows render"><code>render-workflows</code><a href="/plugins/render.html">Render</a></li>
+    <li data-search="renewal-prep zoominfo"><code>renewal-prep</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="replay-ux-audit amplitude"><code>replay-ux-audit</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="resend resend"><code>resend</code><a href="/plugins/resend.html">Resend</a></li>
+    <li data-search="resend-cli resend"><code>resend-cli</code><a href="/plugins/resend.html">Resend</a></li>
+    <li data-search="resize-for-social-media canva"><code>resize-for-social-media</code><a href="/plugins/canva.html">Canva</a></li>
+    <li data-search="resolving-ingestion-warnings posthog"><code>resolving-ingestion-warnings</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="respond rootly"><code>respond</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="rest-api zoom"><code>rest-api</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="restricted-access val town"><code>restricted-access</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="retro rootly"><code>retro</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="revenuecat revenuecat"><code>revenuecat</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-charts revenuecat"><code>revenuecat-charts</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-customer-center revenuecat"><code>revenuecat-customer-center</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-entitlements-gate revenuecat"><code>revenuecat-entitlements-gate</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-experiment-analysis revenuecat"><code>revenuecat-experiment-analysis</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-identify-user revenuecat"><code>revenuecat-identify-user</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-migrate revenuecat"><code>revenuecat-migrate</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-paywall revenuecat"><code>revenuecat-paywall</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-purchase-flow revenuecat"><code>revenuecat-purchase-flow</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-sdk-compatibility revenuecat"><code>revenuecat-sdk-compatibility</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-status revenuecat"><code>revenuecat-status</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-store-state revenuecat"><code>revenuecat-store-state</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-testing-setup revenuecat"><code>revenuecat-testing-setup</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="revenuecat-troubleshoot revenuecat"><code>revenuecat-troubleshoot</code><a href="/plugins/revenuecat.html">RevenueCat</a></li>
+    <li data-search="review-agent-insights amplitude"><code>review-agent-insights</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="review-hog-authoring posthog"><code>review-hog-authoring</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="review-hog-blind-spots-general posthog"><code>review-hog-blind-spots-general</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="review-hog-perspective-contracts-security posthog"><code>review-hog-perspective-contracts-security</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="review-hog-perspective-logic-correctness posthog"><code>review-hog-perspective-logic-correctness</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="review-hog-perspective-performance-reliability posthog"><code>review-hog-perspective-performance-reliability</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="review-hog-validation-criteria posthog"><code>review-hog-validation-criteria</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="rill-analysis rill developer"><code>rill-analysis</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-canvas rill developer"><code>rill-canvas</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-connector rill developer"><code>rill-connector</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-development rill developer"><code>rill-development</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-explore rill developer"><code>rill-explore</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-metrics-view rill developer"><code>rill-metrics-view</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-model rill developer"><code>rill-model</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-rillyaml rill developer"><code>rill-rillyaml</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rill-theme rill developer"><code>rill-theme</code><a href="/plugins/rill.html">Rill Developer</a></li>
+    <li data-search="rivet-sdk zoom"><code>rivet-sdk</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="routing-middleware vercel"><code>routing-middleware</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="rover apollo graphos"><code>rover</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="rtms zoom"><code>rtms</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="ruby appwrite"><code>ruby</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="run-collection postman"><code>run-collection</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="run-sequence monday.com"><code>run-sequence</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="running-release-tests aws devsecops agent"><code>running-release-tests</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="runtime-cache vercel"><code>runtime-cache</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="rust appwrite"><code>rust</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="rust-best-practices apollo graphos"><code>rust-best-practices</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="sandbox-migrate-to-next cloudflare"><code>sandbox-migrate-to-next</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="sandbox-next cloudflare"><code>sandbox-next</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="sandbox-stable cloudflare"><code>sandbox-stable</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="sanity-best-practices sanity"><code>sanity-best-practices</code><a href="/plugins/sanity.html">Sanity</a></li>
+    <li data-search="sanity-migration sanity"><code>sanity-migration</code><a href="/plugins/sanity.html">Sanity</a></li>
+    <li data-search="sap-fiori-add-visual-filter sap fiori tools"><code>sap-fiori-add-visual-filter</code><a href="/plugins/sap-fiori-mcp-server.html">SAP Fiori Tools</a></li>
+    <li data-search="sap-fiori-analytical-chart sap fiori tools"><code>sap-fiori-analytical-chart</code><a href="/plugins/sap-fiori-mcp-server.html">SAP Fiori Tools</a></li>
+    <li data-search="sap-fiori-app-development sap fiori tools"><code>sap-fiori-app-development</code><a href="/plugins/sap-fiori-mcp-server.html">SAP Fiori Tools</a></li>
+    <li data-search="sap-fiori-create-cli sap fiori tools"><code>sap-fiori-create-cli</code><a href="/plugins/sap-fiori-mcp-server.html">SAP Fiori Tools</a></li>
+    <li data-search="sap-fiori-eslint-plugin sap fiori tools"><code>sap-fiori-eslint-plugin</code><a href="/plugins/sap-fiori-mcp-server.html">SAP Fiori Tools</a></li>
+    <li data-search="sap-fiori-opa5-test-development sap fiori tools"><code>sap-fiori-opa5-test-development</code><a href="/plugins/sap-fiori-mcp-server.html">SAP Fiori Tools</a></li>
+    <li data-search="scan aikido security"><code>scan</code><a href="/plugins/aikido.html">Aikido Security</a></li>
+    <li data-search="scanning-with-aws-security-agent aws devsecops agent"><code>scanning-with-aws-security-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="scheduled-report-refresh amplitude"><code>scheduled-report-refresh</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="score-accounts zoominfo"><code>score-accounts</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="score-leads zoominfo"><code>score-leads</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="scribe zoom"><code>scribe</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="searching-sourcegraph sourcegraph"><code>searching-sourcegraph</code><a href="/plugins/sourcegraph.html">Sourcegraph</a></li>
+    <li data-search="securing-pigment-applications pigment"><code>securing-pigment-applications</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="seed convex"><code>seed</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="send-request postman"><code>send-request</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="sendgrid twilio docs"><code>sendgrid</code><a href="/plugins/twilio-developer-kit.html">Twilio Docs</a></li>
+    <li data-search="seo-aeo-best-practices sanity"><code>seo-aeo-best-practices</code><a href="/plugins/sanity.html">Sanity</a></li>
+    <li data-search="seo-intel nimble"><code>seo-intel</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="sequence-load apollo.io"><code>sequence-load</code><a href="/plugins/apollo.html">Apollo.io</a></li>
+    <li data-search="session-review fullstory"><code>session-review</code><a href="/plugins/fullstory.html">Fullstory</a></li>
+    <li data-search="setting-up-a-custom-rest-source posthog"><code>setting-up-a-custom-rest-source</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="setting-up-a-data-warehouse-source posthog"><code>setting-up-a-data-warehouse-source</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="setting-up-data-catalog posthog"><code>setting-up-data-catalog</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="setting-up-support-slack-locally posthog"><code>setting-up-support-slack-locally</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="setup aikido security"><code>setup</code><a href="/plugins/aikido.html">Aikido Security</a></li>
+    <li data-search="setup aws devsecops agent"><code>setup</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="setup clickhouse cloud"><code>setup</code><a href="/plugins/clickhouse.html">ClickHouse Cloud</a></li>
+    <li data-search="setup rootly"><code>setup</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="setup-devops-agent aws devsecops agent"><code>setup-devops-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="setup-security-agent aws devsecops agent"><code>setup-security-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="setup-warehouse confidence"><code>setup-warehouse</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="setup-warehouse-bigquery confidence"><code>setup-warehouse-bigquery</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="setup-warehouse-databricks confidence"><code>setup-warehouse-databricks</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="setup-warehouse-redshift confidence"><code>setup-warehouse-redshift</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="setup-warehouse-snowflake confidence"><code>setup-warehouse-snowflake</code><a href="/plugins/confidence.html">Confidence</a></li>
+    <li data-search="setup-zoom-marketplace-app zoom"><code>setup-zoom-marketplace-app</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="setup-zoom-mcp zoom"><code>setup-zoom-mcp</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="setup-zoom-oauth zoom"><code>setup-zoom-oauth</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="shadcn vercel"><code>shadcn</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="share-dropbox-content dropbox"><code>share-dropbox-content</code><a href="/plugins/dropbox.html">Dropbox</a></li>
+    <li data-search="shipping-analysis shippo"><code>shipping-analysis</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="shippo-best-practices shippo"><code>shippo-best-practices</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="shippo-support-ticket shippo"><code>shippo-support-ticket</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="signal-prospect lusha"><code>signal-prospect</code><a href="/plugins/lusha.html">Lusha</a></li>
+    <li data-search="signals posthog"><code>signals</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-ai-observability posthog"><code>signals-scout-ai-observability</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-anomaly-detection posthog"><code>signals-scout-anomaly-detection</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-apm posthog"><code>signals-scout-apm</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-conversations posthog"><code>signals-scout-conversations</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-csp-violations posthog"><code>signals-scout-csp-violations</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-customer-analytics posthog"><code>signals-scout-customer-analytics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-data-pipelines posthog"><code>signals-scout-data-pipelines</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-data-warehouse posthog"><code>signals-scout-data-warehouse</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-error-tracking posthog"><code>signals-scout-error-tracking</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-experiments posthog"><code>signals-scout-experiments</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-feature-flags posthog"><code>signals-scout-feature-flags</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-general posthog"><code>signals-scout-general</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-health-checks posthog"><code>signals-scout-health-checks</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-inbox-validation posthog"><code>signals-scout-inbox-validation</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-insight-alerts posthog"><code>signals-scout-insight-alerts</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-logs posthog"><code>signals-scout-logs</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-mcp-tool-calls posthog"><code>signals-scout-mcp-tool-calls</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-observability-gaps posthog"><code>signals-scout-observability-gaps</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-product-analytics posthog"><code>signals-scout-product-analytics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-replay-vision posthog"><code>signals-scout-replay-vision</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-revenue-analytics posthog"><code>signals-scout-revenue-analytics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-session-replay posthog"><code>signals-scout-session-replay</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-skills-store posthog"><code>signals-scout-skills-store</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-surveys posthog"><code>signals-scout-surveys</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-tasks posthog"><code>signals-scout-tasks</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-web-analytics posthog"><code>signals-scout-web-analytics</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signals-scout-web-vitals posthog"><code>signals-scout-web-vitals</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="signing-in-to-aws aws api proxy"><code>signing-in-to-aws</code><a href="/plugins/aws-core.html">AWS API Proxy</a></li>
+    <li data-search="skill-creator apollo graphos"><code>skill-creator</code><a href="/plugins/apollo-skills.html">Apollo GraphOS</a></li>
+    <li data-search="skill-creator netlify"><code>skill-creator</code><a href="/plugins/netlify-skills.html">Netlify</a></li>
+    <li data-search="skills-store posthog"><code>skills-store</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="slos-and-triggers honeycomb"><code>slos-and-triggers</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="solving-specific-use-cases pigment"><code>solving-specific-use-cases</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="sonatype-guide sonatype"><code>sonatype-guide</code><a href="/plugins/sonatype-guide.html">Sonatype</a></li>
+    <li data-search="sqlite-storage val town"><code>sqlite-storage</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="start zoom"><code>start</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="status rootly"><code>status</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="suggest convex"><code>suggest</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="suggesting-data-imports posthog"><code>suggesting-data-imports</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="summarizer zoom"><code>summarizer</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="sumup sumup"><code>sumup</code><a href="/plugins/sumup.html">SumUp</a></li>
+    <li data-search="sumup-best-practices sumup"><code>sumup-best-practices</code><a href="/plugins/sumup.html">SumUp</a></li>
+    <li data-search="sumup-debug sumup"><code>sumup-debug</code><a href="/plugins/sumup.html">SumUp</a></li>
+    <li data-search="sumup-mcp sumup"><code>sumup-mcp</code><a href="/plugins/sumup.html">SumUp</a></li>
+    <li data-search="sumup-testing sumup"><code>sumup-testing</code><a href="/plugins/sumup.html">SumUp</a></li>
+    <li data-search="suppressing-noisy-errors posthog"><code>suppressing-noisy-errors</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="swap rootly"><code>swap</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="swap-tokens circle"><code>swap-tokens</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="swift appwrite"><code>swift</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="talent-sourcing nimble"><code>talent-sourcing</code><a href="/plugins/nimble.html">Nimble</a></li>
+    <li data-search="tam-sizer zoominfo"><code>tam-sizer</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="taxonomy amplitude"><code>taxonomy</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="team-chat zoom"><code>team-chat</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="tech-stack-snapshot zoominfo"><code>tech-stack-snapshot</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="terminal desktop commander"><code>terminal</code><a href="/plugins/desktop-commander.html">Desktop Commander</a></li>
+    <li data-search="test convex"><code>test</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="test rootly"><code>test</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="test-remediation vanta"><code>test-remediation</code><a href="/plugins/vanta.html">Vanta</a></li>
+    <li data-search="testing-mcp-tools-locally posthog"><code>testing-mcp-tools-locally</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="third-party-integrations val town"><code>third-party-integrations</code><a href="/plugins/valtown.html">Val Town</a></li>
+    <li data-search="threat-modeling-with-aws-security-agent aws devsecops agent"><code>threat-modeling-with-aws-security-agent</code><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></li>
+    <li data-search="tracking shippo"><code>tracking</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="train-sentence-transformers hugging face"><code>train-sentence-transformers</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="transformers-js hugging face"><code>transformers-js</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="translator zoom"><code>translator</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="trend rootly"><code>trend</code><a href="/plugins/rootly.html">Rootly</a></li>
+    <li data-search="triaging-error-issues posthog"><code>triaging-error-issues</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="triaging-visual-review-runs posthog"><code>triaging-visual-review-runs</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="trigger-flow postman"><code>trigger-flow</code><a href="/plugins/postman.html">Postman</a></li>
+    <li data-search="trl-training hugging face"><code>trl-training</code><a href="/plugins/huggingface-skills.html">Hugging Face</a></li>
+    <li data-search="troubleshooting chrome devtools"><code>troubleshooting</code><a href="/plugins/chrome-devtools-mcp.html">Chrome DevTools</a></li>
+    <li data-search="tuning-incremental-sync-config posthog"><code>tuning-incremental-sync-config</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="turbopack vercel"><code>turbopack</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="turning-engineering-analytics-into-insights posthog"><code>turning-engineering-analytics-into-insights</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="turnstile-spin cloudflare"><code>turnstile-spin</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="twilio twilio docs"><code>twilio</code><a href="/plugins/twilio-developer-kit.html">Twilio Docs</a></li>
+    <li data-search="typescript appwrite"><code>typescript</code><a href="/plugins/appwrite.html">Appwrite</a></li>
+    <li data-search="ui-toolkit zoom"><code>ui-toolkit</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="ui5-best-practices sap ui5"><code>ui5-best-practices</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="ui5-best-practices-accessibility sap ui5"><code>ui5-best-practices-accessibility</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="ui5-best-practices-integration-cards sap ui5"><code>ui5-best-practices-integration-cards</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="ui5-best-practices-mdc sap ui5"><code>ui5-best-practices-mdc</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="ui5-best-practices-opa5 sap ui5"><code>ui5-best-practices-opa5</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="ui5-best-practices-qunit sap ui5"><code>ui5-best-practices-qunit</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="ui5-best-practices-smart-controls sap ui5"><code>ui5-best-practices-smart-controls</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="ui5-best-practices-tables sap ui5"><code>ui5-best-practices-tables</code><a href="/plugins/ui5.html">SAP UI5</a></li>
+    <li data-search="unify-balance circle"><code>unify-balance</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="upgrade-shippo shippo"><code>upgrade-shippo</code><a href="/plugins/shippo.html">Shippo</a></li>
+    <li data-search="upgrade-sumup sumup"><code>upgrade-sumup</code><a href="/plugins/sumup.html">SumUp</a></li>
+    <li data-search="use-agent-wallet circle"><code>use-agent-wallet</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-amp-guides-surveys amplitude"><code>use-amp-guides-surveys</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="use-arc circle"><code>use-arc</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-circle-cli circle"><code>use-circle-cli</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-circle-wallets circle"><code>use-circle-wallets</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-developer-controlled-wallets circle"><code>use-developer-controlled-wallets</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-gateway circle"><code>use-gateway</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-logrocket logrocket"><code>use-logrocket</code><a href="/plugins/logrocket.html">LogRocket</a></li>
+    <li data-search="use-modular-wallets circle"><code>use-modular-wallets</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-railway railway"><code>use-railway</code><a href="/plugins/railway.html">Railway</a></li>
+    <li data-search="use-smart-contract-platform circle"><code>use-smart-contract-platform</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-usdc circle"><code>use-usdc</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="use-user-controlled-wallets circle"><code>use-user-controlled-wallets</code><a href="/plugins/circle-skills.html">Circle</a></li>
+    <li data-search="user-cohort-forensics amplitude"><code>user-cohort-forensics</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="vercel-agent vercel"><code>vercel-agent</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="vercel-cli vercel"><code>vercel-cli</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="vercel-connect vercel"><code>vercel-connect</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="vercel-firewall vercel"><code>vercel-firewall</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="vercel-functions vercel"><code>vercel-functions</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="vercel-plugin-eval vercel"><code>vercel-plugin-eval</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="vercel-sandbox vercel"><code>vercel-sandbox</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="vercel-storage vercel"><code>vercel-storage</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="verification vercel"><code>verification</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="verify-recent-trace honeycomb"><code>verify-recent-trace</code><a href="/plugins/honeycomb.html">Honeycomb</a></li>
+    <li data-search="video-sdk zoom"><code>video-sdk</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="virtual-agent zoom"><code>virtual-agent</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="web-perf cloudflare"><code>web-perf</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="webhooks zoom"><code>webhooks</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="websockets zoom"><code>websockets</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="weekly-brief amplitude"><code>weekly-brief</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="what-would-lenny-do amplitude"><code>what-would-lenny-do</code><a href="/plugins/amplitude.html">Amplitude</a></li>
+    <li data-search="why-now zoominfo"><code>why-now</code><a href="/plugins/zoominfo.html">ZoomInfo</a></li>
+    <li data-search="wix-app wix"><code>wix-app</code><a href="/plugins/wix.html">Wix</a></li>
+    <li data-search="wix-design-system wix"><code>wix-design-system</code><a href="/plugins/wix.html">Wix</a></li>
+    <li data-search="wix-docs wix"><code>wix-docs</code><a href="/plugins/wix.html">Wix</a></li>
+    <li data-search="wix-headless wix"><code>wix-headless</code><a href="/plugins/wix.html">Wix</a></li>
+    <li data-search="wix-manage wix"><code>wix-manage</code><a href="/plugins/wix.html">Wix</a></li>
+    <li data-search="wix-vibe-headless wix"><code>wix-vibe-headless</code><a href="/plugins/wix.html">Wix</a></li>
+    <li data-search="workers-best-practices cloudflare"><code>workers-best-practices</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="workflow convex"><code>workflow</code><a href="/plugins/convex.html">Convex</a></li>
+    <li data-search="workflow vercel"><code>workflow</code><a href="/plugins/vercel.html">Vercel</a></li>
+    <li data-search="working-with-skills posthog"><code>working-with-skills</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="workspace-builder monday.com"><code>workspace-builder</code><a href="/plugins/monday-crm.html">monday.com</a></li>
+    <li data-search="wrangler cloudflare"><code>wrangler</code><a href="/plugins/cloudflare.html">Cloudflare</a></li>
+    <li data-search="writing-pigment-formulas pigment"><code>writing-pigment-formulas</code><a href="/plugins/pigment.html">Pigment</a></li>
+    <li data-search="writing-streamlit-apps posthog"><code>writing-streamlit-apps</code><a href="/plugins/posthog.html">PostHog</a></li>
+    <li data-search="zapier-demo zapier"><code>zapier-demo</code><a href="/plugins/zapier.html">Zapier</a></li>
+    <li data-search="zapier-explore zapier"><code>zapier-explore</code><a href="/plugins/zapier.html">Zapier</a></li>
+    <li data-search="zapier-onboard zapier"><code>zapier-onboard</code><a href="/plugins/zapier.html">Zapier</a></li>
+    <li data-search="zapier-status zapier"><code>zapier-status</code><a href="/plugins/zapier.html">Zapier</a></li>
+    <li data-search="zoom-apps-sdk zoom"><code>zoom-apps-sdk</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+    <li data-search="zoom-mcp zoom"><code>zoom-mcp</code><a href="/plugins/zoom-plugin.html">Zoom</a></li>
+  </ul>
+  <p class="plg-empty" data-empty hidden style="color:var(--faint);font-size:14px;">Nothing matches that.</p>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/plugins/">Plugins</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.sk li'));
+    var count = document.querySelector('[data-count]');
+    var empty = document.querySelector('[data-empty]');
+    document.querySelector('.plg-search').addEventListener('input', function (event) {
+      var term = event.target.value.trim().toLowerCase();
+      var shown = 0;
+      rows.forEach(function (row) {
+        var ok = !term || row.dataset.search.indexOf(term) !== -1;
+        row.hidden = !ok;
+        if (ok) shown += 1;
+      });
+      count.textContent = shown + (shown === 1 ? ' skill' : ' skills');
+      empty.hidden = shown !== 0;
+    });
+  })();
+</script>
+</body>
+</html>

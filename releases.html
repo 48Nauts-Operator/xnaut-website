@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.14.0, in which build slices are held to what they promised to produce.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.16.2, in which the agent system was rebuilt around chat, a build handshake and 162 MCP plugins.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.14.0, in which build slices are held to what they promised to produce.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.16.2, in which the agent system was rebuilt around chat, a build handshake and 162 MCP plugins.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,8 +66,131 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.14.0</h2>
+      <h2>v1.16.2</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">16 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The agent system, rebuilt across 1.16, and then held together: a message is a question again, a build asks where before it touches anything, and 162 MCP servers are one click from an agent.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A build thread survives its second turn.</strong> Every follow-up message in a codex build died the instant it started, with <span class="mono">error: unexpected argument '--approve-for-me'</span>. <span class="mono">codex exec resume</span> takes a different argument set from <span class="mono">codex exec</span> and accepts neither <span class="mono">--sandbox</span> nor <span class="mono">--approve-for-me</span>, so the first turn worked and the agent then looked mute. Proven by running the real CLI twice, launch then resume from its own session id, for both codex and claude.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.16.2">v1.16.2 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.16.1</h2>
+      <span class="rel-date">16 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Windows builds again.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The Windows leg died at link time</strong> with <span class="mono">LNK1181: cannot open input file 'sqlite3.lib'</span>, so 1.16.0 shipped both macOS DMGs and the cask but no <span class="mono">.exe</span> and no <span class="mono">.msi</span>. <span class="mono">rusqlite</span> was linking the system SQLite, which macOS ships and Windows does not, so the failure could only ever appear in CI. It builds SQLite from source now, the same library on all three platforms.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.16.1">v1.16.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.16.0</h2>
+      <span class="rel-date">16 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The agent system, rebuilt. Step one of two: this is how you talk to an agent and what an agent can do. Step two is the Task side, where a task picks an agent rather than a runtime, and it is deliberately not in this release.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Chat first.</strong> A message goes to the agent's own model. No worktree, no zellij session, no coding CLI. Asking for a status is a question, and it is answered like one.</li>
+        <li><strong>A build handshake.</strong> When a request needs code, the agent says so and xNAUT asks WHERE. The run happens in a worktree under <span class="mono">.worktrees/</span>, never in the checkout you have open, and the repository is asked for once per thread.</li>
+        <li><strong>Plugins.</strong> A library of 162 MCP servers: 32 we have run ourselves plus 130 compiled from the public registries. Enabling one is what makes it reach a run — claude via <span class="mono">--mcp-config</span>, codex via <span class="mono">-c mcp_servers</span> — and each is handed to one agent rather than pooled. <a href="/plugins/">Browse them →</a></li>
+        <li><strong>Agents use their plugins in chat.</strong> A turn opens the MCP servers that agent holds and offers their tools to the model, so "how many repos do we have?" is answered from Forgejo's own tools rather than described.</li>
+        <li><strong>Agents fix their own connectors.</strong> Given a package that ships no executable, an agent inspects npm, finds one that does, repairs the plugin and connects it, instead of handing back the error.</li>
+        <li><strong>A canvas and documents</strong> in a split of the main screen. The agent sends the whole graph or the whole document, boxes you move keep their positions, and "save to vault" writes the document with its frontmatter.</li>
+        <li><strong>The Librarian is an agent</strong>, not a pane: it searches, reads and writes the vault through tools, and its old conversations came with it.</li>
+        <li><strong>The Mesh inbox.</strong> Agents ask, request approval, notify, and leave you tasks. A question parks until you answer it and survives a restart.</li>
+        <li><strong>Skills library</strong> with starring and grouping by source, and <strong>app zoom</strong> on Cmd/Ctrl + = / - / 0.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li>Failures say what the CLI actually said: a run that dies prints its stderr instead of "open Terminal to see what it did".</li>
+        <li>codex runs outside a git repository, and a run that needs to bind a port is no longer blocked by its own sandbox.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.16.0">v1.16.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.15.0</h2>
+      <span class="rel-date">14 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Pages multiply inside a browser pane rather than in the tab strip.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Page tabs inside browser panes.</strong> Every browser pane, split or full tab, gets a strip above the address bar: a <span class="mono">+</span> opens another page, each page is a closable chip, and switching chips swaps native webviews with their state preserved. Closing the last page closes the pane cleanly.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Changed</h3>
+      <ul>
+        <li><strong>The globe opens one browser tab.</strong> The first click creates it, further clicks focus it. Shift-click still forces an extra tab.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.15.0">v1.15.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.14.1</h2>
+      <span class="rel-date">14 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The Observatory listed nothing while sessions were live, and the same binary behaved differently depending on how it was opened.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A launchd-launched app inherits a four-entry PATH</strong>, where a bare <span class="mono">zellij</span> does not exist. Listing sessions spawned exactly that and concluded none existed; clicking a project then died on spawn and left a black terminal with a blinking cursor. A terminal-launched instance inherits a full PATH, which is why the two disagreed. Every zellij spawn now goes through the resolver, verified under the app's exact PATH read off the running process.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.14.1">v1.14.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.14.0</h2>
       <span class="rel-date">14 August 2026</span>
     </div>
 
@@ -451,7 +574,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.14.0.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.16.2.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

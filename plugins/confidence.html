@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confidence — MCP plugin for xNAUT</title>
+  <meta name="description" content="Manage Confidence feature flags and experiments. An MCP server your xNAUT agents can use, shipping 12 skills.">
+  <link rel="canonical" href="https://xnaut.dev/plugins/confidence.html">
+  <meta name="author" content="André">
+  <meta property="og:title" content="Confidence — MCP plugin for xNAUT">
+  <meta property="og:description" content="Manage Confidence feature flags and experiments. An MCP server your xNAUT agents can use, shipping 12 skills.">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <style>
+    .plg-lead { font-size: 17px; line-height: 1.55; color: var(--text-soft); margin: 22px 0 0; max-width: 74ch; }
+    .plg-mark { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px;
+                border-radius: 9px; font-family: var(--mono); font-size: 13px; font-weight: 700; }
+    .plg-mark.big { width: 46px; height: 46px; flex-basis: 46px; border-radius: 12px; font-size: 19px; }
+    .plg-cat { padding: 3px 8px; border: 1px solid var(--border-card); border-radius: 6px;
+               font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+    .plg-conn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px;
+                background: var(--panel-deep); border: 1px solid var(--border-card); }
+    /* min-width:0 on both, or the nowrap command sets the column's width and
+       the whole page scrolls sideways: measured 933px columns inside a 696px
+       grid before this line existed. */
+    .plg-conn { min-width: 0; }
+    .plg-conn code { flex: 1 1 auto; min-width: 0; overflow-x: auto; white-space: nowrap;
+                     font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); }
+    .plg-copy { flex: 0 0 auto; padding: 3px 9px; border: 1px solid var(--border-card); border-radius: 6px;
+                background: transparent; color: var(--faint); font-family: var(--mono); font-size: 11px;
+                cursor: pointer; }
+    .plg-copy:hover { color: var(--text-soft); }
+    .plg-copy.ok { color: var(--green); border-color: var(--green); }
+    .plg-state { font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+    .plg-state.ready { color: var(--green); }
+    .plg-note { border-left: 2px solid var(--amber); background: var(--panel); padding: 16px 20px;
+                border-radius: 0 10px 10px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
+  </style>
+  <style>
+    .plg-hero { display: flex; align-items: center; gap: 15px; margin: 6px 0 0; }
+    .plg-hero h1 { margin: 0; }
+    .plg-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 20px 0 0; }
+    .plg-sec { border-top: 1px solid var(--border-card); padding-top: 22px; margin-top: 30px; }
+    .plg-sec h2 { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em;
+                  text-transform: uppercase; color: var(--faint); margin: 0 0 12px; }
+    .plg-sec p { font-size: 15px; line-height: 1.65; color: var(--text-soft); margin: 0 0 10px; max-width: 74ch; }
+    .plg-env { list-style: none; padding: 0; margin: 0 0 12px; }
+    .plg-env li { display: flex; gap: 12px; align-items: baseline; padding: 8px 0;
+                  border-bottom: 1px solid var(--border-card); font-size: 14px; color: var(--text-soft); }
+    .plg-env li:last-child { border-bottom: 0; }
+    .plg-env b { font-family: var(--mono); font-size: 12.5px; color: var(--amber); font-weight: 400; }
+    .plg-skills { display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 0; list-style: none; }
+    .plg-skills li { padding: 5px 10px; border: 1px solid var(--border-card); border-radius: 999px;
+                     background: var(--panel); font-family: var(--mono); font-size: 11.5px; color: var(--text-soft); }
+    .plg-steps { margin: 0; padding-left: 20px; }
+    .plg-steps li { font-size: 15px; line-height: 1.65; color: var(--text-soft); margin: 6px 0; }
+    .plg-related { display: flex; flex-wrap: wrap; gap: 8px; }
+    .plg-related a { padding: 6px 11px; border: 1px solid var(--border-card); border-radius: 999px;
+                     font-size: 13px; color: var(--text-soft); text-decoration: none; }
+    .plg-related a:hover { border-color: #2A2E36; color: var(--text); }
+  </style>
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/plugins/">← All plugins</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<main class="legal">
+  <p class="plg-state"><a href="/plugins/">Plugins</a> / Dev</p>
+  <div class="plg-hero"><span class="plg-mark big" style="background:hsl(258 38% 26%);color:hsl(258 70% 74%)" aria-hidden="true">C</span><h1>Confidence</h1></div>
+  <p class="plg-lead">Manage Confidence feature flags and experiments.</p>
+  <p class="plg-state">xNAUT supports this plugin. It is a third-party MCP server; we neither host it nor vet it.</p>
+
+  <div class="plg-actions">
+    <span class="plg-cat">Dev</span>
+    <span class="plg-state" title="checked 2026-08-16">needs a sign-in</span>
+    <button class="plg-copy" data-copy="confidence">copy id: confidence</button>
+    <a class="plg-state" href="https://confidence.spotify.com" rel="noopener noreferrer" target="_blank">source ↗</a>
+  </div>
+
+  <section class="plg-sec">
+    <h2>Connector</h2>
+    <div class="plg-conn"><code>https://mcp.confidence.dev/mcp/flags</code><button class="plg-copy" data-copy="https://mcp.confidence.dev/mcp/flags">copy</button></div>
+    <p style="margin-top:10px;">A hosted endpoint. xNAUT talks to it directly, and nothing is installed.</p>
+  </section>
+
+  <section class="plg-sec">
+    <h2>Setup</h2>
+    
+    <div class="plg-note">A second URL serves Confidence docs.</div>
+  </section>
+
+  
+
+  <section class="plg-sec">
+    <h2>Skills it ships · 12</h2>
+    <p>A skill tells an agent when to reach for the tools above, and what good use looks like.</p>
+    <ul class="plg-skills"><li>analyze-project</li><li>migrate-eppo</li><li>migrate-optimizely</li><li>migrate-posthog</li><li>migrate-statsig</li><li>onboard-confidence</li><li>onboard-confidence-dry-run</li><li>setup-warehouse</li><li>setup-warehouse-bigquery</li><li>setup-warehouse-databricks</li><li>setup-warehouse-redshift</li><li>setup-warehouse-snowflake</li></ul>
+  </section>
+
+  <section class="plg-sec">
+    <h2>Also in Dev</h2>
+    <div class="plg-related"><a href="/plugins/aikido.html">Aikido Security</a><a href="/plugins/airwallex-dev.html">Airwallex Developer (sandbox)</a><a href="/plugins/aiven.html">Aiven</a><a href="/plugins/apollo-skills.html">Apollo GraphOS</a><a href="/plugins/appwrite.html">Appwrite</a><a href="/plugins/forge-skills.html">Atlassian Forge</a><a href="/plugins/aws-core.html">AWS API Proxy</a><a href="/plugins/aws-agents-for-devsecops.html">AWS DevSecOps Agent</a></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/plugins/">Plugins</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Confidence",
+  "applicationCategory": "DeveloperApplication",
+  "description": "Manage Confidence feature flags and experiments.",
+  "url": "https://xnaut.dev/plugins/confidence.html",
+  "operatingSystem": "macOS, Windows",
+  "isAccessibleForFree": true,
+  "sameAs": "https://confidence.spotify.com"
+}
+</script>
+</body>
+</html>

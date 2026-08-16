@@ -1,0 +1,2038 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plugins | xNAUT</title>
+  <meta name="description" content="148 MCP servers xNAUT can hand an agent: 116 run with no credential, and 961 skills between them. Not a store — xNAUT reads the public registries and says which is which.">
+  <link rel="canonical" href="https://xnaut.dev/plugins/">
+  <meta name="author" content="André">
+  <meta property="og:title" content="Plugins | xNAUT">
+  <meta property="og:description" content="148 MCP servers xNAUT can hand an agent: 116 run with no credential, and 961 skills between them. Not a store — xNAUT reads the public registries and says which is which.">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <style>
+    .plg-lead { font-size: 17px; line-height: 1.55; color: var(--text-soft); margin: 22px 0 0; max-width: 74ch; }
+    .plg-mark { display: grid; place-items: center; width: 30px; height: 30px; flex: 0 0 30px;
+                border-radius: 9px; font-family: var(--mono); font-size: 13px; font-weight: 700; }
+    .plg-mark.big { width: 46px; height: 46px; flex-basis: 46px; border-radius: 12px; font-size: 19px; }
+    .plg-cat { padding: 3px 8px; border: 1px solid var(--border-card); border-radius: 6px;
+               font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+    .plg-conn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px;
+                background: var(--panel-deep); border: 1px solid var(--border-card); }
+    .plg-conn code { flex: 1 1 auto; overflow-x: auto; white-space: nowrap; font-family: var(--mono);
+                     font-size: 12.5px; color: var(--text-soft); }
+    .plg-copy { flex: 0 0 auto; padding: 3px 9px; border: 1px solid var(--border-card); border-radius: 6px;
+                background: transparent; color: var(--faint); font-family: var(--mono); font-size: 11px;
+                cursor: pointer; }
+    .plg-copy:hover { color: var(--text-soft); }
+    .plg-copy.ok { color: var(--green); border-color: var(--green); }
+    .plg-state { font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+    .plg-state.ready { color: var(--green); }
+    .plg-note { border-left: 2px solid var(--amber); background: var(--panel); padding: 16px 20px;
+                border-radius: 0 10px 10px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
+  </style>
+  <style>
+    .plg-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 28px 0 0; }
+    .plg-search { flex: 1 1 220px; min-width: 190px; padding: 10px 14px; border: 1px solid var(--border-card);
+                  border-radius: 10px; background: var(--panel-deep); color: var(--text);
+                  font-family: var(--sans); font-size: 14px; }
+    .plg-search::placeholder { color: var(--faint); }
+    .plg-search:focus { outline: none; border-color: #3A3E46; }
+    .plg-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .plg-filter { padding: 7px 13px; border: 1px solid var(--border-card); border-radius: 999px;
+                  background: transparent; color: var(--muted); font-family: var(--sans); font-size: 13px;
+                  cursor: pointer; transition: color .15s, border-color .15s; }
+    .plg-filter:hover { color: var(--text-soft); }
+    .plg-filter.on { border-color: #6B5320; background: var(--amber-ink); color: var(--amber); }
+    .plg-count { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin: 16px 0 4px; }
+    .plg-group { margin: 30px 0 0; }
+    .plg-group[hidden] { display: none; }
+    .plg-group h2 { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .08em;
+                    text-transform: uppercase; color: var(--faint); margin: 0 0 12px; }
+    .plg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .plg { display: flex; flex-direction: column; gap: 11px; padding: 20px; background: var(--panel);
+           border: 1px solid var(--border-card); border-radius: 14px; text-decoration: none;
+           transition: border-color .15s; }
+    /* display:flex beats the hidden attribute, so filtering would show every
+       card while claiming to have hidden them. */
+    .plg[hidden] { display: none; }
+    .plg:hover { border-color: #2A2E36; }
+    .plg-head { display: flex; align-items: center; gap: 11px; }
+    .plg-head h3 { flex: 1 1 auto; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin: 0;
+                   color: var(--text); }
+    .plg p { flex: 1 1 auto; font-size: 14px; line-height: 1.55; color: var(--muted); margin: 0; }
+    .plg .plg-conn { padding: 7px 10px; }
+    .plg .plg-conn code { font-size: 11.5px; }
+    .plg-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+                font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+    .plg-foot .go { margin-left: auto; color: var(--amber); }
+    .plg-empty { padding: 34px 0; color: var(--faint); font-size: 14px; }
+    @media (max-width: 900px) { .plg-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px) { .plg-grid { grid-template-columns: 1fr; } }
+  </style>
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<main class="legal">
+  <h1>Plugins</h1>
+  <span class="updated">Everything xNAUT can hand an agent</span>
+
+  <p class="plg-lead">A plugin is an MCP server. xNAUT does not host, sell or repackage any of them: it reads the public registries, runs what it can, and says which is which. You configure one once in the plugin library, then hand it to a single agent with the <span class="mono">+</span> in that agent's header. Two gates, on purpose.</p>
+
+  <section class="stats">
+    <div class="stat"><b>148</b><span>in the library</span></div>
+    <div class="stat"><b class="amber">116</b><span>need no credential</span></div>
+    <div class="stat"><b>961</b><span>skills between them</span></div>
+    <div class="stat"><b>0</b><span>accounts, payments or ratings</span></div>
+  </section>
+
+  <div class="plg-tools">
+    <input class="plg-search" type="search" placeholder="Search plugins, categories, skills…" aria-label="Search plugins">
+    <div class="plg-filters">
+      <button class="plg-filter on" data-filter="All">All</button>
+      <button class="plg-filter" data-filter="Dev">Dev</button>
+      <button class="plg-filter" data-filter="Docs &amp; search">Docs &amp; search</button>
+      <button class="plg-filter" data-filter="Knowledge">Knowledge</button>
+      <button class="plg-filter" data-filter="Work tracking">Work tracking</button>
+      <button class="plg-filter" data-filter="Comms">Comms</button>
+      <button class="plg-filter" data-filter="Business">Business</button>
+      <button class="plg-filter" data-filter="Design">Design</button>
+      <button class="plg-filter" data-filter="Other">Other</button>
+      <button class="plg-filter" data-ready-only>no key needed</button>
+    </div>
+  </div>
+  <p class="plg-count" data-count>148 plugins</p>
+
+    <section class="plg-group" data-group="Dev">
+      <h2>Dev · 69</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/aikido.html" data-category="Dev"
+         data-ready="1" data-search="aikido security scan code for sast findings, secrets and iac vulnerabilities with aikido. dev issues scan setup npx -y @aikidosec/mcp@1.0.17">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(265 38% 26%);color:hsl(265 70% 74%)" aria-hidden="true">A</span><h3>Aikido Security</h3><span class="plg-cat">Dev</span></span>
+        <p>Scan code for SAST findings, secrets and IaC vulnerabilities with Aikido.</p>
+        <span class="plg-conn"><code>npx -y @aikidosec/mcp@1.0.17</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/airwallex-dev.html" data-category="Dev"
+         data-ready="1" data-search="airwallex developer (sandbox) airwallex sandbox developer server for api exploration and test transactions. dev airwallex-ai-provider-card-mit airwallex-billing-checkout airwallex-dropin airwallex-hpp airwallex-kyc airwallex-split-card https://mcp.sandbox.airwallex.com/developer">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(103 38% 26%);color:hsl(103 70% 74%)" aria-hidden="true">A</span><h3>Airwallex Developer (sandbox)</h3><span class="plg-cat">Dev</span></span>
+        <p>Airwallex sandbox developer server for API exploration and test transactions.</p>
+        <span class="plg-conn"><code>https://mcp.sandbox.airwallex.com/developer</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/aiven.html" data-category="Dev"
+         data-ready="1" data-search="aiven provision and manage aiven-hosted postgresql, kafka, opensearch and clickhouse services. dev aiven-getting-started https://mcp.aiven.live/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(231 38% 26%);color:hsl(231 70% 74%)" aria-hidden="true">A</span><h3>Aiven</h3><span class="plg-cat">Dev</span></span>
+        <p>Provision and manage Aiven-hosted PostgreSQL, Kafka, OpenSearch and ClickHouse services.</p>
+        <span class="plg-conn"><code>https://mcp.aiven.live/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/apollo-skills.html" data-category="Dev"
+         data-ready="1" data-search="apollo graphos apollo graphos tools for schema design, federation and query work. dev apollo-client apollo-connectors apollo-federation apollo-ios apollo-kotlin apollo-mcp-server apollo-router apollo-router-plugin-creator apollo-server graphql-operations graphql-schema rover rust-best-practices skill-creator https://mcp.apollographql.com">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(0 38% 26%);color:hsl(0 70% 74%)" aria-hidden="true">A</span><h3>Apollo GraphOS</h3><span class="plg-cat">Dev</span></span>
+        <p>Apollo GraphOS tools for schema design, federation and query work.</p>
+        <span class="plg-conn"><code>https://mcp.apollographql.com</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>14 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/appwrite.html" data-category="Dev"
+         data-ready="0" data-search="appwrite manage appwrite projects: databases, users, functions and storage. dev cli dart dotnet go kotlin php python ruby rust swift typescript uvx mcp-server-appwrite">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(6 38% 26%);color:hsl(6 70% 74%)" aria-hidden="true">A</span><h3>Appwrite</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Appwrite projects: databases, users, functions and storage.</p>
+        <span class="plg-conn"><code>uvx mcp-server-appwrite</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs APPWRITE_ENDPOINT</span>
+          <span>11 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/forge-skills.html" data-category="Dev"
+         data-ready="1" data-search="atlassian forge build and deploy atlassian forge apps. dev forge-app-builder forge-app-review forge-connector forge-cost-optimizer forge-debugger forge-security-review https://mcp.atlassian.com/v1/forge/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(304 38% 26%);color:hsl(304 70% 74%)" aria-hidden="true">A</span><h3>Atlassian Forge</h3><span class="plg-cat">Dev</span></span>
+        <p>Build and deploy Atlassian Forge apps.</p>
+        <span class="plg-conn"><code>https://mcp.atlassian.com/v1/forge/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/aws-core.html" data-category="Dev"
+         data-ready="1" data-search="aws api proxy proxy to the aws mcp endpoint covering core aws service apis. dev amazon-bedrock aws-ai-ml aws-billing-and-cost-management aws-blocks aws-cdk aws-cloudformation aws-compute aws-containers aws-database aws-deployment aws-iam aws-messaging-and-streaming aws-observability aws-sdk-js-v3-usage aws-sdk-python-usage aws-sdk-swift-usage aws-secrets-manager aws-serverless launch-with-aws signing-in-to-aws uvx mcp-proxy-for-aws@1.6.4 https://aws-mcp.us-east-1.api.aws/mcp --skip-auth --metadata install_source=agent-toolkit-core">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(351 38% 26%);color:hsl(351 70% 74%)" aria-hidden="true">A</span><h3>AWS API Proxy</h3><span class="plg-cat">Dev</span></span>
+        <p>Proxy to the AWS MCP endpoint covering core AWS service APIs.</p>
+        <span class="plg-conn"><code>uvx mcp-proxy-for-aws@1.6.4 https://aws-mcp.us-east-1.api.aws/mcp --skip-auth --metadata INSTALL_SOURCE=agent-toolkit-core</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>20 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/aws-agents-for-devsecops.html" data-category="Dev"
+         data-ready="0" data-search="aws devsecops agent aws devops agent endpoint for pipeline, security and remediation tasks. dev analyzing-release-readiness chatting-with-aws-devops-agent coordinating-multi-space-devops-agent diff-scanning-with-aws-security-agent investigating-incidents-with-aws-devops-agent pentesting-with-aws-security-agent remediating-with-aws-security-agent running-release-tests scanning-with-aws-security-agent setup setup-devops-agent setup-security-agent threat-modeling-with-aws-security-agent https://connect.aidevops.us-east-1.api.aws/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(187 38% 26%);color:hsl(187 70% 74%)" aria-hidden="true">A</span><h3>AWS DevSecOps Agent</h3><span class="plg-cat">Dev</span></span>
+        <p>AWS DevOps agent endpoint for pipeline, security and remediation tasks.</p>
+        <span class="plg-conn"><code>https://connect.aidevops.us-east-1.api.aws/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs DEVOPS_AGENT_TOKEN</span>
+          <span>13 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/deploy-on-aws.html" data-category="Dev"
+         data-ready="1" data-search="aws iac generate and apply aws infrastructure-as-code (cloudformation, cdk, terraform). dev aws-architecture-diagram deploy elastic-beanstalk uvx awslabs.aws-iac-mcp-server@latest">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(125 38% 26%);color:hsl(125 70% 74%)" aria-hidden="true">A</span><h3>AWS IaC</h3><span class="plg-cat">Dev</span></span>
+        <p>Generate and apply AWS infrastructure-as-code (CloudFormation, CDK, Terraform).</p>
+        <span class="plg-conn"><code>uvx awslabs.aws-iac-mcp-server@latest</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/aws-serverless.html" data-category="Dev"
+         data-ready="1" data-search="aws serverless build and deploy aws serverless applications: lambda, sam and api gateway. dev api-gateway aws-lambda aws-lambda-durable-functions aws-lambda-managed-instances aws-lambda-microvms aws-serverless-deployment aws-step-functions uvx awslabs.aws-serverless-mcp-server@latest --allow-write">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(68 38% 26%);color:hsl(68 70% 74%)" aria-hidden="true">A</span><h3>AWS Serverless</h3><span class="plg-cat">Dev</span></span>
+        <p>Build and deploy AWS serverless applications: Lambda, SAM and API Gateway.</p>
+        <span class="plg-conn"><code>uvx awslabs.aws-serverless-mcp-server@latest --allow-write</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>7 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/aws-transform.html" data-category="Dev"
+         data-ready="1" data-search="aws transform run aws transform modernization jobs for .net, mainframe and vmware workloads. dev aws-transform uvx awslabs.aws-transform-mcp-server@latest">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(164 38% 26%);color:hsl(164 70% 74%)" aria-hidden="true">A</span><h3>AWS Transform</h3><span class="plg-cat">Dev</span></span>
+        <p>Run AWS Transform modernization jobs for .NET, mainframe and VMware workloads.</p>
+        <span class="plg-conn"><code>uvx awslabs.aws-transform-mcp-server@latest</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/azure.html" data-category="Dev"
+         data-ready="1" data-search="azure manage azure resources: subscriptions, storage, cosmos db, aks and monitor. dev airunway-aks-setup appinsights-instrumentation azure-ai azure-aigateway azure-app-onboard azure-app-onboard-prereq azure-cloud-migrate azure-compliance azure-compute azure-cost azure-deploy azure-diagnostics azure-enterprise-infra-planner azure-kubernetes azure-kusto azure-kusto-graph azure-kusto-irql azure-kusto-irql-graph azure-messaging azure-prepare azure-quotas azure-reliability azure-resource-lookup azure-resource-visualizer azure-storage azure-upgrade azure-validate entra-agent-id entra-app-registration microsoft-foundry python-appservice-deploy npx -y @azure/mcp@latest server start">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(311 38% 26%);color:hsl(311 70% 74%)" aria-hidden="true">A</span><h3>Azure</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Azure resources: subscriptions, storage, Cosmos DB, AKS and Monitor.</p>
+        <span class="plg-conn"><code>npx -y @azure/mcp@latest server start</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>31 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/browser-use.html" data-category="Dev"
+         data-ready="1" data-search="browser use drive a real browser from the agent: navigate, click, fill and extract page content. dev  uvx --python 3.12 browser-use@latest --cli-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(250 38% 26%);color:hsl(250 70% 74%)" aria-hidden="true">B</span><h3>Browser Use</h3><span class="plg-cat">Dev</span></span>
+        <p>Drive a real browser from the agent: navigate, click, fill and extract page content.</p>
+        <span class="plg-conn"><code>uvx --python 3.12 browser-use@latest --cli-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/chrome-devtools-mcp.html" data-category="Dev"
+         data-ready="1" data-search="chrome devtools inspect and control chrome: dom, network, console, performance traces and screenshots. dev a11y-debugging chrome-devtools chrome-devtools-cli debug-optimize-lcp memory-leak-debugging troubleshooting npx chrome-devtools-mcp@1.7.0">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(158 38% 26%);color:hsl(158 70% 74%)" aria-hidden="true">C</span><h3>Chrome DevTools</h3><span class="plg-cat">Dev</span></span>
+        <p>Inspect and control Chrome: DOM, network, console, performance traces and screenshots.</p>
+        <span class="plg-conn"><code>npx chrome-devtools-mcp@1.7.0</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/circle-skills.html" data-category="Dev"
+         data-ready="1" data-search="circle circle codegen server for usdc and programmable wallet integration code. dev accept-agent-payments agent-wallet-policy bridge-stablecoin fund-agent-wallet pay-via-agent-wallet recover-eco-funds swap-tokens unify-balance use-agent-wallet use-arc use-circle-cli use-circle-wallets use-developer-controlled-wallets use-gateway use-modular-wallets use-smart-contract-platform use-usdc use-user-controlled-wallets https://api.circle.com/v1/codegen/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(159 38% 26%);color:hsl(159 70% 74%)" aria-hidden="true">C</span><h3>Circle</h3><span class="plg-cat">Dev</span></span>
+        <p>Circle codegen server for USDC and programmable wallet integration code.</p>
+        <span class="plg-conn"><code>https://api.circle.com/v1/codegen/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>18 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/clickhouse.html" data-category="Dev"
+         data-ready="1" data-search="clickhouse cloud query and manage clickhouse cloud services and databases. dev clickhouse-best-practices setup https://mcp.clickhouse.cloud/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(16 38% 26%);color:hsl(16 70% 74%)" aria-hidden="true">C</span><h3>ClickHouse Cloud</h3><span class="plg-cat">Dev</span></span>
+        <p>Query and manage ClickHouse Cloud services and databases.</p>
+        <span class="plg-conn"><code>https://mcp.clickhouse.cloud/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>2 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/cloudflare.html" data-category="Dev"
+         data-ready="1" data-search="cloudflare manage cloudflare zones, workers, dns and settings. dev agents-sdk cloudflare cloudflare-email-service cloudflare-one cloudflare-one-migrations durable-objects sandbox-migrate-to-next sandbox-next sandbox-stable turnstile-spin web-perf workers-best-practices wrangler https://mcp.cloudflare.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(97 38% 26%);color:hsl(97 70% 74%)" aria-hidden="true">C</span><h3>Cloudflare</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Cloudflare zones, Workers, DNS and settings.</p>
+        <span class="plg-conn"><code>https://mcp.cloudflare.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>13 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/codebase-memory.html" data-category="Dev"
+         data-ready="1" data-search="codebase memory the code knowledge graph: who calls what, trace a path, find dead code, impact of a change. dev  codebase-memory-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(152 38% 26%);color:hsl(152 70% 74%)" aria-hidden="true">C</span><h3>Codebase Memory</h3><span class="plg-cat">Dev</span></span>
+        <p>The code knowledge graph: who calls what, trace a path, find dead code, impact of a change.</p>
+        <span class="plg-conn"><code>codebase-memory-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/codspeed.html" data-category="Dev"
+         data-ready="1" data-search="codspeed read codspeed performance benchmark runs and regressions. dev codspeed-optimize codspeed-setup-harness https://mcp.codspeed.io/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(119 38% 26%);color:hsl(119 70% 74%)" aria-hidden="true">C</span><h3>CodSpeed</h3><span class="plg-cat">Dev</span></span>
+        <p>Read CodSpeed performance benchmark runs and regressions.</p>
+        <span class="plg-conn"><code>https://mcp.codspeed.io/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>2 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/confidence.html" data-category="Dev"
+         data-ready="1" data-search="confidence manage confidence feature flags and experiments. dev analyze-project migrate-eppo migrate-optimizely migrate-posthog migrate-statsig onboard-confidence onboard-confidence-dry-run setup-warehouse setup-warehouse-bigquery setup-warehouse-databricks setup-warehouse-redshift setup-warehouse-snowflake https://mcp.confidence.dev/mcp/flags">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(258 38% 26%);color:hsl(258 70% 74%)" aria-hidden="true">C</span><h3>Confidence</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Confidence feature flags and experiments.</p>
+        <span class="plg-conn"><code>https://mcp.confidence.dev/mcp/flags</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>12 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/convex.html" data-category="Dev"
+         data-ready="1" data-search="convex inspect and mutate convex deployments: tables, functions and data. dev add agent auth billing convex-authz crons design domains env improve-convex-plugin labs-quickstart migrate quickstart seed suggest test workflow npx -y convex@latest mcp start">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(239 38% 26%);color:hsl(239 70% 74%)" aria-hidden="true">C</span><h3>Convex</h3><span class="plg-cat">Dev</span></span>
+        <p>Inspect and mutate Convex deployments: tables, functions and data.</p>
+        <span class="plg-conn"><code>npx -y convex@latest mcp start</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>17 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/datadog.html" data-category="Dev"
+         data-ready="0" data-search="datadog query datadog metrics, logs, traces, monitors and incidents. dev ddconfig ddsetup ddtoolsets https://${dd_mcp_domain:-not-setup}/v1/mcp?referrer_ide=claude-code-plugin&amp;plugin_version=0.7.14&amp;toolsets=${dd_mcp_toolsets:-}">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(274 38% 26%);color:hsl(274 70% 74%)" aria-hidden="true">D</span><h3>Datadog</h3><span class="plg-cat">Dev</span></span>
+        <p>Query Datadog metrics, logs, traces, monitors and incidents.</p>
+        <span class="plg-conn"><code>https://${DD_MCP_DOMAIN:-not-setup}/v1/mcp?referrer_ide=claude-code-plugin&amp;plugin_version=0.7.14&amp;toolsets=${DD_MCP_TOOLSETS:-}</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs DD_MCP_DOMAIN</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/expo.html" data-category="Dev"
+         data-ready="1" data-search="expo query expo/eas projects, builds, updates and submissions. dev eas-app-stores eas-hosting eas-observe eas-simulator eas-update-insights eas-workflows expo-app-clip expo-brownfield expo-data-fetching expo-design-system expo-dev-client expo-dom expo-examples expo-module expo-native-ui expo-project-structure expo-router expo-skill-feedback expo-tailwind-setup expo-ui expo-upgrade expo-web-to-native https://mcp.expo.dev/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(114 38% 26%);color:hsl(114 70% 74%)" aria-hidden="true">E</span><h3>Expo</h3><span class="plg-cat">Dev</span></span>
+        <p>Query Expo/EAS projects, builds, updates and submissions.</p>
+        <span class="plg-conn"><code>https://mcp.expo.dev/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>22 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/filesystem.html" data-category="Dev"
+         data-ready="1" data-search="filesystem read and write files under paths you name — and only those. dev  npx -y @modelcontextprotocol/server-filesystem">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(283 38% 26%);color:hsl(283 70% 74%)" aria-hidden="true">F</span><h3>Filesystem</h3><span class="plg-cat">Dev</span></span>
+        <p>Read and write files under paths you name — and only those.</p>
+        <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-filesystem</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/firebase.html" data-category="Dev"
+         data-ready="1" data-search="firebase manage firebase projects: firestore, auth, storage, hosting and functions. dev  npx -y firebase-tools@latest mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(263 38% 26%);color:hsl(263 70% 74%)" aria-hidden="true">F</span><h3>Firebase</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Firebase projects: Firestore, Auth, Storage, Hosting and Functions.</p>
+        <span class="plg-conn"><code>npx -y firebase-tools@latest mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/forgejo.html" data-category="Dev"
+         data-ready="0" data-search="forgejo issues and pull requests on the forgejo host where development actually lives. github is only a mirror here. dev  npx -y gitea-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(268 38% 26%);color:hsl(268 70% 74%)" aria-hidden="true">F</span><h3>Forgejo</h3><span class="plg-cat">Dev</span></span>
+        <p>Issues and pull requests on the Forgejo host where development actually lives. GitHub is only a mirror here.</p>
+        <span class="plg-conn"><code>npx -y gitea-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs GITEA_ACCESS_TOKEN</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/github.html" data-category="Dev"
+         data-ready="1" data-search="github issues, pull requests and code search on github. development here lives on forgejo, so this is for mirrors and other people&#39;s repositories. dev  https://api.githubcopilot.com/mcp/">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(283 38% 26%);color:hsl(283 70% 74%)" aria-hidden="true">G</span><h3>GitHub</h3><span class="plg-cat">Dev</span></span>
+        <p>Issues, pull requests and code search on GitHub. Development here lives on Forgejo, so this is for mirrors and other people&#39;s repositories.</p>
+        <span class="plg-conn"><code>https://api.githubcopilot.com/mcp/</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/gitkraken.html" data-category="Dev"
+         data-ready="1" data-search="gitkraken git and issue-tracker operations across github, gitlab, jira and azure devops. dev  npx -y @gitkraken/gk mcp --plugin --host=claude">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(60 38% 26%);color:hsl(60 70% 74%)" aria-hidden="true">G</span><h3>GitKraken</h3><span class="plg-cat">Dev</span></span>
+        <p>Git and issue-tracker operations across GitHub, GitLab, Jira and Azure DevOps.</p>
+        <span class="plg-conn"><code>npx -y @gitkraken/gk mcp --plugin --host=claude</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/gitlab.html" data-category="Dev"
+         data-ready="1" data-search="gitlab gitlab projects, issues, merge requests and pipelines via the hosted api server. dev  https://gitlab.com/api/v4/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(267 38% 26%);color:hsl(267 70% 74%)" aria-hidden="true">G</span><h3>GitLab</h3><span class="plg-cat">Dev</span></span>
+        <p>GitLab projects, issues, merge requests and pipelines via the hosted API server.</p>
+        <span class="plg-conn"><code>https://gitlab.com/api/v4/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/data-agent-kit-starter-pack.html" data-category="Dev"
+         data-ready="1" data-search="google data agent kit google cloud data toolbox server for dataproc, notebooks and visualization. dev accidental-data-loss-prevention bigquery-ai-ml bigquery-bigframes bigquery-data-transfer-service bigquery-graph bigquery-sql building-data-apps data-autocleaning dataform-bigquery dbt-bigquery discovering-gcp-data-assets enforcing-resource-attribution federate-lakehouse-catalog gcloud-auth-verification gcp-composer-troubleshooting gcp-data-pipelines gcp-dataflow gcp-managed-airflow-dag-authoring gcp-managed-airflow-migrations gcp-managed-airflow-recommendations gcp-pipeline-orchestration gcp-pipeline-resource-provisioning gcp-spark gcs-security-assessment google-cloud-storage-basics managing-python-dependencies ml-best-practices notebook-guidance npx -y @toolbox-sdk/server@&gt;=1.1.0 --prebuilt dataproc --stdio --user-agent-metadata datacloud.codex">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(353 38% 26%);color:hsl(353 70% 74%)" aria-hidden="true">G</span><h3>Google Data Agent Kit</h3><span class="plg-cat">Dev</span></span>
+        <p>Google Cloud data toolbox server for Dataproc, notebooks and visualization.</p>
+        <span class="plg-conn"><code>npx -y @toolbox-sdk/server@&gt;=1.1.0 --prebuilt dataproc --stdio --user-agent-metadata datacloud.codex</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>28 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/grafana-mcp.html" data-category="Dev"
+         data-ready="0" data-search="grafana (self-hosted) query a self-hosted grafana: dashboards, datasources, alerts and loki/prometheus data. dev grafana-mcp-tools docker run --rm -i -e grafana_url -e grafana_service_account_token grafana/mcp-grafana -t stdio">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(305 38% 26%);color:hsl(305 70% 74%)" aria-hidden="true">G</span><h3>Grafana (self-hosted)</h3><span class="plg-cat">Dev</span></span>
+        <p>Query a self-hosted Grafana: dashboards, datasources, alerts and Loki/Prometheus data.</p>
+        <span class="plg-conn"><code>docker run --rm -i -e GRAFANA_URL -e GRAFANA_SERVICE_ACCOUNT_TOKEN grafana/mcp-grafana -t stdio</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs GRAFANA_URL</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/grafana-cloud-mcp.html" data-category="Dev"
+         data-ready="1" data-search="grafana cloud query grafana cloud dashboards, datasources, alerts and incidents. dev grafana-cloud-mcp-tools https://mcp.grafana.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(105 38% 26%);color:hsl(105 70% 74%)" aria-hidden="true">G</span><h3>Grafana Cloud</h3><span class="plg-cat">Dev</span></span>
+        <p>Query Grafana Cloud dashboards, datasources, alerts and incidents.</p>
+        <span class="plg-conn"><code>https://mcp.grafana.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/honeycomb.html" data-category="Dev"
+         data-ready="1" data-search="honeycomb query honeycomb observability data: events, traces and slos. dev beeline-migration create-honeycomb-board metrics-queries observability-fundamentals otel-genai-instrumentation otel-instrumentation otel-migration production-investigation query-patterns slos-and-triggers verify-recent-trace https://mcp.honeycomb.io/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(4 38% 26%);color:hsl(4 70% 74%)" aria-hidden="true">H</span><h3>Honeycomb</h3><span class="plg-cat">Dev</span></span>
+        <p>Query Honeycomb observability data: events, traces and SLOs.</p>
+        <span class="plg-conn"><code>https://mcp.honeycomb.io/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>11 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/hostinger.html" data-category="Dev"
+         data-ready="1" data-search="hostinger manage hostinger vps, domains, dns, hosting and mail. dev  npx hostinger-api-mcp@latest">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(79 38% 26%);color:hsl(79 70% 74%)" aria-hidden="true">H</span><h3>Hostinger</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Hostinger VPS, domains, DNS, hosting and mail.</p>
+        <span class="plg-conn"><code>npx hostinger-api-mcp@latest</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/jfrog.html" data-category="Dev"
+         data-ready="0" data-search="jfrog query jfrog artifactory and xray for artifacts, builds and vulnerabilities. dev jfrog jfrog-ai-catalog-skills jfrog-mcp-management jfrog-package-safety-and-download jfrog-reference-architecture jfrog-setup-package-managers ${jfrog_url}/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(206 38% 26%);color:hsl(206 70% 74%)" aria-hidden="true">J</span><h3>JFrog</h3><span class="plg-cat">Dev</span></span>
+        <p>Query JFrog Artifactory and Xray for artifacts, builds and vulnerabilities.</p>
+        <span class="plg-conn"><code>${JFROG_URL}/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs JFROG_URL</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/kubernetes.html" data-category="Dev"
+         data-ready="1" data-search="kubernetes inspect and operate a cluster through your existing kubeconfig. dev  npx -y mcp-server-kubernetes">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(30 38% 26%);color:hsl(30 70% 74%)" aria-hidden="true">K</span><h3>Kubernetes</h3><span class="plg-cat">Dev</span></span>
+        <p>Inspect and operate a cluster through your existing kubeconfig.</p>
+        <span class="plg-conn"><code>npx -y mcp-server-kubernetes</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/logrocket.html" data-category="Dev"
+         data-ready="1" data-search="logrocket query logrocket session replays, errors and frontend performance data. dev use-logrocket https://mcp.logrocket.com/mcp?toolsets=all">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(160 38% 26%);color:hsl(160 70% 74%)" aria-hidden="true">L</span><h3>LogRocket</h3><span class="plg-cat">Dev</span></span>
+        <p>Query LogRocket session replays, errors and frontend performance data.</p>
+        <span class="plg-conn"><code>https://mcp.logrocket.com/mcp?toolsets=all</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/lovable.html" data-category="Dev"
+         data-ready="1" data-search="lovable manage lovable projects and generated app deployments. dev  https://mcp.lovable.dev/?src=cc-plugin">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(261 38% 26%);color:hsl(261 70% 74%)" aria-hidden="true">L</span><h3>Lovable</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Lovable projects and generated app deployments.</p>
+        <span class="plg-conn"><code>https://mcp.lovable.dev/?src=cc-plugin</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/mongodb.html" data-category="Dev"
+         data-ready="1" data-search="mongodb (local) connect to a mongodb deployment: query collections, inspect schemas and run aggregations. dev mongodb-atlas-stream-processing mongodb-connection mongodb-mcp-setup mongodb-natural-language-querying mongodb-query-optimizer mongodb-schema-design mongodb-search-and-ai npx -y mongodb-mcp-server@&lt;3">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(202 38% 26%);color:hsl(202 70% 74%)" aria-hidden="true">M</span><h3>MongoDB (local)</h3><span class="plg-cat">Dev</span></span>
+        <p>Connect to a MongoDB deployment: query collections, inspect schemas and run aggregations.</p>
+        <span class="plg-conn"><code>npx -y mongodb-mcp-server@&lt;3</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>7 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/mongodb-atlas.html" data-category="Dev"
+         data-ready="1" data-search="mongodb atlas manage atlas clusters, database users, network access and backups. dev mongodb-atlas-stream-processing mongodb-connection mongodb-natural-language-querying mongodb-query-optimizer mongodb-schema-design mongodb-search-and-ai https://mcp.mongodb.com/">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(120 38% 26%);color:hsl(120 70% 74%)" aria-hidden="true">M</span><h3>MongoDB Atlas</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Atlas clusters, database users, network access and backups.</p>
+        <span class="plg-conn"><code>https://mcp.mongodb.com/</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/neon.html" data-category="Dev"
+         data-ready="1" data-search="neon manage neon postgres projects, branches and databases; run sql. dev claimable-postgres neon neon-ai-gateway neon-functions neon-object-storage neon-postgres neon-postgres-branches neon-postgres-egress-optimizer https://mcp.neon.tech/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(102 38% 26%);color:hsl(102 70% 74%)" aria-hidden="true">N</span><h3>Neon</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Neon Postgres projects, branches and databases; run SQL.</p>
+        <span class="plg-conn"><code>https://mcp.neon.tech/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>8 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/netlify-skills.html" data-category="Dev"
+         data-ready="1" data-search="netlify create and manage netlify sites, deploys, env vars and functions. dev netlify-access-control netlify-agent-runner netlify-ai-gateway netlify-blobs netlify-caching netlify-config netlify-database netlify-deploy netlify-edge-functions netlify-forms netlify-frameworks netlify-functions netlify-identity netlify-image-cdn netlify-mcp-servers skill-creator https://netlify-mcp.netlify.app/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(266 38% 26%);color:hsl(266 70% 74%)" aria-hidden="true">N</span><h3>Netlify</h3><span class="plg-cat">Dev</span></span>
+        <p>Create and manage Netlify sites, deploys, env vars and functions.</p>
+        <span class="plg-conn"><code>https://netlify-mcp.netlify.app/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>16 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/newrelic.html" data-category="Dev"
+         data-ready="1" data-search="new relic query new relic entities, nrql, alerts and apm data. dev apm finops kubernetes https://mcp.newrelic.com/mcp/">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(227 38% 26%);color:hsl(227 70% 74%)" aria-hidden="true">N</span><h3>New Relic</h3><span class="plg-cat">Dev</span></span>
+        <p>Query New Relic entities, NRQL, alerts and APM data.</p>
+        <span class="plg-conn"><code>https://mcp.newrelic.com/mcp/</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/pinecone.html" data-category="Dev"
+         data-ready="0" data-search="pinecone manage pinecone indexes and run vector search. dev assistant cli docs full-text-search help mcp n8n query quickstart npx -y @pinecone-database/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(219 38% 26%);color:hsl(219 70% 74%)" aria-hidden="true">P</span><h3>Pinecone</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Pinecone indexes and run vector search.</p>
+        <span class="plg-conn"><code>npx -y @pinecone-database/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs PINECONE_API_KEY</span>
+          <span>9 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/planetscale.html" data-category="Dev"
+         data-ready="1" data-search="planetscale manage planetscale databases, branches and deploy requests; run queries. dev  https://mcp.pscale.dev/mcp/planetscale">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(354 38% 26%);color:hsl(354 70% 74%)" aria-hidden="true">P</span><h3>PlanetScale</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage PlanetScale databases, branches and deploy requests; run queries.</p>
+        <span class="plg-conn"><code>https://mcp.pscale.dev/mcp/planetscale</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/playwright.html" data-category="Dev"
+         data-ready="1" data-search="playwright drives a real browser: open a page, click, fill, screenshot, read the console. dev  npx -y @playwright/mcp@latest">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(289 38% 26%);color:hsl(289 70% 74%)" aria-hidden="true">P</span><h3>Playwright</h3><span class="plg-cat">Dev</span></span>
+        <p>Drives a real browser: open a page, click, fill, screenshot, read the console.</p>
+        <span class="plg-conn"><code>npx -y @playwright/mcp@latest</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/postgres.html" data-category="Dev"
+         data-ready="1" data-search="postgres read-only sql against a postgres database. dev  npx -y @modelcontextprotocol/server-postgres">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(17 38% 26%);color:hsl(17 70% 74%)" aria-hidden="true">P</span><h3>Postgres</h3><span class="plg-cat">Dev</span></span>
+        <p>Read-only SQL against a Postgres database.</p>
+        <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-postgres</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/postman.html" data-category="Dev"
+         data-ready="1" data-search="postman work with postman collections, environments, mocks and api specs. dev agent-ready-apis deploy-flow generate-spec get-flow-run list-flows postman-cli postman-context postman-knowledge run-collection send-request trigger-flow https://mcp.postman.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(170 38% 26%);color:hsl(170 70% 74%)" aria-hidden="true">P</span><h3>Postman</h3><span class="plg-cat">Dev</span></span>
+        <p>Work with Postman collections, environments, mocks and API specs.</p>
+        <span class="plg-conn"><code>https://mcp.postman.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>11 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/prisma.html" data-category="Dev"
+         data-ready="1" data-search="prisma manage prisma schemas, migrations and prisma postgres databases. dev  npx -y prisma mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(352 38% 26%);color:hsl(352 70% 74%)" aria-hidden="true">P</span><h3>Prisma</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Prisma schemas, migrations and Prisma Postgres databases.</p>
+        <span class="plg-conn"><code>npx -y prisma mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/logfire.html" data-category="Dev"
+         data-ready="1" data-search="pydantic logfire query logfire traces, logs and metrics. dev logfire-instrumentation logfire-query logfire-ui https://logfire-us.pydantic.dev/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(234 38% 26%);color:hsl(234 70% 74%)" aria-hidden="true">P</span><h3>Pydantic Logfire</h3><span class="plg-cat">Dev</span></span>
+        <p>Query Logfire traces, logs and metrics.</p>
+        <span class="plg-conn"><code>https://logfire-us.pydantic.dev/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/railway.html" data-category="Dev"
+         data-ready="1" data-search="railway manage railway projects, services, deployments and variables. dev use-railway https://mcp.railway.com">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(341 38% 26%);color:hsl(341 70% 74%)" aria-hidden="true">R</span><h3>Railway</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Railway projects, services, deployments and variables.</p>
+        <span class="plg-conn"><code>https://mcp.railway.com</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/render.html" data-category="Dev"
+         data-ready="1" data-search="render manage render services, deploys, logs and environment groups. dev render-background-workers render-blueprints render-cli render-cron-jobs render-debug render-deploy render-disks render-docker render-domains render-env-vars render-keyvalue render-mcp render-migrate-from-heroku render-monitor render-networking render-postgres render-private-services render-scaling render-static-sites render-web-services render-workflows https://mcp.render.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(190 38% 26%);color:hsl(190 70% 74%)" aria-hidden="true">R</span><h3>Render</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Render services, deploys, logs and environment groups.</p>
+        <span class="plg-conn"><code>https://mcp.render.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>21 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/rill.html" data-category="Dev"
+         data-ready="1" data-search="rill developer query rill dashboards and metrics from a local rill developer instance. dev rill-analysis rill-canvas rill-connector rill-development rill-explore rill-metrics-view rill-model rill-rillyaml rill-theme http://localhost:9009/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(255 38% 26%);color:hsl(255 70% 74%)" aria-hidden="true">R</span><h3>Rill Developer</h3><span class="plg-cat">Dev</span></span>
+        <p>Query Rill dashboards and metrics from a local Rill Developer instance.</p>
+        <span class="plg-conn"><code>http://localhost:9009/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>9 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sap-cds-mcp.html" data-category="Dev"
+         data-ready="1" data-search="sap cap (cds) work with sap cloud application programming models: cds schemas, services and builds. dev  npx -y @cap-js/mcp-server">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(28 38% 26%);color:hsl(28 70% 74%)" aria-hidden="true">S</span><h3>SAP CAP (CDS)</h3><span class="plg-cat">Dev</span></span>
+        <p>Work with SAP Cloud Application Programming models: CDS schemas, services and builds.</p>
+        <span class="plg-conn"><code>npx -y @cap-js/mcp-server</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sap-fiori-mcp-server.html" data-category="Dev"
+         data-ready="1" data-search="sap fiori tools generate and modify sap fiori elements applications. dev sap-fiori-add-visual-filter sap-fiori-analytical-chart sap-fiori-app-development sap-fiori-create-cli sap-fiori-eslint-plugin sap-fiori-opa5-test-development npx --yes @sap-ux/fiori-mcp-server@latest fiori-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(179 38% 26%);color:hsl(179 70% 74%)" aria-hidden="true">S</span><h3>SAP Fiori Tools</h3><span class="plg-cat">Dev</span></span>
+        <p>Generate and modify SAP Fiori elements applications.</p>
+        <span class="plg-conn"><code>npx --yes @sap-ux/fiori-mcp-server@latest fiori-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sap-hana-cli.html" data-category="Dev"
+         data-ready="1" data-search="sap hana cli inspect and query sap hana schemas, tables and procedures. dev  npx -y -p hana-cli hana-cli-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(354 38% 26%);color:hsl(354 70% 74%)" aria-hidden="true">S</span><h3>SAP HANA CLI</h3><span class="plg-cat">Dev</span></span>
+        <p>Inspect and query SAP HANA schemas, tables and procedures.</p>
+        <span class="plg-conn"><code>npx -y -p hana-cli hana-cli-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sap-mdk-server.html" data-category="Dev"
+         data-ready="1" data-search="sap mdk build sap mobile development kit applications and metadata. dev  npx -y @sap/mdk-mcp-server">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(223 38% 26%);color:hsl(223 70% 74%)" aria-hidden="true">S</span><h3>SAP MDK</h3><span class="plg-cat">Dev</span></span>
+        <p>Build SAP Mobile Development Kit applications and metadata.</p>
+        <span class="plg-conn"><code>npx -y @sap/mdk-mcp-server</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/ui5.html" data-category="Dev"
+         data-ready="1" data-search="sap ui5 build and lint sap ui5 applications; look up ui5 api documentation. dev ui5-best-practices ui5-best-practices-accessibility ui5-best-practices-integration-cards ui5-best-practices-mdc ui5-best-practices-opa5 ui5-best-practices-qunit ui5-best-practices-smart-controls ui5-best-practices-tables npx -y @ui5/mcp-server">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(185 38% 26%);color:hsl(185 70% 74%)" aria-hidden="true">S</span><h3>SAP UI5</h3><span class="plg-cat">Dev</span></span>
+        <p>Build and lint SAP UI5 applications; look up UI5 API documentation.</p>
+        <span class="plg-conn"><code>npx -y @ui5/mcp-server</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>8 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sequential-thinking.html" data-category="Dev"
+         data-ready="1" data-search="sequential thinking a scratchpad for multi-step reasoning the model can revise as it goes. dev  npx -y @modelcontextprotocol/server-sequential-thinking">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(38 38% 26%);color:hsl(38 70% 74%)" aria-hidden="true">S</span><h3>Sequential Thinking</h3><span class="plg-cat">Dev</span></span>
+        <p>A scratchpad for multi-step reasoning the model can revise as it goes.</p>
+        <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-sequential-thinking</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/serena.html" data-category="Dev"
+         data-ready="1" data-search="serena semantic code retrieval and editing toolkit driven by language servers. dev  uvx --from git+https://github.com/oraios/serena serena start-mcp-server">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(128 38% 26%);color:hsl(128 70% 74%)" aria-hidden="true">S</span><h3>Serena</h3><span class="plg-cat">Dev</span></span>
+        <p>Semantic code retrieval and editing toolkit driven by language servers.</p>
+        <span class="plg-conn"><code>uvx --from git+https://github.com/oraios/serena serena start-mcp-server</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sonatype-guide.html" data-category="Dev"
+         data-ready="0" data-search="sonatype check open-source dependencies for vulnerabilities and policy violations. dev sonatype-guide https://mcp.guide.sonatype.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(344 38% 26%);color:hsl(344 70% 74%)" aria-hidden="true">S</span><h3>Sonatype</h3><span class="plg-cat">Dev</span></span>
+        <p>Check open-source dependencies for vulnerabilities and policy violations.</p>
+        <span class="plg-conn"><code>https://mcp.guide.sonatype.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs SONATYPE_GUIDE_TOKEN</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/supabase.html" data-category="Dev"
+         data-ready="0" data-search="supabase query and manage a supabase project: tables, migrations, edge functions. dev  npx -y @supabase/mcp-server-supabase">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(252 38% 26%);color:hsl(252 70% 74%)" aria-hidden="true">S</span><h3>Supabase</h3><span class="plg-cat">Dev</span></span>
+        <p>Query and manage a Supabase project: tables, migrations, edge functions.</p>
+        <span class="plg-conn"><code>npx -y @supabase/mcp-server-supabase</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs SUPABASE_ACCESS_TOKEN</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/terraform.html" data-category="Dev"
+         data-ready="1" data-search="terraform look up terraform providers, modules and registry docs; query terraform cloud. dev  docker run -i --rm -e tfe_token=${tfe_token} hashicorp/terraform-mcp-server:0.4.0">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(108 38% 26%);color:hsl(108 70% 74%)" aria-hidden="true">T</span><h3>Terraform</h3><span class="plg-cat">Dev</span></span>
+        <p>Look up Terraform providers, modules and registry docs; query Terraform Cloud.</p>
+        <span class="plg-conn"><code>docker run -i --rm -e TFE_TOKEN=${TFE_TOKEN} hashicorp/terraform-mcp-server:0.4.0</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/time.html" data-category="Dev"
+         data-ready="1" data-search="time current time and timezone conversion, so an agent stops guessing what &#39;today&#39; is. dev  uvx mcp-server-time">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(101 38% 26%);color:hsl(101 70% 74%)" aria-hidden="true">T</span><h3>Time</h3><span class="plg-cat">Dev</span></span>
+        <p>Current time and timezone conversion, so an agent stops guessing what &#39;today&#39; is.</p>
+        <span class="plg-conn"><code>uvx mcp-server-time</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/valtown.html" data-category="Dev"
+         data-ready="1" data-search="val town create, run and deploy val town serverless functions and http endpoints. dev blob-storage client-side-js create-skill cron-and-intervals email http-endpoints oauth react-ui restricted-access sqlite-storage third-party-integrations https://api.val.town/v3/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(179 38% 26%);color:hsl(179 70% 74%)" aria-hidden="true">V</span><h3>Val Town</h3><span class="plg-cat">Dev</span></span>
+        <p>Create, run and deploy Val Town serverless functions and HTTP endpoints.</p>
+        <span class="plg-conn"><code>https://api.val.town/v3/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>11 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/vercel.html" data-category="Dev"
+         data-ready="1" data-search="vercel search vercel docs, list projects and deployments, inspect logs. dev ai-gateway ai-sdk auth benchmark-agents benchmark-e2e benchmark-sandbox benchmark-testing bootstrap cdn-caching chat-sdk deployments-cicd env-vars eve knowledge-update marketplace microfrontends next-cache-components next-forge next-upgrade nextjs plugin-audit react-best-practices release routing-middleware runtime-cache shadcn turbopack vercel-agent vercel-cli vercel-connect vercel-firewall vercel-functions vercel-plugin-eval vercel-sandbox vercel-storage verification workflow https://mcp.vercel.com">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(191 38% 26%);color:hsl(191 70% 74%)" aria-hidden="true">V</span><h3>Vercel</h3><span class="plg-cat">Dev</span></span>
+        <p>Search Vercel docs, list projects and deployments, inspect logs.</p>
+        <span class="plg-conn"><code>https://mcp.vercel.com</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>37 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/wix.html" data-category="Dev"
+         data-ready="1" data-search="wix manage wix sites, apps, headless projects and design system components. dev wix-app wix-design-system wix-docs wix-headless wix-manage wix-vibe-headless https://mcp.wix.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(14 38% 26%);color:hsl(14 70% 74%)" aria-hidden="true">W</span><h3>Wix</h3><span class="plg-cat">Dev</span></span>
+        <p>Manage Wix sites, apps, headless projects and design system components.</p>
+        <span class="plg-conn"><code>https://mcp.wix.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/catalyst-by-zoho.html" data-category="Dev"
+         data-ready="1" data-search="zoho catalyst deploy and manage zoho catalyst serverless functions and data stores. dev catalyst-appsail catalyst-authentication catalyst-basics catalyst-by-zoho catalyst-cache catalyst-datastore catalyst-functions catalyst-nosql catalyst-pricing catalyst-sdk catalyst-signals catalyst-slate catalyst-smartbrowz catalyst-stratus catalyst-zia catalyst-zoho-mcp https://catalyst.zohomcp.com/mcp/message">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(126 38% 26%);color:hsl(126 70% 74%)" aria-hidden="true">Z</span><h3>Zoho Catalyst</h3><span class="plg-cat">Dev</span></span>
+        <p>Deploy and manage Zoho Catalyst serverless functions and data stores.</p>
+        <span class="plg-conn"><code>https://catalyst.zohomcp.com/mcp/message</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>16 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/zscaler.html" data-category="Dev"
+         data-ready="1" data-search="zscaler query and configure zscaler zia, zpa and zdx policies and reporting. dev  uvx zscaler-mcp@0.15.3">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(66 38% 26%);color:hsl(66 70% 74%)" aria-hidden="true">Z</span><h3>Zscaler</h3><span class="plg-cat">Dev</span></span>
+        <p>Query and configure Zscaler ZIA, ZPA and ZDX policies and reporting.</p>
+        <span class="plg-conn"><code>uvx zscaler-mcp@0.15.3</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+    <section class="plg-group" data-group="Docs &amp; search">
+      <h2>Docs &amp; search · 14</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/aws-agents.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="aws knowledge search aws documentation, api references and regional availability. docs &amp; search agents-build agents-connect agents-debug agents-deploy agents-get-started agents-harden agents-optimize agents-pay https://knowledge-mcp.global.api.aws">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(358 38% 26%);color:hsl(358 70% 74%)" aria-hidden="true">A</span><h3>AWS Knowledge</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Search AWS documentation, API references and regional availability.</p>
+        <span class="plg-conn"><code>https://knowledge-mcp.global.api.aws</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>8 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/brave-search.html" data-category="Docs &amp; search"
+         data-ready="0" data-search="brave search independent web index. a second opinion when one search engine keeps returning the same three pages. docs &amp; search  npx -y @modelcontextprotocol/server-brave-search">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(213 38% 26%);color:hsl(213 70% 74%)" aria-hidden="true">B</span><h3>Brave Search</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Independent web index. A second opinion when one search engine keeps returning the same three pages.</p>
+        <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-brave-search</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs BRAVE_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/context7.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="context7 current library and framework documentation, fetched per question instead of recalled from training data. docs &amp; search  npx -y @upstash/context7-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(168 38% 26%);color:hsl(168 70% 74%)" aria-hidden="true">C</span><h3>Context7</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Current library and framework documentation, fetched per question instead of recalled from training data.</p>
+        <span class="plg-conn"><code>npx -y @upstash/context7-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/exa.html" data-category="Docs &amp; search"
+         data-ready="0" data-search="exa neural web search built for agents: full page contents, not a list of links. docs &amp; search  npx -y exa-mcp-server">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(78 38% 26%);color:hsl(78 70% 74%)" aria-hidden="true">E</span><h3>Exa</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Neural web search built for agents: full page contents, not a list of links.</p>
+        <span class="plg-conn"><code>npx -y exa-mcp-server</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs EXA_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/firecrawl.html" data-category="Docs &amp; search"
+         data-ready="0" data-search="firecrawl scrapes and crawls sites into clean markdown, including pages that need javascript. docs &amp; search  npx -y firecrawl-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(209 38% 26%);color:hsl(209 70% 74%)" aria-hidden="true">F</span><h3>Firecrawl</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Scrapes and crawls sites into clean markdown, including pages that need JavaScript.</p>
+        <span class="plg-conn"><code>npx -y firecrawl-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs FIRECRAWL_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/greptile.html" data-category="Docs &amp; search"
+         data-ready="0" data-search="greptile natural-language search and q&amp;a over indexed codebases. docs &amp; search  https://api.greptile.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(140 38% 26%);color:hsl(140 70% 74%)" aria-hidden="true">G</span><h3>Greptile</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Natural-language search and Q&amp;A over indexed codebases.</p>
+        <span class="plg-conn"><code>https://api.greptile.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs GREPTILE_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/huggingface-skills.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="hugging face search hugging face models, datasets, spaces and papers. docs &amp; search hf-cli hf-cloud-aws-context-discovery hf-cloud-python-env-setup hf-cloud-sagemaker-deployment-planner hf-cloud-sagemaker-iam-preflight hf-cloud-sagemaker-production-defaults hf-cloud-serving-image-selection hf-mcp hf-mem huggingface-best huggingface-community-evals huggingface-datasets huggingface-gradio huggingface-llm-trainer huggingface-local-models huggingface-lora-space-builder huggingface-paper-publisher huggingface-papers huggingface-spaces huggingface-tool-builder huggingface-trackio huggingface-vision-trainer huggingface-zerogpu train-sentence-transformers transformers-js trl-training https://huggingface.co/mcp?login">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(197 38% 26%);color:hsl(197 70% 74%)" aria-hidden="true">H</span><h3>Hugging Face</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Search Hugging Face models, datasets, Spaces and papers.</p>
+        <span class="plg-conn"><code>https://huggingface.co/mcp?login</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>26 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/microsoft-docs.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="microsoft learn search microsoft learn documentation for azure, .net and microsoft 365. docs &amp; search microsoft-code-reference microsoft-docs microsoft-skill-creator https://learn.microsoft.com/api/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(42 38% 26%);color:hsl(42 70% 74%)" aria-hidden="true">M</span><h3>Microsoft Learn</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Search Microsoft Learn documentation for Azure, .NET and Microsoft 365.</p>
+        <span class="plg-conn"><code>https://learn.microsoft.com/api/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/mintlify.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="mintlify search documentation sites hosted on mintlify. docs &amp; search mintlify https://mintlify.com/docs/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(186 38% 26%);color:hsl(186 70% 74%)" aria-hidden="true">M</span><h3>Mintlify</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Search documentation sites hosted on Mintlify.</p>
+        <span class="plg-conn"><code>https://mintlify.com/docs/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/nimble.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="nimble web search, page scraping and structured web-data extraction. docs &amp; search brand-mention-monitor company-deep-dive competitor-intel competitor-positioning healthcare-providers-enrich healthcare-providers-extract healthcare-providers-verify launch-monitor local-places market-finder meeting-prep nimble-databricks-data-products nimble-web-expert seo-intel talent-sourcing https://mcp.nimbleway.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(241 38% 26%);color:hsl(241 70% 74%)" aria-hidden="true">N</span><h3>Nimble</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Web search, page scraping and structured web-data extraction.</p>
+        <span class="plg-conn"><code>https://mcp.nimbleway.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>15 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/qt-development-skills.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="qt docs search qt framework documentation and api references. docs &amp; search qt-cmake-project qt-cpp-docs qt-cpp-review qt-figma-component-generation qt-figma-token-extraction qt-qml qt-qml-docs qt-qml-profiler qt-qml-review qt-qml-test qt-qml-test-run qt-ui-design https://qt-docs-mcp.qt.io/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(94 38% 26%);color:hsl(94 70% 74%)" aria-hidden="true">Q</span><h3>Qt Docs</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Search Qt framework documentation and API references.</p>
+        <span class="plg-conn"><code>https://qt-docs-mcp.qt.io/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>12 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sourcegraph.html" data-category="Docs &amp; search"
+         data-ready="0" data-search="sourcegraph code search and navigation across your sourcegraph instance. docs &amp; search searching-sourcegraph ${sourcegraph_endpoint}/.api/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(107 38% 26%);color:hsl(107 70% 74%)" aria-hidden="true">S</span><h3>Sourcegraph</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Code search and navigation across your Sourcegraph instance.</p>
+        <span class="plg-conn"><code>${SOURCEGRAPH_ENDPOINT}/.api/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs SOURCEGRAPH_ENDPOINT</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/tavily.html" data-category="Docs &amp; search"
+         data-ready="0" data-search="tavily search and extract, tuned for agents rather than humans. docs &amp; search  npx -y tavily-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(5 38% 26%);color:hsl(5 70% 74%)" aria-hidden="true">T</span><h3>Tavily</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Search and extract, tuned for agents rather than humans.</p>
+        <span class="plg-conn"><code>npx -y tavily-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs TAVILY_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/twilio-developer-kit.html" data-category="Docs &amp; search"
+         data-ready="1" data-search="twilio docs search twilio and sendgrid developer documentation. docs &amp; search sendgrid twilio https://mcp.twilio.com/docs">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(338 38% 26%);color:hsl(338 70% 74%)" aria-hidden="true">T</span><h3>Twilio Docs</h3><span class="plg-cat">Docs &amp; search</span></span>
+        <p>Search Twilio and SendGrid developer documentation.</p>
+        <span class="plg-conn"><code>https://mcp.twilio.com/docs</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>2 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+    <section class="plg-group" data-group="Knowledge">
+      <h2>Knowledge · 11</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/airtable.html" data-category="Knowledge"
+         data-ready="0" data-search="airtable read and write airtable bases as structured records. knowledge  npx -y airtable-mcp-server">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(236 38% 26%);color:hsl(236 70% 74%)" aria-hidden="true">A</span><h3>Airtable</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Read and write Airtable bases as structured records.</p>
+        <span class="plg-conn"><code>npx -y airtable-mcp-server</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs AIRTABLE_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/atlan.html" data-category="Knowledge"
+         data-ready="1" data-search="atlan search the atlan data catalog for assets, lineage and glossary terms. knowledge  https://mcp.atlan.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(318 38% 26%);color:hsl(318 70% 74%)" aria-hidden="true">A</span><h3>Atlan</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Search the Atlan data catalog for assets, lineage and glossary terms.</p>
+        <span class="plg-conn"><code>https://mcp.atlan.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/bigdata-com.html" data-category="Knowledge"
+         data-ready="1" data-search="bigdata.com search bigdata.com financial and market research content. knowledge bigdata-catalyst-monitor bigdata-company-brief bigdata-country-analysis bigdata-country-sector-analysis bigdata-cross-sector bigdata-earnings-digest bigdata-earnings-preview bigdata-earnings-quality-screen bigdata-earnings-reaction bigdata-g7-comparison bigdata-investment-memo bigdata-moat-governance-review bigdata-peer-comparables bigdata-post-ipo-day1 bigdata-post-ipo-day14 bigdata-post-ipo-day179 bigdata-post-ipo-day365 bigdata-pre-ipo-analysis bigdata-quick-take bigdata-regional-comparison bigdata-risk-assessment bigdata-scenario-analysis bigdata-sector-analysis bigdata-sector-playbook bigdata-thematic-research bigdata-valuation-snapshot bigdata-variant-perception https://mcp.bigdata.com">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(30 38% 26%);color:hsl(30 70% 74%)" aria-hidden="true">B</span><h3>Bigdata.com</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Search Bigdata.com financial and market research content.</p>
+        <span class="plg-conn"><code>https://mcp.bigdata.com</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>27 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/dropbox.html" data-category="Knowledge"
+         data-ready="1" data-search="dropbox search, read and manage dropbox files and folders. knowledge clean-up-dropbox-content collect-files-with-request find-dropbox-content inspect-dropbox-file organize-dropbox-folder share-dropbox-content https://mcp.dropbox.com/claude_app_mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(76 38% 26%);color:hsl(76 70% 74%)" aria-hidden="true">D</span><h3>Dropbox</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Search, read and manage Dropbox files and folders.</p>
+        <span class="plg-conn"><code>https://mcp.dropbox.com/claude_app_mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/engram.html" data-category="Knowledge"
+         data-ready="0" data-search="engram your own memory service. set its url before enabling — the library does not guess where your services run. knowledge  ">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(304 38% 26%);color:hsl(304 70% 74%)" aria-hidden="true">E</span><h3>Engram</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Your own memory service. Set its URL before enabling — the library does not guess where your services run.</p>
+        
+        <span class="plg-foot">
+          <span class="plg-state">needs its URL</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/google-drive.html" data-category="Knowledge"
+         data-ready="1" data-search="google drive search drive and read documents. knowledge  npx -y @modelcontextprotocol/server-gdrive">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(230 38% 26%);color:hsl(230 70% 74%)" aria-hidden="true">G</span><h3>Google Drive</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Search Drive and read documents.</p>
+        <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-gdrive</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/memory.html" data-category="Knowledge"
+         data-ready="1" data-search="memory a knowledge graph the agent writes to and reads back across runs. knowledge  npx -y @modelcontextprotocol/server-memory">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(65 38% 26%);color:hsl(65 70% 74%)" aria-hidden="true">M</span><h3>Memory</h3><span class="plg-cat">Knowledge</span></span>
+        <p>A knowledge graph the agent writes to and reads back across runs.</p>
+        <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-memory</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/nautdocs.html" data-category="Knowledge"
+         data-ready="1" data-search="nautdocs search the vault, the knowledge base, tickets and memories in one place. knowledge  nautdocs-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(85 38% 26%);color:hsl(85 70% 74%)" aria-hidden="true">N</span><h3>NautDocs</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Search the vault, the knowledge base, tickets and memories in one place.</p>
+        <span class="plg-conn"><code>nautdocs-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/notion.html" data-category="Knowledge"
+         data-ready="0" data-search="notion read and write notion pages and databases. knowledge  npx -y @notionhq/notion-mcp-server">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(333 38% 26%);color:hsl(333 70% 74%)" aria-hidden="true">N</span><h3>Notion</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Read and write Notion pages and databases.</p>
+        <span class="plg-conn"><code>npx -y @notionhq/notion-mcp-server</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs NOTION_TOKEN</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/obsidian.html" data-category="Knowledge"
+         data-ready="0" data-search="obsidian search and edit an obsidian vault. knowledge  npx -y mcp-obsidian">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(211 38% 26%);color:hsl(211 70% 74%)" aria-hidden="true">O</span><h3>Obsidian</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Search and edit an Obsidian vault.</p>
+        <span class="plg-conn"><code>npx -y mcp-obsidian</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs OBSIDIAN_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sanity.html" data-category="Knowledge"
+         data-ready="1" data-search="sanity query and mutate sanity content datasets and schemas. knowledge content-experimentation-best-practices content-modeling-best-practices portable-text-conversion portable-text-serialization sanity-best-practices sanity-migration seo-aeo-best-practices https://mcp.sanity.io">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(94 38% 26%);color:hsl(94 70% 74%)" aria-hidden="true">S</span><h3>Sanity</h3><span class="plg-cat">Knowledge</span></span>
+        <p>Query and mutate Sanity content datasets and schemas.</p>
+        <span class="plg-conn"><code>https://mcp.sanity.io</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>7 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+    <section class="plg-group" data-group="Work tracking">
+      <h2>Work tracking · 9</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/asana.html" data-category="Work tracking"
+         data-ready="1" data-search="asana create and manage asana tasks, search projects, update assignments and track progress. work tracking  https://mcp.asana.com/v2/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(306 38% 26%);color:hsl(306 70% 74%)" aria-hidden="true">A</span><h3>Asana</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Create and manage Asana tasks, search projects, update assignments and track progress.</p>
+        <span class="plg-conn"><code>https://mcp.asana.com/v2/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/atlassian.html" data-category="Work tracking"
+         data-ready="1" data-search="jira &amp; confluence atlassian&#39;s own hosted server: jira issues and confluence pages. work tracking  https://mcp.atlassian.com/v1/sse">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(30 38% 26%);color:hsl(30 70% 74%)" aria-hidden="true">J</span><h3>Jira &amp; Confluence</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Atlassian&#39;s own hosted server: Jira issues and Confluence pages.</p>
+        <span class="plg-conn"><code>https://mcp.atlassian.com/v1/sse</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/linear.html" data-category="Work tracking"
+         data-ready="1" data-search="linear issues, projects and cycles in linear. work tracking  https://mcp.linear.app/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(245 38% 26%);color:hsl(245 70% 74%)" aria-hidden="true">L</span><h3>Linear</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Issues, projects and cycles in Linear.</p>
+        <span class="plg-conn"><code>https://mcp.linear.app/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/lineary.html" data-category="Work tracking"
+         data-ready="0" data-search="lineary 48nauts ticket and issue tracking. set its url before enabling. work tracking  ">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(156 38% 26%);color:hsl(156 70% 74%)" aria-hidden="true">L</span><h3>Lineary</h3><span class="plg-cat">Work tracking</span></span>
+        <p>48Nauts ticket and issue tracking. Set its URL before enabling.</p>
+        
+        <span class="plg-foot">
+          <span class="plg-state">needs its URL</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/monday-crm.html" data-category="Work tracking"
+         data-ready="1" data-search="monday.com read and update monday.com boards, items, columns and updates. work tracking activity-insights automate-crm daily-briefing data-cleanup forecast log-activity meeting-to-deal run-sequence workspace-builder https://mcp.monday.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(265 38% 26%);color:hsl(265 70% 74%)" aria-hidden="true">M</span><h3>monday.com</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Read and update monday.com boards, items, columns and updates.</p>
+        <span class="plg-conn"><code>https://mcp.monday.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>9 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/pagerduty.html" data-category="Work tracking"
+         data-ready="0" data-search="pagerduty read and act on pagerduty incidents, services, schedules and on-call rotations. work tracking  https://mcp.pagerduty.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(81 38% 26%);color:hsl(81 70% 74%)" aria-hidden="true">P</span><h3>PagerDuty</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Read and act on PagerDuty incidents, services, schedules and on-call rotations.</p>
+        <span class="plg-conn"><code>https://mcp.pagerduty.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs PAGERDUTY_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/rootly.html" data-category="Work tracking"
+         data-ready="1" data-search="rootly manage rootly incidents, alerts, on-call schedules and retrospectives. work tracking action alert announce ask brief cover deploy-check handoff lookup my oncall respond retro setup status swap test trend https://mcp.rootly.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(351 38% 26%);color:hsl(351 70% 74%)" aria-hidden="true">R</span><h3>Rootly</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Manage Rootly incidents, alerts, on-call schedules and retrospectives.</p>
+        <span class="plg-conn"><code>https://mcp.rootly.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>18 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sentry.html" data-category="Work tracking"
+         data-ready="1" data-search="sentry errors and traces from sentry, including the issue an agent is asked to fix. work tracking  https://mcp.sentry.dev/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(287 38% 26%);color:hsl(287 70% 74%)" aria-hidden="true">S</span><h3>Sentry</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Errors and traces from Sentry, including the issue an agent is asked to fix.</p>
+        <span class="plg-conn"><code>https://mcp.sentry.dev/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/todoist.html" data-category="Work tracking"
+         data-ready="0" data-search="todoist tasks, projects and due dates in todoist. work tracking  npx -y @doist/todoist-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(204 38% 26%);color:hsl(204 70% 74%)" aria-hidden="true">T</span><h3>Todoist</h3><span class="plg-cat">Work tracking</span></span>
+        <p>Tasks, projects and due dates in Todoist.</p>
+        <span class="plg-conn"><code>npx -y @doist/todoist-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs TODOIST_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+    <section class="plg-group" data-group="Comms">
+      <h2>Comms · 9</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/circleback.html" data-category="Comms"
+         data-ready="1" data-search="circleback search meetings, transcripts, action items, calendar events and emails. comms  https://circleback.ai/api/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(247 38% 26%);color:hsl(247 70% 74%)" aria-hidden="true">C</span><h3>Circleback</h3><span class="plg-cat">Comms</span></span>
+        <p>Search meetings, transcripts, action items, calendar events and emails.</p>
+        <span class="plg-conn"><code>https://circleback.ai/api/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/gmail.html" data-category="Comms"
+         data-ready="1" data-search="gmail read, search, draft and send mail. comms  npx -y @gongrzhe/server-gmail-autoauth-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(342 38% 26%);color:hsl(342 70% 74%)" aria-hidden="true">G</span><h3>Gmail</h3><span class="plg-cat">Comms</span></span>
+        <p>Read, search, draft and send mail.</p>
+        <span class="plg-conn"><code>npx -y @gongrzhe/server-gmail-autoauth-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/google-calendar.html" data-category="Comms"
+         data-ready="0" data-search="google calendar read and create calendar events. comms  npx -y @cocal/google-calendar-mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(338 38% 26%);color:hsl(338 70% 74%)" aria-hidden="true">G</span><h3>Google Calendar</h3><span class="plg-cat">Comms</span></span>
+        <p>Read and create calendar events.</p>
+        <span class="plg-conn"><code>npx -y @cocal/google-calendar-mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs GOOGLE_OAUTH_CREDENTIALS</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/intercom.html" data-category="Comms"
+         data-ready="1" data-search="intercom search intercom conversations and contacts, look up companies and manage help center articles. comms customer-360 install-cli install-messenger intercom-analysis https://mcp.intercom.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(325 38% 26%);color:hsl(325 70% 74%)" aria-hidden="true">I</span><h3>Intercom</h3><span class="plg-cat">Comms</span></span>
+        <p>Search Intercom conversations and contacts, look up companies and manage Help Center articles.</p>
+        <span class="plg-conn"><code>https://mcp.intercom.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>4 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/resend.html" data-category="Comms"
+         data-ready="1" data-search="resend send transactional email and manage resend domains, audiences and broadcasts. comms agent-email-inbox email-best-practices react-email resend resend-cli https://mcp.resend.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(251 38% 26%);color:hsl(251 70% 74%)" aria-hidden="true">R</span><h3>Resend</h3><span class="plg-cat">Comms</span></span>
+        <p>Send transactional email and manage Resend domains, audiences and broadcasts.</p>
+        <span class="plg-conn"><code>https://mcp.resend.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>5 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/slack.html" data-category="Comms"
+         data-ready="0" data-search="slack read channels and post messages as a bot user. comms  npx -y @modelcontextprotocol/server-slack">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(256 38% 26%);color:hsl(256 70% 74%)" aria-hidden="true">S</span><h3>Slack</h3><span class="plg-cat">Comms</span></span>
+        <p>Read channels and post messages as a bot user.</p>
+        <span class="plg-conn"><code>npx -y @modelcontextprotocol/server-slack</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs SLACK_BOT_TOKEN</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/synthflow.html" data-category="Comms"
+         data-ready="1" data-search="synthflow build and manage synthflow ai voice agents and call workflows. comms call-review prompt-review https://mcp.synthflow.ai/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(106 38% 26%);color:hsl(106 70% 74%)" aria-hidden="true">S</span><h3>Synthflow</h3><span class="plg-cat">Comms</span></span>
+        <p>Build and manage Synthflow AI voice agents and call workflows.</p>
+        <span class="plg-conn"><code>https://mcp.synthflow.ai/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>2 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/x.html" data-category="Comms"
+         data-ready="1" data-search="x search posts and users, read timelines and mentions, manage lists, bookmarks and mutes. comms  https://api.x.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(120 38% 26%);color:hsl(120 70% 74%)" aria-hidden="true">X</span><h3>X</h3><span class="plg-cat">Comms</span></span>
+        <p>Search posts and users, read timelines and mentions, manage lists, bookmarks and mutes.</p>
+        <span class="plg-conn"><code>https://api.x.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/zoom-plugin.html" data-category="Comms"
+         data-ready="0" data-search="zoom search zoom meetings and recordings, pull summaries and transcripts, work with zoom docs. comms build-zoom-bot build-zoom-meeting-app choose-zoom-approach cobrowse-sdk contact-center debug-zoom debug-zoom-integration design-mcp-workflow general meeting-sdk oauth phone plan-zoom-integration plan-zoom-product probe-sdk rest-api rivet-sdk rtms scribe setup-zoom-marketplace-app setup-zoom-mcp setup-zoom-oauth start summarizer team-chat translator ui-toolkit video-sdk virtual-agent webhooks websockets zoom-apps-sdk zoom-mcp https://mcp.zoom.us/mcp/zoom/streamable">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(13 38% 26%);color:hsl(13 70% 74%)" aria-hidden="true">Z</span><h3>Zoom</h3><span class="plg-cat">Comms</span></span>
+        <p>Search Zoom meetings and recordings, pull summaries and transcripts, work with Zoom Docs.</p>
+        <span class="plg-conn"><code>https://mcp.zoom.us/mcp/zoom/streamable</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs ZOOM_MCP_ACCESS_TOKEN</span>
+          <span>33 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+    <section class="plg-group" data-group="Business">
+      <h2>Business · 26</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/airwallex-agentos.html" data-category="Business"
+         data-ready="1" data-search="airwallex payments, payouts, fx and account data through airwallex agentos. business awx-best-practices beneficiary-creation card-provisioning contract-to-billing manage-cashflow https://mcp.airwallex.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(27 38% 26%);color:hsl(27 70% 74%)" aria-hidden="true">A</span><h3>Airwallex</h3><span class="plg-cat">Business</span></span>
+        <p>Payments, payouts, FX and account data through Airwallex AgentOS.</p>
+        <span class="plg-conn"><code>https://mcp.airwallex.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>5 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/amplitude.html" data-category="Business"
+         data-ready="1" data-search="amplitude query amplitude product analytics: events, charts and cohorts. business add-analytics-instrumentation analyze-account-health analyze-ai-topics analyze-chart analyze-dashboard analyze-experiment analyze-experiment-consolidated analyze-feedback build-charts-with-typed-params chart-link-analysis compare-user-journeys create-chart create-dashboard daily-brief debug-replay diagnose-errors diff-intake discover-analytics-patterns discover-event-surfaces discover-opportunities instrument-events investigate-ai-session live-data-forensics manage-amp-context monitor-ai-quality monitor-experiments monitor-experiments-consolidated monitor-reliability replay-ux-audit review-agent-insights scheduled-report-refresh taxonomy use-amp-guides-surveys user-cohort-forensics weekly-brief what-would-lenny-do https://mcp.amplitude.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(275 38% 26%);color:hsl(275 70% 74%)" aria-hidden="true">A</span><h3>Amplitude</h3><span class="plg-cat">Business</span></span>
+        <p>Query Amplitude product analytics: events, charts and cohorts.</p>
+        <span class="plg-conn"><code>https://mcp.amplitude.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>36 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/apollo.html" data-category="Business"
+         data-ready="1" data-search="apollo.io prospect search, contact and company enrichment, lists, sequences and one-off emails. business analytics enrich-lead prospect sequence-load https://mcp.apollo.io/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(287 38% 26%);color:hsl(287 70% 74%)" aria-hidden="true">A</span><h3>Apollo.io</h3><span class="plg-cat">Business</span></span>
+        <p>Prospect search, contact and company enrichment, lists, sequences and one-off emails.</p>
+        <span class="plg-conn"><code>https://mcp.apollo.io/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>4 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/ashby.html" data-category="Business"
+         data-ready="1" data-search="ashby search candidates and jobs, prep for interviews and manage recruiting pipeline tasks. business  https://mcp.ashbyhq.com/mcp/v1">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(205 38% 26%);color:hsl(205 70% 74%)" aria-hidden="true">A</span><h3>Ashby</h3><span class="plg-cat">Business</span></span>
+        <p>Search candidates and jobs, prep for interviews and manage recruiting pipeline tasks.</p>
+        <span class="plg-conn"><code>https://mcp.ashbyhq.com/mcp/v1</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/clay.html" data-category="Business"
+         data-ready="1" data-search="clay find and enrich people and companies, run research agents and trigger clay workflows. business  https://api.clay.com/v3/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(185 38% 26%);color:hsl(185 70% 74%)" aria-hidden="true">C</span><h3>Clay</h3><span class="plg-cat">Business</span></span>
+        <p>Find and enrich people and companies, run research agents and trigger Clay workflows.</p>
+        <span class="plg-conn"><code>https://api.clay.com/v3/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/docusign.html" data-category="Business"
+         data-ready="0" data-search="docusign work with esignature envelopes and templates, maestro workflows and navigator agreements. business  https://mcp.docusign.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(290 38% 26%);color:hsl(290 70% 74%)" aria-hidden="true">D</span><h3>Docusign</h3><span class="plg-cat">Business</span></span>
+        <p>Work with eSignature envelopes and templates, Maestro workflows and Navigator agreements.</p>
+        <span class="plg-conn"><code>https://mcp.docusign.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs CLIENT_ID</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/fullstory.html" data-category="Business"
+         data-ready="1" data-search="fullstory query fullstory session and behavioural analytics data. business comparisons general-analysis session-review https://api.fullstory.com/mcp/fullstory">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(142 38% 26%);color:hsl(142 70% 74%)" aria-hidden="true">F</span><h3>Fullstory</h3><span class="plg-cat">Business</span></span>
+        <p>Query Fullstory session and behavioural analytics data.</p>
+        <span class="plg-conn"><code>https://api.fullstory.com/mcp/fullstory</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/gong.html" data-category="Business"
+         data-ready="0" data-search="gong account summaries, deal insights and call briefs from gong. business  https://mcp.gong.io/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(217 38% 26%);color:hsl(217 70% 74%)" aria-hidden="true">G</span><h3>Gong</h3><span class="plg-cat">Business</span></span>
+        <p>Account summaries, deal insights and call briefs from Gong.</p>
+        <span class="plg-conn"><code>https://mcp.gong.io/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs CLIENT_ID</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/hubspot.html" data-category="Business"
+         data-ready="0" data-search="hubspot search and update contacts, companies, deals and tickets; work with conversations and marketing email. business  https://mcp.hubspot.com">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(263 38% 26%);color:hsl(263 70% 74%)" aria-hidden="true">H</span><h3>HubSpot</h3><span class="plg-cat">Business</span></span>
+        <p>Search and update contacts, companies, deals and tickets; work with conversations and marketing email.</p>
+        <span class="plg-conn"><code>https://mcp.hubspot.com</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs CLIENT_ID</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/hunter.html" data-category="Business"
+         data-ready="1" data-search="hunter find and verify professional email addresses and enrich company data. business build-sequences check-usage company-enrichment company-lists discover domain-search email-finder email-verifier lead-lists manage-leads person-enrichment prospecting push-to-crm https://mcp.hunter.io/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(152 38% 26%);color:hsl(152 70% 74%)" aria-hidden="true">H</span><h3>Hunter</h3><span class="plg-cat">Business</span></span>
+        <p>Find and verify professional email addresses and enrich company data.</p>
+        <span class="plg-conn"><code>https://mcp.hunter.io/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>13 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/legalzoom.html" data-category="Business"
+         data-ready="1" data-search="legalzoom request legalzoom attorney consultations and legal service workflows. business attorney-assist https://www.legalzoom.com/mcp/claude/v1">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(100 38% 26%);color:hsl(100 70% 74%)" aria-hidden="true">L</span><h3>LegalZoom</h3><span class="plg-cat">Business</span></span>
+        <p>Request LegalZoom attorney consultations and legal service workflows.</p>
+        <span class="plg-conn"><code>https://www.legalzoom.com/mcp/claude/v1</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/lusha.html" data-category="Business"
+         data-ready="1" data-search="lusha b2b contact and company data lookup and enrichment. business enrich-contact lookalike-prospect outreach-research outreach-sequence prospect signal-prospect https://mcp.lusha.com/mcp/claude">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(211 38% 26%);color:hsl(211 70% 74%)" aria-hidden="true">L</span><h3>Lusha</h3><span class="plg-cat">Business</span></span>
+        <p>B2B contact and company data lookup and enrichment.</p>
+        <span class="plg-conn"><code>https://mcp.lusha.com/mcp/claude</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/mercadopago.html" data-category="Business"
+         data-ready="1" data-search="mercado pago mercado pago payments, preferences and merchant api operations. business mp-integrate mp-review mp-test-setup mp-webhooks https://mcp.mercadopago.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(164 38% 26%);color:hsl(164 70% 74%)" aria-hidden="true">M</span><h3>Mercado Pago</h3><span class="plg-cat">Business</span></span>
+        <p>Mercado Pago payments, preferences and merchant API operations.</p>
+        <span class="plg-conn"><code>https://mcp.mercadopago.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>4 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/navan.html" data-category="Business"
+         data-ready="1" data-search="navan query expenses, travel bookings, policies, approvals and cards. business  https://mcp.navan.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(232 38% 26%);color:hsl(232 70% 74%)" aria-hidden="true">N</span><h3>Navan</h3><span class="plg-cat">Business</span></span>
+        <p>Query expenses, travel bookings, policies, approvals and cards.</p>
+        <span class="plg-conn"><code>https://mcp.navan.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/paypal.html" data-category="Business"
+         data-ready="0" data-search="paypal (sandbox) paypal sandbox server for orders, invoices, subscriptions and disputes. business paypal-best-practices paypal-routing https://mcp.sandbox.paypal.com/sse">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(107 38% 26%);color:hsl(107 70% 74%)" aria-hidden="true">P</span><h3>PayPal (sandbox)</h3><span class="plg-cat">Business</span></span>
+        <p>PayPal sandbox server for orders, invoices, subscriptions and disputes.</p>
+        <span class="plg-conn"><code>https://mcp.sandbox.paypal.com/sse</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs PAYPAL_SANDBOX_ACCESS_TOKEN</span>
+          <span>2 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/pigment.html" data-category="Business"
+         data-ready="1" data-search="pigment query pigment business planning models and metrics. business analyzing-pigment-data building-pigment-frames designing-boards designing-views formatting-and-highlighting integrating-pigment-data modeling-pigment-applications optimizing-pigment-performance planning-cycles-pigment-applications securing-pigment-applications solving-specific-use-cases writing-pigment-formulas https://pigment.app/api/mcp/public/{your-mcp-id}">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(156 38% 26%);color:hsl(156 70% 74%)" aria-hidden="true">P</span><h3>Pigment</h3><span class="plg-cat">Business</span></span>
+        <p>Query Pigment business planning models and metrics.</p>
+        <span class="plg-conn"><code>https://pigment.app/api/mcp/public/{your-mcp-id}</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>12 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/posthog.html" data-category="Business"
+         data-ready="1" data-search="posthog query posthog product analytics, feature flags, session replays and insights. business analyzing-expensive-users analyzing-experiment-session-replays assessing-heatmaps auditing-endpoints auditing-experiments-flags auditing-warehouse-source-health auditing-warehouse-view-health authoring-error-tracking-alerts authoring-log-alerts authoring-scouts building-a-dashboard building-workflows checking-deploy-timing choosing-trend-or-slope-view cleaning-up-stale-feature-flags configuring-experiment-analytics configuring-experiment-rollout consuming-endpoints-from-client-code copying-endpoints-across-projects copying-flags-across-projects creating-ai-subscription creating-an-endpoint creating-experiments creating-online-evaluations creating-replay-vision-scanners debugging-local-replay debugging-signals-pipeline debugging-surveys designing-email-templates diagnosing-ci-and-merge-bottlenecks diagnosing-endpoint-performance diagnosing-experiment-results diagnosing-failed-warehouse-syncs diagnosing-missing-recordings diagnosing-sdk-health diagnosing-stacktrace-symbolication downloading-batch-export-files exploring-ai-failures exploring-apm-traces exploring-autocapture-events exploring-endpoint-execution-logs exploring-live-traffic exploring-llm-clusters exploring-llm-costs exploring-llm-evaluations exploring-llm-traces exploring-mcp-intent-clusters exploring-mcp-sessions exploring-mcp-tool-quality exploring-mcp-tool-usage exploring-replay-vision-observations exploring-scouts feature-usage-feed filtering-bot-traffic finding-deleted-feature-flags finding-experiments finding-replay-for-issue finding-sessions-to-watch formatting-insight-axes grouping-noisy-errors improving-mcp-tools inbox-exploration instrument-error-tracking instrument-feature-flags instrument-integration instrument-llm-analytics instrument-logs instrument-product-analytics investigate-metric investigating-ci-failures investigating-error-issue investigating-logs investigating-metric-anomalies investigating-replay managing-endpoint-versions managing-experiment-lifecycle managing-path-cleaning-rules managing-reminders managing-streamlit-apps managing-subscriptions modeling-activation-metrics modeling-conversion-metrics modeling-dimension-tables modeling-product-usage-metrics modeling-revenue-metrics modeling-warehouse-foundations planning-voice-agent-user-interviews querying-posthog-data resolving-ingestion-warnings review-hog-authoring review-hog-blind-spots-general review-hog-perspective-contracts-security review-hog-perspective-logic-correctness review-hog-perspective-performance-reliability review-hog-validation-criteria setting-up-a-custom-rest-source setting-up-a-data-warehouse-source setting-up-data-catalog setting-up-support-slack-locally signals signals-scout-ai-observability signals-scout-anomaly-detection signals-scout-apm signals-scout-conversations signals-scout-csp-violations signals-scout-customer-analytics signals-scout-data-pipelines signals-scout-data-warehouse signals-scout-error-tracking signals-scout-experiments signals-scout-feature-flags signals-scout-general signals-scout-health-checks signals-scout-inbox-validation signals-scout-insight-alerts signals-scout-logs signals-scout-mcp-tool-calls signals-scout-observability-gaps signals-scout-product-analytics signals-scout-replay-vision signals-scout-revenue-analytics signals-scout-session-replay signals-scout-skills-store signals-scout-surveys signals-scout-tasks signals-scout-web-analytics signals-scout-web-vitals skills-store suggesting-data-imports suppressing-noisy-errors testing-mcp-tools-locally triaging-error-issues triaging-visual-review-runs tuning-incremental-sync-config turning-engineering-analytics-into-insights working-with-skills writing-streamlit-apps https://mcp.posthog.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(112 38% 26%);color:hsl(112 70% 74%)" aria-hidden="true">P</span><h3>PostHog</h3><span class="plg-cat">Business</span></span>
+        <p>Query PostHog product analytics, feature flags, session replays and insights.</p>
+        <span class="plg-conn"><code>https://mcp.posthog.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>137 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/profound.html" data-category="Business"
+         data-ready="1" data-search="profound retrieve ai visibility, sentiment and citation reports; run profound agents. business  https://mcp.tryprofound.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(157 38% 26%);color:hsl(157 70% 74%)" aria-hidden="true">P</span><h3>Profound</h3><span class="plg-cat">Business</span></span>
+        <p>Retrieve AI visibility, sentiment and citation reports; run Profound agents.</p>
+        <span class="plg-conn"><code>https://mcp.tryprofound.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/revenuecat.html" data-category="Business"
+         data-ready="1" data-search="revenuecat read and configure revenuecat projects, products, entitlements and subscriber data. business create-revenuecat-project integrate-revenuecat revenuecat revenuecat-charts revenuecat-customer-center revenuecat-entitlements-gate revenuecat-experiment-analysis revenuecat-identify-user revenuecat-migrate revenuecat-paywall revenuecat-purchase-flow revenuecat-sdk-compatibility revenuecat-status revenuecat-store-state revenuecat-testing-setup revenuecat-troubleshoot https://mcp.revenuecat.ai/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(114 38% 26%);color:hsl(114 70% 74%)" aria-hidden="true">R</span><h3>RevenueCat</h3><span class="plg-cat">Business</span></span>
+        <p>Read and configure RevenueCat projects, products, entitlements and subscriber data.</p>
+        <span class="plg-conn"><code>https://mcp.revenuecat.ai/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>16 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/salesforce.html" data-category="Business"
+         data-ready="0" data-search="salesforce query, search, create, update and traverse salesforce records. business  https://api.salesforce.com/platform/mcp/v1/platform/sobject-all">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(103 38% 26%);color:hsl(103 70% 74%)" aria-hidden="true">S</span><h3>Salesforce</h3><span class="plg-cat">Business</span></span>
+        <p>Query, search, create, update and traverse Salesforce records.</p>
+        <span class="plg-conn"><code>https://api.salesforce.com/platform/mcp/v1/platform/sobject-all</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs CLIENT_ID</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/shippo.html" data-category="Business"
+         data-ready="1" data-search="shippo create shipping labels, compare carrier rates and track parcels. business address-validation batch-shipping label-purchase rate-shopping shipping-analysis shippo-best-practices shippo-support-ticket tracking upgrade-shippo https://mcp.shippo.com">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(59 38% 26%);color:hsl(59 70% 74%)" aria-hidden="true">S</span><h3>Shippo</h3><span class="plg-cat">Business</span></span>
+        <p>Create shipping labels, compare carrier rates and track parcels.</p>
+        <span class="plg-conn"><code>https://mcp.shippo.com</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>9 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/stripe.html" data-category="Business"
+         data-ready="1" data-search="stripe payments, customers and subscriptions. read-only until you give it a key that can do more. business  https://mcp.stripe.com">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(93 38% 26%);color:hsl(93 70% 74%)" aria-hidden="true">S</span><h3>Stripe</h3><span class="plg-cat">Business</span></span>
+        <p>Payments, customers and subscriptions. Read-only until you give it a key that can do more.</p>
+        <span class="plg-conn"><code>https://mcp.stripe.com</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/sumup.html" data-category="Business"
+         data-ready="1" data-search="sumup sumup merchant, transaction and payout api access. business sumup sumup-best-practices sumup-debug sumup-mcp sumup-testing upgrade-sumup https://mcp.sumup.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(30 38% 26%);color:hsl(30 70% 74%)" aria-hidden="true">S</span><h3>SumUp</h3><span class="plg-cat">Business</span></span>
+        <p>SumUp merchant, transaction and payout API access.</p>
+        <span class="plg-conn"><code>https://mcp.sumup.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/vanta.html" data-category="Business"
+         data-ready="1" data-search="vanta query vanta compliance controls, tests, evidence and vendor risk. business fix-test list-tests test-remediation https://mcp.vanta.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(208 38% 26%);color:hsl(208 70% 74%)" aria-hidden="true">V</span><h3>Vanta</h3><span class="plg-cat">Business</span></span>
+        <p>Query Vanta compliance controls, tests, evidence and vendor risk.</p>
+        <span class="plg-conn"><code>https://mcp.vanta.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>3 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/windsor-ai.html" data-category="Business"
+         data-ready="1" data-search="windsor.ai query marketing data: ad spend, campaigns and analytics from connected sources. business business-data https://mcp.windsor.ai">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(271 38% 26%);color:hsl(271 70% 74%)" aria-hidden="true">W</span><h3>Windsor.ai</h3><span class="plg-cat">Business</span></span>
+        <p>Query marketing data: ad spend, campaigns and analytics from connected sources.</p>
+        <span class="plg-conn"><code>https://mcp.windsor.ai</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>1 skill</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/zoominfo.html" data-category="Business"
+         data-ready="1" data-search="zoominfo b2b company and contact intelligence lookup and enrichment. business account-health account-relationship-recap account-research ae-cs-handoff build-list buying-committee call-coaching call-recap commitment-ledger company-intent-monitor company-news-monitor competitor-analysis contact-relationship-recap daily-brief decision-process-mapper draft-follow-up email-thread-summarizer engagement-timeline enrich-company enrich-contact exec-brief find-similar meeting-prep mutual-action-plan next-best-action objection-blocker-tracker personalize-email qbr-prep recommend-contacts renewal-prep score-accounts score-leads tam-sizer tech-stack-snapshot why-now https://mcp.zoominfo.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(281 38% 26%);color:hsl(281 70% 74%)" aria-hidden="true">Z</span><h3>ZoomInfo</h3><span class="plg-cat">Business</span></span>
+        <p>B2B company and contact intelligence lookup and enrichment.</p>
+        <span class="plg-conn"><code>https://mcp.zoominfo.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>35 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+    <section class="plg-group" data-group="Design">
+      <h2>Design · 7</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/magic-21st.html" data-category="Design"
+         data-ready="0" data-search="21st.dev magic generates react ui components from a description, in the style of 21st.dev. design  npx -y @21st-dev/magic">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(168 38% 26%);color:hsl(168 70% 74%)" aria-hidden="true">2</span><h3>21st.dev Magic</h3><span class="plg-cat">Design</span></span>
+        <p>Generates React UI components from a description, in the style of 21st.dev.</p>
+        <span class="plg-conn"><code>npx -y @21st-dev/magic</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/adobe-for-creativity.html" data-category="Design"
+         data-ready="1" data-search="adobe creative cloud edit images and run adobe creative workflows: background removal, vectorization, retouching. design adobe-batch-edit-photos adobe-create-pdfs-from-data adobe-create-social-variations adobe-design-from-template adobe-edit-quick-cut adobe-resize-photos-and-videos adobe-retouch-portraits https://adobe-creativity.adobe.io/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(186 38% 26%);color:hsl(186 70% 74%)" aria-hidden="true">A</span><h3>Adobe Creative Cloud</h3><span class="plg-cat">Design</span></span>
+        <p>Edit images and run Adobe creative workflows: background removal, vectorization, retouching.</p>
+        <span class="plg-conn"><code>https://adobe-creativity.adobe.io/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>7 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/canva.html" data-category="Design"
+         data-ready="1" data-search="canva create and edit canva designs, apply brand checks and resize for social. design brand-check bulk-create edit-design get-design-feedback implement-feedback resize-for-social-media https://mcp.canva.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(131 38% 26%);color:hsl(131 70% 74%)" aria-hidden="true">C</span><h3>Canva</h3><span class="plg-cat">Design</span></span>
+        <p>Create and edit Canva designs, apply brand checks and resize for social.</p>
+        <span class="plg-conn"><code>https://mcp.canva.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/cloudinary.html" data-category="Design"
+         data-ready="1" data-search="cloudinary manage cloudinary assets, transformations and structured metadata. design cloudinary-docs cloudinary-transformations https://asset-management.mcp.cloudinary.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(302 38% 26%);color:hsl(302 70% 74%)" aria-hidden="true">C</span><h3>Cloudinary</h3><span class="plg-cat">Design</span></span>
+        <p>Manage Cloudinary assets, transformations and structured metadata.</p>
+        <span class="plg-conn"><code>https://asset-management.mcp.cloudinary.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>2 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/excalidraw.html" data-category="Design"
+         data-ready="1" data-search="excalidraw diagrams as data. runs locally on port 3001. design  http://127.0.0.1:3001/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(10 38% 26%);color:hsl(10 70% 74%)" aria-hidden="true">E</span><h3>Excalidraw</h3><span class="plg-cat">Design</span></span>
+        <p>Diagrams as data. Runs locally on port 3001.</p>
+        <span class="plg-conn"><code>http://127.0.0.1:3001/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/figma.html" data-category="Design"
+         data-ready="0" data-search="figma reads figma files so a build can follow the actual design rather than a screenshot of it. design  npx -y figma-developer-mcp --stdio">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(336 38% 26%);color:hsl(336 70% 74%)" aria-hidden="true">F</span><h3>Figma</h3><span class="plg-cat">Design</span></span>
+        <p>Reads Figma files so a build can follow the actual design rather than a screenshot of it.</p>
+        <span class="plg-conn"><code>npx -y figma-developer-mcp --stdio</code></span>
+        <span class="plg-foot">
+          <span class="plg-state">needs FIGMA_API_KEY</span>
+          
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/miro.html" data-category="Design"
+         data-ready="1" data-search="miro read and create miro boards, frames and sticky notes. design miro-browse miro-code-explain-on-board miro-code-review miro-code-spec miro-diagram miro-doc miro-table https://mcp.miro.com/">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(169 38% 26%);color:hsl(169 70% 74%)" aria-hidden="true">M</span><h3>Miro</h3><span class="plg-cat">Design</span></span>
+        <p>Read and create Miro boards, frames and sticky notes.</p>
+        <span class="plg-conn"><code>https://mcp.miro.com/</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>7 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+    <section class="plg-group" data-group="Other">
+      <h2>Other · 3</h2>
+      <div class="plg-grid">
+      <a class="plg" href="/plugins/desktop-commander.html" data-category="Other"
+         data-ready="1" data-search="desktop commander local file editing, terminal commands and process control on the host machine. other ai-tools-setup computer-health-check desktop-commander-overview knowledge-base obsidian-vault terminal npx -y @wonderwhy-er/desktop-commander@latest">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(167 38% 26%);color:hsl(167 70% 74%)" aria-hidden="true">D</span><h3>Desktop Commander</h3><span class="plg-cat">Other</span></span>
+        <p>Local file editing, terminal commands and process control on the host machine.</p>
+        <span class="plg-conn"><code>npx -y @wonderwhy-er/desktop-commander@latest</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>6 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/mapbox.html" data-category="Other"
+         data-ready="1" data-search="mapbox geocoding, directions, isochrones and map style tooling. other mapbox-android-patterns mapbox-cartography mapbox-data-visualization-patterns mapbox-flutter-patterns mapbox-geospatial-operations mapbox-google-maps-migration mapbox-ios-patterns mapbox-location-grounding mapbox-maplibre-migration mapbox-mcp-devkit-patterns mapbox-mcp-runtime-patterns mapbox-search-integration mapbox-search-patterns mapbox-store-locator-patterns mapbox-style-patterns mapbox-style-quality mapbox-token-security mapbox-web-integration-patterns mapbox-web-performance-patterns https://mcp.mapbox.com/mcp">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(47 38% 26%);color:hsl(47 70% 74%)" aria-hidden="true">M</span><h3>Mapbox</h3><span class="plg-cat">Other</span></span>
+        <p>Geocoding, directions, isochrones and map style tooling.</p>
+        <span class="plg-conn"><code>https://mcp.mapbox.com/mcp</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>19 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      <a class="plg" href="/plugins/zapier.html" data-category="Other"
+         data-ready="1" data-search="zapier run zapier actions across connected apps from a single endpoint. other zapier-demo zapier-explore zapier-onboard zapier-status https://mcp.zapier.com/api/v1/connect">
+        <span class="plg-head"><span class="plg-mark" style="background:hsl(141 38% 26%);color:hsl(141 70% 74%)" aria-hidden="true">Z</span><h3>Zapier</h3><span class="plg-cat">Other</span></span>
+        <p>Run Zapier actions across connected apps from a single endpoint.</p>
+        <span class="plg-conn"><code>https://mcp.zapier.com/api/v1/connect</code></span>
+        <span class="plg-foot">
+          <span class="plg-state ready">no key needed</span>
+          <span>4 skills</span>
+          <span class="go">open →</span>
+        </span>
+      </a>
+      </div>
+    </section>
+
+  <p class="plg-empty" data-empty hidden>Nothing matches that. Try a shorter word.</p>
+
+  <div class="plg-note" style="margin-top:34px;">
+    Missing one? Every plugin here is an MCP server, so anything that speaks the
+    protocol works whether it is listed or not: point xNAUT at its command or its
+    URL. To get one added, open an issue or a pull request on
+    <a href="https://github.com/48Nauts-Operator/xNaut/issues">GitHub</a>.
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/plugins/">Plugins</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  (function () {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.plg'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('[data-group]'));
+    var count = document.querySelector('[data-count]');
+    var empty = document.querySelector('[data-empty]');
+    var search = document.querySelector('.plg-search');
+    var filters = Array.prototype.slice.call(document.querySelectorAll('[data-filter]'));
+    var readyOnly = document.querySelector('[data-ready-only]');
+    var category = 'All';
+    var readyFilter = false;
+
+    function apply() {
+      var term = search.value.trim().toLowerCase();
+      var shown = 0;
+      cards.forEach(function (card) {
+        var ok = (category === 'All' || card.dataset.category === category)
+          && (!readyFilter || card.dataset.ready === '1')
+          && (!term || card.dataset.search.indexOf(term) !== -1);
+        card.hidden = !ok;
+        if (ok) shown += 1;
+      });
+      // A category heading with nothing under it reads as an empty category
+      // rather than as a filtered one.
+      groups.forEach(function (group) {
+        group.hidden = !group.querySelector('.plg:not([hidden])');
+      });
+      count.textContent = shown + (shown === 1 ? ' plugin' : ' plugins');
+      empty.hidden = shown !== 0;
+    }
+
+    search.addEventListener('input', apply);
+    filters.forEach(function (button) {
+      button.addEventListener('click', function () {
+        filters.forEach(function (other) { other.classList.remove('on'); });
+        button.classList.add('on');
+        category = button.dataset.filter;
+        apply();
+        // Deep-linkable, so a link can point at one category.
+        history.replaceState(null, '', category === 'All' ? '/plugins/' : '#' + category.toLowerCase().replace(/[^a-z]+/g, '-'));
+      });
+    });
+    readyOnly.addEventListener('click', function () {
+      readyFilter = !readyFilter;
+      readyOnly.classList.toggle('on', readyFilter);
+      apply();
+    });
+
+    var wanted = decodeURIComponent(location.hash.slice(1)).toLowerCase();
+    if (wanted) {
+      var match = filters.find(function (button) {
+        return button.dataset.filter.toLowerCase().replace(/[^a-z]+/g, '-') === wanted;
+      });
+      if (match) match.click();
+    }
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "xNAUT Plugins",
+  "description": "148 MCP servers xNAUT can hand an agent: 116 run with no credential, and 961 skills between them. Not a store — xNAUT reads the public registries and says which is which.",
+  "url": "https://xnaut.dev/plugins/",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": 148,
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "url": "https://xnaut.dev/plugins/context7.html", "name": "Context7" },
+      { "@type": "ListItem", "position": 2, "url": "https://xnaut.dev/plugins/exa.html", "name": "Exa" },
+      { "@type": "ListItem", "position": 3, "url": "https://xnaut.dev/plugins/brave-search.html", "name": "Brave Search" },
+      { "@type": "ListItem", "position": 4, "url": "https://xnaut.dev/plugins/notion.html", "name": "Notion" },
+      { "@type": "ListItem", "position": 5, "url": "https://xnaut.dev/plugins/obsidian.html", "name": "Obsidian" },
+      { "@type": "ListItem", "position": 6, "url": "https://xnaut.dev/plugins/memory.html", "name": "Memory" },
+      { "@type": "ListItem", "position": 7, "url": "https://xnaut.dev/plugins/engram.html", "name": "Engram" },
+      { "@type": "ListItem", "position": 8, "url": "https://xnaut.dev/plugins/lineary.html", "name": "Lineary" },
+      { "@type": "ListItem", "position": 9, "url": "https://xnaut.dev/plugins/linear.html", "name": "Linear" },
+      { "@type": "ListItem", "position": 10, "url": "https://xnaut.dev/plugins/sentry.html", "name": "Sentry" },
+      { "@type": "ListItem", "position": 11, "url": "https://xnaut.dev/plugins/gmail.html", "name": "Gmail" },
+      { "@type": "ListItem", "position": 12, "url": "https://xnaut.dev/plugins/google-calendar.html", "name": "Google Calendar" },
+      { "@type": "ListItem", "position": 13, "url": "https://xnaut.dev/plugins/slack.html", "name": "Slack" },
+      { "@type": "ListItem", "position": 14, "url": "https://xnaut.dev/plugins/github.html", "name": "GitHub" },
+      { "@type": "ListItem", "position": 15, "url": "https://xnaut.dev/plugins/playwright.html", "name": "Playwright" },
+      { "@type": "ListItem", "position": 16, "url": "https://xnaut.dev/plugins/filesystem.html", "name": "Filesystem" },
+      { "@type": "ListItem", "position": 17, "url": "https://xnaut.dev/plugins/postgres.html", "name": "Postgres" },
+      { "@type": "ListItem", "position": 18, "url": "https://xnaut.dev/plugins/sequential-thinking.html", "name": "Sequential Thinking" },
+      { "@type": "ListItem", "position": 19, "url": "https://xnaut.dev/plugins/figma.html", "name": "Figma" },
+      { "@type": "ListItem", "position": 20, "url": "https://xnaut.dev/plugins/excalidraw.html", "name": "Excalidraw" },
+      { "@type": "ListItem", "position": 21, "url": "https://xnaut.dev/plugins/forgejo.html", "name": "Forgejo" },
+      { "@type": "ListItem", "position": 22, "url": "https://xnaut.dev/plugins/codebase-memory.html", "name": "Codebase Memory" },
+      { "@type": "ListItem", "position": 23, "url": "https://xnaut.dev/plugins/nautdocs.html", "name": "NautDocs" },
+      { "@type": "ListItem", "position": 24, "url": "https://xnaut.dev/plugins/kubernetes.html", "name": "Kubernetes" },
+      { "@type": "ListItem", "position": 25, "url": "https://xnaut.dev/plugins/supabase.html", "name": "Supabase" },
+      { "@type": "ListItem", "position": 26, "url": "https://xnaut.dev/plugins/magic-21st.html", "name": "21st.dev Magic" },
+      { "@type": "ListItem", "position": 27, "url": "https://xnaut.dev/plugins/firecrawl.html", "name": "Firecrawl" },
+      { "@type": "ListItem", "position": 28, "url": "https://xnaut.dev/plugins/tavily.html", "name": "Tavily" },
+      { "@type": "ListItem", "position": 29, "url": "https://xnaut.dev/plugins/todoist.html", "name": "Todoist" },
+      { "@type": "ListItem", "position": 30, "url": "https://xnaut.dev/plugins/atlassian.html", "name": "Jira & Confluence" },
+      { "@type": "ListItem", "position": 31, "url": "https://xnaut.dev/plugins/google-drive.html", "name": "Google Drive" },
+      { "@type": "ListItem", "position": 32, "url": "https://xnaut.dev/plugins/airtable.html", "name": "Airtable" },
+      { "@type": "ListItem", "position": 33, "url": "https://xnaut.dev/plugins/stripe.html", "name": "Stripe" },
+      { "@type": "ListItem", "position": 34, "url": "https://xnaut.dev/plugins/time.html", "name": "Time" },
+      { "@type": "ListItem", "position": 35, "url": "https://xnaut.dev/plugins/adobe-for-creativity.html", "name": "Adobe Creative Cloud" },
+      { "@type": "ListItem", "position": 36, "url": "https://xnaut.dev/plugins/aikido.html", "name": "Aikido Security" },
+      { "@type": "ListItem", "position": 37, "url": "https://xnaut.dev/plugins/airwallex-agentos.html", "name": "Airwallex" },
+      { "@type": "ListItem", "position": 38, "url": "https://xnaut.dev/plugins/airwallex-dev.html", "name": "Airwallex Developer (sandbox)" },
+      { "@type": "ListItem", "position": 39, "url": "https://xnaut.dev/plugins/aiven.html", "name": "Aiven" },
+      { "@type": "ListItem", "position": 40, "url": "https://xnaut.dev/plugins/amplitude.html", "name": "Amplitude" },
+      { "@type": "ListItem", "position": 41, "url": "https://xnaut.dev/plugins/apollo.html", "name": "Apollo.io" },
+      { "@type": "ListItem", "position": 42, "url": "https://xnaut.dev/plugins/apollo-skills.html", "name": "Apollo GraphOS" },
+      { "@type": "ListItem", "position": 43, "url": "https://xnaut.dev/plugins/appwrite.html", "name": "Appwrite" },
+      { "@type": "ListItem", "position": 44, "url": "https://xnaut.dev/plugins/asana.html", "name": "Asana" },
+      { "@type": "ListItem", "position": 45, "url": "https://xnaut.dev/plugins/ashby.html", "name": "Ashby" },
+      { "@type": "ListItem", "position": 46, "url": "https://xnaut.dev/plugins/atlan.html", "name": "Atlan" },
+      { "@type": "ListItem", "position": 47, "url": "https://xnaut.dev/plugins/aws-agents.html", "name": "AWS Knowledge" },
+      { "@type": "ListItem", "position": 48, "url": "https://xnaut.dev/plugins/aws-agents-for-devsecops.html", "name": "AWS DevSecOps Agent" },
+      { "@type": "ListItem", "position": 49, "url": "https://xnaut.dev/plugins/aws-core.html", "name": "AWS API Proxy" },
+      { "@type": "ListItem", "position": 50, "url": "https://xnaut.dev/plugins/aws-serverless.html", "name": "AWS Serverless" },
+      { "@type": "ListItem", "position": 51, "url": "https://xnaut.dev/plugins/aws-transform.html", "name": "AWS Transform" },
+      { "@type": "ListItem", "position": 52, "url": "https://xnaut.dev/plugins/azure.html", "name": "Azure" },
+      { "@type": "ListItem", "position": 53, "url": "https://xnaut.dev/plugins/bigdata-com.html", "name": "Bigdata.com" },
+      { "@type": "ListItem", "position": 54, "url": "https://xnaut.dev/plugins/browser-use.html", "name": "Browser Use" },
+      { "@type": "ListItem", "position": 55, "url": "https://xnaut.dev/plugins/canva.html", "name": "Canva" },
+      { "@type": "ListItem", "position": 56, "url": "https://xnaut.dev/plugins/catalyst-by-zoho.html", "name": "Zoho Catalyst" },
+      { "@type": "ListItem", "position": 57, "url": "https://xnaut.dev/plugins/chrome-devtools-mcp.html", "name": "Chrome DevTools" },
+      { "@type": "ListItem", "position": 58, "url": "https://xnaut.dev/plugins/circle-skills.html", "name": "Circle" },
+      { "@type": "ListItem", "position": 59, "url": "https://xnaut.dev/plugins/circleback.html", "name": "Circleback" },
+      { "@type": "ListItem", "position": 60, "url": "https://xnaut.dev/plugins/clay.html", "name": "Clay" },
+      { "@type": "ListItem", "position": 61, "url": "https://xnaut.dev/plugins/clickhouse.html", "name": "ClickHouse Cloud" },
+      { "@type": "ListItem", "position": 62, "url": "https://xnaut.dev/plugins/cloudflare.html", "name": "Cloudflare" },
+      { "@type": "ListItem", "position": 63, "url": "https://xnaut.dev/plugins/cloudinary.html", "name": "Cloudinary" },
+      { "@type": "ListItem", "position": 64, "url": "https://xnaut.dev/plugins/codspeed.html", "name": "CodSpeed" },
+      { "@type": "ListItem", "position": 65, "url": "https://xnaut.dev/plugins/confidence.html", "name": "Confidence" },
+      { "@type": "ListItem", "position": 66, "url": "https://xnaut.dev/plugins/convex.html", "name": "Convex" },
+      { "@type": "ListItem", "position": 67, "url": "https://xnaut.dev/plugins/data-agent-kit-starter-pack.html", "name": "Google Data Agent Kit" },
+      { "@type": "ListItem", "position": 68, "url": "https://xnaut.dev/plugins/datadog.html", "name": "Datadog" },
+      { "@type": "ListItem", "position": 69, "url": "https://xnaut.dev/plugins/deploy-on-aws.html", "name": "AWS IaC" },
+      { "@type": "ListItem", "position": 70, "url": "https://xnaut.dev/plugins/desktop-commander.html", "name": "Desktop Commander" },
+      { "@type": "ListItem", "position": 71, "url": "https://xnaut.dev/plugins/docusign.html", "name": "Docusign" },
+      { "@type": "ListItem", "position": 72, "url": "https://xnaut.dev/plugins/dropbox.html", "name": "Dropbox" },
+      { "@type": "ListItem", "position": 73, "url": "https://xnaut.dev/plugins/expo.html", "name": "Expo" },
+      { "@type": "ListItem", "position": 74, "url": "https://xnaut.dev/plugins/firebase.html", "name": "Firebase" },
+      { "@type": "ListItem", "position": 75, "url": "https://xnaut.dev/plugins/forge-skills.html", "name": "Atlassian Forge" },
+      { "@type": "ListItem", "position": 76, "url": "https://xnaut.dev/plugins/fullstory.html", "name": "Fullstory" },
+      { "@type": "ListItem", "position": 77, "url": "https://xnaut.dev/plugins/gitkraken.html", "name": "GitKraken" },
+      { "@type": "ListItem", "position": 78, "url": "https://xnaut.dev/plugins/gitlab.html", "name": "GitLab" },
+      { "@type": "ListItem", "position": 79, "url": "https://xnaut.dev/plugins/gong.html", "name": "Gong" },
+      { "@type": "ListItem", "position": 80, "url": "https://xnaut.dev/plugins/grafana-cloud-mcp.html", "name": "Grafana Cloud" },
+      { "@type": "ListItem", "position": 81, "url": "https://xnaut.dev/plugins/grafana-mcp.html", "name": "Grafana (self-hosted)" },
+      { "@type": "ListItem", "position": 82, "url": "https://xnaut.dev/plugins/greptile.html", "name": "Greptile" },
+      { "@type": "ListItem", "position": 83, "url": "https://xnaut.dev/plugins/honeycomb.html", "name": "Honeycomb" },
+      { "@type": "ListItem", "position": 84, "url": "https://xnaut.dev/plugins/hostinger.html", "name": "Hostinger" },
+      { "@type": "ListItem", "position": 85, "url": "https://xnaut.dev/plugins/hubspot.html", "name": "HubSpot" },
+      { "@type": "ListItem", "position": 86, "url": "https://xnaut.dev/plugins/huggingface-skills.html", "name": "Hugging Face" },
+      { "@type": "ListItem", "position": 87, "url": "https://xnaut.dev/plugins/hunter.html", "name": "Hunter" },
+      { "@type": "ListItem", "position": 88, "url": "https://xnaut.dev/plugins/intercom.html", "name": "Intercom" },
+      { "@type": "ListItem", "position": 89, "url": "https://xnaut.dev/plugins/jfrog.html", "name": "JFrog" },
+      { "@type": "ListItem", "position": 90, "url": "https://xnaut.dev/plugins/legalzoom.html", "name": "LegalZoom" },
+      { "@type": "ListItem", "position": 91, "url": "https://xnaut.dev/plugins/logfire.html", "name": "Pydantic Logfire" },
+      { "@type": "ListItem", "position": 92, "url": "https://xnaut.dev/plugins/logrocket.html", "name": "LogRocket" },
+      { "@type": "ListItem", "position": 93, "url": "https://xnaut.dev/plugins/lovable.html", "name": "Lovable" },
+      { "@type": "ListItem", "position": 94, "url": "https://xnaut.dev/plugins/lusha.html", "name": "Lusha" },
+      { "@type": "ListItem", "position": 95, "url": "https://xnaut.dev/plugins/mapbox.html", "name": "Mapbox" },
+      { "@type": "ListItem", "position": 96, "url": "https://xnaut.dev/plugins/mercadopago.html", "name": "Mercado Pago" },
+      { "@type": "ListItem", "position": 97, "url": "https://xnaut.dev/plugins/microsoft-docs.html", "name": "Microsoft Learn" },
+      { "@type": "ListItem", "position": 98, "url": "https://xnaut.dev/plugins/mintlify.html", "name": "Mintlify" },
+      { "@type": "ListItem", "position": 99, "url": "https://xnaut.dev/plugins/miro.html", "name": "Miro" },
+      { "@type": "ListItem", "position": 100, "url": "https://xnaut.dev/plugins/monday-crm.html", "name": "monday.com" },
+      { "@type": "ListItem", "position": 101, "url": "https://xnaut.dev/plugins/mongodb.html", "name": "MongoDB (local)" },
+      { "@type": "ListItem", "position": 102, "url": "https://xnaut.dev/plugins/mongodb-atlas.html", "name": "MongoDB Atlas" },
+      { "@type": "ListItem", "position": 103, "url": "https://xnaut.dev/plugins/navan.html", "name": "Navan" },
+      { "@type": "ListItem", "position": 104, "url": "https://xnaut.dev/plugins/neon.html", "name": "Neon" },
+      { "@type": "ListItem", "position": 105, "url": "https://xnaut.dev/plugins/netlify-skills.html", "name": "Netlify" },
+      { "@type": "ListItem", "position": 106, "url": "https://xnaut.dev/plugins/newrelic.html", "name": "New Relic" },
+      { "@type": "ListItem", "position": 107, "url": "https://xnaut.dev/plugins/nimble.html", "name": "Nimble" },
+      { "@type": "ListItem", "position": 108, "url": "https://xnaut.dev/plugins/pagerduty.html", "name": "PagerDuty" },
+      { "@type": "ListItem", "position": 109, "url": "https://xnaut.dev/plugins/paypal.html", "name": "PayPal (sandbox)" },
+      { "@type": "ListItem", "position": 110, "url": "https://xnaut.dev/plugins/pigment.html", "name": "Pigment" },
+      { "@type": "ListItem", "position": 111, "url": "https://xnaut.dev/plugins/pinecone.html", "name": "Pinecone" },
+      { "@type": "ListItem", "position": 112, "url": "https://xnaut.dev/plugins/planetscale.html", "name": "PlanetScale" },
+      { "@type": "ListItem", "position": 113, "url": "https://xnaut.dev/plugins/posthog.html", "name": "PostHog" },
+      { "@type": "ListItem", "position": 114, "url": "https://xnaut.dev/plugins/postman.html", "name": "Postman" },
+      { "@type": "ListItem", "position": 115, "url": "https://xnaut.dev/plugins/prisma.html", "name": "Prisma" },
+      { "@type": "ListItem", "position": 116, "url": "https://xnaut.dev/plugins/profound.html", "name": "Profound" },
+      { "@type": "ListItem", "position": 117, "url": "https://xnaut.dev/plugins/qt-development-skills.html", "name": "Qt Docs" },
+      { "@type": "ListItem", "position": 118, "url": "https://xnaut.dev/plugins/railway.html", "name": "Railway" },
+      { "@type": "ListItem", "position": 119, "url": "https://xnaut.dev/plugins/render.html", "name": "Render" },
+      { "@type": "ListItem", "position": 120, "url": "https://xnaut.dev/plugins/resend.html", "name": "Resend" },
+      { "@type": "ListItem", "position": 121, "url": "https://xnaut.dev/plugins/revenuecat.html", "name": "RevenueCat" },
+      { "@type": "ListItem", "position": 122, "url": "https://xnaut.dev/plugins/rill.html", "name": "Rill Developer" },
+      { "@type": "ListItem", "position": 123, "url": "https://xnaut.dev/plugins/rootly.html", "name": "Rootly" },
+      { "@type": "ListItem", "position": 124, "url": "https://xnaut.dev/plugins/salesforce.html", "name": "Salesforce" },
+      { "@type": "ListItem", "position": 125, "url": "https://xnaut.dev/plugins/sanity.html", "name": "Sanity" },
+      { "@type": "ListItem", "position": 126, "url": "https://xnaut.dev/plugins/sap-cds-mcp.html", "name": "SAP CAP (CDS)" },
+      { "@type": "ListItem", "position": 127, "url": "https://xnaut.dev/plugins/sap-fiori-mcp-server.html", "name": "SAP Fiori Tools" },
+      { "@type": "ListItem", "position": 128, "url": "https://xnaut.dev/plugins/sap-hana-cli.html", "name": "SAP HANA CLI" },
+      { "@type": "ListItem", "position": 129, "url": "https://xnaut.dev/plugins/sap-mdk-server.html", "name": "SAP MDK" },
+      { "@type": "ListItem", "position": 130, "url": "https://xnaut.dev/plugins/serena.html", "name": "Serena" },
+      { "@type": "ListItem", "position": 131, "url": "https://xnaut.dev/plugins/shippo.html", "name": "Shippo" },
+      { "@type": "ListItem", "position": 132, "url": "https://xnaut.dev/plugins/sonatype-guide.html", "name": "Sonatype" },
+      { "@type": "ListItem", "position": 133, "url": "https://xnaut.dev/plugins/sourcegraph.html", "name": "Sourcegraph" },
+      { "@type": "ListItem", "position": 134, "url": "https://xnaut.dev/plugins/sumup.html", "name": "SumUp" },
+      { "@type": "ListItem", "position": 135, "url": "https://xnaut.dev/plugins/synthflow.html", "name": "Synthflow" },
+      { "@type": "ListItem", "position": 136, "url": "https://xnaut.dev/plugins/terraform.html", "name": "Terraform" },
+      { "@type": "ListItem", "position": 137, "url": "https://xnaut.dev/plugins/twilio-developer-kit.html", "name": "Twilio Docs" },
+      { "@type": "ListItem", "position": 138, "url": "https://xnaut.dev/plugins/ui5.html", "name": "SAP UI5" },
+      { "@type": "ListItem", "position": 139, "url": "https://xnaut.dev/plugins/valtown.html", "name": "Val Town" },
+      { "@type": "ListItem", "position": 140, "url": "https://xnaut.dev/plugins/vanta.html", "name": "Vanta" },
+      { "@type": "ListItem", "position": 141, "url": "https://xnaut.dev/plugins/vercel.html", "name": "Vercel" },
+      { "@type": "ListItem", "position": 142, "url": "https://xnaut.dev/plugins/windsor-ai.html", "name": "Windsor.ai" },
+      { "@type": "ListItem", "position": 143, "url": "https://xnaut.dev/plugins/wix.html", "name": "Wix" },
+      { "@type": "ListItem", "position": 144, "url": "https://xnaut.dev/plugins/x.html", "name": "X" },
+      { "@type": "ListItem", "position": 145, "url": "https://xnaut.dev/plugins/zapier.html", "name": "Zapier" },
+      { "@type": "ListItem", "position": 146, "url": "https://xnaut.dev/plugins/zoom-plugin.html", "name": "Zoom" },
+      { "@type": "ListItem", "position": 147, "url": "https://xnaut.dev/plugins/zoominfo.html", "name": "ZoomInfo" },
+      { "@type": "ListItem", "position": 148, "url": "https://xnaut.dev/plugins/zscaler.html", "name": "Zscaler" }
+    ]
+  }
+}
+</script>
+</body>
+</html>

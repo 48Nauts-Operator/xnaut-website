@@ -12,8 +12,10 @@ const SITE = 'http://127.0.0.1:8899';
 // Read over HTTP rather than from disk, so the spec runs from wherever it is
 // invoked and checks the file the site actually serves.
 let catalog = null;
+let reach = null;
 test.beforeEach(async ({ request }) => {
   if (!catalog) catalog = await (await request.get(`${SITE}/plugins/catalog.json`)).json();
+  if (!reach) reach = await (await request.get(`${SITE}/plugins/reachability.json`)).json();
 });
 
 test('the index uses the site design, groups by category and filters', async ({ page }) => {
@@ -39,16 +41,20 @@ test('the index uses the site design, groups by category and filters', async ({ 
   await expect(page.locator('.plg:visible')).toHaveCount(design);
   await expect(page.locator('[data-group]:visible')).toHaveCount(1);
 
-  // The filter says DECLARED, not verified: it reads what the entry declares,
-  // exactly as blocker() does in the app. Nothing here has been run.
+  // A MEASUREMENT outranks a declaration. A hosted endpoint counts as usable
+  // only if it actually answered without an account; a local one falls back to
+  // what it declares, because running it to find out would mean executing a
+  // stranger's code on this machine.
   await page.getByRole('button', { name: 'All', exact: true }).click();
-  await page.getByRole('button', { name: 'no credential declared' }).click();
-  const ready = catalog.filter((p) => !(
-    (p.transport === 'http' && !p.url) || (p.transport === 'stdio' && !p.command) || (p.required_env || []).length
-  )).length;
+  await page.getByRole('button', { name: 'usable with no account' }).click();
+  const ready = catalog.filter((p) => {
+    const measured = reach.results[p.id];
+    if (measured) return measured === 'open';
+    return !((p.transport === 'http' && !p.url) || (p.transport === 'stdio' && !p.command) || (p.required_env || []).length);
+  }).length;
   await expect(page.locator('.plg:visible')).toHaveCount(ready);
 
-  await page.getByRole('button', { name: 'no credential declared' }).click();
+  await page.getByRole('button', { name: 'usable with no account' }).click();
   await page.locator('.plg-search').fill('zzzznope');
   await expect(page.locator('.plg:visible')).toHaveCount(0);
   await expect(page.locator('[data-empty]')).toBeVisible();
@@ -157,4 +163,23 @@ test('every skill is named on the skills page, and links to its plugin', async (
   await expect(page.locator('.sk li:visible').first()).toContainText(sample.skill);
   await page.locator('.sk li:visible').first().getByRole('link').click();
   await expect(page).toHaveURL(new RegExp(`/plugins/${sample.id}\\.html$`));
+});
+
+test('a hosted endpoint states what it answered, not what it claims', async ({ page }) => {
+  // 82 of the 95 hosted entries DECLARE no credential. Probed unauthenticated
+  // on 2026-08-16, 80 answered 401 or 403. The card must carry the measurement.
+  const refusing = Object.entries(reach.results).filter(([, state]) => state === 'auth');
+  const open = Object.entries(reach.results).filter(([, state]) => state === 'open');
+  expect(refusing.length).toBeGreaterThan(50);
+  expect(open.length).toBeGreaterThan(0);
+
+  await page.goto(`${SITE}/plugins/${refusing[0][0]}.html`);
+  await expect(page.getByRole('heading', { name: 'What we measured' })).toBeVisible();
+  await expect(page.locator('main')).toContainText('sign-in required');
+  await expect(page.locator('main')).toContainText(reach.checked);
+  // It must not read as a verdict on the vendor.
+  await expect(page.locator('main')).toContainText('Not a security audit');
+
+  await page.goto(`${SITE}/plugins/${open[0][0]}.html`);
+  await expect(page.locator('main')).toContainText('answered with no account');
 });

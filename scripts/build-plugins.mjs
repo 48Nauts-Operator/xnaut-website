@@ -77,6 +77,35 @@ const rank = (category) => {
 };
 const categories = [...new Set(plugins.map((p) => p.category))].sort((a, b) => rank(a) - rank(b));
 
+// What an unauthenticated MCP `initialize` actually got back, per endpoint.
+// Written by scripts/probe-endpoints.mjs; see plugins/reachability.json for the
+// date and the method. This is the credential-free half of the "verified" tier
+// the design paper defines: a measurement with a date on it, never an opinion.
+//
+// It exists because the declaration lies. 82 of the 95 HTTP entries declare no
+// credential, which the library reads as ready; probed on 2026-08-16, 80 of
+// them answered 401 or 403.
+let reachability = { checked: "", results: {} };
+try {
+  reachability = JSON.parse(readFileSync(new URL("../plugins/reachability.json", import.meta.url), "utf8"));
+} catch { /* no probe run yet: the page simply says nothing about reachability */ }
+
+const REACH_LABEL = {
+  open: "answered with no account",
+  auth: "sign-in required",
+  answered: "answered, non-standard reply",
+  unreachable: "did not answer",
+  "needs-its-url": "needs its URL",
+};
+// A probe result we have no label for must never fall back to the DECLARED
+// state: an endpoint that answered 307 was being shown as ready because
+// "http-307" was not in the map above.
+const reach = (plugin) => {
+  const state = reachability.results[plugin.id];
+  if (!state) return null;
+  return REACH_LABEL[state] || `answered ${state.replace("http-", "HTTP ")}`;
+};
+
 // The same rule as blocker() in src-tauri/src/plugins.rs, so the site and the
 // library never disagree about whether a plugin is ready to run.
 const blocker = (plugin) => {
@@ -247,16 +276,18 @@ const DETAIL_STYLE = `${SHARED_STYLE}
 
 const card = (plugin) => {
   const state = blocker(plugin);
+  // A measurement outranks a declaration wherever we have one.
+  const measured = reach(plugin);
   const line = connector(plugin);
   const skills = (plugin.skills || []).length;
-  const haystack = `${plugin.name} ${plugin.description} ${plugin.category} ${(plugin.skills || []).join(" ")} ${line}`;
+  const haystack = `${plugin.name} ${plugin.description} ${plugin.category} ${(plugin.skills || []).join(" ")} ${line} ${measured || ""}`;
   return `      <a class="plg" href="/plugins/${esc(plugin.id)}.html" data-category="${esc(plugin.category)}"
-         data-ready="${state ? "0" : "1"}" data-search="${esc(haystack.toLowerCase())}">
+         data-ready="${measured ? (measured === "answered with no account" ? "1" : "0") : (state ? "0" : "1")}" data-search="${esc(haystack.toLowerCase())}">
         <span class="plg-head">${tile(plugin)}<h3>${esc(plugin.name)}</h3><span class="plg-cat">${esc(plugin.category)}</span></span>
         <p>${esc(plugin.description)}</p>
         ${line ? `<span class="plg-conn"><code>${esc(line)}</code></span>` : ""}
         <span class="plg-foot">
-          <span class="plg-state${state ? "" : " ready"}">${esc(state || "no credential declared")}</span>
+          <span class="plg-state${measured === "answered with no account" ? " ready" : ""}">${esc(measured || state || "no credential declared")}</span>
           ${skills ? `<span>${skills} skill${skills === 1 ? "" : "s"}</span>` : ""}
           <span class="go">open →</span>
         </span>
@@ -300,7 +331,7 @@ ${navIndex}
   <h1>Plugins</h1>
   <span class="updated">Everything xNAUT can hand an agent</span>
 
-  <p class="plg-lead">A plugin is an MCP server. xNAUT does not host, sell or repackage any of them: it reads the public registries, runs what it can, and says which is which. You configure one once in the plugin library, then hand it to a single agent with the <span class="mono">+</span> in that agent's header. Two gates, on purpose.</p>
+  <p class="plg-lead">A plugin is an MCP server. xNAUT does not host, sell or repackage any of them: it reads the public registries, runs what it can, and says which is which. Every hosted endpoint here was sent an unauthenticated <span class="mono">initialize</span> on ${reachability.checked || "the build date"}, and each card says what came back rather than what its entry claims. You configure one once in the plugin library, then hand it to a single agent with the <span class="mono">+</span> in that agent's header. Two gates, on purpose.</p>
 
   <section class="stats">
     <div class="stat"><b>${plugins.length}</b><span>plugins in the library</span></div>
@@ -313,7 +344,7 @@ ${navIndex}
     <input class="plg-search" type="search" placeholder="Search plugins, categories, skills…" aria-label="Search plugins">
     <div class="plg-filters">
 ${filters}
-      <button class="plg-filter" data-ready-only>no credential declared</button>
+      <button class="plg-filter" data-ready-only>usable with no account</button>
     </div>
   </div>
   <p class="plg-count" data-count>${plugins.length} plugins</p>
@@ -415,6 +446,7 @@ ${plugins.map((plugin, index) => `      { "@type": "ListItem", "position": ${ind
 
 const detailPage = (plugin) => {
   const state = blocker(plugin);
+  const measured = reach(plugin);
   const line = connector(plugin);
   const skills = plugin.skills || [];
   const related = plugins
@@ -442,7 +474,7 @@ ${nav}
 
   <div class="plg-actions">
     <span class="plg-cat">${esc(plugin.category)}</span>
-    <span class="plg-state${state ? "" : " ready"}">${esc(state || "no credential declared")}</span>
+    <span class="plg-state${measured === "answered with no account" ? " ready" : ""}">${esc(measured || state || "no credential declared")}</span>
     <button class="plg-copy" data-copy="${esc(plugin.id)}">copy id: ${esc(plugin.id)}</button>
     ${plugin.docs_url ? `<a class="plg-state" href="${esc(plugin.docs_url)}" rel="noopener noreferrer" target="_blank">source ↗</a>` : '<span class="plg-state">no source link</span>'}
   </div>
@@ -453,6 +485,12 @@ ${nav}
     <p style="margin-top:10px;">${plugin.transport === "http"
       ? "An HTTP MCP endpoint. xNAUT talks to it directly; nothing is installed."
       : "Started by xNAUT when an agent that holds this plugin runs. Nothing is installed globally."}</p>
+  </section>` : ""}
+
+  ${measured ? `<section class="plg-sec">
+    <h2>What we measured</h2>
+    <p><b>${esc(measured)}.</b> On ${esc(reachability.checked)} we sent this endpoint an MCP <span class="mono">initialize</span> with no credentials and no headers, and that is what came back.</p>
+    <p class="plg-state">Not a security audit, not an endorsement, and not a heartbeat: it is one request on one date. An endpoint is a vendor's service, not an artifact we can pin, so it can behave differently tomorrow.</p>
   </section>` : ""}
 
   <section class="plg-sec">

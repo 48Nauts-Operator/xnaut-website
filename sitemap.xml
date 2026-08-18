@@ -996,4 +996,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url><loc>https://xnaut.dev/blog/proofs-not-promises.html</loc><lastmod>2026-08-18</lastmod></url>
+  <url><loc>https://xnaut.dev/attest/</loc><lastmod>2026-08-18</lastmod></url>
 </urlset>

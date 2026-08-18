@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.16.2, in which the agent system was rebuilt around chat, a build handshake and 162 MCP plugins.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.17.0, in which agent work becomes hardware-attested on a Securosys HSM.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.16.2, in which the agent system was rebuilt around chat, a build handshake and 162 MCP plugins.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.17.0, in which agent work becomes hardware-attested on a Securosys HSM.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,8 +66,36 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.16.2</h2>
+      <h2>v1.17.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">18 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Hardware attestation. A Securosys Primus HSM signs what your agents did; the private key cannot leave the hardware, and anyone can verify a receipt at <a href="/attest/">xnaut.dev/attest</a>. Proofs, not promises.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Securosys Attestation plugin.</strong> Sign digests on a Securosys HSM and keep the receipts: hardware attestation for agent work, releases, or any artifact. Standalone by design, no NautGate required; a dependency-free MCP server talks straight to the TSB REST API, and receipts append to <span class="mono">attestations.jsonl</span> in app support. Configure a TSB endpoint plus an API key or JWT and the same plugin works against CloudHSM, the free 90-day sandbox, or an on-prem Primus. Verified end to end against a real partition before shipping.</li>
+        <li><strong>Brand marks in the plugin library can be images now</strong>, not only vector paths, which is how Securosys shows its real logo instead of a monogram tile.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>An agent allowed the network can actually bind a port.</strong> The policy translated network access into egress only, so a dev server died on bind.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.17.0">v1.17.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.16.2</h2>
       <span class="rel-date">16 August 2026</span>
     </div>
 
@@ -574,7 +602,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.16.2.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.17.0.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

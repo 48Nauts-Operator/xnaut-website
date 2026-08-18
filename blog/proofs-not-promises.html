@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proofs, not promises: why agent work needs hardware signatures · xNAUT</title>
+  <meta name="description" content="Agents act on their own, so the record of what they did is the only control surface you keep. A hash chain proves nobody edited a row. It cannot prove nobody rewrote the file. Here is why we put a Swiss HSM under it.">
+  <link rel="canonical" href="https://xnaut.dev/blog/proofs-not-promises.html">
+  <meta name="author" content="André">
+  <meta name="keywords" content="HSM attestation, AI agent compliance, Securosys, hash chain, audit log, EU AI Act, hardware signing">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="Proofs, not promises: why agent work needs hardware signatures">
+  <meta property="og:description" content="A hash chain proves nobody edited a row. It cannot prove nobody rewrote the file. Why we put a Swiss HSM under the agent audit log.">
+  <meta property="og:url" content="https://xnaut.dev/blog/proofs-not-promises.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="Proofs, not promises">
+  <meta name="twitter:description" content="Why agent work needs hardware signatures, and what a signature honestly does and does not prove.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .post pre { background: var(--panel); border: 1px solid var(--border-card); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; }
+    .post pre code { background: none; border: 0; padding: 0; font-size: 13px; line-height: 1.6; }
+    .post ul { margin: 0 0 16px; padding-left: 22px; }
+    .post li { font-size: 16px; line-height: 1.7; color: var(--text-soft); margin-bottom: 8px; }
+    .note { border-left: 2px solid var(--amber); background: var(--panel); padding: 16px 20px;
+            border-radius: 0 10px 10px 0; margin: 22px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
+    .post a { color: var(--amber); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Engineering</span>
+  <h1>Proofs, not promises</h1>
+  <p class="post-lede">Agents act on their own. The record of what they did is the only control surface you keep, and a record that can be rewritten is not evidence, it is a story. As of v1.17.0, xNAUT can seal that record on a Securosys HSM in Switzerland. This is the full reasoning: what a hash chain honestly proves, where it stops, why hardware closes the gap, and what a signature still cannot do.</p>
+  <p class="post-meta">18 August 2026 · André</p>
+
+  <h2>The problem a launch post exposed</h2>
+  <p>When I posted about launching NautGate, someone at Securosys read it and put her finger on the weak spot within a day. NautGate chains every routing decision into a tamper-evident log: each row carries the hash of the row before it, so editing any row breaks every hash after it. That is real protection, and it is also a promise with a hole in it. <strong>A chain proves nobody edited a row. It cannot prove nobody rewrote the whole file from the first row on.</strong> Anyone with write access to the database can regenerate the entire chain in seconds and the result is internally perfect.</p>
+  <p>Our own documentation for the privacy log said it plainly: no key management, no PKI. The gap was known. What she supplied was the reason to close it now rather than someday.</p>
+
+  <h2>Why hardware, specifically</h2>
+  <p>The rewrite attack works because everything the log's integrity depends on lives inside the same trust boundary: the database, the operator, the machine. Move one thing outside that boundary and the attack dies. That thing is a private key that <strong>physically cannot leave a hardware security module</strong>.</p>
+  <p>The HSM signs the head of the chain. One signature over the head covers every row before it, because the chain already binds them together; signing every row would put a network round trip on the hot path and prove nothing extra. To forge history now, an attacker needs more than database access. They need Securosys' hardware to sign their rewritten head, and the hardware will not, because the key never leaves it. Not policy. Physics.</p>
+  <p>This is also why we did not reach for a software signing key in a file or a cloud KMS entry. A key on disk sits inside the same trust boundary as the database it is supposed to check. A cloud KMS is better, but you are trusting an account, and accounts get owned. An HSM's private half is not readable by anyone, including us, including Securosys.</p>
+
+  <h2>One key, many subjects</h2>
+  <p>The first design draft had a key per use case. We deleted that. One configured key signs whatever it is handed, and the <strong>subject</strong> is a label on the receipt: <code>nautgate.privacy_log</code> for the chain head, <code>xnaut.agent-work</code> for an agent's finished work, a release digest, anything. A receipt is small: subject, digest, algorithm, key name, signature, timestamp. More keys would mean more custody problems and nothing extra proven.</p>
+
+  <h2>Verify it without trusting us</h2>
+  <p>A proof you can only check through the party who made it is a promise wearing a costume. So verification deliberately needs nothing from us:</p>
+  <ul>
+    <li><a href="/attest/">xnaut.dev/attest</a> verifies a receipt in your browser with WebCrypto, against the published public key.</li>
+    <li>If you do not trust the page either, download the <a href="/attest/XNAUT_ATTEST_KEY.pem">public key</a> and the receipt and run one line of stock OpenSSL:</li>
+  </ul>
+  <pre><code>openssl dgst -sha256 -verify XNAUT_ATTEST_KEY.pem -signature sig.bin digest.bin</code></pre>
+  <p>No account, no API, no xNAUT install. The math answers.</p>
+
+  <h2>What a signature does not prove</h2>
+  <p>Honesty is the whole product here, so the limits get stated as clearly as the claims.</p>
+  <ul>
+    <li><strong>It does not prove the log told the truth when it was written.</strong> The signature seals the record from the moment of signing onward. If the software lied into the log before sealing, the lie gets sealed too. The chain narrows the window for tampering to the gap between an event and the next seal; it does not eliminate the need for the logging code to be honest. That code is open source, which is the other half of the answer.</li>
+    <li><strong>It cannot prove what never entered the system.</strong> "We can prove nothing was sent to the model" holds only if all traffic actually goes through the gate. That is an architecture decision you make, and then the signed chain covers it.</li>
+    <li><strong>A receipt is only as meaningful as its subject.</strong> Signing a typo produces a signature that verifies perfectly and means nothing, which is why the plugin refuses anything that is not a proper digest.</li>
+  </ul>
+
+  <h2>Who actually needs this</h2>
+  <p>Crypto foundations run large parts of their operations through LLMs now. Route it all through one gate and the signed chain shows exactly what left the house and what never did. When someone asks whether treasury data went to a model provider, you do not argue. You show the receipt.</p>
+  <p>Accountants and auditors are in the same position from the other side: everyone is using the models already, and the question nobody can answer is what exactly was sent. Regulators are converging on the same expectation; the EU AI Act wants logs you can stand behind, not logs you hope nobody edited. With an attested chain, compliance stops being a process you promise and becomes a property anyone can verify.</p>
+
+  <h2>How it ships</h2>
+  <p>In xNAUT v1.17.0 it is a plugin in the library: <strong>Securosys Attestation</strong>, a dependency-free MCP server that talks straight to the TSB REST API. Configure a TSB endpoint plus an API key or JWT, and the same plugin works against a CloudHSM partition, the free 90-day sandbox, or an on-prem Primus. Receipts append to a local <code>attestations.jsonl</code>. In NautGate it is the <code>sb-attest</code> extension, which signs the privacy chain head server-side so a receipt can never be minted for a head that was not in the table.</p>
+  <p>Enterprises bring their own partition: your key, your receipts, your hardware if you want it on-prem. We verified the whole path against a real partition before shipping, and the receipt on our launch card is that verification. Scan it.</p>
+
+  <div class="note">
+    Thanks to the team at <a href="https://www.securosys.com">Securosys</a> for seeing the gap and lending us the keys to close it. The plugin exists because they proposed it.
+  </div>
+
+</article>
+</body>
+</html>

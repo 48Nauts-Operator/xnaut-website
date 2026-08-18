@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Verify an xNAUT attestation receipt: a digest signed on a Securosys HSM, checked in your browser against the published public key.">
+  <link rel="canonical" href="https://xnaut.dev/attest/">
+  <title>Attestation — xNAUT</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <style>
+    .attest { max-width: 720px; margin: 48px auto; padding: 0 20px; }
+    .attest h1 { font-family: var(--disp); }
+    .attest .sub { color: var(--muted); margin-bottom: 28px; }
+    .a-card { background: var(--panel); border: 1px solid var(--border-card); border-radius: 10px; padding: 22px 24px; margin-bottom: 18px; }
+    .a-verdict { font-family: var(--mono); font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+    .a-verdict.ok { color: var(--green); }
+    .a-verdict.bad { color: var(--red); }
+    .a-verdict.wait { color: var(--muted); }
+    .a-row { display: flex; gap: 12px; font-family: var(--mono); font-size: 13px; line-height: 1.9; }
+    .a-row .k { color: var(--faint); min-width: 84px; flex: 0 0 auto; }
+    .a-row .v { color: var(--text-soft); word-break: break-all; }
+    .a-how { color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .a-how code { font-family: var(--mono); font-size: 12.5px; background: var(--panel-deep); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; }
+    .a-how a { color: var(--amber); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← back to xnaut.dev</a>
+  </div>
+</nav>
+
+<main class="attest">
+  <h1>Attestation receipt</h1>
+  <p class="sub">A digest signed on a Securosys Primus HSM. The signature is checked
+  right here in your browser, against the public key below; the private half cannot
+  leave the hardware.</p>
+
+  <div class="a-card">
+    <div class="a-verdict wait" id="verdict">⋯ verifying</div>
+    <div id="fields"></div>
+  </div>
+
+  <div class="a-card a-how">
+    Don't trust this page? Verify yourself:
+    <a href="/attest/XNAUT_ATTEST_KEY.pem">public key</a> ·
+    <a href="/attest/receipts.json">receipts</a><br>
+    <code>openssl dgst -sha256 -verify XNAUT_ATTEST_KEY.pem -signature sig.bin digest.bin</code><br>
+    where <code>digest.bin</code> is the digest hex as bytes and <code>sig.bin</code> the signature base64-decoded.
+  </div>
+</main>
+
+<script>
+(async function () {
+  // The trust anchor: XNAUT_ATTEST_KEY's public half (SPKI), exported from the
+  // HSM once. Embedded here AND published as PEM so the page never has to be
+  // trusted blindly.
+  const PUB_B64 = 'MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEApUOdgzxyediptiA11tkB9WIVo/AtMSPONqAr3w88tG3M6jAp8bpGgCKouRqD7oxvj1ecvogH4rysZw/z5OhW9M4ioeIMFiwktAl472jXlS5OjpcTo54T99maEUCHcSzRLdY6OpqhKDOlVTFMQpYkels7YiDpZTKW/4B0BtcO+vQBPB8ErPu5OPlwvxxp6K7BNtqA0T53ieUc8PX4l2RnOAQ0TCgRwfN16MUhSqKzLtFAHpf10Ml4O8aCrDh894JHdWO0WRC/FeF3zwrguAU9KRbooP9tq475/7Cb6IxKqVCgECW0ixgxXSWKN3hRl7ODjU/Vl1fOAzV/B9aT9jlkGGcqPJoM7G7UMDYDGUD5n31i4lvwATyCmccmwsmeHFIlxLgBkeutznyuHWaOIqc4lNYKWP3ozQLe3Pqz6qJVf7O6jO0eF7y5DMReEtEuE8U0i8i+wbqjYiSeKZuX6QXc+JTrbMS3XiJsfWADNi46Q1DRTEza6j+7fYfvQ6ffXQ8/AXopOJPAx1oxxQk5DsKEG4NLFLgrO2pEz0e978BkljoY6wjFCnLPj4QIdlhAXsjMi5jXb0S9b00P/o0XxVh+8tUtu7IPMM/bgE9e0UJiMSl+vjPrw623+s+e8g5HNcV8RDxMluUbX0R3A5Pio4OEZgD27VeDw2xTLOSN1Bv/V7ECAwEAAQ==';
+
+  const verdict = document.getElementById('verdict');
+  const fields = document.getElementById('fields');
+  const fail = (msg) => { verdict.className = 'a-verdict bad'; verdict.textContent = '✗ ' + msg; };
+
+  const b64ToBytes = (b64) => Uint8Array.from(atob(b64.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0));
+  const hexToBytes = (hex) => Uint8Array.from(hex.match(/../g), (b) => parseInt(b, 16));
+
+  // Receipt source: ?r=<digest prefix> looked up in receipts.json, or the whole
+  // receipt as base64url JSON in the fragment (works with nothing but this file).
+  let receipt = null;
+  try {
+    if (location.hash.length > 1) {
+      receipt = JSON.parse(new TextDecoder().decode(b64ToBytes(location.hash.slice(1))));
+    } else {
+      const want = new URLSearchParams(location.search).get('r');
+      const all = (await (await fetch('/attest/receipts.json')).json()).receipts;
+      receipt = want ? all.find((x) => x.digest.startsWith(want)) : all[0];
+    }
+  } catch (e) { return fail('could not load the receipt: ' + e); }
+  if (!receipt) return fail('no receipt matches');
+
+  for (const k of ['subject', 'ts', 'digest', 'key_name', 'algorithm', 'signature']) {
+    if (!receipt[k]) continue;
+    const row = document.createElement('div'); row.className = 'a-row';
+    const kk = document.createElement('span'); kk.className = 'k'; kk.textContent = k;
+    const vv = document.createElement('span'); vv.className = 'v';
+    vv.textContent = k === 'signature' ? receipt[k].slice(0, 44) + '… (' + receipt[k].length + ' chars)' : receipt[k];
+    row.append(kk, vv); fields.append(row);
+  }
+
+  try {
+    const key = await crypto.subtle.importKey('spki', b64ToBytes(PUB_B64),
+      { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
+    const ok = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key,
+      b64ToBytes(receipt.signature), hexToBytes(receipt.digest));
+    if (ok) { verdict.className = 'a-verdict ok'; verdict.textContent = '✓ signature valid — signed by ' + receipt.key_name + ' on a Securosys HSM'; }
+    else fail('signature does NOT verify against ' + receipt.key_name);
+  } catch (e) { fail('verification error: ' + e); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "receipts": [
+    {
+      "ts": "2026-08-18T17:44:29.990208+00:00",
+      "subject": "48nauts.securosys-integration",
+      "digest": "780fe2f90630d4c3e1ca1c23aa74db54b443e49ef3b92eb3687f106c5270c207",
+      "key_name": "XNAUT_ATTEST_KEY",
+      "algorithm": "SHA256_WITH_RSA",
+      "signature": "IR+G0WxxCyrXL7BN+6Wn4cxk+61rX/BqjIjb3bC7USj+x7Qa4wlC59wtYOL4DZ4KFd2jINuMF9FG3ewis822rqLJRpmGe8/4dPNsfW23K8e/SMJDxqIXPiRjvNtTYrwxxyzbiJoXalW0v6NgvJpFxZxnvhOXSvJRSH7U0LNro+Zxv1ZfjolJfnzzL6RUQCbEFimMHaHNe+txjkf5HF9l2lfqeS/1YLlr1ZRgTrnDu002kdJGVamzwT+AGFKpbJp348rBJC9eUY42nF9dO/RcTm3/PCXb2GN8nRevnmYfi8rY6Es/kCtw/QvfEkptGIY20g3I4W3e7WdfvDUjx1E8ewMTpVoUZ1oWiBoT3EUs8R/fWLEWLo0JgC/mZUIZILDfLXIC/g/BLxJ6t/Fq/p1IrJrtNMtJMOEI9d0vM6vDVVS0BjMsMnSvOj0gHLxpsp7Ux85Z2MKfbLcg8MBar2GPBYWL0R2ZQJgPymghinVKifsF4PnPWCH/Q1u+qv30pxORMI+w3KIUMH/jDQMKW+peL6LLXmep+I7oBoSMYCD1lSjD6rbqVP1gen654uBUeCN009jmMaj+zhP9no05U6Gtvw56Wsx2tgdM9ccdJZRWOtwBpjjketq3fqgm4LJ3rQwwRYAZ2YI0sVHZ/8Dug/e1SIoGH9s5cRZlACX8bvdOY5s="
+    }
+  ]
+}

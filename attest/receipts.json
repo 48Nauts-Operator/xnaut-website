@@ -1,6 +1,14 @@
 {
   "receipts": [
     {
+      "ts": "2026-08-18T19:25:07.354963+00:00",
+      "subject": "xnaut.release",
+      "digest": "5aba4030a203990dd7204e493cc4c4b96d397dca6c3e01b5edbd08f23c659cbf",
+      "key_name": "XNAUT_ATTEST_KEY",
+      "algorithm": "SHA256_WITH_RSA",
+      "signature": "ouN+npXl2DjFDlw/ZSDPRvfaoGzRiyyiGL4/wt/VGz80oGG56yfa8bZjNqw+eoV7D0gzIC5FH3oEDM4Gjn7hJLUbGiX2031e5fmNt0wMM3ZILz8KJAmPcBpgj8Q40Ble2DzudDs+Yglj13qVDRqay+GxYL1eMoXXkq8cxrwIzgj4OhHtwIGPiq9PEVgvGigiJKCuF2Qr6+kFaQXi+q8XjQX91MDi4dnPr+QL+9FsVI6hOm/M3EfJYfer4IrA30OuSpSF3hJZKGlSFXBsmbK/BcZ6UakL+BQQs7eRMHBYX36UaEuHUjSp3vCZ9NAmGLKxllA4YqxdOVGpwpd5ihg/Rj3l+reVFH2Sd9lKjbqaoxEcDrRBc41iZiqJpXLKEAJa78Z7ZmqLKBc2Iajn22c/WlGM+RtKz1h7ZQMoGIYLakpcVDr3vfrDW7oHfYoSwM9X0CTqcy2vhWDPVTlbNgS8heGxEW6l5IUx60pBpVT7oi/lOs3tNv1DkmjPeMW30tEqg3x3UTXBF1fLAs8md6i3xKNz3Xm7cenRAvUEBAoFhhMQi920LICKTO2z5GW6putQioWN9DD3e0FHyF+ESEgTEen7HWCHZvVKx1G39WDl9TWWsWdVi64iyEE6dnK53h/0cukbm25iUsAR5nuL4mdjh6f20rloVrOz0QPU/kiMkBI="
+    },
+    {
       "ts": "2026-08-18T17:44:29.990208+00:00",
       "subject": "48nauts.securosys-integration",
       "digest": "780fe2f90630d4c3e1ca1c23aa74db54b443e49ef3b92eb3687f106c5270c207",

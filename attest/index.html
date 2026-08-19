@@ -45,6 +45,7 @@
 
   <div class="a-card">
     <div class="a-verdict wait" id="verdict">⋯ verifying</div>
+    <div class="a-verdict wait" id="chain">⋯ checking the chain</div>
     <div id="fields"></div>
   </div>
 
@@ -52,8 +53,10 @@
     Don't trust this page? Verify yourself:
     <a href="/attest/XNAUT_ATTEST_KEY.pem">public key</a> ·
     <a href="/attest/receipts.json">receipts</a><br>
-    <code>openssl dgst -sha256 -verify XNAUT_ATTEST_KEY.pem -signature sig.bin digest.bin</code><br>
-    where <code>digest.bin</code> is the digest hex as bytes and <code>sig.bin</code> the signature base64-decoded.
+    <code>openssl dgst -sha256 -verify XNAUT_ATTEST_KEY.pem -signature sig.bin signed.bin</code><br>
+    where <code>signed.bin</code> is <code>prev</code> followed by <code>digest</code>, both hex decoded to bytes,
+    and <code>sig.bin</code> the signature base64-decoded. Receipts written before the chain
+    existed carry no <code>prev</code>; for those, <code>signed.bin</code> is the digest alone.
   </div>
 </main>
 
@@ -74,19 +77,20 @@
   // Receipt source: ?r=<digest prefix> looked up in receipts.json, or the whole
   // receipt as base64url JSON in the fragment (works with nothing but this file).
   let receipt = null;
+  let every = null;
   try {
     if (location.hash.length > 1) {
       receipt = JSON.parse(new TextDecoder().decode(b64ToBytes(location.hash.slice(1))));
     } else {
       const want = new URLSearchParams(location.search).get('r');
-      const all = (await (await fetch('/attest/receipts.json')).json()).receipts;
-      receipt = want ? all.find((x) => x.digest.startsWith(want)) : all[0];
+      every = (await (await fetch('/attest/receipts.json')).json()).receipts;
+      receipt = want ? every.find((x) => x.digest.startsWith(want)) : every[0];
     }
   } catch (e) { return fail('could not load the receipt: ' + e); }
   if (!receipt) return fail('no receipt matches');
 
-  for (const k of ['subject', 'ts', 'digest', 'key_name', 'algorithm', 'signature']) {
-    if (!receipt[k]) continue;
+  for (const k of ['seq', 'subject', 'ts', 'digest', 'prev', 'key_name', 'algorithm', 'signature']) {
+    if (receipt[k] === undefined) continue;
     const row = document.createElement('div'); row.className = 'a-row';
     const kk = document.createElement('span'); kk.className = 'k'; kk.textContent = k;
     const vv = document.createElement('span'); vv.className = 'v';
@@ -94,14 +98,65 @@
     row.append(kk, vv); fields.append(row);
   }
 
+  // The HSM signs position and content together: prev || digest. Signing the
+  // content alone is what used to let a receipt be deleted without a trace.
+  // Receipts predating the chain carry no prev and are verified as they were.
+  const signedBytes = (r) => r.prev
+    ? Uint8Array.from([...hexToBytes(r.prev), ...hexToBytes(r.digest)])
+    : hexToBytes(r.digest);
+
   try {
     const key = await crypto.subtle.importKey('spki', b64ToBytes(PUB_B64),
       { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
     const ok = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key,
-      b64ToBytes(receipt.signature), hexToBytes(receipt.digest));
+      b64ToBytes(receipt.signature), signedBytes(receipt));
     if (ok) { verdict.className = 'a-verdict ok'; verdict.textContent = '✓ signature valid — signed by ' + receipt.key_name + ' on a Securosys HSM'; }
     else fail('signature does NOT verify against ' + receipt.key_name);
   } catch (e) { fail('verification error: ' + e); }
+
+  // One valid signature says this receipt is genuine. It says nothing about the
+  // ones that should sit around it, which is what the walk below is for: each
+  // receipt names the hash of the one before, so a deletion, a reorder or an
+  // edit anywhere leaves a gap you can point at.
+  const GENESIS = '0'.repeat(64);
+  const LINK_FIELDS = ['algorithm', 'digest', 'key_name', 'prev', 'seq', 'signature', 'subject', 'ts'];
+  const enc = new TextEncoder();
+  const linkHash = async (r) => {
+    // Same canonical form as link_hash() in mcp/securosys-attest.py: the public
+    // fields only, keys sorted, no spaces. Local-only fields are excluded
+    // there precisely so this can be recomputed from receipts.json alone.
+    const body = {};
+    for (const k of LINK_FIELDS) if (r[k] !== undefined) body[k] = r[k];
+    const out = await crypto.subtle.digest('SHA-256', enc.encode(JSON.stringify(body)));
+    return [...new Uint8Array(out)].map((b) => b.toString(16).padStart(2, '0')).join('');
+  };
+
+  const chainEl = document.getElementById('chain');
+  const chained = (every || []).filter((r) => r.seq !== undefined).sort((a, b) => a.seq - b.seq);
+  const unchained = (every || []).length - chained.length;
+  if (!every) {
+    chainEl.className = 'a-verdict wait';
+    chainEl.textContent = '· single receipt, no chain to walk — open /attest/ to check the whole log';
+  } else if (!chained.length) {
+    chainEl.className = 'a-verdict wait';
+    chainEl.textContent = '· these receipts predate the chain';
+  } else {
+    let prev = GENESIS, broken = null;
+    for (let i = 0; i < chained.length; i++) {
+      // seq must be its own index: a truncated head fails here, where a walk
+      // that only compared prev to the previous row would happily start midway.
+      if (chained[i].seq !== i || chained[i].prev !== prev) { broken = chained[i]; break; }
+      prev = await linkHash(chained[i]);
+    }
+    if (broken) {
+      chainEl.className = 'a-verdict bad';
+      chainEl.textContent = '✗ chain broken at seq ' + broken.seq + ' — a receipt was removed, reordered or edited';
+    } else {
+      chainEl.className = 'a-verdict ok';
+      chainEl.textContent = '✓ chain intact — ' + chained.length + ' receipt(s), none removed or reordered'
+        + (unchained ? ' (plus ' + unchained + ' predating the chain)' : '');
+    }
+  }
 })();
 </script>
 </body>

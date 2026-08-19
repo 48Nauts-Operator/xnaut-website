@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.17.0, in which agent work becomes hardware-attested on a Securosys HSM.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.18.0, in which an agent can be asked whether it can actually call a tool.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.17.0, in which agent work becomes hardware-attested on a Securosys HSM.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.18.0, in which an agent can be asked whether it can actually call a tool.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,8 +66,90 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.17.0</h2>
+      <h2>v1.18.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">19 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Agents that tell you the truth about what they can do. An agent that quietly cannot call a tool is worse than one that fails loudly, because it answers anyway and you believe it. This release makes that impossible in four places, and adds a plan you can argue with.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Ask a model whether it can actually call a tool.</strong> The picker lists hundreds of models and used to say nothing about which of them can run a tool call, so choosing one was a coin flip. One request settles it, the answer sits next to the model name, and when the route refuses it quotes the upstream's own sentence, which is what tells you whether the fix is a billing page or a different model. It probes the ROUTE, not the model: the same model id behaves differently through a subscription relay than through an API key, and it is the route that breaks.</li>
+        <li><strong>A rule that asks instead of only refusing.</strong> A veto can now hold a tool call, send the question to your inbox, and leave the agent waiting for your answer. Refusing was the only option before, so anything uncertain had to be allowed or blocked in advance.</li>
+        <li><strong>A plan you can annotate and answer.</strong> A plan used to end as a wall of markdown in a terminal, and the feedback loop was retyping the part you wanted changed. Click the block you mean, attach a numbered note, then Approve or Request changes. The agent blocks until you answer and picks up your notes attached to the exact lines.</li>
+        <li><strong>Two agents reaching for the same file is noticed while both are still running</strong>, rather than found afterwards in the diff.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Both chat surfaces run the same turn path.</strong> The chat pane posted messages and nothing else while Agent Space ran the full tool loop, so the same agent was more capable in one pane than the other and reported it in words that read like a regression.</li>
+        <li><strong>A reply that lost its tools says so.</strong> When the tool loop could not run, the fallback answered without tools and said nothing; the reply now names the model and quotes the upstream verbatim. That silence cost four days of hunting a bug that was one line in a log.</li>
+        <li><strong>SSH gets a real channel</strong>, so a session types and answers instead of connecting and going quiet.</li>
+        <li><strong>Triggers match output rather than escape codes.</strong> Creating a trigger never reached the backend at all before this.</li>
+        <li><strong>Five surfaces stopped claiming more than the code did.</strong> A capability shown as ON that was off in the runtime is a lie the app was telling on its own behalf.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.18.0">v1.18.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.17.2</h2>
+      <span class="rel-date">18 August 2026</span>
+    </div>
+
+    <p class="rel-lead">A click means the same thing everywhere.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Interface zoom stopped moving every click.</strong> Context menus opened a third of the way down the screen and a terminal click selected three or four lines below the pointer. Any zoom other than 100% put the pointer and the app in different coordinate systems.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.17.2">v1.17.2 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.17.1</h2>
+      <span class="rel-date">18 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Dictation that reaches an actual microphone.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Voice dictation in both composers.</strong> Local whisper speech to text, nothing leaves the machine. The button had been there for months calling a browser API that WebKit does not implement, so it had never once recorded anything.</li>
+        <li><strong>Attestation receipts can be published</strong> from the plugin library.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A project row stops offering dead zellij sessions</strong> you cannot attach to.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.17.1">v1.17.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.17.0</h2>
       <span class="rel-date">18 August 2026</span>
     </div>
 
@@ -602,7 +684,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.17.0.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.18.0.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

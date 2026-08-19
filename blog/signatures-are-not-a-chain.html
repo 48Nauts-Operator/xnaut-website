@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A pile of signatures is not a chain · xNAUT</title>
+  <meta name="description" content="An engineer at Securosys read one sentence on our site and asked two questions. One was a word. The other was a defect: every attestation receipt was signed on its own, so deleting one left every remaining signature valid. Here is the fix.">
+  <link rel="canonical" href="https://xnaut.dev/blog/signatures-are-not-a-chain.html">
+  <meta name="author" content="André">
+  <meta name="keywords" content="hash chain, HSM attestation, Securosys, audit log integrity, tamper evident, canonical JSON, append-only log">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="A pile of signatures is not a chain">
+  <meta property="og:description" content="Every receipt was signed on its own, so deleting one left the rest verifying. An engineer at Securosys found it by reading a sentence.">
+  <meta property="og:url" content="https://xnaut.dev/blog/signatures-are-not-a-chain.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="A pile of signatures is not a chain">
+  <meta name="twitter:description" content="One sentence, two objections, and the one that turned out to be a real hole in our audit log.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .post pre { background: var(--panel); border: 1px solid var(--border-card); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; }
+    .post pre code { background: none; border: 0; padding: 0; font-size: 13px; line-height: 1.6; }
+    .post ul { margin: 0 0 16px; padding-left: 22px; }
+    .post li { font-size: 16px; line-height: 1.7; color: var(--text-soft); margin-bottom: 8px; }
+    .note { border-left: 2px solid var(--amber); background: var(--panel); padding: 16px 20px;
+            border-radius: 0 10px 10px 0; margin: 22px 0; font-size: 15px; color: var(--text-soft); line-height: 1.65; }
+    .post a { color: var(--amber); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Engineering</span>
+  <h1>A pile of signatures is not a chain</h1>
+
+  <p class="post-lede">One sentence on this site said: <em>every action lands in a tamper-evident record that can be sealed on a Securosys HSM</em>. An engineer at Securosys read it and asked two questions. The first was about a word. The second went straight through the middle of the feature, and they were right.</p>
+  <p class="post-meta">20 August 2026 · André</p>
+
+  <h2>The two questions</h2>
+  <p>Paraphrased, because they were asked in Swiss German over a chat window: <strong>the sentence sounds like the record is already tamper-evident before the HSM touches it.</strong> And: <strong>sealing normally means encrypting, not signing. So which is it? Do you sign the record with an HSM key, or is it a database encrypted under an HSM key?</strong></p>
+  <p>The second one is a word, and the word was wrong. Here is what actually happens. The plugin hashes the content locally with SHA-256. Only the 32-byte digest leaves the machine. It goes to the Securosys Transaction Security Broker as <code>POST /v1/synchronousSign</code> with <code>SHA256_WITH_RSA</code>, and the signature comes back and is appended to <code>attestations.jsonl</code>. There is no encryption anywhere in that path, and no unsealing, because there is nothing to unseal. It is signing. So "sealed" goes, and "signed" stays.</p>
+  <p>Encrypting the log would also have been the wrong feature. An audit log you have to decrypt before anyone can audit it is worse than one anybody can read, and it would have killed the part that makes this useful: a receipt you can hand to a third party who verifies it in their own browser against a public key, with nothing of ours involved.</p>
+
+  <h2>The first question was not a word</h2>
+  <p>It was a defect, and the sentence was the only place it was visible.</p>
+  <p>Every receipt was signed on its own. Content in, digest out, digest signed, line appended. Each line was individually valid and nothing bound line N to line N-1. So you could open <code>attestations.jsonl</code>, delete the receipt for the thing you would rather nobody saw, save the file, and <strong>every remaining signature still verified</strong>. Reorder them and it still verified. The public verifier at <a href="/attest/">xnaut.dev/attest</a> would have shown a clean green tick for a log with a hole in it.</p>
+  <p>That is a set of individually valid records. It is not a record of what happened. And the failure mode is silence: nothing throws, nothing warns, the page says valid, and it is telling the truth about the only question it was asked.</p>
+
+  <h2>Why we, of all people, had this bug</h2>
+  <p>Two days before, we published <a href="/blog/proofs-not-promises.html">Proofs, not promises</a>, which argues this exact point at length for NautGate's routing log: chain every row into the one before it, then let the HSM sign the head, because a signature over an unchained pile proves nothing about the pile.</p>
+  <p>Then the attestation plugin shipped one directory over without the chain. We wrote the argument down and did not apply it to the next thing we built. That is worth saying out loud, because the interesting part is not that we made the mistake. It is that we had already written the correct answer, in public, and still could not see it from inside our own repository. It took someone outside reading one sentence.</p>
+
+  <h2>What we changed</h2>
+  <p>Every receipt now carries a <code>seq</code> and a <code>prev</code>. <code>prev</code> is the SHA-256 of the previous receipt's canonical JSON, sixty-four zeros at genesis. And the HSM no longer signs the bare content digest. It signs:</p>
+  <pre><code>sha256( prev || content_digest )</code></pre>
+  <p>Position and content together. Which means the newest signature commits to the entire history behind it, and there is no separate anchoring pass to run, forget to run, or run too late. Delete a receipt, move one, edit one in place, or cut the front off the file, and the walk breaks at the first receipt that no longer matches.</p>
+  <p>Four details in there are load-bearing, and three of them are the kind that would have quietly ruined it:</p>
+  <ul>
+    <li><strong>The link hashes only the fields we publish.</strong> Local context like the TSB endpoint and the caller's metadata stays out of it. A third party has to be able to recompute the link from the file they were given, and a field they never receive must not change a hash they have to reproduce.</li>
+    <li><strong>Python and JavaScript had to agree on one byte sequence.</strong> The writer canonicalises in Python, the verifier in the browser. Python's <code>json.dumps</code> escapes non-ASCII by default and <code>JSON.stringify</code> does not, so the two would have produced different hashes for the first receipt whose subject contained an umlaut, and only for that one. A chain that breaks for one entry in a thousand is worse than one that never worked, because you will believe the file was tampered with. It is pinned now, and a cross-check lifts the field list and the hash function out of the live verifier page and compares them against the Python, so a future edit to one side fails a check instead of a verification.</li>
+    <li><strong>Read the tail, sign, and append under one lock.</strong> Two agents attesting in the same second would otherwise read the same tail, compute the same <code>prev</code>, and one of them writes a link nobody can reproduce.</li>
+    <li><strong>Receipts written before the chain existed carry no <code>seq</code>.</strong> They are left exactly as they are and the chain restarts at genesis after them. Retro-fitting links onto them would have been easy and would have been a lie: it would claim coverage over a period nothing was covering.</li>
+  </ul>
+
+  <h2>The verifier walks it now</h2>
+  <p>The public page checked each signature and would have shown all green for a log with a receipt cut out of the middle. It now walks the chain as well: <code>seq</code> must equal its own index, and <code>prev</code> must be the hash of the receipt before it. The index check is what catches a truncated head, where a walk that only compared each row to the previous row would happily start halfway through a file and call it intact.</p>
+  <p>We know the check bites because we broke it on purpose, twice. Weakening the walk to compare only <code>prev</code> let a deleted receipt through. Leaving the content digest out of the link let an edited receipt through. Each one was caught by a different assertion. A test that still passes on deliberately broken code is worse than no test, because it is a claim.</p>
+
+  <h2>What it still does not prove</h2>
+  <p>The chain proves the log has not been edited since it was written. It does not prove something was written in the first place: an action that never reached the log leaves no gap to find. It does not say who is allowed to ask for a signature, which is a separate piece of work and the honest reason the next thing on our list is the credential, not more cryptography.</p>
+  <p>And unlike the NautGate log, which signs only the head of its chain, receipts are signed one by one. Each attestation is already a network round trip to the HSM, so the head-only optimisation buys nothing here, and per-receipt signatures mean a single receipt can be handed to somebody and verified entirely on its own.</p>
+  <p>So the sentence now reads: <strong>every action is hashed locally, signed on a Securosys HSM, and chained to the receipt before it. Remove one and the chain says so.</strong> Longer than the original. It has the advantage of being true.</p>
+
+  <div class="note">
+    Thanks to the engineer at <a href="https://www.securosys.com">Securosys</a> who asked. Two questions about one sentence, and one of them was a hole in the product. That is the second time in a week that reading our own words back to us has been worth more than another week of writing code.
+  </div>
+
+</article>
+</body>
+</html>

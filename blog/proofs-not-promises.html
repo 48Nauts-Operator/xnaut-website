@@ -60,7 +60,7 @@
 
   <span class="post-eyebrow">Engineering</span>
   <h1>Proofs, not promises</h1>
-  <p class="post-lede">Agents act on their own. The record of what they did is the only control surface you keep, and a record that can be rewritten is not evidence, it is a story. As of v1.17.0, xNAUT can seal that record on a Securosys HSM in Switzerland. This is the full reasoning: what a hash chain honestly proves, where it stops, why hardware closes the gap, and what a signature still cannot do.</p>
+  <p class="post-lede">Agents act on their own. The record of what they did is the only control surface you keep, and a record that can be rewritten is not evidence, it is a story. As of v1.17.0, xNAUT can sign that record on a Securosys HSM in Switzerland. This is the full reasoning: what a hash chain honestly proves, where it stops, why hardware closes the gap, and what a signature still cannot do.</p>
   <p class="post-meta">18 August 2026 · André</p>
 
   <h2>The problem a launch post exposed</h2>
@@ -87,7 +87,7 @@
   <h2>What a signature does not prove</h2>
   <p>Honesty is the whole product here, so the limits get stated as clearly as the claims.</p>
   <ul>
-    <li><strong>It does not prove the log told the truth when it was written.</strong> The signature seals the record from the moment of signing onward. If the software lied into the log before sealing, the lie gets sealed too. The chain narrows the window for tampering to the gap between an event and the next seal; it does not eliminate the need for the logging code to be honest. That code is open source, which is the other half of the answer.</li>
+    <li><strong>It does not prove the log told the truth when it was written.</strong> The signature covers the record from the moment of signing onward. If the software lied into the log before that, the lie is signed along with everything else. The chain narrows the window for tampering to the gap between an event and the next seal; it does not eliminate the need for the logging code to be honest. That code is open source, which is the other half of the answer.</li>
     <li><strong>It cannot prove what never entered the system.</strong> "We can prove nothing was sent to the model" holds only if all traffic actually goes through the gate. That is an architecture decision you make, and then the signed chain covers it.</li>
     <li><strong>A receipt is only as meaningful as its subject.</strong> Signing a typo produces a signature that verifies perfectly and means nothing, which is why the plugin refuses anything that is not a proper digest.</li>
   </ul>

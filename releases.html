@@ -44,6 +44,12 @@
     .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 34px 0 8px; }
     .cta-row .btn-primary { color: var(--amber-ink); }
     .cta-row .btn-ghost { color: var(--text-soft); }
+    .fig { margin: 26px 0 4px; }
+    .fig-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border-card); border-radius: 12px;
+      background: var(--panel-deep); padding: 24px 22px; }
+    .fig-scroll svg { display: block; min-width: 600px; width: 100%; height: auto; }
+    .fig figcaption { font-size: 13.5px; line-height: 1.6; color: var(--faint); margin-top: 12px; }
   </style>
   <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
 </head>
@@ -88,6 +94,74 @@
         <li><strong>A deletion can no longer hide in the attestation log.</strong> Each receipt now carries its sequence number and the hash of the receipt before it, and the HSM signs over that link rather than over the bare digest, so the newest signature commits to the entire history. Deleting a line, reordering, truncating the head, or editing a receipt in place all break the walk, and the <a href="/attest/">browser verifier</a> checks the chain rather than each signature alone.</li>
       </ul>
     </div>
+
+      <figure class="fig">
+        <div class="fig-scroll">
+<svg viewBox="0 0 700 222" role="img" aria-labelledby="chainTitle chainDesc" xmlns="http://www.w3.org/2000/svg">
+  <title id="chainTitle">How a receipt is chained and signed</title>
+  <desc id="chainDesc">Three receipts left to right. Each one stores its sequence number, the digest of what happened, the hash of the receipt before it, and a signature. The first receipt's previous-hash is sixty-four zeros. An arrow runs from each receipt to the next, carrying the SHA-256 of that receipt into the next receipt's previous-hash field. Below, a bar shows that the Securosys HSM signs the hash of the previous-hash joined to the digest, for every receipt.</desc>
+  <defs>
+    <marker id="ah" viewBox="0 0 9 9" refX="8" refY="4.5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L9 4.5 L0 9 z" fill="var(--amber)" fill-opacity="0.75"/>
+    </marker>
+  </defs>
+  <style>
+    .d-seq  { font: 600 12px var(--mono); fill: var(--amber); }
+    .d-tag  { font: 9.5px var(--sans); fill: var(--faint); }
+    .d-lbl  { font: 10px var(--sans); fill: var(--faint); }
+    .d-val  { font: 11px var(--mono); fill: var(--text-soft); }
+    .d-link { fill: var(--amber); }
+    .d-zero { fill: var(--faint); }
+    .d-fn   { font: 9px var(--mono); fill: var(--faint); }
+    .d-hash { font: 10px var(--mono); fill: var(--amber); }
+    .d-bar  { font: 12px var(--sans); fill: var(--muted); }
+    .d-form { font: 12px var(--mono); fill: var(--amber); }
+  </style>
+      <rect x="0" y="8" width="172" height="132" rx="10" fill="var(--panel)" stroke="var(--border-card)"/>
+      <text x="14" y="31" class="d-seq">seq 0</text>
+      <text x="158" y="31" class="d-tag" text-anchor="end">genesis</text>
+      <line x1="14" y1="43" x2="158" y2="43" stroke="var(--line-strong)"/>
+      <text x="14" y="66" class="d-lbl">digest</text>
+      <text x="158" y="66" class="d-val" text-anchor="end">4c1f…9b</text>
+      <text x="14" y="96" class="d-lbl">prev</text>
+      <text x="158" y="96" class="d-val d-zero" text-anchor="end">0000…0000</text>
+      <text x="14" y="126" class="d-lbl">sig</text>
+      <text x="158" y="126" class="d-val" text-anchor="end">MEUCIQ…</text>
+      <rect x="264" y="8" width="172" height="132" rx="10" fill="var(--panel)" stroke="var(--border-card)"/>
+      <text x="278" y="31" class="d-seq">seq 1</text>
+      <line x1="278" y1="43" x2="422" y2="43" stroke="var(--line-strong)"/>
+      <text x="278" y="66" class="d-lbl">digest</text>
+      <text x="422" y="66" class="d-val" text-anchor="end">a70d…3e</text>
+      <text x="278" y="96" class="d-lbl">prev</text>
+      <text x="422" y="96" class="d-val d-link" text-anchor="end">8e52…c4</text>
+      <text x="278" y="126" class="d-lbl">sig</text>
+      <text x="422" y="126" class="d-val" text-anchor="end">MEQCIB…</text>
+      <rect x="528" y="8" width="172" height="132" rx="10" fill="var(--panel)" stroke="var(--border-card)"/>
+      <text x="542" y="31" class="d-seq">seq 2</text>
+      <line x1="542" y1="43" x2="686" y2="43" stroke="var(--line-strong)"/>
+      <text x="542" y="66" class="d-lbl">digest</text>
+      <text x="686" y="66" class="d-val" text-anchor="end">1d93…f7</text>
+      <text x="542" y="96" class="d-lbl">prev</text>
+      <text x="686" y="96" class="d-val d-link" text-anchor="end">b064…19</text>
+      <text x="542" y="126" class="d-lbl">sig</text>
+      <text x="686" y="126" class="d-val" text-anchor="end">MEUCIF…</text>
+      <text x="218.0" y="73" class="d-fn" text-anchor="middle">sha256</text>
+      <text x="218.0" y="87" class="d-hash" text-anchor="middle">8e52…c4</text>
+      <line x1="180" y1="96" x2="256" y2="96" stroke="var(--amber)" stroke-opacity="0.55" marker-end="url(#ah)"/>
+      <text x="482.0" y="73" class="d-fn" text-anchor="middle">sha256</text>
+      <text x="482.0" y="87" class="d-hash" text-anchor="middle">b064…19</text>
+      <line x1="444" y1="96" x2="520" y2="96" stroke="var(--amber)" stroke-opacity="0.55" marker-end="url(#ah)"/>
+  <g stroke="var(--line-strong)" stroke-dasharray="3 4" stroke-opacity="0.75">
+    <line x1="86" y1="140" x2="86" y2="170"/>
+    <line x1="350" y1="140" x2="350" y2="170"/>
+    <line x1="614" y1="140" x2="614" y2="170"/>
+  </g>
+  <rect x="0" y="170" width="700" height="44" rx="10" fill="var(--panel)" stroke="var(--border-card)"/>
+  <text x="350" y="197" text-anchor="middle" class="d-bar">Securosys HSM signs <tspan class="d-form">sha256( prev || digest )</tspan> for every receipt</text>
+</svg>
+        </div>
+        <figcaption>The signature no longer covers the entry alone, it covers the entry's place in the line. Remove the middle receipt and the third one's <span class="mono">prev</span> points at something that is not there.</figcaption>
+      </figure>
 
     <div class="note">
       Raised by a Securosys engineer reading the claim on this page, and he was right twice. A pile of individually valid signatures is not a tamper-evident record, and "sealed" reads as encryption when what actually happens is signing. Both the mechanism and the sentence changed.

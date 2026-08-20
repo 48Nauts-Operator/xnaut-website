@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.20.0, in which the execution record started being written, and a customer can destroy the evidence without our help.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.20.1, in which agents got their tools back on every route, and one export can carry two independent chains.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.20.0, in which the execution record started being written, and a customer can destroy the evidence without our help.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.20.1, in which agents got their tools back on every route, and one export can carry two independent chains.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,40 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.20.0</h2>
+      <h2>v1.20.1</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">21 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Agents in Agent Space could talk but not act, on every route except one. The panel pushed its own "Thinking…" placeholder into the thread and then sent the thread as the conversation, so each turn ended on the agent's own voice. Anthropic rejects that outright with a 400, the tool loop died on the rejection, and xNAUT quietly answered with a plain completion instead. It looked like the tools were missing. Switching to a local model appeared to fix it, because a local model accepts the same malformed request.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Agents lost every tool on Anthropic routes.</strong> The placeholder no longer reaches the history, and a turn now drops any trailing assistant message before it goes out, so no caller can reintroduce it. The fallback that hid this for a day is worth naming: a tool loop that fails should say so in the thread, not only in a log file.</li>
+      </ul>
+    </div>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Two chains in one bundle.</strong> An export can now carry NautGate's own routing receipts beside xNAUT's execution record, and the offline verifier checks both, plus the cross-reference between them: every receipt a record names, and every record a receipt belongs to. Two independent parties recording the same decision is a stronger claim than either log alone, and an auditor can check it without believing either product.</li>
+        <li><strong>NautGate in the plugin library.</strong> A real MCP server rather than a card: list your routing receipts, fetch one as an evidence bundle, verify a bundle offline. Standard library only.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      Neither half is a dependency of the other. With no gateway configured the export is byte-for-byte what it was in 1.20.0, and NautGate never learns what xNAUT is. The join is a directory of documents, each valid on its own; nothing is re-signed with our key, because collapsing two parties into one would destroy the only thing the join buys.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.20.1">v1.20.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.20.0</h2>
       <span class="rel-date">20 August 2026</span>
     </div>
 
@@ -855,7 +887,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.20.0.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.20.1.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

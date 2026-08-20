@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>xNAUT: AI Coding Agent Terminal for macOS and Windows</title>
-  <meta name="description" content="xNAUT runs your AI coding agents and notarises what they did — every command timestamped, chained into a SHA-256 Merkle tree, exported as a report your client can verify. Native, 20 MB, nothing leaves your machine.">
+  <meta name="description" content="xNAUT runs your AI coding agents and records what they did — every command timestamped, chained into a SHA-256 Merkle tree, exported as a report your client can verify. Native, 20 MB, nothing leaves your machine.">
   <link rel="canonical" href="https://xnaut.dev/">
   <meta name="author" content="André">
   <meta name="keywords" content="AI terminal, coding agents, Claude Code terminal, Codex CLI, multi-agent development, agentic coding, developer workspace, macOS terminal, autonomous coding agents, git worktree isolation">
@@ -58,7 +58,7 @@
 <header class="hero">
   <div class="pill badge-nobody mono"><span>Backed by</span><span class="nobody-mark">∅</span><span class="amber">Nobody</span><span class="sep">·</span><span>no funding, free forever</span></div>
   <h1>Every hour of agent work, logged&nbsp;and&nbsp;provable.</h1>
-  <p class="sub">xNAUT runs your AI coding agents and notarises what they did. Every command, timestamped and chained into a SHA&#8209;256 Merkle tree, exported as a report your client can verify — without sending a byte to the cloud.</p>
+  <p class="sub">xNAUT runs your AI coding agents and records what they did. Every command, timestamped and chained into a SHA&#8209;256 Merkle tree, exported as a report your client can verify — without sending a byte to the cloud.</p>
   <div class="install-row">
     <code class="mono">brew install --cask 48nauts-operator/tap/xnaut</code>
     <button class="install-copy mono" data-copy="brew install --cask 48nauts-operator/tap/xnaut" aria-label="Copy install command">copy</button>
@@ -220,10 +220,10 @@
 <section class="section pow" id="proof">
   <div class="pow-copy">
     <p class="kicker mono">03 — PROOF OF WORK</p>
-    <h2>Every billable hour, cryptographically signed.</h2>
-    <p class="body">The Work Session Logger records every command with timestamps and duration, chains them into a SHA-256 Merkle tree, and exports a client-ready HTML report. A QR code on the report lets anyone verify the session wasn't edited after the fact.</p>
+    <h2>Every billable hour, hash-chained.</h2>
+    <p class="body">The Work Session Logger records every command with timestamps and duration, chains them into a SHA-256 Merkle tree, and exports a client-ready HTML report. A QR code on the report recomputes the root, so a report that has been edited stops matching the record it came from.</p>
     <ul class="checks">
-      <li>Tamper-evident hash chain — edits break the proof</li>
+      <li>SHA-256 hash chain; edit one entry and every hash after it stops matching</li>
       <li>Tool detection groups time by Claude Code, Docker, AntBot…</li>
       <li>Built for consultants who invoice by the hour</li>
     </ul>
@@ -280,7 +280,7 @@
         <tr><td>Any CLI agent, live status</td><td class="me">✓</td><td class="dim2">its own agents</td><td class="dim2">its own agents</td><td>—</td></tr>
         <tr><td>Visual agent-loop designer</td><td class="me">✓ nodes + gates</td><td class="dim2">cloud (Oz)</td><td>—</td><td>—</td></tr>
         <tr><td>MCP server for agents</td><td class="me">✓ docs · tickets</td><td>—</td><td class="dim2">client only</td><td>—</td></tr>
-        <tr><td>Signed proof of billable work</td><td class="me">✓ Merkle + QR</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Hash-chained proof of billable work</td><td class="me">✓ Merkle + QR</td><td>—</td><td>—</td><td>—</td></tr>
         <tr><td>Prompt privacy guard</td><td class="me">✓ keys · PII</td><td>—</td><td>—</td><td>—</td></tr>
       </tbody>
     </table>
@@ -301,7 +301,7 @@
   <div class="faq-list">
     <details>
       <summary>What is xNAUT?</summary>
-      <p>The workspace where agent work happens and gets recorded. One 20 MB native app holds the terminals your agents run in, their live status, git worktrees, diffs with AI annotations, project docs, the plan they are working through — and a tamper-evident log of every hour of it. Instead of four separate tools and a spreadsheet for the invoice.</p>
+      <p>The workspace where agent work happens and gets recorded. One 20 MB native app holds the terminals your agents run in, their live status, git worktrees, diffs with AI annotations, project docs, the plan they are working through — and a hash-chained log of every hour of it. Instead of four separate tools and a spreadsheet for the invoice.</p>
     </details>
     <details>
       <summary>Is it really free? What's the catch?</summary>
@@ -325,7 +325,7 @@
     </details>
     <details>
       <summary>What exactly does "proof of work" prove?</summary>
-      <p>Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML with a QR verification code) proves the session wasn't edited after the fact — hours you can hand to a client. It proves integrity of the record, not the quality of the work.</p>
+      <p>Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML with a QR verification code) recomputes the root, so a report that has been edited stops matching its record. It proves the report matches the log it came from, not the quality of the work. The chain is computed on your own machine with no outside signature over it, so it is not evidence against whoever holds the log.</p>
     </details>
     <details>
       <summary>Is xNAUT a Warp or Cursor alternative?</summary>
@@ -422,7 +422,7 @@
       "name": "What is xNAUT?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The workspace where agent work happens and gets recorded. One 20 MB native app holds the terminals your agents run in, their live status, git worktrees, diffs with AI annotations, project docs, the plan they are working through — and a tamper-evident log of every hour of it. Instead of four separate tools and a spreadsheet for the invoice."
+        "text": "The workspace where agent work happens and gets recorded. One 20 MB native app holds the terminals your agents run in, their live status, git worktrees, diffs with AI annotations, project docs, the plan they are working through — and a hash-chained log of every hour of it. Instead of four separate tools and a spreadsheet for the invoice."
       }
     },
     {
@@ -470,7 +470,7 @@
       "name": "What exactly does 'proof of work' prove?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML with a QR verification code) proves the session wasn't edited after the fact. It proves integrity of the record, not the quality of the work."
+        "text": "Every command is recorded with timestamp and duration and chained into a SHA-256 Merkle tree. The exported report (HTML with a QR verification code) recomputes the root, so a report that has been edited stops matching its record. It proves the report matches the log it came from, not the quality of the work. The chain is computed on your own machine with no outside signature over it, so it is not evidence against whoever holds the log."
       }
     },
     {

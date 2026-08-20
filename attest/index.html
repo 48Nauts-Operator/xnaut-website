@@ -121,13 +121,18 @@
   const GENESIS = '0'.repeat(64);
   const LINK_FIELDS = ['algorithm', 'digest', 'key_name', 'prev', 'seq', 'signature', 'subject', 'ts'];
   const enc = new TextEncoder();
+  // Prefixed so this hash can never be mistaken for another kind of hash over
+  // the same bytes. link_hash() in mcp/securosys-attest.py prefixes the same
+  // string; changing one side alone fails every link on this page.
+  const LINK_DOMAIN = enc.encode('XNAUT-ATTEST-LINK-V1\0');
   const linkHash = async (r) => {
     // Same canonical form as link_hash() in mcp/securosys-attest.py: the public
     // fields only, keys sorted, no spaces. Local-only fields are excluded
     // there precisely so this can be recomputed from receipts.json alone.
     const body = {};
     for (const k of LINK_FIELDS) if (r[k] !== undefined) body[k] = r[k];
-    const out = await crypto.subtle.digest('SHA-256', enc.encode(JSON.stringify(body)));
+    const bytes = enc.encode(JSON.stringify(body));
+    const out = await crypto.subtle.digest('SHA-256', Uint8Array.from([...LINK_DOMAIN, ...bytes]));
     return [...new Uint8Array(out)].map((b) => b.toString(16).padStart(2, '0')).join('');
   };
 

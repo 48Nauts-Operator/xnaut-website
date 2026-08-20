@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.18.0, in which an agent can be asked whether it can actually call a tool.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.19.0, in which the attestation log became a chain and a deletion stopped being invisible.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.18.0, in which an agent can be asked whether it can actually call a tool.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.19.0, in which the attestation log became a chain and a deletion stopped being invisible.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -66,8 +66,61 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.18.0</h2>
+      <h2>v1.19.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">20 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The attestation log became a chain, and the middle of the loop became a surface. A receipt used to be signed on its own, which meant deleting one left every remaining signature verifying. And the work between starting a ticket and shipping it had no page at all.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Delivery: tests, releases and a report, per project.</strong> Start Work now binds the ticket to the right pane, so the log you are watching belongs to the ticket you started rather than whatever the pane happened to be showing. When the run ends there is somewhere to go. <strong>Tests</strong> renders the full record of every verification run, step by step, with the command, the exit code and the log tail. <strong>Releases</strong> lists the tags and the tickets inside them. <strong>Report</strong> joins commits to tickets and names the ones sitting in review or done with nothing committed behind them. Sixteen verification records were already on disk, fifteen of them failed, and nothing in the app could show you why.</li>
+        <li><strong>Proof of work, derived from the repository.</strong> Evidence written from memory is the one source a client cannot audit. This one is generated: ticket joined to commit on the id in the subject line, commit joined to release with <span class="mono">git tag --contains</span>. It also reports the gap, which is the useful part. Of 149 commits in five days, 29 carried a ticket id, so 120 pieces of work were unattributable to anything that had been asked for.</li>
+        <li><strong>The route that answered you is named in the thread.</strong> The gateway replies with the model it actually used, which is not always the model you picked. Six headers were being thrown away, so a substituted model looked identical to the one you chose. That is how a subscription lane quietly served the wrong model for a day.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A deletion can no longer hide in the attestation log.</strong> Each receipt now carries its sequence number and the hash of the receipt before it, and the HSM signs over that link rather than over the bare digest, so the newest signature commits to the entire history. Deleting a line, reordering, truncating the head, or editing a receipt in place all break the walk, and the <a href="/attest/">browser verifier</a> checks the chain rather than each signature alone.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      Raised by a Securosys engineer reading the claim on this page, and he was right twice. A pile of individually valid signatures is not a tamper-evident record, and "sealed" reads as encryption when what actually happens is signing. Both the mechanism and the sentence changed.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.19.0">v1.19.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.18.1</h2>
+      <span class="rel-date">19 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Claude agents talk again.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A Claude agent stopped paying per token for a plan you already have.</strong> Handing the agent a gateway key alongside the gateway address overrode Claude Code's own logged-in session, so the subscription lane was never reached and every request billed the metered key instead. When that balance hit zero, every Claude agent went silent at once. The agent now gets the address and no credential, which is what lets its own token through.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.18.1">v1.18.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.18.0</h2>
       <span class="rel-date">19 August 2026</span>
     </div>
 
@@ -228,7 +281,7 @@
       <ul>
         <li><strong>Chat first.</strong> A message goes to the agent's own model. No worktree, no zellij session, no coding CLI. Asking for a status is a question, and it is answered like one.</li>
         <li><strong>A build handshake.</strong> When a request needs code, the agent says so and xNAUT asks WHERE. The run happens in a worktree under <span class="mono">.worktrees/</span>, never in the checkout you have open, and the repository is asked for once per thread.</li>
-        <li><strong>Plugins.</strong> A library of 162 MCP servers: 32 we have run ourselves plus 130 compiled from the public registries. Enabling one is what makes it reach a run — claude via <span class="mono">--mcp-config</span>, codex via <span class="mono">-c mcp_servers</span> — and each is handed to one agent rather than pooled. <a href="/plugins/">Browse them →</a></li>
+        <li><strong>Plugins.</strong> A library of 162 MCP servers: 32 we have run ourselves plus 130 compiled from the public registries. Enabling one is what makes it reach a run: claude via <span class="mono">--mcp-config</span>, codex via <span class="mono">-c mcp_servers</span>. Each is handed to one agent rather than pooled. <a href="/plugins/">Browse them →</a></li>
         <li><strong>Agents use their plugins in chat.</strong> A turn opens the MCP servers that agent holds and offers their tools to the model, so "how many repos do we have?" is answered from Forgejo's own tools rather than described.</li>
         <li><strong>Agents fix their own connectors.</strong> Given a package that ships no executable, an agent inspects npm, finds one that does, repairs the plugin and connects it, instead of handing back the error.</li>
         <li><strong>A canvas and documents</strong> in a split of the main screen. The agent sends the whole graph or the whole document, boxes you move keep their positions, and "save to vault" writes the document with its frontmatter.</li>

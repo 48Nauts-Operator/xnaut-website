@@ -82,7 +82,7 @@
     <div class="grp">
       <h3>Fixed</h3>
       <ul>
-        <li><strong>Agents lost every tool on Anthropic routes.</strong> The placeholder no longer reaches the history, and a turn now drops any trailing assistant message before it goes out, so no caller can reintroduce it. The fallback that hid this for a day is worth naming: a tool loop that fails should say so in the thread, not only in a log file.</li>
+        <li><strong>Agents lost every tool on Anthropic routes.</strong> The placeholder no longer reaches the history, and a turn now drops any trailing assistant message before it goes out, so no caller can reintroduce it. The reply already carried the notice that named the failure and quoted the upstream verbatim, which is what the fix was read off; the 400 was in plain sight and reads like a model problem rather than a malformed request.</li>
       </ul>
     </div>
 

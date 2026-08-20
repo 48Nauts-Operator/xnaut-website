@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.19.0, in which the attestation log became a chain and a deletion stopped being invisible.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.20.0, in which the execution record started being written, and a customer can destroy the evidence without our help.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.19.0, in which the attestation log became a chain and a deletion stopped being invisible.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.20.0, in which the execution record started being written, and a customer can destroy the evidence without our help.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,52 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.19.0</h2>
+      <h2>v1.20.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">20 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The record every capture point was supposed to be writing. xNAUT had the hooks and connected none of them: across three append-only logs there were 2, 49 and 2 entries, and zero chained records had ever been written. This release writes the record, signs it on hardware, encrypts what is private about it, and ships a verifier that needs neither xNAUT nor us.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>The execution record.</strong> Every tool call and every agent run appends a canonical record (JCS, RFC 8785) with a domain-separated SHA-256 and a hash link to the record before it, so changing record N stops every link after it from matching. Canonical means the bytes hash the same on your machine and on the auditor's, which is the part that makes a chain worth anything to somebody else.</li>
+        <li><strong>Checkpoints signed on the HSM.</strong> A Merkle root over a session's records, signed with SHA256_WITH_RSA on the Securosys TSB and chained to the checkpoint before it. This is the part that is evidence rather than bookkeeping: a chain you compute yourself proves nobody edited an entry in place, and nothing more, because whoever holds the log can rewrite an entry and recompute the chain. A signature from a key we cannot extract, over a root, at a time we did not choose, is the outside witness. A checkpoint is only issued if the chain verifies first.</li>
+        <li><strong>Sealing, now meaning encryption.</strong> Tool-call arguments (the commands, the paths, the diffs, which is where the sensitive material actually is) are encrypted locally with AES-256-GCM under a per-session key, fresh nonce per blob. That key's 32 bytes are wrapped by a key held inside the HSM. Delete the one key file and every blob in that session is unreadable by anyone, us included, while the chain over it still verifies. Deleting lines from an append-only log cannot do both.</li>
+        <li><strong>An offline verifier and a bundle export.</strong> Hand a client a bundle and they check it with no xNAUT, no network and no HSM: chain links, Merkle roots, checkpoint chaining and the RSA signatures, in a script that uses the Python standard library only. A redacted bundle, every plaintext argument stripped out, still verifies, because nothing needed to verify it was in the arguments.</li>
+        <li><strong>Plugin credentials live in the macOS keychain</strong> rather than a file in the config directory, and a plain read migrates one that is already there.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The temp file that carried plugin credentials to an agent was mode 644</strong>, readable by any process on the machine.</li>
+        <li><strong>A record no longer carries a plaintext preview of its arguments.</strong> It held the first 200 characters, which is where a secret usually is.</li>
+        <li><strong>Reading a blob after its key was destroyed says so.</strong> It used to hand back raw ciphertext as though it were the arguments, and garbage displayed as evidence is worse than an error saying the key is gone.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Changed</h3>
+      <ul>
+        <li><strong>The work session log no longer claims to be signed or tamper-evident.</strong> Its chain is computed on your own machine with no outside signature over it. It detects a report that was edited after export, which is genuinely useful and is what it now says. It is not evidence against whoever holds the log.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      Three different claims get sold as one word. A chain proves no entry was edited in place. Recomputing a root proves an exported report still matches the record it came from. Only an outside signature over that root is evidence against the party holding the log. The wording across this site was corrected in the same week: the local log says what it does, and the HSM checkpoint chain is the only thing making the third claim.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.20.0">v1.20.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.19.0</h2>
       <span class="rel-date">20 August 2026</span>
     </div>
 
@@ -811,7 +855,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.18.0.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.20.0.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

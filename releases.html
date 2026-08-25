@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.21.1, in which an agent can spin up a persistent Linux VM with a public hostname.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.22.0, in which agents can work the ticket board and their machines are visible beside them.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.21.1, in which an agent can spin up a persistent Linux VM with a public hostname.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.22.0, in which agents can work the ticket board and their machines are visible beside them.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,38 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.21.1</h2>
+      <h2>v1.22.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">26 August 2026</span>
+    </div>
+
+    <p class="rel-lead">An agent that can file a ticket, and a machine you can watch it work on. Both halves of the same idea: work an agent does should leave a trace where you already look, not only inside the chat turn that produced it.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Agents can work the ticket board.</strong> An agent lists, creates and updates tickets through the same write path the app uses, so a ticket it files is indistinguishable from one you filed. Two rails keep the board honest. An agent may mark a ticket <em>done</em>, which hands it straight back to NautBot; only NautBot may mark it <em>complete</em>, which means tested, checked and approved. And an agent may only append to a ticket body, never rewrite it, so a run cannot tidy away the history it is reporting against.</li>
+        <li><strong>An agent's computer shows up beside it.</strong> A VM an agent spins up on exe.dev used to exist only as a line in the transcript. The agent pane now lists each machine with its state and its ssh line: <em>terminal</em> opens the VM's own web terminal right there in the pane, <em>web</em> opens its public hostname in a tab.</li>
+        <li><strong>Zellij sessions on the phone.</strong> The mobile bridge lists your sessions live-first, opens one as a tab, and removes one for good. A terminal tab now remembers the session behind it, so a durable session is marked as durable instead of looking like a bare shell.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Zellij's default keys stopped eating your shell.</strong> Ctrl p/n/o/t/h/s/q are unbound in the generated layout, so shell history and agent TUI keys reach the program you are actually using. Removing a session now kills it as well as deleting it, so the row stops coming back.</li>
+        <li><strong>Adding a bundled plugin no longer fails with "No such file".</strong> The check that runs when you add a plugin started the server from the raw catalog command instead of the resolved one, so exe.dev and NautGate Audit reported a missing script in the installed app even though it was bundled correctly. The check now launches exactly what a run launches. (Shipped as v1.21.2.)</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.22.0">v1.22.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.21.1</h2>
       <span class="rel-date">25 August 2026</span>
     </div>
 
@@ -947,7 +977,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.21.1.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.22.0.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

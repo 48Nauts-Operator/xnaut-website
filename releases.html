@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.20.1, in which agents got their tools back on every route, and one export can carry two independent chains.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.21.1, in which an agent can spin up a persistent Linux VM with a public hostname.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.20.1, in which agents got their tools back on every route, and one export can carry two independent chains.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.21.1, in which an agent can spin up a persistent Linux VM with a public hostname.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,68 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.20.1</h2>
+      <h2>v1.21.1</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">25 August 2026</span>
+    </div>
+
+    <p class="rel-lead">A sandbox that outlives the run. GitVM's boxes are ephemeral and self-destruct on a timeout, which is right for a build and wrong for anything an agent should be able to come back to. exe.dev gives an agent a persistent Linux VM with root and a public HTTPS hostname, so what it builds has an address while it is still building it.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>exe.dev in the plugin library.</strong> An agent can create a persistent Linux VM, run commands on it, and delete it when it is done. Standard library only, like every plugin we ship. Token scoping is exe.dev's own, so a key can be minted per run with a command whitelist and an expiry rather than handing over a long-lived one.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Bundled plugin scripts now start from the installed app.</strong> A catalog entry pointing at a script inside the app only resolved when the working directory happened to be the source checkout. In the released build the server failed to start and read as a broken plugin. The scripts ship inside the bundle and the path is resolved at launch. Anything you configured yourself is untouched.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.21.1">v1.21.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.21.0</h2>
+      <span class="rel-date">24 August 2026</span>
+    </div>
+
+    <p class="rel-lead">xNAUT now arrives with two agents already in it. NautBot is the guide and the control layer: it knows the app, and it can drive it. The Librarian knows what you have written, and the Vault workspace is where that pays off, because your files, your uncommitted work and a chat about them are finally in the same window.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Two default agents out of the box.</strong> NautBot is your guide and control layer for xNAUT. The Librarian knows your docs and data: it searches everything you have written, researches and drafts documents into the vault with the right structure, and turns an idea into a diagram in the open document.</li>
+        <li><strong>Vault workspace.</strong> A file browser for the linked project opens any file in the centre, code syntax-highlighted and markdown rendered. A Changes panel shows uncommitted work grouped by folder, files not yet pushed, recent commits tagged with the release they shipped in, and every worktree; any file or commit opens its diff in the centre. A per-project chat keeps each project's own thread.</li>
+        <li><strong>Review queue</strong> split into what needs you and what does not, so the queue is a list of decisions rather than a list of events. Agents wake with a project brief instead of a blank context.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Chat kept answering from the wrong model.</strong> The provider you pick now holds through the fallback completion instead of quietly dropping to the global default. The document assistant defaults to a funded, tool-capable route.</li>
+        <li>Voice dictation reports a silent microphone plainly instead of inserting a phantom word. A denied or muted mic produces near-silence, and the model turns that into a word you never said.</li>
+        <li>A referenced note that does not exist is handled as a soft result instead of erroring over the answer it was part of.</li>
+        <li><strong>NautGate.</strong> A session whose launch binding expired is stopped instead of retrying in a loop, and a Max-plan agent stops rather than looping. Local provider URLs load from saved settings, which fixes a stale model dropdown.</li>
+        <li>Diagrams drawn from chat are no longer orphaned: they land in the document that asked for them.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.21.0">v1.21.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.20.1</h2>
       <span class="rel-date">21 August 2026</span>
     </div>
 
@@ -887,7 +947,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.20.1.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.21.1.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.22.0, in which agents can work the ticket board and their machines are visible beside them.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.22.1, which lets the iOS app authenticate and answer a blocked agent from your pocket.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.22.0, in which agents can work the ticket board and their machines are visible beside them.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.22.1, which lets the iOS app authenticate and answer a blocked agent from your pocket.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,40 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.22.0</h2>
+      <h2>v1.22.1</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">26 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The half of the mobile work that missed v1.22.0, and the regression it shipped instead. If you are on v1.22.0, update: the iOS app cannot connect to it at all, and any zellij session it created has no keybindings.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Zellij sessions came back with no keys at all.</strong> The generated layout cleared every default binding instead of the seven that collide with a shell and an agent TUI, so a session created by v1.22.0 had no detach, no pane or tab switching and no scroll mode. Now only those seven are unbound. Sessions made under v1.22.0 keep the broken layout until it is removed: delete <code>~/.config/xnaut/layouts/</code> and launch the session again.</li>
+        <li><strong>Session names with a capital letter were rejected.</strong> The validator compared a name against its own lowercased form, so every real session failed it. It now refuses only what zellij genuinely cannot take.</li>
+        <li><strong>Removing a session that was already gone returned an error.</strong> It reports success, because it is.</li>
+        <li><strong>Attaching from the phone opened a window on the Mac.</strong> It no longer does, unless you ask for it. Zellij sizes a session to its smallest attached client, so a phone left attached used to squeeze the session to phone width on your desktop.</li>
+      </ul>
+    </div>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>The iOS app can authenticate.</strong> Every bridge route now accepts a standard <code>Authorization: Bearer</code> header alongside the existing query token. Without this the mobile client cannot connect at all, which is the reason this release exists.</li>
+        <li><strong>Answer a blocked agent from your pocket.</strong> The bridge exposes your inbox: read what is waiting, approve or deny a request, and type an answer back. An agent stuck on a question no longer waits for you to reach a desk.</li>
+        <li><strong>A session opened from the phone starts at the phone's size</strong>, rather than being reshaped after the fact.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.22.1">v1.22.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.22.0</h2>
       <span class="rel-date">26 August 2026</span>
     </div>
 
@@ -91,7 +123,7 @@
     <div class="grp">
       <h3>Fixed</h3>
       <ul>
-        <li><strong>Zellij's default keys stopped eating your shell.</strong> Ctrl p/n/o/t/h/s/q are unbound in the generated layout, so shell history and agent TUI keys reach the program you are actually using. Removing a session now kills it as well as deleting it, so the row stops coming back.</li>
+        <li><strong>Removing a session kills it as well as deleting it</strong>, so the row stops coming back.<br><em>Correction:</em> this release also tried to stop zellij's default keys eating your shell and got it wrong, unbinding every zellij key rather than the seven that collide. Fixed in v1.22.1 below.</li>
         <li><strong>Adding a bundled plugin no longer fails with "No such file".</strong> The check that runs when you add a plugin started the server from the raw catalog command instead of the resolved one, so exe.dev and NautGate Audit reported a missing script in the installed app even though it was bundled correctly. The check now launches exactly what a run launches. (Shipped as v1.21.2.)</li>
       </ul>
     </div>
@@ -977,7 +1009,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.22.0.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.22.1.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

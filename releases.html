@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.22.1, which lets the iOS app authenticate and answer a blocked agent from your pocket.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.23.0, the supervised self-building loop: agents pull tickets, a risk-scored merge gate lands the work, and your phone is told at the human gates.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.22.1, which lets the iOS app authenticate and answer a blocked agent from your pocket.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.23.0, the supervised self-building loop: agents pull tickets, a risk-scored merge gate lands the work, and your phone is told at the human gates.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,47 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.22.1</h2>
+      <h2>v1.23.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">27 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The supervised self-building loop. NautBot runs a ticket end to end from chat: assign it, wake the agent, verify the work in a sandbox, put a cross-model panel on it, and land it through a risk-scored merge gate. Every step is guarded, every guard has a kill-switch, and your phone is told at the human gates.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>The ticket loop.</strong> Agents pull their assigned tickets from the bridge, identity resolved server-side from the session token, and setting a ticket to done hands it back for review automatically. NautBot wakes an agent with a nudge typed into its idle session, or launches it cold when no session exists.</li>
+        <li><strong>A merge gate with a risk score.</strong> Diffs are scored deterministically: size, breadth, sensitive paths, shrinking tests, missing verification. High-risk merges wait for your approval in the Mesh, conflicts abort clean, and any landed ticket can be un-merged with one revert.</li>
+        <li><strong>Kill-switches.</strong> Freeze all merges, go read-only, require approval on everything, or quarantine one agent. One audited flag each, owner-only, read at the moment of the action so a flip needs no restart.</li>
+        <li><strong>xFusion panels.</strong> Two or three models answer, debate or try to refute a piece of work independently. No judge, and the debate ends itself the round nobody moves. A reviewer that shares the worker's model shares its blind spots; the panel does not.</li>
+        <li><strong>Sandbox verification.</strong> A ticket's verify plan runs in a sandbox; a green record lowers the merge risk, a red one refuses the merge outright.</li>
+        <li><strong>Mobile: push notifications.</strong> Inbox questions, approvals and agent state changes reach your phone. Plus read-only vault search and reading from the bridge, and per-device tokens so one phone can be revoked without re-pairing the rest.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Changed</h3>
+      <ul>
+        <li><strong>Agents address each other by tag only.</strong> Runtimes and models are never disclosed between agents: a model that knows which model it is arguing with postures instead of answering.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Removing a zellij session that was already gone no longer surfaces as an error</strong> for callers beyond the phone's path; the guard now accepts both of zellij's phrasings.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.23.0">v1.23.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.22.1</h2>
       <span class="rel-date">26 August 2026</span>
     </div>
 
@@ -1009,7 +1048,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.22.1.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.23.0, the supervised self-building loop.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

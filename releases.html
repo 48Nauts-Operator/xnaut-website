@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.23.0, the supervised self-building loop: agents pull tickets, a risk-scored merge gate lands the work, and your phone is told at the human gates.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.24.2 with Flow Watch, a live window on every running agent, on top of the supervised self-building loop.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.23.0, the supervised self-building loop: agents pull tickets, a risk-scored merge gate lands the work, and your phone is told at the human gates.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.24.2 with Flow Watch, a live window on every running agent, on top of the supervised self-building loop.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,48 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.23.0</h2>
+      <h2>v1.24.2</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">28 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Watch your agents work. The first live run of the self-building loop launched an agent nobody could see; this release is the window.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Flow Watch.</strong> A right-pane view with one collapsible row per running agent session: status dot, click to open the live terminal output. Read-only by construction, so watching a flow can never type into it.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.24.2">v1.24.2 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.23.1</h2>
+      <span class="rel-date">28 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Found in the first minutes of dogfooding v1.23.0.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Agents can be addressed by their display name.</strong> Waking an agent by display name found no profile, and a ticket assigned to one was owned by a string no agent would match, so the loop no-opped silently. Spoken names now resolve to handles everywhere; an unknown name is refused with the roster.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.23.1">v1.23.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.23.0</h2>
       <span class="rel-date">27 August 2026</span>
     </div>
 
@@ -1048,7 +1088,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.23.0, the supervised self-building loop.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.24.2 with Flow Watch.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

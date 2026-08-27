@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.24.2 with Flow Watch, a live window on every running agent, on top of the supervised self-building loop.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.24.3, where an agent finishing a ticket really hands it back, plus Flow Watch and the supervised self-building loop.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.24.2 with Flow Watch, a live window on every running agent, on top of the supervised self-building loop.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.24.3, where an agent finishing a ticket really hands it back, plus Flow Watch and the supervised self-building loop.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,28 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.24.2</h2>
+      <h2>v1.24.3</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">28 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Found by letting an agent run a ticket end to end and watching what the record did afterwards.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>An agent finishing a ticket now really hands it back.</strong> The rule that <code>done</code> returns a ticket to NautBot, and that only NautBot may mark it <code>complete</code>, was enforced only for agents writing through chat. An agent working inside a run writes through a different path that had neither, so a finished ticket stayed owned by the agent that finished it and nobody was told it needed review. Both rules now live at the single write every caller passes through.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.24.3">v1.24.3 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.24.2</h2>
       <span class="rel-date">28 August 2026</span>
     </div>
 
@@ -1088,7 +1108,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.24.2 with Flow Watch.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.24.3.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

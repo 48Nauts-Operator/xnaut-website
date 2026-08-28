@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The eGate generation already knows how agentic systems should run · xNAUT</title>
+  <meta name="description" content="Twenty-five years ago EAI engineers built typed messages, durable queues, guard-rails and rollback for systems that could not think. Add a thinking endpoint and you have the blueprint for agents. Old skills are not dead.">
+  <link rel="canonical" href="https://xnaut.dev/blog/the-egate-generation.html">
+  <meta name="author" content="André">
+  <meta name="keywords" content="EAI, SeeBeyond, eGate, Monk, agent orchestration, integration patterns, agentic systems, guard rails">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="The eGate generation already knows how agentic systems should run">
+  <meta property="og:description" content="EAI engineers built typed messages, durable queues, guard-rails and rollback for systems that could not think. Add a thinking endpoint and you have the blueprint for agents.">
+  <meta property="og:url" content="https://xnaut.dev/blog/the-egate-generation.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="The eGate generation already knows how agentic systems should run">
+  <meta name="twitter:description" content="EAI engineers built typed messages, durable queues, guard-rails and rollback for systems that could not think. Add a thinking endpoint and you have the blueprint for agents.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post a { color: var(--amber); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+    .post a:hover { color: var(--text); }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+    .pull { border-left: 2px solid var(--amber); padding: 4px 0 4px 20px; margin: 26px 0; }
+    .pull p { color: var(--text); font-size: 18px; margin: 0; }
+    .map { width: 100%; border-collapse: collapse; margin: 22px 0 26px; font-size: 15px; }
+    .map th { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line-strong); }
+    .map td { padding: 9px 12px; border-bottom: 1px solid var(--line); color: var(--text-soft); vertical-align: top; }
+    .map td:first-child { font-family: var(--mono); font-size: 13.5px; color: var(--text); white-space: nowrap; }
+    .note-card { background: var(--panel-deep); border: 1px solid var(--line-strong); border-radius: 14px; padding: 28px; margin-top: 56px; }
+    .note-card .post-eyebrow { margin-bottom: 12px; display: block; }
+    .note-card p { color: var(--text); font-size: 17px; }
+    .note-card p:last-of-type { margin-bottom: 0; }
+    .sig { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line-strong); }
+    .more { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .more h3 { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; margin: 0 0 12px; }
+    .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .more a { color: var(--text); text-decoration: none; font-size: 15.5px; }
+    .more a:hover { color: var(--amber); }
+    .more span { color: var(--faint); font-size: 13.5px; }
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The eGate generation already knows how agentic systems should run",
+  "description": "EAI engineers built typed messages, durable queues, guard-rails and rollback for systems that could not think. Add a thinking endpoint and you have the blueprint for agents.",
+  "image": "https://xnaut.dev/assets/og-v2.png",
+  "author": { "@type": "Person", "name": "André" },
+  "publisher": { "@type": "Organization", "name": "xNAUT", "url": "https://xnaut.dev" },
+  "datePublished": "2026-08-27",
+  "dateModified": "2026-08-27",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://xnaut.dev/blog/the-egate-generation.html" },
+  "isPartOf": { "@type": "Blog", "name": "xNAUT blog", "@id": "https://xnaut.dev/blog/" }
+}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Engineering</span>
+  <h1>The eGate generation already knows how agentic systems should run</h1>
+  <p class="post-lede">Around 2000 I was wiring enterprise systems together with <a href="https://en.wikipedia.org/wiki/SeeBeyond">SeeBeyond</a>'s eGate, writing transformations in a tiny <a href="https://en.wikipedia.org/wiki/Scheme_(programming_language)">Scheme</a> dialect called <a href="https://docs.oracle.com/cd/E18867_01/4.5.x/4.5.3/eGate_Integrator/Monk_Reference.pdf">Monk</a>. This week, building multi-agent orchestration into xNAUT, I kept having the same feeling: I have built this before. I had. Everyone from that era has.</p>
+  <p class="post-meta">27 August 2026 · André</p>
+
+  <h2>What we were actually building back then</h2>
+
+  <p><a href="https://en.wikipedia.org/wiki/Enterprise_application_integration">EAI</a>, enterprise application integration, was the unglamorous middle of the software world. SAP on one side, a warehouse system on the other, neither willing to speak to anything. Our job was everything between: adapters, typed messages, transformation, routing, queues that guaranteed delivery even when an endpoint died mid-flow. The cloud was called the server room and it had a door. Documentation came in binders heavy enough to be a workplace hazard. We were, and I need you to sit with this, paid to write <a href="https://en.wikipedia.org/wiki/Scheme_(programming_language)">Scheme</a>, on purpose, for banks.</p>
+
+  <p>The endpoints were dumb. That is the detail that matters. Every drop of judgment in an eGate flow came from a human who had encoded it in advance. So all of our engineering went into the part around the judgment: an Event Type Definition so no message without a declared shape could enter the flow, intelligent queues so nothing assigned was ever lost, compensation paths so a half-finished flow could be walked back, and monitoring on everything, because a silent integration is a broken integration that has not been discovered yet.</p>
+
+  <p>Harnesses. Guard-rails. Rollback. We did not call them that. They were just what you built so the flow survived contact with reality.</p>
+
+  <div class="pull"><p>We were building the half of agent systems that survives, twenty-five years before the other half existed.</p></div>
+
+  <h2>Then the endpoint learned to think</h2>
+
+  <p>What changed in the last two years is exactly one component. The endpoint. The dumb adapter became a model that can read a ticket, write code, and explain itself. Everything else in an agentic system, everything, is the old middle: how work is assigned, how messages carry shape, how state survives a crash, how a bad change is walked back, who may declare a thing finished.</p>
+
+  <p>And here is what I keep seeing: the agent world is re-learning that middle from scratch, usually badly. Lost assignments, two agents writing over each other, "done" claims nobody verified, messages with no declared shape, no way to undo what an agent landed overnight. Every one of those is a solved problem. It was solved by people who could not fall back on the endpoint being smart, which forced the discipline into the infrastructure, which is exactly where it still belongs. A smart endpoint is not a reason to skip the discipline. It is more traffic through it.</p>
+
+  <p>This week we shipped a merge gate that scores risk before anything lands, kill-switches that drop a whole layer with one audited flag, typed claims where <code>done</code> and <code>complete</code> mean two enforceably different things, and a pull loop where the assignment lives in a durable record instead of in anyone's memory. As I was drawing the guard-rail map for it, the shape looking back at me was an eGate collaboration diagram. I laughed out loud.</p>
+
+  <h2>A receipt, from the archive</h2>
+
+  <p>I dug out some pre-historic code snippets. This is real Monk from 2002, an error path, trimmed for length only:</p>
+
+  <pre style="background: var(--panel); border: 1px solid var(--border-card); border-radius: 12px; padding: 20px 22px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; margin: 0 0 16px;"><code>;;External Monk Function
+;;usage:(NOC-Error-To-Queue &lt;message-string&gt; &lt;eway-name&gt; ...)
+(define NOC-Error-To-Queue
+  (let ((output ($make-event-map ERROR-delm ERROR-struct)))
+  (lambda (message-string eway-name input-event-type output-event-type)
+
+   (copy-strip "e*Gate error" ~output%ERROR.DataSet.ERROR.AttSet.message_desc.Value "")
+   (copy-strip eway-name ~output%ERROR.DataSet.ERROR.AttSet.adapter_name.Value "")
+   (copy-strip (exception-string-all) ~output%ERROR.DataSet.ERROR.AttSet.error_description.Value "")
+   (copy-strip message-string ~output%ERROR...DataSet.Data[0].CDATA[0] "")
+   (timestamp ~output%ERROR.DataSet.ERROR.AttSet.error_date_time.Value "%Y-%m-%d-%H-%M-%S")
+
+   (iq-put output-event-type ($event-&gt;string output) (list input-event-type) 0 0 5)
+
+   ($event-clear output)
+)))</code></pre>
+
+  <p>Yes, those are all parentheses. We counted them by hand and we were grateful for the work. Read what it does, not the parentheses. A message failed somewhere. Instead of a log line, the failure becomes a <strong>typed event with a declared shape</strong>: which adapter, what exception, when, and the original message carried whole as payload so nothing is lost. Then it goes onto a guaranteed queue, with retry arguments, where something is obliged to deal with it. The failure is data with an address, not text in a file.</p>
+
+  <p>That is, mechanism for mechanism, what our agent layer does in 2026 when a guard-rail refuses a merge: a typed refusal naming who, what and why, parked on a durable surface a human is obliged to see. I worked on flows like this 26 years ago, and I did not sit down this week to copy them; I could not have. What happened is that remembering bits and pieces of that world, a typed error here, a guaranteed queue there, kept answering the questions the agent work was raising. The missing part of agentic backend engineering was not waiting to be invented. It was waiting to be remembered.</p>
+
+  <h2>The map, explicitly</h2>
+
+  <table class="map">
+    <tr><th>eGate, ~2000</th><th>Agentic systems, 2026</th></tr>
+    <tr><td>Event Type Definition</td><td>Typed message envelope; a claim without its declared shape is refused</td></tr>
+    <tr><td>Intelligent queue, guaranteed delivery</td><td>The ticket as durable assignment; work survives any crash</td></tr>
+    <tr><td>Collaboration rules</td><td>Orchestration graphs; who hands what to whom</td></tr>
+    <tr><td>Compensation path</td><td>One-revert rollback of anything an agent merged</td></tr>
+    <tr><td>Adapter goes down, flow holds</td><td>Agent dies, the loop resumes from the record</td></tr>
+    <tr><td>Monitoring on every hop</td><td>Refusals as data; a rail that fired says why</td></tr>
+    <tr><td>The human writing Monk</td><td>The model. That is the only row that changed.</td></tr>
+  </table>
+
+  <p>Monk itself carries the deepest lesson on that list. It was fast, and it was fast because it refused to be general. A tiny language for one job, embedded where the job was. And its ending is a lesson too, in three acts, the first self-inflicted. SeeBeyond generalised itself: ICAN 5.0 rewrote the platform in Java and sidelined Monk. Sun bought the result in 2005 and renamed ICAN to <a href="https://en.wikipedia.org/wiki/Sun_Java_Composite_Application_Platform_Suite">JCAPS</a>, the Java Composite Application Platform Suite. Oracle bought Sun in 2010, JCAPS came with it, and Oracle shelved it in favour of its own SOA stack, which cleared a competitor from the field. Going general killed the product before anyone bought it; acquisition just buried it. The agent frameworks accumulating abstractions right now, and the ones hoping to be acquired by the platforms they compete with, might want to sit with that for a minute.</p>
+
+  <h2>Old skills are not dead</h2>
+
+  <p>If you spent the 2000s in eGate, <a href="https://en.wikipedia.org/wiki/WebMethods">webMethods</a>, <a href="https://en.wikipedia.org/wiki/TIBCO_Software">TIBCO</a>, <a href="https://en.wikipedia.org/wiki/Microsoft_BizTalk_Server">BizTalk</a>, <a href="https://en.wikipedia.org/wiki/IBM_MQ">MQSeries</a>, any of that world, you are not behind on agents. You are ahead on the part that decides whether an agentic system survives its first bad night. You already think in flows, not calls. You already assume every endpoint will fail, because yours always did. You already know that a message without a shape is a bug that has not happened yet, and that anything landed without a compensation path is a hostage.</p>
+
+  <p>Add today's agent capabilities to that instinct and you understand how a future agentic system should run better than most people currently building them. The revival is not nostalgia. The patterns worked for decades in production, in industries where a lost message was a lost shipment. They stopped being fashionable, not being right.</p>
+
+  <div class="pull"><p>Languages and platforms died when their semantics outran their enforcement. They survived when the semantics were the runtime.</p></div>
+
+  <p>That sentence is the whole design rule we now build xNAUT's agent layer by. It comes straight from walking the graveyard: <a href="https://en.wikipedia.org/wiki/Knowledge_Query_and_Manipulation_Language">KQML</a> and <a href="http://www.fipa.org/repository/aclspecs.html">FIPA-ACL</a> specified beautiful semantics nobody enforced, and died. <a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a> and the <a href="https://en.wikipedia.org/wiki/Linda_(coordination_language)">tuple spaces</a> made the semantics the runtime, and survived. eGate sat on the surviving side for a decade, and the people who ran it carry the pattern in their hands.</p>
+
+  <p>So if that is you: your skills did not expire. They were waiting for the endpoints to get interesting. Dig out the old instincts, dust off the flow thinking, and go build the boring half of the future. The kids can look up what a pencil and a cassette tape have in common.</p>
+
+  <div class="note-card">
+    <span class="post-eyebrow">Where this is going</span>
+    <p>xNAUT's agent layer is being built on exactly these patterns: durable ticket assignment, a risk-scored merge gate with one-revert rollback, layer kill-switches, and a small enforced vocabulary of claims instead of a clever protocol. If you want to watch EAI discipline meet thinking endpoints in a real codebase, the releases page is the running log.</p>
+    <p class="sig">André · 48Nauts · xnaut.dev</p>
+  </div>
+
+  <div class="more">
+    <h3>More from the blog</h3>
+    <ul>
+      <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key to building a great open-source product</a> <span>· how borrowed ideas get credited here</span></li>
+      <li><a href="/blog/untested-is-not-passed.html">Untested is not passed</a></li>
+      <li><a href="/blog/where-the-agents-run.html">Where the agents run</a></li>
+    </ul>
+  </div>
+
+</article>
+
+</body>
+</html>

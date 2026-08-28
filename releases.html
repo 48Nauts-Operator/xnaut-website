@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.24.3, where an agent finishing a ticket really hands it back, plus Flow Watch and the supervised self-building loop.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.24.5, with Flow Watch answering a blocked agent in place, on top of the supervised self-building loop.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.24.3, where an agent finishing a ticket really hands it back, plus Flow Watch and the supervised self-building loop.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.24.5, with Flow Watch answering a blocked agent in place, on top of the supervised self-building loop.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,55 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.24.3</h2>
+      <h2>v1.24.5</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">28 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Two fixes found by using the thing: one by an agent refusing a nonsense prompt, one by an agent reporting that it had nothing to wait on.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Asking you a question no longer leaves the agent with nothing to wait on.</strong> A question or approval request held its reply for two minutes before answering, so an agent whose own timeout was shorter received nothing at all, not even the request's id, and could not follow it up. The request was on your screen the whole time; only the agent was blind to it.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.24.5">v1.24.5 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.24.4</h2>
+      <span class="rel-date">28 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Answer a blocked agent where the work is, and a button that finally sends what you typed.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Answer a blocked agent from Flow Watch.</strong> Open questions and approval requests sit above the running sessions: approve, deny, pick an option or type an answer without leaving the view where the work is happening. They are the same Mesh items, one glance from the run they are blocking.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>The Send button in Agent Space sent a placeholder instead of your message.</strong> Clicking Send passed the click event itself as the prompt, so the agent received the text "[object PointerEvent]" and never saw what you typed. Pressing Enter always worked, which is why this looked like an agent problem rather than a button problem.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.24.4">v1.24.4 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.24.3</h2>
       <span class="rel-date">28 August 2026</span>
     </div>
 
@@ -1108,7 +1155,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.24.3.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.24.5.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

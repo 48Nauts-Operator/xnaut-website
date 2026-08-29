@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.24.5, with Flow Watch answering a blocked agent in place, on top of the supervised self-building loop.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.25.1, where the terminal ships with the app and agents can use xNAUT's own tools.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.24.5, with Flow Watch answering a blocked agent in place, on top of the supervised self-building loop.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.25.1, where the terminal ships with the app and agents can use xNAUT's own tools.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,51 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.24.5</h2>
+      <h2>v1.25.1</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">29 August 2026</span>
+    </div>
+
+    <p class="rel-lead">A terminal that needs the internet to draw a terminal is not a terminal.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Terminals work without an internet connection.</strong> The terminal engine was fetched from a CDN each time the app started, so a brief network problem meant no terminal or agent session could be opened at all, and restarting was the only way back even once the connection returned. It now ships inside xNAUT.</li>
+        <li>Crash reports in the debug log include what went wrong, not only where.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.25.1">v1.25.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.25.0</h2>
+      <span class="rel-date">29 August 2026</span>
+    </div>
+
+    <p class="rel-lead">The first run where an agent worked a ticket end to end found three things in the loop around it. All three are fixed here.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Agents can use xNAUT's own tools.</strong> A launched agent got the plugins you had enabled and nothing else, so the ticket, decision and document tools did not exist for it. It fell back to editing project files by hand, which works but skips every safeguard those tools enforce.</li>
+        <li><strong>A woken agent works the ticket you woke it for.</strong> The queue was ordered oldest-change-first, so a fresh assignment came last behind anything that had been sitting around. It now orders by what is already started, then priority, then recency, and a wake can name the ticket to start with.</li>
+        <li><strong>A prefilled task gets submitted.</strong> The agent is launched with its task already in the composer and waits for a return key before running it. Nothing sent that key, so a woken agent sat looking idle until somebody pressed Enter by hand.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.25.0">v1.25.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.24.5</h2>
       <span class="rel-date">28 August 2026</span>
     </div>
 
@@ -1155,7 +1198,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.24.5.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.25.1, where the terminal ships with the app and agents can use xNAUT's own tools.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

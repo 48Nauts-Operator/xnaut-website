@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.25.1, where the terminal ships with the app and agents can use xNAUT's own tools.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.25.2, where an agent finishing a ticket really hands it back.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.25.1, where the terminal ships with the app and agents can use xNAUT's own tools.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.25.2, where an agent finishing a ticket really hands it back.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,29 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.25.1</h2>
+      <h2>v1.25.2</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">29 August 2026</span>
+    </div>
+
+    <p class="rel-lead">Agents got xNAUT's own tools in v1.25.0. This is the half that makes the safeguards on those tools apply to them.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>An agent finishing a ticket hands it back for real.</strong> Agents could call xNAUT's tools, but their calls arrived anonymously, so the safeguards treated them as your own actions and stayed out of the way. A finished ticket stayed owned by the agent that finished it, and nobody was told it needed review. Tool calls now identify the agent making them.</li>
+        <li><strong>Vault search stops leading with dependency files.</strong> The indexer walked <code>node_modules</code>, <code>target</code> and friends, so a search could return three files from a checked-in dependency before any real note.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.25.2">v1.25.2 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.25.1</h2>
       <span class="rel-date">29 August 2026</span>
     </div>
 
@@ -1219,7 +1240,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.25.1, where the terminal ships with the app and agents can use xNAUT's own tools.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.25.2, where an agent finishing a ticket really hands it back.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

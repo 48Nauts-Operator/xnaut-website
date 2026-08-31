@@ -67,7 +67,7 @@
     <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/latest" data-download-mac>Download for macOS</a>
     <a class="btn btn-ghost mono" href="https://github.com/48Nauts-Operator/xNaut">git clone 48Nauts/xNaut</a>
   </div>
-  <p class="footnote">Free &amp; open source · MIT · <span data-version>latest release</span> · <span data-platforms>Apple Silicon, Intel &amp; Windows x64</span></p>
+  <p class="footnote">Free &amp; open source · MIT · <span data-version>latest release</span> · <span data-platforms>Apple Silicon, Intel &amp; Windows x64</span> · <span>macOS 13+</span></p>
 
   <figure class="record">
     <div class="record-head mono">
@@ -333,7 +333,7 @@
     </details>
         <details>
       <summary>Does it run on Windows and Linux?</summary>
-      <p>macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers (.msi / .exe) ship with every release — treat them as early: the core terminal works, but workspace features that rely on zellij are macOS-first. No Linux builds yet.</p>
+      <p>macOS 13 Ventura or newer (Apple Silicon + Intel) is the primary platform; the app declares that floor and older Macs refuse to launch it. Windows x64 installers (.msi / .exe) ship with every release — treat them as early: the core terminal works, but workspace features that rely on zellij are macOS-first. No Linux builds yet.</p>
     </details>
     <details>
       <summary>Can my agents control xNAUT itself?</summary>
@@ -383,7 +383,8 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "xNAUT",
-  "operatingSystem": "macOS, Windows",
+  "operatingSystem": "macOS 13+, Windows",
+  "softwareRequirements": "macOS 13 Ventura or newer",
   "applicationCategory": "DeveloperApplication",
   "description": "Native 20 MB terminal that runs AI coding agents with live status, local-first AI, git worktrees, and cryptographically signed work sessions.",
   "url": "https://xnaut.dev/",
@@ -486,7 +487,7 @@
       "name": "Does it run on Windows and Linux?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "macOS (Apple Silicon + Intel) is the primary platform. Windows x64 installers ship with every release — treat them as early. No Linux builds yet."
+        "text": "macOS 13 Ventura or newer (Apple Silicon + Intel) is the primary platform; the app declares that floor and older Macs refuse to launch it. Windows x64 installers ship with every release — treat them as early. No Linux builds yet."
       }
     },
     {

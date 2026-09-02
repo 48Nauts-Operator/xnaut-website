@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>xNAUT loops OG card source</title>
+<!--
+  Source for assets/og-loops.png (1200x630 social card) for
+  blog/loops-fail-at-their-exits.html.
+  To re-shoot: serve the website root, open /assets/og-loops.html at a
+  1200x630 viewport, screenshot, save over assets/og-loops.png.
+
+  The card carries the paradox, not the bug. "Both correct" is the line that
+  makes someone click, because every other post-mortem headline implies
+  someone was careless. The broken chain below shows the mechanism in four
+  words: the record that stops being written is the one the counter reads,
+  so the strip is deliberately dashed and empty in the middle rather than
+  crossed out. Nothing here says the loop was shipped to anyone, because it
+  was not.
+-->
+<style>
+  @font-face { font-family:'Space Grotesk'; src:url('../fonts/space-grotesk.woff2') format('woff2'); font-weight:300 700; }
+  @font-face { font-family:'JetBrains Mono'; src:url('../fonts/jetbrains-mono.woff2') format('woff2'); font-weight:100 800; }
+
+  html,body { margin:0; padding:0; background:#0A0B0D; }
+  .card {
+    width:1200px; height:630px; box-sizing:border-box;
+    background:#0A0B0D; color:#ECEDEF;
+    font-family:'Space Grotesk', system-ui, sans-serif;
+    padding:58px 66px; display:flex; flex-direction:column; justify-content:space-between;
+    background-image:radial-gradient(120% 85% at 15% 0%, rgba(245,184,64,.10), transparent 62%);
+  }
+  .top { display:flex; align-items:center; justify-content:space-between; }
+  .brand { display:flex; align-items:center; gap:15px; }
+  .mark {
+    width:52px; height:52px; border-radius:13px; background:#F5B840; color:#16130A;
+    display:grid; place-items:center;
+    font-family:'JetBrains Mono', monospace; font-size:21px; font-weight:700;
+  }
+  .word { font-size:38px; font-weight:600; letter-spacing:-.03em; }
+  .kicker {
+    font-family:'JetBrains Mono', monospace; font-size:16px; letter-spacing:.13em;
+    text-transform:uppercase; color:#5C626C;
+  }
+  h1 { margin:0; font-size:64px; font-weight:600; line-height:1.08; letter-spacing:-.028em; max-width:20ch; }
+  h1 em { font-style:normal; color:#F5B840; }
+  .lead { margin:20px 0 0; font-size:25px; line-height:1.46; color:#B7BCC4; max-width:56ch; }
+
+  .chain { display:flex; align-items:center; gap:13px; margin-top:4px; }
+  .node {
+    font-family:'JetBrains Mono', monospace; font-size:16px; color:#B7BCC4;
+    background:#111318; border:1px solid #262A31; border-radius:9px; padding:13px 17px;
+  }
+  .gone {
+    font-family:'JetBrains Mono', monospace; font-size:16px; color:#4A4F58;
+    border:1px dashed #3A3F47; border-radius:9px; padding:13px 17px;
+  }
+  .amber { color:#F5B840; border-color:rgba(245,184,64,.45); }
+  .link { color:#3A3F47; font-family:'JetBrains Mono', monospace; font-size:18px; }
+  .link.dead { color:#6B5320; }
+
+  .bottom { display:flex; flex-direction:column; align-items:flex-start; gap:20px; }
+  .chips { display:flex; gap:12px; white-space:nowrap; }
+  .chip {
+    font-family:'JetBrains Mono', monospace; font-size:17px; color:#B7BCC4;
+    border:1px solid #262A31; border-radius:999px; padding:10px 19px;
+  }
+  .url { font-family:'JetBrains Mono', monospace; font-size:19px; color:#5C626C; letter-spacing:.02em; }
+</style>
+
+<div class="card">
+  <div class="top">
+    <div class="brand"><span class="mark">xN</span><span class="word">xNAUT</span></div>
+    <div class="kicker">engineering &middot; part 1 of 3</div>
+  </div>
+
+  <div>
+    <h1>Two fixes. <em>Both correct.</em> One loop that could never stop.</h1>
+    <p class="lead">The brake counted receipts. The better error message started arriving before any receipt was written.</p>
+  </div>
+
+  <div class="chain">
+    <span class="node">bad input</span>
+    <span class="link">&#8594;</span>
+    <span class="node amber">refused early, correctly</span>
+    <span class="link dead">&#8594;</span>
+    <span class="gone">no record written</span>
+    <span class="link dead">&#8594;</span>
+    <span class="node amber">counter sees nothing</span>
+  </div>
+
+  <div class="bottom">
+    <div class="chips">
+      <span class="chip">9 retries in 27 min</span>
+      <span class="chip">all tests passed</span>
+      <span class="chip">never released</span>
+    </div>
+    <div class="url">xnaut.dev/blog/loops-fail-at-their-exits</div>
+  </div>
+</div>

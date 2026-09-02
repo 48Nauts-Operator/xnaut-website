@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loops fail at their exits · xNAUT</title>
+  <meta name="description" content="Two fixes to xNAUT were both correct. Together they created a retry loop that could never stop, because the brake counted evidence the improved code no longer produced. Part 1 of 3.">
+  <link rel="canonical" href="https://xnaut.dev/blog/loops-fail-at-their-exits.html">
+  <meta name="author" content="André">
+  <meta name="keywords" content="retry loop, backoff, post-mortem, agent orchestration, exit condition, software testing">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="xNAUT">
+  <meta property="og:title" content="Loops fail at their exits">
+  <meta property="og:description" content="Two fixes to xNAUT were both correct. Together they created a retry loop that could never stop, because the brake counted evidence the improved code no longer produced.">
+  <meta property="og:url" content="https://xnaut.dev/blog/loops-fail-at-their-exits.html">
+  <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@xnautdev">
+  <meta name="twitter:title" content="Loops fail at their exits">
+  <meta name="twitter:description" content="Two fixes to xNAUT were both correct. Together they created a retry loop that could never stop.">
+  <meta name="twitter:image" content="https://xnaut.dev/assets/og-v2.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <script defer src="https://wave.21nauts.com/script.js" data-website-id="6bb927bb-b2fd-486f-924c-df55c043bcad"></script>
+  <style>
+    .post { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+    .post-eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+    .post h1 { font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 14px 0 18px; }
+    .post-lede { font-size: 19px; line-height: 1.6; color: var(--text-soft); }
+    .post-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .post h2 { font-size: 24px; margin: 52px 0 14px; }
+    .post h3 { font-size: 17px; margin: 0 0 8px; }
+    .post p { font-size: 16.5px; line-height: 1.72; color: var(--text-soft); margin-bottom: 16px; }
+    .post strong { color: var(--text); font-weight: 600; }
+    .post code { font-family: var(--mono); font-size: 13.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; color: var(--text); }
+
+    .series { font-family: var(--mono); font-size: 12px; color: var(--faint); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin-bottom: 26px; }
+    .series b { color: var(--amber); font-weight: 500; }
+
+    .pull { border-left: 3px solid var(--amber); padding: 4px 0 4px 20px; margin: 30px 0; }
+    .pull p { font-size: 18.5px; line-height: 1.55; color: var(--text); margin: 0; }
+
+    .ld { background: var(--panel); border: 1px solid var(--border-card); border-radius: 12px; padding: 22px 20px; margin: 30px 0; }
+    .ld-lanes { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 26px; }
+    .ld-lane { display: flex; flex-direction: column; align-items: stretch; }
+    .ld-lane-h { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin: 0 0 14px; }
+    .ld-step { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.4; color: var(--text-soft); text-align: center; }
+    .ld-keep { border-color: var(--text-soft); color: var(--text); }
+    .ld-hit { border-color: var(--amber); color: var(--amber); }
+    .ld-gone { border-style: dashed; opacity: .45; }
+    .ld-arrow { font-family: var(--mono); font-size: 10.5px; color: var(--faint); text-align: center; padding: 7px 0 6px; line-height: 1.4; }
+    .ld-arrow::before { content: "\2193"; display: block; font-size: 13px; line-height: 1; margin-bottom: 3px; }
+    .ld-a-hit { color: var(--amber); }
+    .ld-a-dead { color: var(--amber); opacity: .65; }
+    .ld-a-dead::before { content: "\21E3"; }
+    .ld-note { font-family: var(--mono); font-size: 11px; text-align: center; margin: 12px 0 0; }
+    .ld-good { color: var(--text-soft); }
+    .ld-bad { color: var(--amber); }
+    .ld-cap { font-size: 14px; color: var(--faint); margin-top: 12px; line-height: 1.55; }
+
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 30px 0; }
+    .fact { background: var(--panel); padding: 16px 15px; }
+    .fact b { display: block; font-size: 27px; line-height: 1.1; color: var(--text); font-variant-numeric: tabular-nums; }
+    .fact span { display: block; font-size: 13px; color: var(--faint); line-height: 1.45; margin-top: 4px; }
+
+    .snip { background: var(--panel); border: 1px solid var(--border-card); border-radius: 12px; padding: 20px 22px; margin: 26px 0; }
+    .snip pre { overflow-x: auto; max-width: 100%; }
+    .snip pre { font-family: var(--mono); font-size: 13px; line-height: 1.7; margin: 0; color: var(--text-soft); }
+    .snip .c { color: var(--faint); }
+    .snip .bad { color: var(--amber); font-weight: 600; }
+    .snip .good { color: var(--text); font-weight: 600; }
+    .snip-cap { font-size: 14px; color: var(--faint); margin-top: 12px; line-height: 1.55; }
+
+    .next { margin-top: 44px; padding: 30px 0 4px; border-top: 1px solid var(--line); }
+    .next .ld-kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 14px; }
+    .next .claim { font-size: clamp(24px, 4.4vw, 34px); line-height: 1.18; color: var(--text); font-weight: 600; letter-spacing: -0.01em; margin: 0 0 14px; text-wrap: balance; }
+    .next .ld-sub { font-size: 16px; color: var(--text-soft); margin: 0; }
+
+    .more { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .more h3 { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 600; margin: 0 0 12px; }
+    .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .more a { color: var(--text); text-decoration: none; font-size: 15.5px; }
+    .more span { color: var(--faint); font-size: 13.5px; }
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Loops fail at their exits",
+  "description": "Two fixes to xNAUT were both correct. Together they created a retry loop that could never stop, because the brake counted evidence the improved code no longer produced.",
+  "image": "https://xnaut.dev/assets/og-v2.png",
+  "author": { "@type": "Person", "name": "André", "url": "https://xnaut.dev" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "48Nauts",
+    "logo": { "@type": "ImageObject", "url": "https://xnaut.dev/favicon.svg" }
+  },
+  "datePublished": "2026-09-02",
+  "dateModified": "2026-09-02",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://xnaut.dev/blog/loops-fail-at-their-exits.html" },
+  "isPartOf": { "@type": "Blog", "name": "xNAUT blog", "@id": "https://xnaut.dev/blog/" }
+}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="/">
+    <span class="logo-mark">xN</span>
+    <span class="logo-name">xNAUT</span>
+  </a>
+  <div class="nav-actions">
+    <a href="/">← xnaut.dev</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/48Nauts-Operator/xNaut/releases/latest">Download latest</a>
+  </div>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Engineering</span>
+  <h1>Loops fail at their exits</h1>
+  <p class="post-lede">I fixed two separate faults in xNAUT on the same day. Each fix was correct. Each had a test. Together they produced a retry loop that could never stop, because the brake was counting evidence that the improved code no longer produced.</p>
+  <p class="post-meta">2 September 2026 · André · Part 1 of 3</p>
+
+  <div class="series">
+    <b>Part 1</b> the bug · <b>Part 2</b> why I test on a real Mac, not a sandbox · <b>Part 3</b> the machine that was told not to believe me
+  </div>
+
+  <h2>The clerk and the receipts</h2>
+
+  <p>
+    xNAUT has a component called the sweep. Picture a clerk who walks the office every three
+    minutes, looks for work someone has marked finished, and checks it. Nobody has to ask. That is the entire point. It keeps working the board after everyone has gone home.
+  </p>
+
+  <p>
+    Checking costs time and money, so the clerk must not check the same thing forever. It uses a rule
+    anyone would recognise. <strong>Three strikes.</strong> Fail three times in a row and stop trying,
+    and say so out loud.
+  </p>
+
+  <p>
+    Now the one detail that matters. <strong>The clerk counts strikes by counting receipts.</strong>
+    Every check that runs leaves a record saying whether it passed or failed. Three failure records
+    means give up. The records are the memory. There is no other tally anywhere.
+  </p>
+
+  <h2>Fix one: stop the silent typo</h2>
+
+  <p>
+    A configuration file names where a check should run. Two names are valid. I wrote a third that does not exist.
+  </p>
+
+  <p>
+    Nothing complained. The code quietly substituted one of the real options and carried on, so the
+    check ran in the wrong place and failed for a reason unrelated to the actual problem. A
+    misleading answer is worse than no answer, so I made an unrecognised name a hard refusal, by
+    name, with the valid options listed. This is the right fix and I would make it again.
+  </p>
+
+  <h2>Fix two: stop the endless retrying</h2>
+
+  <p>
+    Separately, the clerk had no brake at all. A failed check was tried again next round, and the next. In one afternoon it produced <strong>134 identical failure records</strong> across two
+    items, every one failing for the same permanent reason, over six hours and forty-two minutes.
+  </p>
+
+  <p>
+    So I added the three-strikes rule. It worked, and I watched it work: three failures at exactly
+    thirty-minute spacing, then a single line saying it was giving up, then silence.
+  </p>
+
+  <h2>Then the two fixes met</h2>
+
+  <p>The whole bug fits in one sentence.</p>
+
+  <div class="pull">
+    <p>Fix one made the failure happen earlier than the receipt.</p>
+  </div>
+
+  <figure class="ld">
+    <div class="ld-lanes">
+
+      <div class="ld-lane">
+        <p class="ld-lane-h">Before fix one</p>
+        <div class="ld-step">a name that does not exist</div>
+        <div class="ld-arrow">swapped silently for a real one</div>
+        <div class="ld-step">the check runs, and fails</div>
+        <div class="ld-arrow">so there is something to write down</div>
+        <div class="ld-step ld-keep">a record is written</div>
+        <div class="ld-arrow">the counter reads records</div>
+        <div class="ld-step">counter sees a strike</div>
+        <p class="ld-note ld-good">three strikes, then it stops</p>
+      </div>
+
+      <div class="ld-lane">
+        <p class="ld-lane-h">After fix one</p>
+        <div class="ld-step">a name that does not exist</div>
+        <div class="ld-arrow ld-a-hit">refused by name, correctly</div>
+        <div class="ld-step ld-hit">stopped here, before any check</div>
+        <div class="ld-arrow ld-a-dead">no check, so nothing to write down</div>
+        <div class="ld-step ld-gone">no record is written</div>
+        <div class="ld-arrow ld-a-dead">the counter still reads records</div>
+        <div class="ld-step ld-hit">counter sees nothing</div>
+        <p class="ld-note ld-bad">no strikes, so it never stops</p>
+      </div>
+
+    </div>
+    <figcaption class="ld-cap">The brake was never removed. It stopped being able to see this kind of failure, because the better error message arrives before the paperwork does.</figcaption>
+  </figure>
+</nav>
+
+<article class="post">
+
+  <span class="post-eyebrow">Engineering</span>
+  <h1>Loops fail at their exits</h1>
+  <p class="post-lede">I fixed two separate faults in xNAUT on the same day. Each fix was correct. Each had a test. Together they produced a retry loop that could never stop, because the brake was counting evidence that the improved code no longer produced.</p>
+  <p class="post-meta">2 September 2026 · André · Part 1 of 3</p>
+
+  <div class="series">
+    <b>Part 1</b> the bug · <b>Part 2</b> why I test on a real Mac, not a sandbox · <b>Part 3</b> the machine that was told not to believe me
+  </div>
+
+  <h2>The clerk and the receipts</h2>
+
+  <p>
+    xNAUT has a component called the sweep. Picture a clerk who walks the office every three
+    minutes, looks for work someone has marked finished, and checks it. Nobody has to ask. That is the entire point. It keeps working the board after everyone has gone home.
+  </p>
+
+  <p>
+    Checking costs time and money, so the clerk must not check the same thing forever. It uses a rule
+    anyone would recognise. <strong>Three strikes.</strong> Fail three times in a row and stop trying,
+    and say so out loud.
+  </p>
+
+  <p>
+    Now the one detail that matters. <strong>The clerk counts strikes by counting receipts.</strong>
+    Every check that runs leaves a record saying whether it passed or failed. Three failure records
+    means give up. The records are the memory. There is no other tally anywhere.
+  </p>
+
+  <h2>Fix one: stop the silent typo</h2>
+
+  <p>
+    A configuration file names where a check should run. Two names are valid. I wrote a third that does not exist.
+  </p>
+
+  <p>
+    Nothing complained. The code quietly substituted one of the real options and carried on, so the
+    check ran in the wrong place and failed for a reason unrelated to the actual problem. A
+    misleading answer is worse than no answer, so I made an unrecognised name a hard refusal, by
+    name, with the valid options listed. This is the right fix and I would make it again.
+  </p>
+
+  <h2>Fix two: stop the endless retrying</h2>
+
+  <p>
+    Separately, the clerk had no brake at all. A failed check was tried again next round, and the next. In one afternoon it produced <strong>134 identical failure records</strong> across two
+    items, every one failing for the same permanent reason, over six hours and forty-two minutes.
+  </p>
+
+  <p>
+    So I added the three-strikes rule. It worked, and I watched it work: three failures at exactly
+    thirty-minute spacing, then a single line saying it was giving up, then silence.
+  </p>
+
+  <h2>Then the two fixes met</h2>
+
+  <p>The whole bug fits in one sentence.</p>
+
+  <div class="pull">
+    <p>Fix one made the failure happen earlier than the receipt.</p>
+  </div>
+
+  <p>
+    Making the error message better made the error invisible to the thing meant to stop it. The clerk
+    kept trying forever, not because three strikes was broken, but because no strikes were ever
+    recorded. I measured nine identical failures in twenty-seven minutes with no brake engaging,
+    then four more on the next build to confirm it was not a fluke.
+  </p>
+
+  <div class="facts">
+    <div class="fact"><b>9</b><span>identical failures in 27 minutes, no brake</span></div>
+    <div class="fact"><b>4</b><span>more on the next build, confirming it</span></div>
+    <div class="fact"><b>134</b><span>junk records from the original fault</span></div>
+    <div class="fact"><b>0</b><span>of those records said why they failed</span></div>
+  </div>
+
+  <p>
+    Nothing was lost or corrupted. No code, no customer data, no work. This is a waste and noise fault rather than a destructive one. The cost is slow. Every useless retry burns a little compute, and every junk entry buries the real entry beside it. A log that is mostly noise is a log nobody reads,
+    and then a genuine failure sits in it unnoticed for a day.
+  </p>
+
+  <h2>The same loop, failing the other way</h2>
+
+  <p>
+    Two days later the same function broke in the opposite direction, which is the part that convinced me this was a pattern rather than an anecdote.
+  </p>
+
+  <p>
+    The clerk asks for the oldest finished item and checks it. Once three strikes existed, an item
+    could be <em>held</em>. But the code asked for the oldest item and stopped if that one was held,
+    instead of moving to the next. So a single given-up item silently halted the entire board.
+  </p>
+
+  <p>
+    I measured it. A clean item, no failures, nothing that could hold it, drew nothing for
+    twenty-five minutes across eight rounds while a held item sat ahead of it in the queue. Park the
+    held one, and the clean one was picked up on the very next round. Another item was starved the
+    same way for over two hours.
+  </p>
+
+  <p>
+    The whole fault is one word. This is the real change, trimmed of the parts that do not matter:
+
+  </p>
+
+  <div class="snip">
+<pre><span class="c">// before: ask for the oldest item, and give up if that one is held</span>
+if let Some(item) = oldest_awaiting_review(&amp;items) {
+    if held(item) { <span class="bad">return</span> }   <span class="c">// stops the entire board</span>
+    verify(item)
+}
+
+<span class="c">// after: walk them, and step over the ones that are held</span>
+for item in awaiting_review(&amp;items) {
+    if held(item) { <span class="good">continue</span> } <span class="c">// skip this one, keep looking</span>
+    verify(item);
+    return
+}</pre>
+    <p class="snip-cap">Simplified from the real code, but the change is exactly this: <code>return</code> became <code>continue</code>. One held item stopped being the end of the queue.</p>
+  </div>
+
+  <p>
+    One loop. One week. It failed by never exiting, and it failed by exiting too early. Both times
+    the loop body was correct.
+  </p>
+
+  <h2>Why it survives review</h2>
+
+  <p>
+    Both fixes have tests. Both sets pass. Neither test is lazy or wrong. You could review either
+    change on its own, carefully, with full knowledge of the system, and approve it correctly.
+  </p>
+
+  <p>
+    That is because the fault is not <em>in</em> either change. It is in the relationship between
+    them, and a relationship has no owner. No file contains it. No test naturally covers it. Each
+    author looks at their own piece and each piece is fine.
+  </p>
+
+  <div class="pull">
+    <p>A loop ends on evidence, and the evidence is almost always produced somewhere else. The brake is usually fine. The thing feeding it moved.</p>
+  </div>
+
+  <p>
+    That reframes the whole problem. The dangerous edit is not the one that changes a loop. It is the
+    one that changes what the loop is counting, in a different file, for a good reason, with a
+    passing test.
+  </p>
+
+  <h2>You cannot see it, and that is the danger</h2>
+
+  <p>
+    Everything about this bug looks healthy from the outside, and that is not bad luck. It is what
+    the failure mode is made of.
+  </p>
+
+  <p>
+    <strong>The loop looks fine.</strong> Read it and you see a correct brake with a sensible
+    threshold. <strong>Each fix looks fine.</strong> Review either diff and you approve it, rightly.
+    <strong>The tests pass</strong>, and they are not bad tests; they check what they were written to
+    check, correctly.
+  </p>
+
+  <p>
+    <strong>The logs look fine too</strong>, which is the part that surprised me. This is a slow
+    loop. One round every three minutes. It does not spike a CPU or fill a disk. In a log it reads
+    exactly like a healthy heartbeat, which is what a periodic checker is supposed to look like. My first version of this fault ran for six hours and forty-two minutes and looked, at a glance, like
+    a system doing its job.
+  </p>
+
+  <div class="pull">
+    <p>A safety mechanism that never engages looks exactly like a system that never needed one. Both produce silence.</p>
+  </div>
+
+  <p>
+    That is the sentence I keep coming back to. You cannot tell a working brake from an absent one
+    by watching, because a working brake is quiet and a broken brake is quiet. The only way to know
+    is to make it stop something, on purpose, and watch it happen. Until you have seen a loop exit,
+    you do not know that it can.
+  </p>
+
+  <h2>What I changed, and what I ask now</h2>
+
+  <h3>A refusal leaves the same paperwork as a failure</h3>
+  <p>
+    This is the actual repair. If the system declines to run a check, it still writes a record saying
+    so, carrying the reason. The brake can count it and a human reading the drawer can see why. One
+    rule for every reason a check might not run, rather than a patch for the one I happened to hit.
+  </p>
+
+  <h3>A held item is skipped, not treated as the end of the queue</h3>
+  <p>
+    Candidates are walked oldest first and a held one is stepped over. Still one check per round; the
+    limit was never the problem.
+  </p>
+
+  <h3>I watch the brake, not just the engine</h3>
+  <p>
+    Because silence proves nothing, a brake now has to be seen engaging. Mine was seen doing it. Three failures, one line saying it was giving up, then quiet. One observed exit is worth more than a month of the loop looking well behaved.
+  </p>
+
+  <h3>The question I ask in review now</h3>
+  <p>
+    <strong>What produces the thing this loop stops on, and who else can change it?</strong> Ten
+    seconds. It would have caught this before it shipped, and it is the only part of this post I would ask anyone else to copy.
+  </p>
+
+  <h2>The uncomfortable part</h2>
+
+  <p>
+    I wrote a commit message saying this was fixed, and it was not. The fix was merged, pushed, and
+    deployed to a second Mac that exists to test it, where it was caught by the process described in
+    Part 3. It never reached a release, and that is the only reason this is a story about process
+    rather than an incident. The order matters: the rig is not a formality between me and users, it
+    is the thing standing where users would otherwise be.
+  </p>
+
+  <p>
+    The rest of the week was no tidier. Two further faults were mine, one of which took the rig down
+    for an hour. The record count in my own first write-up was wrong three times over. I said 134
+    records for one item in about an hour, when it was 106 plus 28 across two items over six hours
+    and forty-two minutes. At one record per three-minute round, 134 in an hour was never
+    arithmetically possible, and nobody noticed until a machine counted.
+  </p>
+
+  <p>
+    I am telling it this way because the alternative is a tidy post about how careful I am, written by
+    the person who built the infinite loop and then signed off on it.
+  </p>
+
+  <div class="next">
+    <span class="ld-kicker">Part 2</span>
+    <p class="claim">The problem is not where you test. It is that you reset.</p>
+    <p class="ld-sub">A cloud VM is not the problem. A long lived one would have caught most of this. The line is
+      between environments that persist and environments that start empty every run, and the second
+      kind cannot hold the state some faults live in: a config seeded once in June and never
+      rewritten, records left by an older failure, a session still running after three restarts.
+      The larger effect is not age at all. It is that a system doing real work, watched over time,
+      misbehaves in ways nobody thinks to script. Part 2 is about the second Mac in the corner, and
+      what it can see that a fresh runner cannot.</p>
+  </p>
+
+  <nav class="more">
+    <h3>More in this series</h3>
+    <ul>
+      <li><a href="/blog/untested-is-not-passed.html">Untested is not passed</a> <span>verification runs where the work ran</span></li>
+      <li><a href="/blog/proofs-not-promises.html">Proofs, not promises</a> <span>what a green run has to show</span></li>
+      <li><a href="/blog/we-read-other-peoples-code.html">Community feedback is key</a> <span>most of it started as someone else's idea</span></li>
+    </ul>
+  </nav>
+
+</article>
+
+<footer class="footer">
+  <div class="logo">
+    <span class="logo-mark sm">xN</span>
+    <span class="fine">© 2026 48Nauts · MIT License</span>
+  </div>
+  <div class="footer-links">
+    <a href="/blog/">Blog</a>
+    <a href="/releases.html">Releases</a>
+    <a href="/loom.html">Loom</a>
+    <a href="https://docs.xnaut.dev/docs">Docs</a>
+    <a href="/">xnaut.dev</a>
+  </div>
+</footer>
+
+</body>
+</html>

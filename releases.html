@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.25.2, where an agent finishing a ticket really hands it back.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.0, where waking an agent reaches it and a passing verification finishes the ticket.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.25.2, where an agent finishing a ticket really hands it back.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.26.0, where waking an agent reaches it and a passing verification finishes the ticket.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,45 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.25.2</h2>
+      <h2>v1.26.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">3 September 2026</span>
+    </div>
+
+    <p class="rel-lead">xNAUT has been able to wake an agent, verify a ticket and record what happened for months. This is the release where those actually connect: a wake that lands, work you can watch, and a verification that can finish a ticket instead of handing it back to itself.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Waking an agent now reaches it.</strong> The message was typed into the agent's prompt and the Enter never arrived, so the text sat there unsent and a second agent was launched to do the same work. The submit is now sent on its own.</li>
+        <li><strong>A working agent is visible.</strong> An agent you woke, or one that survived a restart, had no tab and no status anywhere in the app. It now has both, and the dot says what it is really doing rather than what its terminal last painted.</li>
+        <li><strong>A verification can pass.</strong> Runs against a sandbox that had gone to sleep failed before a single step, because nothing woke it. Nothing had ever verified green.</li>
+        <li><strong>A finished ticket finishes.</strong> A passing verification returned the ticket to the review queue it had just left, so the same work was checked again every half hour, forever. Green now closes it, and red leaves it alone.</li>
+        <li><strong>The board keeps working past a stuck ticket.</strong> One ticket that could not be verified stopped every ticket behind it. A check that fails three times now steps aside and says so, once.</li>
+        <li><strong>The work report shows agent work.</strong> It only ever recorded commands a person typed, so a day of agent work produced an empty page. It now reads what actually happened, including for days that have already passed.</li>
+        <li><strong>The Evidence tab opens.</strong> Its five commands were the only ones in the app the permission list did not grant, so every one failed silently.</li>
+        <li><strong>Refresh in the Observatory did something.</strong> The button called a function that did not exist.</li>
+        <li><strong>An agent that outlives the app can still reach you.</strong> A restart quietly invalidated its way of sending you a message, and the error told it to use a route that does not work.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Finished agents are cleaned up.</strong> An agent that has stopped working is closed after four hours idle. One that is still working, or that you are sitting in, is never touched.</li>
+        <li><strong>The app can tell you whether it is still working.</strong> Its health now reports when its background clock last ran, so a stalled app is distinguishable from a quiet one.</li>
+        <li><strong>One place decides where an agent runs.</strong> Local, exe.dev or GitVM, chosen by configuration rather than by code. Local behaviour is unchanged.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.26.0">v1.26.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.25.2</h2>
       <span class="rel-date">29 August 2026</span>
     </div>
 
@@ -1240,7 +1277,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.25.2, where an agent finishing a ticket really hands it back.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.26.0, where waking an agent reaches it and a passing verification finishes the ticket.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.2, where the loop ships with all five stations and a restart no longer doubles the fleet.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.3, where NautBot can finally move its own tickets.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.26.2, where the loop ships with all five stations and a restart no longer doubles the fleet.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.26.3, where NautBot can finally move its own tickets.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,30 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.26.2</h2>
+      <h2>v1.26.3</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">5 September 2026</span>
+    </div>
+
+    <p class="rel-lead">Third tag of the day, and the last before xNAUT is left alone to run its own board overnight. Three things a day of watching it exposed.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>NautBot can move its own tickets.</strong> Agents on the Codex runtime never received xNAUT's tool server, so the one agent whose job is the board asked its owner to move tickets for it. Codex now gets the server, with no secret on the command line.</li>
+        <li><strong>A restart no longer doubles the agent list.</strong> Every restart added an "adopted" twin beside each surviving agent, and each twin counted toward the launch ceiling; three agents read as six. Rows whose session has ended are dropped, not kept.</li>
+        <li><strong>The health check no longer waits for a machine-wide scan</strong> on every request. It reads a snapshot refreshed in the background, so a slow mount cannot hold it past a client's deadline.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.26.3">v1.26.3 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.26.2</h2>
       <span class="rel-date">5 September 2026</span>
     </div>
 
@@ -1354,7 +1376,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.26.2, where the loop ships with all five stations and a restart no longer doubles the fleet.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.26.3, where NautBot can finally move its own tickets.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

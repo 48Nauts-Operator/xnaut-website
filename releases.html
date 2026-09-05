@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.0, where waking an agent reaches it and a passing verification finishes the ticket.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.1, where an agent finishes a ticket on its own and xNAUT passes its own verification for the first time.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.26.0, where waking an agent reaches it and a passing verification finishes the ticket.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.26.1, where an agent finishes a ticket on its own and xNAUT passes its own verification for the first time.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,50 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.26.0</h2>
+      <h2>v1.26.1</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">5 September 2026</span>
+    </div>
+
+    <p class="rel-lead">If you installed 1.26.0, update: waking an agent could still leave the message sitting unsent in its prompt on older installs. Around that fix is the day the loop closed for real. An agent was handed a ticket, worked it without asking a single question, handed back a structured record, and xNAUT verified the result in a clean sandbox and closed the ticket itself. That had never happened before.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A woken agent no longer waits for an Enter nobody presses.</strong> The runtime settings from an older install were never brought up to date, so Claude Code was still launched in draft mode. Those settings now heal themselves once on start. Every 1.26.0 install was missing this.</li>
+        <li><strong>Codex agents stop at nothing of their own making.</strong> NautBot on Codex asked "Would you like to run the following command?" for every push and every message to you, and the question never reached your inbox. Approvals are off for that runtime, as they already were for Claude; xNAUT's own guard rails stay in front.</li>
+        <li><strong>Two agents cannot share one checkout.</strong> The lease that prevents it was only taken by the build flow. Every launch takes it now, and the second agent is told who holds the directory.</li>
+        <li><strong>Agents look up your conventions instead of asking.</strong> The launch prompt named a tool the agent did not have. It exists now: branch naming, commit style, the test command and what "done" means are read from the vault.</li>
+        <li><strong>xNAUT can verify itself.</strong> The sandbox never installed a browser, looked for it at the macOS path on Linux, was sent the entire build tree, and inherited a stuck sandbox after any restart. All four fixed; the first green verification of xNAUT's own code ran today.</li>
+        <li><strong>A verification checks the ticket's own tree.</strong> It used to run one fixed directory for every ticket in a project. The commit under test is now on the result.</li>
+        <li><strong>A woken agent starts inside a git repository</strong>, so its worktree rules apply from the first command.</li>
+        <li><strong>Every launched agent gets xNAUT's tools.</strong> Agents were editing the ticket store by hand because the connection was never in their launch configuration.</li>
+        <li><strong>"Remove" asks first.</strong> The app's native confirmation dialogs did nothing, so every delete acted immediately. An in-app dialog replaces them, and 58 silent alerts now show a toast.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>A finished agent hands back a record</strong>: what changed, which commits, how it was verified, what it did not finish. An empty or evasive handback is refused with the gaps listed.</li>
+        <li><strong>Dispatch a ticket to its owner in one action.</strong> A worktree off the live branch, the agent launched inside it with the ticket and its documents, the ticket moved to in progress.</li>
+        <li><strong>The Agent pane is one timeline.</strong> Today's live view, cost, sandbox runs and actions under collapsible dates; two tabs are gone.</li>
+        <li><strong>Answer the inbox from your phone.</strong></li>
+        <li><strong>Switch an agent's harness per thread</strong>, with the transcript carried over.</li>
+        <li><strong>The Observatory shows all 30 agents</strong> of a fleet run instead of stopping at a ceiling.</li>
+        <li><strong>The agent runtime registry is versioned</strong>, with a diff against this build's defaults, so a drift is a record and one runtime can be rolled back.</li>
+        <li><strong>A boot self-check</strong> says why NautBot cannot work on this machine, before you find out the slow way.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.26.1">v1.26.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.26.0</h2>
       <span class="rel-date">3 September 2026</span>
     </div>
 
@@ -1277,7 +1319,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.26.0, where waking an agent reaches it and a passing verification finishes the ticket.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.26.1, where an agent finishes a ticket on its own and xNAUT passes its own verification for the first time.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

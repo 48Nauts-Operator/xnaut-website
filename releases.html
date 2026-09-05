@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.1, where an agent finishes a ticket on its own and xNAUT passes its own verification for the first time.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.2, where the loop ships with all five stations and a restart no longer doubles the fleet.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.26.1, where an agent finishes a ticket on its own and xNAUT passes its own verification for the first time.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.26.2, where the loop ships with all five stations and a restart no longer doubles the fleet.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,43 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.26.1</h2>
+      <h2>v1.26.2</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">5 September 2026</span>
+    </div>
+
+    <p class="rel-lead">Same day as 1.26.1, with the parts that were reviewed but not yet merged, and the two faults a day of restarts exposed: a duplicate NautBot per restart, and a verification the app died on that nobody ever corrected.</p>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A restart no longer spawns a second NautBot.</strong> The app re-adopts a surviving agent after a restart but no longer holds its terminal, and the wake read that as "no agent" and launched another. Four were created in one day. A wake now reaches the surviving session directly.</li>
+        <li><strong>A verification the app died on is corrected within a sweep tick</strong>, not only at the next start. A ghost run blocked its whole project for an hour.</li>
+        <li><strong>Two verifications no longer fight over one directory.</strong> One per project per pass; the second handback waits a tick instead of failing at warm-up.</li>
+        <li><strong>A surviving agent keeps its worktree after a restart.</strong> The lease that stops two agents sharing a checkout was held under the old app's process; adoption re-takes it.</li>
+        <li><strong>Release builds keep line tables</strong>, so a freeze in the field can be read as a backtrace. The binary grows from 34 MB to 58 MB.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>The loop's five stations ship seeded</strong>: NautBot, a coding agent, Ralph (validates on a clean machine), Otto (releases only from a validator record), and the Librarian.</li>
+        <li><strong>Publishing gets a state machine</strong>, not a prompt.</li>
+        <li><strong>Chat streams</strong>: a message is a question, and the harness starts on a build handshake.</li>
+        <li><strong>Windows install smoke gate</strong> in the release workflow.</li>
+        <li><strong>A housekeeper</strong> reclaims the disk that agent worktrees ate.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.26.2">v1.26.2 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.26.1</h2>
       <span class="rel-date">5 September 2026</span>
     </div>
 
@@ -1319,7 +1354,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.26.1, where an agent finishes a ticket on its own and xNAUT passes its own verification for the first time.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.26.2, where the loop ships with all five stations and a restart no longer doubles the fleet.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

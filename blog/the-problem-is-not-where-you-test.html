@@ -121,7 +121,7 @@
 
   <span class="post-eyebrow">Engineering</span>
   <h1>The problem is not where you test. It is that you reset.</h1>
-  <p class="post-lede">A cloud VM is not the problem, and neither is a container. A long lived one would have caught most of what I hit last week. The line runs between environments that persist and environments that start empty every single run.</p>
+  <p class="post-lede">A cloud VM is not the problem, and neither is a container. A long lived one would have caught most of what I hit last week. The line runs between environments that persist and environments that start empty every run.</p>
   <p class="post-meta">14 September 2026 &middot; André &middot; Part 2 of 3</p>
 
   <div class="series">
@@ -179,8 +179,8 @@
   </p>
 
   <p>
-    The first: my liveness check asks whether an agent process is running, and it does that by reading
-    each candidate process. When it cannot read one, it gave up and answered "alive" for everything.
+    The first was my liveness check. It asks whether an agent process is running by reading each
+    candidate process, and when it could not read one it gave up and answered "alive" for everything.
     On a machine owned entirely by me that never happens. On a machine with other users' processes on
     it, a single root owned process named the same as one of my agents pins every answer to "alive",
     permanently, until that process exits. A container running as root with six processes cannot
@@ -188,8 +188,8 @@
   </p>
 
   <p>
-    The second: I passed a flag to a terminal multiplexer that the installed version does not accept.
-    Not ignored. Rejected outright, so every session died in the argument parser. My machine had a
+    The second was a flag I passed to a terminal multiplexer that the installed version does not
+    accept. Not ignored. Rejected outright, so every session died in the argument parser. My machine had a
     newer build than the test machine, and the difference was invisible until something real refused
     it.
   </p>
@@ -198,14 +198,14 @@
 
   <p>
     The two bugs from Part 1 are here, and this is the honest correction. They needed no history at
-    all. They needed a system doing real work while somebody watched it for long enough, which turns
-    out to be the rarer commodity.
+    all. They needed a system doing real work while somebody watched it for long enough, and that is
+    rarer than history.
   </p>
 
   <p>
-    Nobody writes that scenario into a test suite, because you would have to imagine the bug first in
-    order to construct it: one ticket already past a failure threshold, a clean one queued behind it,
-    and the patience to watch eight rounds do nothing at all. It was found by watching a live system
+    Nobody writes that scenario into a test suite, because you would have to imagine the bug first
+    to construct it: one ticket already past a failure threshold, a clean one queued behind it, and
+    the patience to watch eight rounds do nothing at all. I found it by watching a live system
     misbehave, not by querying anything old.
   </p>
 
@@ -228,14 +228,13 @@
 
   <p>
     Look back at last week with that in mind. A counter read 134 records left by an earlier failure
-    and treated them as strikes. A status row was superseded by a second row for the same agent, and
-    the interface read the dead one. A configuration file written by an old version was parsed by a
-    new one. Every single one of those is the system misreading something an earlier version of
-    itself had written.
+    and treated them as strikes. A second status row for the same agent replaced the first, and the
+    interface read the dead one. A new version parsed a configuration file an old one had written.
+    Every one of those is the system misreading something an earlier version of itself had written.
   </p>
 
   <p>
-    Which gives an uncomfortable conclusion, and it is the one worth taking away:
+    The uncomfortable conclusion, and the one to take away, is that
     <strong>an environment that resets erases exactly the memory the system is built around.</strong>
     You can prove the code correct in a clean room and learn very little about whether the product
     works.
@@ -268,7 +267,7 @@
   <div class="next">
     <span class="ld-kicker">Part 3</span>
     <p class="claim">A test did not catch this. A review did not catch this. I did not catch this.</p>
-    <p class="ld-sub">It was caught by a machine on another desk that had not written the code, running the same build, told in as many words not to trust my summary. That practice is more interesting than the bug, and I want to be honest about which part of it is the instruction and which part is the machine.</p>
+    <p class="ld-sub">A machine on another desk caught it, one that had not written the code, running the same build, told in as many words not to trust my summary. That practice is more interesting than the bug, and I want to be honest about which part of it is the instruction and which part is the machine.</p>
   </div>
 
   <nav class="more">

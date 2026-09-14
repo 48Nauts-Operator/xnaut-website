@@ -9,7 +9,7 @@
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.26.3, where NautBot can finally move its own tickets.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.27.0, the release where xNAUT built itself.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -72,8 +72,55 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.26.3</h2>
+      <h2>v1.27.0</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">14 September 2026</span>
+    </div>
+
+    <p class="rel-lead">The release where xNAUT built itself. 199 commits since 1.26.3; the last five tickets were dispatched, built, verified and merged by the app on its own fleet host, with one owner click each.</p>
+
+    <div class="grp">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>A workspace per project.</strong> Click a project and you are in its code: the file tree, the file in the centre, every other surface (Work, Delivery, NAUT-Flow, Vault, Memory) as a tab beside it. Every file type opens colour-coded. "Start something new…" creates the ticket and, if you say so, the worktree.</li>
+        <li><strong>A sidebar that is a tree.</strong> Five icons and a More menu instead of twelve rows; projects with their worktrees as children; a Pinned block that keeps a project's worktrees; the name opens and folds.</li>
+        <li><strong>One Code View.</strong> Files and diffs render through one module everywhere, with green and red rows in diffs.</li>
+        <li><strong>The Work list, done properly.</strong> List by default, every header sorts (Priority and Status by rank), a filter that reads the columns (<code>status:review owner:claude release:1.28</code>), a Type column that shows the type, a Release column.</li>
+        <li><strong>NautBot offers the swarm.</strong> "Work on all open tickets for X" becomes a plan card, one yes, and every run goes through dispatch, the registry, the jury and the ledger. The Multi-Agent Manager pane is gone.</li>
+        <li><strong>NAUT-Flow personas are agent profiles</strong>, matched by role; a role nobody holds runs as NautBot and says so. The Agent roster page is gone.</li>
+        <li><strong>A Researcher who looks outside.</strong> A Perplexity-backed profile gives the Analyst and Architect stages a brief with numbered sources; they cite from it.</li>
+        <li><strong>The core team</strong> (off by default): Researcher, Reviewer, PoC, Judge, a loop that reads other people's code, files findings, builds a proof of concept under a budget and writes a verdict to the decision log. Nothing merges without you.</li>
+        <li><strong>Machine roles.</strong> A machine says whether it dispatches, plans or only verifies; the instance and version are on every ledger line, so two machines never act on one queue without knowing it.</li>
+        <li><strong>Chat.</strong> Replies render as markdown; ticket ids are links with a hover card; click opens the ticket.</li>
+        <li><strong>Delivery rebuilt around the ticket</strong>, release notes rendered, evidence readable; a Memory view; sessions in the Observatory, foreign sessions reaped, compaction storms caught.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>A Claude seat is never rerouted to a local model.</strong> With its gateway down it runs on its own subscription; a run stuck on Claude Code's key prompt is ended with a ledger line instead of reading as Working.</li>
+        <li><strong>A mutation check is not a failed run.</strong> A live run that checks out its base commit for a minute keeps running; a branch mismatch counts once the writer is gone.</li>
+        <li><strong>An already-integrated branch is signed, not bounced.</strong> The sign-off used to treat "nothing to merge" as a failed merge and send the owner's approval back as a block. A refused decision now says why.</li>
+        <li>The interface fits the window at any zoom; ripgrep is found from a Finder-launched app; the Type column was empty; release notes rendered raw; the composer painted scrollbars while empty.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Known</h3>
+      <ul>
+        <li>Windows builds are still unsigned; some AV suites sandbox the installer. Signing is the next release-pipeline item.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.27.0">v1.27.0 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.26.3</h2>
       <span class="rel-date">5 September 2026</span>
     </div>
 

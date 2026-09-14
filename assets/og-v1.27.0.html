@@ -1,0 +1,75 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>xNAUT 1.27.0 OG card source</title>
+<!--
+  Source for assets/og-v1.27.0.png (1200x630 social card) for the 1.27.0
+  release entry on releases.html.
+  To re-shoot: serve the website root, open /assets/og-v1.27.0.html at a
+  1200x630 viewport, screenshot, save over assets/og-v1.27.0.png.
+
+  The card carries the claim, not the feature list: the app built the last
+  tickets of its own release. The chain underneath is the loop as it ran on
+  the fleet host, with the one human step named, because "autonomous" with a
+  hidden click is the kind of headline this project refuses to write.
+-->
+<style>
+  @font-face { font-family:'Space Grotesk'; src:url('../fonts/space-grotesk.woff2') format('woff2'); font-weight:300 700; }
+  @font-face { font-family:'JetBrains Mono'; src:url('../fonts/jetbrains-mono.woff2') format('woff2'); font-weight:100 800; }
+  html,body { margin:0; padding:0; background:#0A0B0D; }
+  .card {
+    width:1200px; height:630px; box-sizing:border-box;
+    background:#0A0B0D; color:#ECEDEF;
+    font-family:'Space Grotesk', system-ui, sans-serif;
+    padding:56px 66px; display:flex; flex-direction:column; justify-content:space-between;
+    background-image:radial-gradient(120% 85% at 85% 0%, rgba(245,184,64,.12), transparent 62%);
+  }
+  .top { display:flex; align-items:center; justify-content:space-between; }
+  .brand { display:flex; align-items:center; gap:15px; }
+  .mark { width:52px; height:52px; border-radius:13px; background:#F5B840; color:#16130A; display:grid; place-items:center;
+    font-family:'JetBrains Mono', monospace; font-size:21px; font-weight:700; }
+  .word { font-size:38px; font-weight:600; letter-spacing:-.03em; }
+  .kicker { font-family:'JetBrains Mono', monospace; font-size:16px; letter-spacing:.13em; text-transform:uppercase; color:#5C626C; }
+  .ver { display:flex; align-items:baseline; gap:18px; margin-bottom:6px; }
+  .ver b { font-family:'JetBrains Mono', monospace; font-size:30px; font-weight:600; color:#F5B840; letter-spacing:-.01em; }
+  .ver span { font-family:'JetBrains Mono', monospace; font-size:16px; color:#5C626C; letter-spacing:.06em; }
+  h1 { margin:0; font-size:66px; font-weight:600; line-height:1.06; letter-spacing:-.028em; max-width:16ch; }
+  h1 em { font-style:normal; color:#F5B840; }
+  .lead { margin:18px 0 0; font-size:24px; line-height:1.45; color:#B7BCC4; max-width:50ch; }
+  .chain { display:flex; align-items:center; gap:11px; margin-top:2px; white-space:nowrap; }
+  .node { font-family:'JetBrains Mono', monospace; font-size:16px; color:#B7BCC4; background:#111318; border:1px solid #262A31; border-radius:9px; padding:12px 16px; }
+  .amber { color:#F5B840; border-color:rgba(245,184,64,.45); }
+  .human { color:#ECEDEF; border-color:#ECEDEF; border-style:dashed; }
+  .link { color:#3A3F47; font-family:'JetBrains Mono', monospace; font-size:18px; }
+  .bottom { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; }
+  .chips { display:flex; gap:11px; white-space:nowrap; }
+  .chip { font-family:'JetBrains Mono', monospace; font-size:16px; color:#B7BCC4; border:1px solid #262A31; border-radius:999px; padding:9px 17px; }
+  .url { font-family:'JetBrains Mono', monospace; font-size:19px; color:#5C626C; letter-spacing:.02em; }
+</style>
+<div class="card">
+  <div class="top">
+    <div class="brand"><span class="mark">xN</span><span class="word">xNAUT</span></div>
+    <div class="kicker">release &middot; 14 september 2026</div>
+  </div>
+  <div>
+    <div class="ver"><b>v1.27.0</b><span>199 commits since 1.26.3</span></div>
+    <h1>The release where <em>xNAUT built itself.</em></h1>
+    <p class="lead">The last five tickets were dispatched, built, verified and merged by the app on its own fleet host. One owner click each.</p>
+  </div>
+  <div class="chain">
+    <span class="node">ticket ready</span><span class="link">&#8594;</span>
+    <span class="node amber">dispatched</span><span class="link">&#8594;</span>
+    <span class="node amber">built + tested</span><span class="link">&#8594;</span>
+    <span class="node amber">verified in a sandbox</span><span class="link">&#8594;</span>
+    <span class="node human">owner: approve</span><span class="link">&#8594;</span>
+    <span class="node amber">merged</span>
+  </div>
+  <div class="bottom">
+    <div class="chips">
+      <span class="chip">workspace per project</span>
+      <span class="chip">NautBot offers the swarm</span>
+      <span class="chip">core team</span>
+      <span class="chip">machine roles</span>
+    </div>
+    <div class="url">xnaut.dev/releases</div>
+  </div>
+</div>

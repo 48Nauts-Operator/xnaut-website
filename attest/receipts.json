@@ -1,6 +1,16 @@
 {
   "receipts": [
     {
+      "seq": 2,
+      "prev": "50c478a385ce25e2245e18620afc00b088bcc5ed555bb6251b1c56a47acbb7c8",
+      "ts": "2026-09-16T22:25:27.566103+00:00",
+      "subject": "xnaut.release",
+      "digest": "69a60ac08240c0d02e6480950bb3e30e7edf1302168e91f9feb0c1a38a105092",
+      "key_name": "XNAUT_ATTEST_KEY",
+      "algorithm": "SHA256_WITH_RSA",
+      "signature": "QF3mhvzZZnQI3yDxIqkE4WieR9Ab/ERPMFXJFOc/Aa2zwOSnui6gdrrWJRUWrreEtgJRLQzAsLKNKobzcw368MKAHvYccETDMGrZjUQN45xzTRYWk765PHvTexZhx/p8j7wPMLA9nruNeG+G8ZIbrn3bPQYBrb/fL27llMqRBWCxvGjxWtJ5o+Qm7W/PyGMYmaa6Qz6Nk6ikt6XmqMmATvG93WKRIIn+4XYIS7h2B0tb7TO4+0N/71dkSexrECv6xA4lcG0/troq1sVOoO1IG/KKSVWulYy+yUo2DP5F272iI/IgXzNg0F8je4R9bNx+F1gUK+uTbz1zGn/SK4VKaUWXrjpmjRY7EMXi01IjPf0bxep0ujAIAbRmI3ZCIecJkosBDosIGxRESUSytmRxOFYL0m+2vQQzaEggSkpbZ/v2GczL6aNWgy9ZNLm5vhxllULbwbTmtJqMwAgcLfHLleQv4tqTbdYniNZRCBT2zvY5a3mqI26wV1Lt0UjcrLIeS6HtRbJeZSaXJnSHan1vVeVT2LLTT5jqYtbBzdeZcaQKIhIppCa4OfIzmq8FGM8nWYGbxugmqb8Ob55aZ0zKEGnJSIP9cH/CB0QER88JvWwk+mtrHVOHlqskkJEG8YLcpdrM68vsfNnRgAb8qG/2PniNXdwsRwwJtxV00UAecVw="
+    },
+    {
       "seq": 1,
       "prev": "d588e52f6ccdd165035d88afb2776c0a5de09ecd868fe811180bcf439601fb11",
       "ts": "2026-09-16T22:25:23.396150+00:00",

@@ -17,16 +17,18 @@ import { dirname, join } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const PY = process.argv[2] || join(process.env.HOME,
-  'DevHub_Studio/factory/02-Development/xnaut/.worktrees/nautflow-incident-loop/mcp/securosys-attest.py');
+  'DevHub_Studio/factory/02-Development/xnaut/mcp/securosys-attest.py');
 
 const page = readFileSync(join(here, 'index.html'), 'utf8');
 const fields = /const LINK_FIELDS = (\[[^\]]*\]);/.exec(page);
 const fn = /const linkHash = (async \(r\) => \{[\s\S]*?\n  \};)/.exec(page);
-if (!fields || !fn) throw new Error('could not lift LINK_FIELDS/linkHash out of index.html');
+const domain = /const LINK_DOMAIN = (enc\.encode\('[^']*'\));/.exec(page);
+if (!fields || !fn || !domain) throw new Error('could not lift LINK_FIELDS/LINK_DOMAIN/linkHash out of index.html');
 
 const linkHash = new Function('crypto', 'TextEncoder', `
   const LINK_FIELDS = ${fields[1]};
   const enc = new TextEncoder();
+  const LINK_DOMAIN = ${domain[1]};
   const linkHash = ${fn[1].replace(/;$/, '')};
   return linkHash;
 `)(webcrypto, TextEncoder);

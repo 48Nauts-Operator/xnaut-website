@@ -9,7 +9,7 @@
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.27.0, the release where xNAUT built itself.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.27.1, Monaco in the Code tab and a sign-off chain that survives a week of real use.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -73,8 +73,54 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.27.0</h2>
+      <h2>v1.27.1</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">21 September 2026</span>
+    </div>
+
+    <p class="rel-lead">A week of running 1.27.0 on real tickets. The editor the Code tab was missing, and the things the sign-off chain got wrong the first time we left it alone with a project that is not xNAUT. Real tickets found every one of them, and each fix landed the same day. The last of those tickets, Monaco itself, went through the whole chain on the fleet host to get here.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Edit in the Code tab.</strong> Every text file has an Edit toggle backed by Monaco. The bundle ships inside the app and loads on the first click, in under 200 ms on a Mac Studio; a read-only session pays nothing. Save opens Monaco's diff first, disk on the left, your edit on the right, and writes only when you confirm. While a live agent run holds the worktree's writer lease the save is refused and the refusal names the run. Open in editor is still there for VS Code, Zed or $EDITOR.</li>
+        <li><strong>A Sessions list.</strong> Every live zellij session on the machine behind one rail icon, with a badge for the count. Your own sessions carry a yellow hairline, agents' sessions a blue one, and a marker on the row shows which of them is busy, read from the CPU under the session. The plus button opens a plain terminal; renaming a tab renames the row.</li>
+        <li><strong>Re-review on every jury card.</strong> An answered, settled or revocable card can be sent round again after the ticket changed, instead of sitting on a decision nobody can act on.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Approve survives a ticket edit.</strong> The scope pin covers the commits and files under review, not the ticket's prose, so a note added while the card was open no longer turns Approve into a silent no. When a decision is refused, the card now says why.</li>
+        <li><strong>The integration verify runs with the agent's PATH.</strong> A Finder-launched app found no npm and reverted an approved merge with "command not found". It now runs its steps with the same runtime path the agents get.</li>
+        <li><strong>A reverted merge can be re-integrated.</strong> A commit that dev had reverted read as "already on dev" and locked the ticket out of the chain for good.</li>
+        <li><strong>Only a ticket's own dirt blocks its write.</strong> One half-written ticket file in the control repo used to refuse every other ticket's update. Now only the file being written counts, and a write with nothing to pull from origin skips the rebase that used to refuse on any unstaged file.</li>
+        <li><strong>A green verify that cannot settle says so.</strong> The failure used to vanish; now it lands in the debug log, the ledger and the inbox, with the reason.</li>
+        <li><strong>The evidence video is the ticket's own.</strong> The verify used to keep the alphabetically first video of the run, which was another spec's.</li>
+        <li><strong>A red verify keeps the test runner's last lines.</strong> The stored log tail was stdout followed by stderr, so after a Rust build it held cargo warnings and not the Playwright line that named the failure.</li>
+        <li><strong>Switching sessions no longer scrolls the pane up.</strong> The host terminal spawned at a default size and zellij reflowed the scrollback on the first resize; sessions now attach at the pane's real size and scroll to the bottom after every resize, including zoom.</li>
+        <li><strong>The control repo no longer starts git maintenance storms.</strong> At fifteen commits a minute git decided to repack after nearly every one, and one Mac Studio measured 116 git processes on eight cores. The app now forbids git's own gc on every call and runs one bounded maintenance task every twenty minutes, on one core, in sequence with its own writes.</li>
+        <li>A fetch that cannot reach the control repo's remote no longer fails the write. The approval policy is per project, so a Node project is no longer verified with cargo.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Known</h3>
+      <ul>
+        <li>Windows builds are still unsigned; some AV suites sandbox the installer.</li>
+        <li>The chain merges into <code>dev</code> itself. A pull request per ticket, with review comments as the agent's next turn, is built and waiting on its own sign-off.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.27.1">v1.27.1 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.27.0</h2>
       <span class="rel-date">14 September 2026</span>
     </div>
 

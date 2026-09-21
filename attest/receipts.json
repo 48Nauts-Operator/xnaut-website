@@ -1,6 +1,16 @@
 {
   "receipts": [
     {
+      "seq": 6,
+      "prev": "8a0affc10ce4027c30d5d28c45a2d7f1a0d2ecce51fc385488b6b552c9888dca",
+      "ts": "2026-09-21T08:26:24.720769+00:00",
+      "subject": "xnaut.release",
+      "digest": "15980229491e977d45bc69f87c06380805f50296a468d085382ec2fa80dc5869",
+      "key_name": "XNAUT_ATTEST_KEY",
+      "algorithm": "SHA256_WITH_RSA",
+      "signature": "lFFDLsMgDUZ8vhKKN3iDKmouz9C4DqHus2htuUP0ePHWmPnnjwQFl0aNQeoqJbwgVFCZuVm7sRVsw/9lTJnggfO1zu5ynBiAtDmALCZeOsSObO7et1scaZz9HhB5RlREVasBxlb+PEnHK+CUL0MmhYeWxbbiylYH6HUv4g7eV1O4dyakDKs6FjeeTLqKE8bykpht0NXBDm/VbMfLcaeopJgBbF7zaLTLJ5+7xvwKn3fUKFle4uSO2JtJrmdEHwMklqKp+yIhMipzCmkZjUH9NXAoqWvFn0Pfh2/qjLHJrlPB65Y7xL/IEUsOpkiXuZNayGJl8hZ3XmMhPgolI9vgKZUsAMOpQ7QhN3SvTPs95r9XLMdujS4d9btvNqvsbLWjnAec+kOET7zocE8VzWp9hrXC4wokzCoVeRsdk6m8R8uR37CyQ3PUIFR/Jyj/ddPTOPROPao1l8C9fyB6ezfCQB+1d+sF0Up4pIvavQ1VykChqyTXOs1W00iaDKuETdMGmNG4c57O7chCUA+1UOaQX6pFrp9PmzIz8DOuvosufBut2aCAbxi9gU0kw8Y16vDqQ3baybpbAcb9N8ucVsorpgMKowQfYhI9IGsAL/tjWYuurGeb1YN2RcxMliZf90Bl2g2oIEDjCQABl6iTFe87roLS6oHxjzB7csM5fDhoIhE="
+    },
+    {
       "seq": 5,
       "prev": "133d7e3f50988dabbeabbf0bf605c89c99e7f7652ac6b7f18cc16bc2ac1e029e",
       "ts": "2026-09-21T08:26:20.307781+00:00",

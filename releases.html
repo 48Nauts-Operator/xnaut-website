@@ -9,7 +9,7 @@
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.27.1, Monaco in the Code tab and a sign-off chain that survives a week of real use.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.27.2, a front door for the project workspace and a sign-off board that stays put.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -73,8 +73,58 @@
 
   <section class="rel">
     <div class="rel-head">
-      <h2>v1.27.1</h2>
+      <h2>v1.27.2</h2>
       <span class="tag-latest">LATEST</span>
+      <span class="rel-date">28 September 2026</span>
+    </div>
+
+    <p class="rel-lead">The week after 1.27.1 was spent inside the project workspace, and the first thing it taught us was that nothing opened it. You got there by clicking a file in the file tree, or not at all. This release gives the workspace a door, retires the old Projects panel it replaces, and fixes the bug that made sign-off cards vanish from the board before anyone could press Approve. Four of the six tickets here were built by agents on the fleet host and went through the sign-off chain to land; the chain broke twice on the way, and both breaks are in the next release's queue.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>A door into the workspace.</strong> A Projects icon sits first on the rail and opens the current project's workspace on its Code tab. The project switcher that only Delivery had is on the Code tab too, so changing project is one dropdown wherever you are.</li>
+        <li><strong>A Wiki tab in the Build run pane.</strong> A URL bar and the page rendered as reading content, menus and chrome stripped. The pages you opened are remembered per project, so the reference you needed last time is one click away.</li>
+        <li><strong>The panes follow the agent's slice.</strong> During a build the Files, Search, Git and Slice diff views are rooted at the worktree the agent is writing in, not at the project. A band names the worktree on screen, a running slice is read-only, and a save into it is refused rather than written.</li>
+        <li><strong>Header numbers that say why.</strong> Last commit, uncommitted files, worktrees and tickets in the workspace header are live reads, and a value that cannot be read says why: not a git repository, no checkout on this machine, no commits yet. A dash gave no way to tell a bug from an empty repository.</li>
+        <li><strong>A Sessions band on the project page.</strong> The sessions running in a project are listed on its page, and Open a new session starts one there.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Changed</h3>
+      <ul>
+        <li><strong>The standalone Projects panel is gone.</strong> Its nine tabs were the workspace's tabs under a second name. The top-bar button and the sidebar open the workspace now. A new project is created with a name, a path and a remote; owner, client, budget and the rest live in its Settings tab.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Sign-off cards stay on the board.</strong> The sweep offered every green build for sign-off every three minutes. Each time, the rail replaced the card parked on the owner with a fresh one, wrote a receipt for the swap, and the fresh card refused itself because that receipt had changed the ticket. Four tickets wrote 4,905 receipt commits in one day and no card lived long enough to be answered. A parked card is now reused for the same build, and only the newest green build of a ticket is offered.</li>
+        <li><strong>The browser pane sits where it should under zoom.</strong> At 110% the page sat a tenth too far right, with a gap on the left and its right edge cut off, because the pane's coordinates were multiplied by the zoom a second time.</li>
+        <li><strong>Open in editor opens the editor.</strong> The Code tab's button sent an empty working directory, the backend refused, and nothing said so. It now opens the file's own directory, and a failure shows as a toast.</li>
+        <li><strong>Long secrets are stored whole.</strong> The keychain store typed the value into a password prompt that keeps 128 bytes; an HSM token came back cut and was refused. The value now goes to the keychain on stdin and is read back before the store reports success.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Known</h3>
+      <ul>
+        <li>A link printed by a terminal program that captures the mouse, such as the Codex sign-in URL, cannot be clicked. Copy it, or use the program's device-code sign-in.</li>
+        <li>When the fleet host's disk fills, macOS purges the test browsers and the integration build reverts a green merge as if the code were red.</li>
+        <li>Windows builds are still unsigned; some AV suites sandbox the installer.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.27.2">v1.27.2 on GitHub</a>
+    </div>
+  </section>
+
+  <section class="rel">
+    <div class="rel-head">
+      <h2>v1.27.1</h2>
       <span class="rel-date">21 September 2026</span>
     </div>
 

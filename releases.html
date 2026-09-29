@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.26.3, where NautBot can finally move its own tickets.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.28.2, with voice continuity, usage estimates and a clearer Observatory.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.27.2, a front door for the project workspace and a sign-off board that stays put.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.28.2, with voice continuity, usage estimates and a clearer Observatory.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -71,10 +71,61 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.28.2">
+    <div class="rel-head">
+      <h2>v1.28.2</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">29 September 2026</span>
+    </div>
+
+    <p class="rel-lead">Voice should stay with your conversation while you move around the app. This release keeps it active across navigation, restores recent saved context when you reconnect, and puts a quick mute beside the composer's microphone. The Observatory gets separate General and Agents views, readable lists, and a view of what voice is costing.</p>
+
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Voice cost in the footer and Observatory.</strong> With a voice API key configured, see GPT-Live-1 connection-cost estimates and estimated input time saved. Accounting covers sessions tracked on this device since enabling the feature. Connection time includes silence and muted time; charges for the model doing the work are separate.</li>
+        <li><strong>Quick mute in the composer.</strong> Mute without returning to the voice pane. Both controls reflect the same microphone state.</li>
+        <li><strong>Choose where an agent runs.</strong> Agent Settings offers Local, exe.dev, GitVM and Automatic. NautBot can override the destination for one ticket. Remote execution needs configured infrastructure and authentication; an unavailable destination reports an error.</li>
+        <li><strong>Opus usage beneath Fable.</strong> A separate usage counter appears when the provider supplies one. If it does not, the display says it is unavailable.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Changed</h3>
+      <ul>
+        <li><strong>Two Observatory views.</strong> General holds usage, sessions and the ledger; Agents holds running agents and dispatched runs. Lists have pagination with 5, 10 or 25 entries per page. The ledger starts with the latest five.</li>
+        <li><strong>Input-time savings with visible assumptions.</strong> The estimate compares your transcribed word count at editable speech and typing speeds. It is an estimate of input time saved, not a measurement of total productivity.</li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Navigation no longer ends voice.</strong> Moving between tabs and agent views preserves the active conversation. Reconnecting supplies bounded recent saved history as context without replaying old tasks.</li>
+        <li><strong>Open the actual worker session.</strong> Observatory and Flow Watch attach to the running agent's terminal. Codex sign-in screens are identified; standard remote Codex launches check authentication before starting work.</li>
+        <li><strong>Cleanup protects registered workspaces.</strong> An agent's registered base worktree remains protected even when clean and idle, including forced cleanup. An unreadable registry blocks cleanup instead of risking a required workspace.</li>
+        <li><strong>Usage and pagination survive navigation.</strong> Voice-cost displays keep updating after leaving and returning to a tab, and changing page size no longer causes duplicate events to reset the page.</li>
+      </ul>
+    </div>
+
+    <p class="note">Voice cost figures are estimates, not invoices. Conversation resume uses the existing saved history; this release does not add a new long-term memory database. Jev-based compute routing and private Jarvis voice remain future work.</p>
+
+    <div class="grp">
+      <h3>Verified</h3>
+      <ul>
+        <li>1,440 Rust tests, 368 browser tests and 41 affected WebKit tests passed. Native Mac checks covered 25 surfaces. Release CI passed for Apple Silicon, Intel Mac and Windows, including Windows install and launch checks. Downloaded Mac installers, the signed updater and Homebrew checksums were verified.</li>
+      </ul>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.28.2">Download v1.28.2</a>
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/compare/v1.28.1...v1.28.2">Full changelog</a>
+    </div>
+  </section>
+
   <section class="rel">
     <div class="rel-head">
       <h2>v1.27.2</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">28 September 2026</span>
     </div>
 
@@ -1520,7 +1571,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.26.3, where NautBot can finally move its own tickets.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.28.2, with voice continuity, usage estimates and a clearer Observatory.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

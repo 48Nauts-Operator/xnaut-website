@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.28.2, with voice continuity, usage estimates and a clearer Observatory.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.29.1, with repository-backed agent delivery, personal notes and guarded independent review.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.28.2, with voice continuity, usage estimates and a clearer Observatory.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.29.1, with repository-backed agent delivery, personal notes and guarded independent review.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -71,10 +71,41 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.29.1">
+    <div class="rel-head">
+      <h2>v1.29.1</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">2 October 2026</span>
+    </div>
+    <p class="rel-lead">Agent work now comes back through your project's repository. Reports, notes, pictures and video stay with the task branch, so you can inspect the result, retry an interrupted upload and review the exact work that was delivered.</p>
+    <div class="grp added">
+      <h3>Added</h3>
+      <ul>
+        <li><strong>Repository delivery for remote agents.</strong> Fresh exe.dev and GitVM workers prepare their tools and repository access before starting. Results publish to task branches; images and video use Git LFS.</li>
+        <li><strong>Personal notes beside conversations.</strong> Keep notes, checklists and explicit AI summaries with a Chat or Agent conversation. Notes survive restarts and can be published to the project's repository.</li>
+        <li><strong>Independent review and optional merging.</strong> Ralph tests the exact task commit. When a project explicitly permits it, Otto can merge after the independent evidence, CI, branch protection and Jev judgments pass. Missing or uncertain evidence stops the merge.</li>
+        <li><strong>Visible tool decisions.</strong> Jev tool-selection decisions are recorded, tool discovery stays bounded, and Astra uses its native Responses integration.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li>Interrupted result uploads can resume without losing committed work. Worker sessions retain distinct run identities, and warm GitVMs can be reused safely.</li>
+        <li>Private-network worker setup supports images without TUN or systemd. Background SSH startup and Forgejo review-comment recovery no longer stall delivery.</li>
+        <li>Chat history, typed voice continuity, adopted-session opening, model labels and Projects navigation are more reliable.</li>
+        <li>The SSH log permissions code compiles on Windows as well as macOS. The release workflow stages installers for verification before publishing.</li>
+      </ul>
+    </div>
+    <div class="note"><strong>Opt in per project.</strong> Automatic review and merging are off by default. Merging also needs a configured, reachable Jev System One endpoint. Configure worker repository access and runtime authentication before dispatching work. Windows installers remain unsigned.</div>
+    <div class="cta-row">
+      <a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.29.1">v1.29.1 on GitHub</a>
+      <a class="btn btn-ghost" href="https://docs.xnaut.dev/docs/agents/worker-access">Worker setup guide</a>
+    </div>
+  </section>
+
   <section class="rel" id="v1.28.2">
     <div class="rel-head">
       <h2>v1.28.2</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">29 September 2026</span>
     </div>
 
@@ -1571,7 +1602,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.28.2, with voice continuity, usage estimates and a clearer Observatory.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.29.1, with repository-backed agent delivery, personal notes and guarded independent review.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

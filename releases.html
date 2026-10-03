@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.29.2, with saved task recall, ticketed agent work, grouped Code Snippets and Windows updates.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.29.3, with a Vault-backed Project Wiki, Live Journal and automatic project following in Agent chats.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.29.2, with saved task recall, ticketed agent work, grouped Code Snippets and Windows updates.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.29.3, with a Vault-backed Project Wiki, Live Journal and automatic project following in Agent chats.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,37 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.29.3">
+    <div class="rel-head">
+      <h2>v1.29.3</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">3 October 2026</span>
+    </div>
+    <p class="rel-lead">Keep the project’s knowledge and its current work beside your Agent conversation. The Project Wiki reads and edits your Vault, while the Live Journal brings together earlier context, decisions, findings and work in progress.</p>
+    <div class="grp added">
+      <h3>Project Wiki and Live Journal</h3>
+      <ul>
+        <li><strong>One project knowledge source.</strong> Browse saved memory, plans, documents, activity and handoffs in the existing right pane. Add and edit pages directly; the Wiki and Vault share the same documents.</li>
+        <li><strong>Authorship and revision history.</strong> Keep the original author and creation date, see later changes, and resolve concurrent edits without silently replacing someone else’s work.</li>
+        <li><strong>A live working document.</strong> Start with historical context, then collect questions, proposals, highlighted decisions, findings, fixes and verification. Daily records stay in the Vault and remain accessible through the Wiki.</li>
+        <li><strong>Follow your Agent chat.</strong> Asking about the Chess App selects the registered ChessTrainer project. Clear project names and ticket references update both Journal and Wiki. Use the Journal &amp; Wiki control to pin a project or return to Auto.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Continuity and readability</h3>
+      <ul>
+        <li>Project capture continues independently of the visible pane. Switching conversations restores their project, while delayed replies retain their original scope.</li>
+        <li>Readable summaries replace raw review JSON. Expand full evidence and longer code blocks, follow saved conversation and run links, and open internal Wiki references offline.</li>
+        <li>Note drafts and expanded code survive live refreshes. Typed and voice messages are scoped before they are captured.</li>
+      </ul>
+    </div>
+    <div class="note">Includes the agent-memory, ticket-tracking, plugin-launcher, Code Snippets and Windows/Intel updater fixes from 1.29.2. Ambiguous project references need a manual choice. Historical records retain their original evidence dates; a recorded worker outcome is not fresh code verification. Agent image uploads and a PM checkout repair interface remain separate work.</div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.29.3">v1.29.3 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.29.2">
     <div class="rel-head">
       <h2>v1.29.2</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">3 October 2026</span>
     </div>
     <p class="rel-lead">Agents can recover earlier task context and worker receipts from a long conversation. Repository work starts with a ticket, and an explicit exe.dev or GitVM request takes precedence over the agent’s default execution setting.</p>
@@ -1630,7 +1657,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.29.2, with saved task recall, ticketed agent work, grouped Code Snippets and Windows updates.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.29.3, with a Vault-backed Project Wiki, Live Journal and automatic project following in Agent chats.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

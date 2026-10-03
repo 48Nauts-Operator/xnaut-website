@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.29.1, with repository-backed agent delivery, personal notes and guarded independent review.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.29.2, with saved task recall, ticketed agent work, grouped Code Snippets and Windows updates.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.29.1, with repository-backed agent delivery, personal notes and guarded independent review.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.29.2, with saved task recall, ticketed agent work, grouped Code Snippets and Windows updates.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -71,10 +71,37 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.29.2">
+    <div class="rel-head">
+      <h2>v1.29.2</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">3 October 2026</span>
+    </div>
+    <p class="rel-lead">Agents can recover earlier task context and worker receipts from a long conversation. Repository work starts with a ticket, and an explicit exe.dev or GitVM request takes precedence over the agent’s default execution setting.</p>
+    <div class="grp">
+      <h3>Fixed</h3>
+      <ul>
+        <li><strong>Recall across long conversations.</strong> Agents can search and page through saved messages and inspect earlier launch receipts, including current run records. A stopped process does not erase its recorded branch or task.</li>
+        <li><strong>A ticket before repository work.</strong> Agents find or create tracking in the correct project before preparing a worktree or launching a worker. Launch receipts are attached to the ticket.</li>
+        <li><strong>Requested execution destination.</strong> Per-task local, exe.dev and GitVM choices override the saved Compute setting. A local launch receipt cannot be presented as proof of remote execution.</li>
+        <li><strong>Plugin startup from Finder.</strong> Plugin executables use their resolved location and runtime PATH. Older owner-supplied repository paths and the selected coding runtime survive the conversation handoff.</li>
+        <li><strong>Windows and Intel Mac updates.</strong> The release now includes signed updater artifacts for Windows, Intel Mac and Apple Silicon. The update feed is assembled only after all platform builds succeed.</li>
+      </ul>
+    </div>
+    <div class="grp added">
+      <h3>Code Snippets</h3>
+      <ul>
+        <li>Markdown headings become nested, collapsible sections under the snippet title. Introductory notes remain visible, and headings can be expanded with the keyboard.</li>
+        <li>Compact view returns to a flat command list without rewriting your Markdown. Fenced multiline code stays together when copied or run.</li>
+      </ul>
+    </div>
+    <div class="note">Worker launch receipts record execution, not completed verification. Review the task’s results and test evidence before treating it as finished. Windows installers remain unsigned by a Windows publisher certificate; updater signatures authenticate the update download.</div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.29.2">v1.29.2 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.29.1">
     <div class="rel-head">
       <h2>v1.29.1</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">2 October 2026</span>
     </div>
     <p class="rel-lead">Agent work now comes back through your project's repository. Reports, notes, pictures and video stay with the task branch, so you can inspect the result, retry an interrupted upload and review the exact work that was delivered.</p>
@@ -1602,7 +1629,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.29.1, with repository-backed agent delivery, personal notes and guarded independent review.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.29.2, with saved task recall, ticketed agent work, grouped Code Snippets and Windows updates.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.29.3, with a Vault-backed Project Wiki, Live Journal and automatic project following in Agent chats.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.0, with durable multi-agent work queues, evidence-backed triage, review and repair, and project continuity.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.29.3, with a Vault-backed Project Wiki, Live Journal and automatic project following in Agent chats.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.0, with durable multi-agent work queues, evidence-backed triage, review and repair, and project continuity.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,38 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.30.0">
+    <div class="rel-head">
+      <h2>v1.30.0</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">6 October 2026</span>
+    </div>
+    <p class="rel-lead">Keep multi-agent work connected from the original ticket through review, repair and verification. Approved groups retain their queue and worker records across restarts, while the Journal shows where each project stands.</p>
+    <div class="grp added">
+      <h3>Coordinate, review and recover</h3>
+      <ul>
+        <li><strong>A durable work queue.</strong> Run approved, ticket-bound tasks within your existing concurrency and spend limits. Capacity refills as workers finish. Restarting reconciles existing runs; stopping further dispatch preserves work already underway.</li>
+        <li><strong>Evidence before dispatch.</strong> Findings enter triage with repository references, related issue candidates and a proposed disposition. Approval is bound to the current scope and evidence; missing or changed evidence holds dispatch.</li>
+        <li><strong>Review, repair, verify again.</strong> An independent review can send defects back for a bounded repair on the same branch and pull request. Fresh verification checks the new commit. Missing checks, unfinished work and exhausted retries remain visibly blocked.</li>
+        <li><strong>Resume with the project’s history.</strong> Saved conversations, tickets, worker receipts and repository evidence help reconstruct earlier work. Journal entries retain attribution and links through triage, review, repair and restart.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Reliability fixes</h3>
+      <ul>
+        <li>Cross-process launch, group and review locks now apply on Windows as well as macOS.</li>
+        <li>Failed launches retain their reasons and retry history. A refused launch cannot appear as a running worker or a completed repair attempt.</li>
+        <li>Browser and Help handle background native views correctly. Closing or switching tabs during Browser creation cannot leave an invalid tab or reactivate an older selection.</li>
+        <li>Windows release checks include an upgrade from the previous stable MSI, product registration checks and a launch of the installed candidate.</li>
+      </ul>
+    </div>
+    <div class="note">Your existing project permissions, spend and concurrency limits still apply. Triage requires a configured model; this update does not enable automatic polling or merging. Verification depends on the project’s checks and available services. Related issue candidates help review; they do not prove a shared root cause.</div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.0">v1.30.0 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.29.3">
     <div class="rel-head">
       <h2>v1.29.3</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">3 October 2026</span>
     </div>
     <p class="rel-lead">Keep the project’s knowledge and its current work beside your Agent conversation. The Project Wiki reads and edits your Vault, while the Live Journal brings together earlier context, decisions, findings and work in progress.</p>
@@ -1657,7 +1685,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.29.3, with a Vault-backed Project Wiki, Live Journal and automatic project following in Agent chats.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.0, with durable multi-agent work queues, evidence-backed triage, review and repair, and project continuity.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.3, restoring approved remote swarms from Workstation and adding mandatory release regression checks.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.4, restoring approved remote swarms from Workstation and adding mandatory release regression checks.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.3, restoring approved remote swarms from Workstation and adding mandatory release regression checks.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.4, restoring approved remote swarms from Workstation and adding mandatory release regression checks.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,9 +72,9 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
-  <section class="rel" id="v1.30.3">
+  <section class="rel" id="v1.30.4">
     <div class="rel-head">
-      <h2>v1.30.3</h2>
+      <h2>v1.30.4</h2>
       <span class="tag-latest">LATEST</span>
       <span class="rel-date">8 October 2026</span>
     </div>
@@ -85,6 +85,7 @@
         <li><strong>Workstation can run approved remote groups.</strong> A role check introduced with the durable queue prevented approved groups from starting on exe.dev or GitVM. Workstation now starts those approved runs and collects their results for review.</li>
         <li><strong>The destination stays explicit.</strong> NautBot can request exe.dev, GitVM or local execution. The plan displays and preserves that choice. An unavailable destination produces a refusal instead of silently selecting local execution.</li>
         <li><strong>Running and queued work stays visible.</strong> Dispatch reports include queued members and the full group total. Capacity refills under the existing approval; restarting or repeating confirmation preserves existing run identities.</li>
+        <li><strong>Windows records worker progress reliably.</strong> Worker journals now support recovery writes on Windows, and local process identity uses the native Windows creation time.</li>
         <li><strong>Changed scope requires a fresh approval.</strong> Repository and execution settings remain bound to the approved plan. Stop and pause controls continue to hold further dispatch.</li>
       </ul>
     </div>
@@ -94,7 +95,7 @@
         <li><strong>Behavior tests now gate packaging.</strong> macOS and Windows release jobs must pass native and browser regression checks for approval, destinations, queue refill, restart, stop, settings and project continuity. Missing, skipped or failed required checks cannot authorize packaging.</li>
       </ul>
     </div>
-    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.3">v1.30.3 on GitHub</a></div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.4">v1.30.4 on GitHub</a></div>
   </section>
 
   <section class="rel" id="v1.30.2">
@@ -1716,7 +1717,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.3, restoring approved remote swarms from Workstation and adding mandatory release regression checks.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.4, restoring approved remote swarms from Workstation and adding mandatory release regression checks.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

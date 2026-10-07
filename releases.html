@@ -84,7 +84,7 @@
       <ul>
         <li><strong>A durable work queue.</strong> Run approved, ticket-bound tasks within your existing concurrency and spend limits. Capacity refills as workers finish. Restarting reconciles existing runs; stopping further dispatch preserves work already underway.</li>
         <li><strong>Evidence before dispatch.</strong> Findings enter triage with repository references, related issue candidates and a proposed disposition. Approval is bound to the current scope and evidence; missing or changed evidence holds dispatch.</li>
-        <li><strong>Review, repair, verify again.</strong> An independent review can send defects back for a bounded repair on the same branch and pull request. Fresh verification checks the new commit. Missing checks, unfinished work and exhausted retries remain visibly blocked.</li>
+        <li><strong>Review, repair, verify again.</strong> An independent review can send defects and repairable unfinished code back for a bounded repair on the same branch and pull request. Fresh verification checks the new commit. Unavailable prerequisites, missing checks and exhausted retries remain visibly blocked; unfinished work cannot pass verification.</li>
         <li><strong>Resume with the project’s history.</strong> Saved conversations, tickets, worker receipts and repository evidence help reconstruct earlier work. Journal entries retain attribution and links through triage, review, repair and restart.</li>
       </ul>
     </div>

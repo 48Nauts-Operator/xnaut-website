@@ -94,6 +94,8 @@
         <li>Ticket updates preserve unrelated pending edits while reconciling committed project history. Conflicting edits to the same ticket remain protected.</li>
         <li>Workers compiling or running verification retain accurate progress tracking, including child-process activity.</li>
         <li>Paused automatic PM writes retain deferred receipts, and pending publication failures remain visible.</li>
+        <li>NautBot can diagnose Git contention and recover a recorded interrupted ticket write. Recovery checks the original operation and preserves newer or unrelated edits; unidentified locks are never deleted.</li>
+        <li>Agent conversations retain repository paths you supplied even when the checkout is missing or empty, and report that prerequisite without substituting a company folder.</li>
         <li>Unavailable test tooling holds integration for attention instead of reverting it as failed code. Re-merging a previously reverted implementation verifies that its code is actually restored.</li>
         <li>Cross-process launch, group and review locks now apply on Windows as well as macOS.</li>
         <li>Failed launches retain their reasons and retry history. A refused launch cannot appear as a running worker or a completed repair attempt.</li>

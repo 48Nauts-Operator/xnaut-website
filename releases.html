@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.5, recovering approved swarms after worker admission was refused.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.6, recovering refused workers under the correct approved plan.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.5, recovering approved swarms after worker admission was refused.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.6, recovering refused workers under the correct approved plan.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,9 +72,9 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
-  <section class="rel" id="v1.30.5">
+  <section class="rel" id="v1.30.6">
     <div class="rel-head">
-      <h2>v1.30.5</h2>
+      <h2>v1.30.6</h2>
       <span class="tag-latest">LATEST</span>
       <span class="rel-date">8 October 2026</span>
     </div>
@@ -84,16 +84,17 @@
       <ul>
         <li><strong>Fresh approval can resume refused work.</strong> After correcting a repository or approval setting, the coordinator recognizes a refusal that happened before execution and retries through the existing run history.</li>
         <li><strong>Preserve the original workspace.</strong> Retries keep the same branch and worktree, retain the failed records and check the current approval, destination and capacity limits again.</li>
+        <li><strong>Keep one approval in control.</strong> When saved plans overlap, dispatch and worker admission use the newest approved plan for each ticket. Older plans retain their history, and a stopped newer plan keeps its tickets stopped.</li>
         <li><strong>Show the actual recovery problem.</strong> Conflicting execution evidence or incomplete recovery records produce a blocked result with the reason, instead of the misleading “implementation retained” message.</li>
       </ul>
     </div>
     <div class="grp added">
       <h3>Release verification</h3>
       <ul>
-        <li><strong>Test the failed-run history before release.</strong> The mandatory checks now reproduce five refused continuations followed by fresh approval, including restart, queue refill and duplicate prevention. They also verify that changed instructions, stop controls and conflicting process evidence still prevent dispatch.</li>
+        <li><strong>Test the failed-run history before release.</strong> The mandatory checks now reproduce five refused continuations followed by fresh approval, including overlapping approvals, dispatch scope changes, restart, queue refill and duplicate prevention. They also verify that changed instructions, stop controls and conflicting process evidence still prevent dispatch.</li>
       </ul>
     </div>
-    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.5">v1.30.5 on GitHub</a></div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.6">v1.30.6 on GitHub</a></div>
   </section>
 
   <section class="rel" id="v1.30.4">
@@ -1740,7 +1741,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.5, recovering approved swarms after worker admission was refused.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.6, recovering refused workers under the correct approved plan.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

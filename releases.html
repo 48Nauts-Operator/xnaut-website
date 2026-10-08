@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.7, responsive Vault navigation, separate session tabs and consistent project context.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.8, local crash recovery for Agent Space and NautBot in the open-source app.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.7, responsive Vault navigation, separate session tabs and consistent project context.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.8, local crash recovery for Agent Space and NautBot in the open-source app.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,35 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.30.8">
+    <div class="rel-head">
+      <h2>v1.30.8</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">9 October 2026</span>
+    </div>
+    <p class="rel-lead">Reopen xNAUT after a crash and native Agent Space conversations, including NautBot, resume from saved progress. Local recovery is included in the open-source app and needs no paid Registry.</p>
+    <div class="grp added">
+      <h3>Resume from saved progress</h3>
+      <ul>
+        <li><strong>Completed results survive a restart.</strong> xNAUT saves turn progress and tool results on your machine. After reopening, it reuses committed results and continues the interrupted turn without a new “continue” message.</li>
+        <li><strong>Recovery returns to the original conversation.</strong> Replies, worker receipts and approval cards return to the thread that requested them, even if you have since selected another project. Restored plans still need their normal approval.</li>
+        <li><strong>Uncertain writes are checked before retrying.</strong> If a crash interrupts an action and its result is unknown, xNAUT retains the intent for reconciliation. It does not blindly repeat the write. Only operations explicitly classified as safe to replay can retry automatically.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Tested by stopping the process</h3>
+      <ul>
+        <li><strong>Crash recovery is part of the mandatory release tests.</strong> Tests stop execution around tool intent, external effects and result commits. Browser checks cover original-thread restoration, pending submissions, persistence failures and approval cards.</li>
+        <li><strong>Verified in the native app.</strong> A kill/restart test saved a tool result, stopped the app, changed the underlying file and reopened xNAUT. The turn resumed using the saved result and restored one reply to its original conversation.</li>
+      </ul>
+    </div>
+    <p class="note">Inspired by <a href="https://github.com/earendil-works/pi/tree/main/packages/durable">Pi Durable</a>, by Mario Zechner and contributors (MIT). We implemented its checkpoint and replay approach in xNAUT’s native Rust runtime. This release covers native Agent Space turns; external CLI sessions and shared chat use separate execution paths. Recovery runs when xNAUT is open or reopened.</p>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.8">v1.30.8 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.30.7">
     <div class="rel-head">
       <h2>v1.30.7</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">8 October 2026</span>
     </div>
     <p class="rel-lead">Fixes a Vault freeze on large projects and restores separate session tabs, activity indicators and consistent project selection across Workspace, Wiki and Journal.</p>
@@ -1765,7 +1790,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.7, responsive Vault navigation, separate session tabs and consistent project context.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.8, local crash recovery for Agent Space and NautBot in the open-source app.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

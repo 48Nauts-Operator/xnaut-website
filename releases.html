@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.9, remote agent dispatch and recovery after repository access is repaired.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.10, a persistent Updates panel with signed downloads and an explicit install and restart step.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.9, remote agent dispatch and recovery after repository access is repaired.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.10, a persistent Updates panel with signed downloads and an explicit install and restart step.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,28 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.30.10">
+    <div class="rel-header">
+      <h2>v1.30.10</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">10 October 2026</span>
+    </div>
+    <h3>Updates on your schedule</h3>
+    <p class="rel-intro">A new release stays easy to find. Download it while you work, then choose when to install and restart xNAUT.</p>
+    <ul>
+      <li><strong>Find updates in one place.</strong> Open <strong>More → Updates</strong> to check manually, read release notes or return to a download. A compact toolbar indicator shows when an update is available or ready.</li>
+      <li><strong>Check automatically.</strong> xNAUT checks at startup, every six hours while open, and after reconnecting. Turn automatic checks off or ask to be reminded tomorrow.</li>
+      <li><strong>Download first, restart when ready.</strong> Downloading verifies the signed update without installing it. <strong>Install and restart now</strong> is a separate action, so a background check or download cannot restart the app.</li>
+      <li><strong>Protect saved conversations.</strong> Installation waits for conversation writes to be acknowledged. If saving fails, the update stays staged and explains why restarting is paused. Finish active tasks and save open edits before choosing to restart.</li>
+      <li><strong>Recover from update failures.</strong> See progress, connection stalls and the actual failure reason. Retry a failed download, installation or restart without overlapping requests or repeating an installation that already succeeded.</li>
+      <li><strong>Required release checks.</strong> The update flow joins the release regression suite, including signature failure, save failure, retries, duplicate clicks, snooze, keyboard navigation and readable controls.</li>
+    </ul>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.10">v1.30.10 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.30.9">
     <div class="rel-head">
       <h2>v1.30.9</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">10 October 2026</span>
     </div>
     <p class="rel-lead">Remote dispatch checks repository access before starting work and recovers failed launch attempts after the setup is repaired. Approved tasks keep their chosen sandbox destination.</p>
@@ -1816,7 +1834,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.9, remote agent dispatch and recovery after repository access is repaired.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.10, a persistent Updates panel with signed downloads and an explicit install and restart step.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

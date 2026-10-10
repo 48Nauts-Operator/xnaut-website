@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.8, local crash recovery for Agent Space and NautBot in the open-source app.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.9, remote agent dispatch and recovery after repository access is repaired.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.8, local crash recovery for Agent Space and NautBot in the open-source app.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.9, remote agent dispatch and recovery after repository access is repaired.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,36 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.30.9">
+    <div class="rel-head">
+      <h2>v1.30.9</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">10 October 2026</span>
+    </div>
+    <p class="rel-lead">Remote dispatch checks repository access before starting work and recovers failed launch attempts after the setup is repaired. Approved tasks keep their chosen sandbox destination.</p>
+    <div class="grp">
+      <h3>Recover remote work</h3>
+      <ul>
+        <li><strong>Check repository access before dispatch.</strong> A failed check identifies the problem before creating another worker attempt. Existing tickets, branches and run history remain available.</li>
+        <li><strong>Resume after a repaired plan is approved.</strong> Earlier launch failures no longer exhaust the new approval’s retry budget. Reconfirming the same plan cannot create duplicate workers.</li>
+        <li><strong>Keep the approved destination.</strong> Replanning retains each ticket’s last approved sandbox when no new destination was requested.</li>
+        <li><strong>Deliver the agent’s configuration and task.</strong> Remote launches preserve configured environment values, pass Pi its initial task and check worker runtime readiness. Completed work points to the recovered run’s result.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Verified through real dispatch</h3>
+      <ul>
+        <li><strong>Tested with real exe.dev workers.</strong> Three Codex-based agents resumed from failed launch histories, produced commits and published results. An app restart preserved worker identities; repeated approval created no duplicates.</li>
+        <li><strong>Required release checks.</strong> Repository failure recovery, task delivery, runtime readiness and destination preservation join the automated release gate. The final candidate passed 252 native behavior tests, 89 browser checks and 31 native UI checks on Tron.</li>
+      </ul>
+    </div>
+    <p class="note">Each selected worker still needs the agent’s runtime and usable provider credentials. This update reports missing setup before another attempt; it does not choose a different runtime, provider or model for your agent.</p>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.9">v1.30.9 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.30.8">
     <div class="rel-head">
       <h2>v1.30.8</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">9 October 2026</span>
     </div>
     <p class="rel-lead">Reopen xNAUT after a crash and native Agent Space conversations, including NautBot, resume from saved progress. Local recovery is included in the open-source app and needs no paid Registry.</p>
@@ -1790,7 +1816,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.8, local crash recovery for Agent Space and NautBot in the open-source app.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.9, remote agent dispatch and recovery after repository access is repaired.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.12, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.13, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.12, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.13, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,9 +72,9 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
-  <section class="rel" id="v1.30.12">
+  <section class="rel" id="v1.30.13">
     <div class="rel-head">
-      <h2>v1.30.12</h2>
+      <h2>v1.30.13</h2>
       <span class="tag-latest">LATEST</span>
       <span class="rel-date">10 October 2026</span>
     </div>
@@ -91,13 +91,14 @@
     <div class="grp">
       <h3>Keep work moving</h3>
       <ul>
+        <li><strong>Read earlier Journals on Windows.</strong> Wiki document links now use portable paths, so previous Journals and handoffs remain readable.</li>
         <li><strong>Retry repaired handbacks.</strong> Malformed completion records keep delivery pending. Once corrected, the durable outbox publishes them without launching another worker.</li>
         <li><strong>Capture simultaneous Journal entries.</strong> Concurrent writes wait for the current Wiki save and append to the latest page.</li>
         <li><strong>Clarify recorded launches.</strong> Reopening a completed swarm reports cumulative launches separately from current member states.</li>
         <li><strong>Save a preview during a coordinator sweep.</strong> Creating a new plan no longer fails because the coordinator is already advancing. Execution remains serialized, and an existing approval cannot be overwritten.</li>
       </ul>
     </div>
-    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.12">v1.30.12 on GitHub</a></div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.13">v1.30.13 on GitHub</a></div>
   </section>
 
   <section class="rel" id="v1.30.11">
@@ -1883,7 +1884,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.12, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.13, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

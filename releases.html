@@ -89,8 +89,11 @@
       </ul>
     </div>
     <div class="grp">
-      <h3>Plan while work is advancing</h3>
+      <h3>Keep work moving</h3>
       <ul>
+        <li><strong>Retry repaired handbacks.</strong> Malformed completion records keep delivery pending. Once corrected, the durable outbox publishes them without launching another worker.</li>
+        <li><strong>Capture simultaneous Journal entries.</strong> Concurrent writes wait for the current Wiki save and append to the latest page.</li>
+        <li><strong>Clarify recorded launches.</strong> Reopening a completed swarm reports cumulative launches separately from current member states.</li>
         <li><strong>Save a preview during a coordinator sweep.</strong> Creating a new plan no longer fails because the coordinator is already advancing. Execution remains serialized, and an existing approval cannot be overwritten.</li>
       </ul>
     </div>

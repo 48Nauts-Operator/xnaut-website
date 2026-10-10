@@ -85,7 +85,7 @@
         <li><strong>Choose once in Settings.</strong> Select a provider connection and cloud-agent model in Tasks Mode. If needed, set an endpoint reachable from your workers.</li>
         <li><strong>Keep the approved choice.</strong> Plans, approvals and worker launches use the same model and connection. Changing that choice requires a refreshed approval.</li>
         <li><strong>Preserve your agent assignments.</strong> Pi, Codex and Claude retain their harness identities. Known incompatible API connections are refused with an explanation. Models must support the selected harness and its tools.</li>
-        <li><strong>Prepare worker credentials.</strong> Each run gets private model configuration. Credentials stay outside project files and approval cards and are cleaned up when the worker process exits.</li>
+        <li><strong>Prepare worker credentials.</strong> Each run gets private model configuration. Credentials stay outside project files and approval cards. Private configuration is removed after normal completion.</li>
         <li><strong>Keep worker capacity available.</strong> Explicitly identified user conversations no longer consume unattended-worker slots in the earlier session check.</li>
         <li><strong>Import verification evidence.</strong> Worker handbacks can include a string or structured command/result evidence. Valid Pi results can be imported without repeating completed work.</li>
       </ul>

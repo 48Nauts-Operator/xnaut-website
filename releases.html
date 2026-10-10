@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.13, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.14, NautGate routing for cloud workers, native dispatch diagnosis and recovery of stopped failed runs.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.13, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.14, NautGate routing for cloud workers, native dispatch diagnosis and recovery of stopped failed runs.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,36 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.30.14">
+    <div class="rel-head">
+      <h2>v1.30.14</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">11 October 2026</span>
+    </div>
+    <p class="rel-lead">Cloud workers now use your enabled NautGate connection. NautBot can inspect the actual dispatch configuration and recover a stopped failure while preserving its work.</p>
+    <div class="grp">
+      <h3>Route and diagnose cloud work</h3>
+      <ul>
+        <li><strong>Use NautGate on cloud workers.</strong> exe.dev and GitVM use the enabled gateway with the agent’s selected model. Choose Auto to let NautGate select a model. The shared default stays saved for use without NautGate.</li>
+        <li><strong>Keep one route through dispatch.</strong> Preview, approval and launch retain the selected harness, model, connection and execution destination. Set a gateway address reachable from your workers.</li>
+        <li><strong>Diagnose the actual blocker.</strong> NautBot can inspect the effective route, worker readiness, capacity and retained run history. Live process observations are distinguished from saved status.</li>
+        <li><strong>Check repository permissions early.</strong> Plans reject profiles that prohibit shell commands or conflict with the ticket’s exact model requirement before offering execution.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Preserve work during recovery</h3>
+      <ul>
+        <li><strong>Recover a stopped failure.</strong> NautBot can reserve one continuation on the original worktree when native checks prove the worker and publisher stopped, the tree is clean, and the published changes contain only that run’s artifacts.</li>
+        <li><strong>Retain implementation for review.</strong> Source changes, live writers and incomplete publication remain available for inspection. Recovery does not approve a plan or launch a duplicate worker.</li>
+        <li><strong>Use the reserved worker slot.</strong> A recovered continuation proceeds through the approved queue without counting its own reservation as an extra worker.</li>
+      </ul>
+    </div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.14">v1.30.14 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.30.13">
     <div class="rel-head">
       <h2>v1.30.13</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">10 October 2026</span>
     </div>
     <p class="rel-lead">Follow your project from one Journal: a concise summary, deployed agents and the details you choose to open.</p>
@@ -1884,7 +1910,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.13, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.14, NautGate routing for cloud workers, native dispatch diagnosis and recovery of stopped failed runs.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

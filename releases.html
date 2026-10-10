@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.11, one selected cloud-agent model across exe.dev and GitVM, with worker-capacity and handback fixes.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.12, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.11, one selected cloud-agent model across exe.dev and GitVM, with worker-capacity and handback fixes.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.12, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,34 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.30.12">
+    <div class="rel-head">
+      <h2>v1.30.12</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">10 October 2026</span>
+    </div>
+    <p class="rel-lead">Follow your project from one Journal: a concise summary, deployed agents and the details you choose to open.</p>
+    <div class="grp">
+      <h3>Keep the work in view</h3>
+      <ul>
+        <li><strong>See deployed agents together.</strong> Worker cards stay above the tabs, with recorded state, destination, run details and matching live sessions.</li>
+        <li><strong>Choose the detail you need.</strong> Switch between Actions, Tickets, Notes and Handoffs. Your existing date and ticket filters remain available.</li>
+        <li><strong>Follow project actions.</strong> Read activity for the selected project, expand repeated events and load earlier actions. Current deployed workers remain visible when you browse an earlier date.</li>
+        <li><strong>Keep approvals in their section.</strong> Open Approvals from the Journal without filling your activity feed with review cards. Computers and verification are available on demand.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Plan while work is advancing</h3>
+      <ul>
+        <li><strong>Save a preview during a coordinator sweep.</strong> Creating a new plan no longer fails because the coordinator is already advancing. Execution remains serialized, and an existing approval cannot be overwritten.</li>
+      </ul>
+    </div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.12">v1.30.12 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.30.11">
     <div class="rel-head">
       <h2>v1.30.11</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">10 October 2026</span>
     </div>
     <p class="rel-lead">Choose your cloud-agent model once. xNAUT carries that choice from the approved plan to workers on exe.dev and GitVM.</p>
@@ -1856,7 +1880,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.11, one selected cloud-agent model across exe.dev and GitVM, with worker-capacity and handback fixes.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.12, a project Journal with deployed agents, actions, tickets, notes and handoffs, plus coordinator preview recovery.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

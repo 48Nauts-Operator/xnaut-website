@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.10, a persistent Updates panel with signed downloads and an explicit install and restart step.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.11, one selected cloud-agent model across exe.dev and GitVM, with worker-capacity and handback fixes.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.10, a persistent Updates panel with signed downloads and an explicit install and restart step.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.30.11, one selected cloud-agent model across exe.dev and GitVM, with worker-capacity and handback fixes.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,30 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.30.11">
+    <div class="rel-head">
+      <h2>v1.30.11</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">10 October 2026</span>
+    </div>
+    <p class="rel-lead">Choose your cloud-agent model once. xNAUT carries that choice from the approved plan to workers on exe.dev and GitVM.</p>
+    <div class="grp">
+      <h3>A shared model for cloud work</h3>
+      <ul>
+        <li><strong>Choose once in Settings.</strong> Select a provider connection and cloud-agent model in Tasks Mode. If needed, set an endpoint reachable from your workers.</li>
+        <li><strong>Keep the approved choice.</strong> Plans, approvals and worker launches use the same model and connection. Changing that choice requires a refreshed approval.</li>
+        <li><strong>Preserve your agent assignments.</strong> Pi, Codex and Claude retain their harness identities. Known incompatible API connections are refused with an explanation. Models must support the selected harness and its tools.</li>
+        <li><strong>Prepare worker credentials.</strong> Each run gets private model configuration. Credentials stay outside project files and approval cards and are cleaned up when the worker process exits.</li>
+        <li><strong>Keep worker capacity available.</strong> Explicitly identified user conversations no longer consume unattended-worker slots in the earlier session check.</li>
+        <li><strong>Import verification evidence.</strong> Worker handbacks can include a string or structured command/result evidence. Valid Pi results can be imported without repeating completed work.</li>
+      </ul>
+    </div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.30.11">v1.30.11 on GitHub</a></div>
+  </section>
+
   <section class="rel" id="v1.30.10">
     <div class="rel-head">
       <h2>v1.30.10</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">10 October 2026</span>
     </div>
     <p class="rel-lead">A new release stays easy to find. Download it while you work, then choose when to install and restart xNAUT.</p>
@@ -1836,7 +1856,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.10, a persistent Updates panel with signed downloads and an explicit install and restart step.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.30.11, one selected cloud-agent model across exe.dev and GitVM, with worker-capacity and handback fixes.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

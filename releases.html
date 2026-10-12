@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.30.14, NautGate routing for cloud workers, native dispatch diagnosis and recovery of stopped failed runs.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.31.0, a structured Live Journal with ticket timelines, activity maps, monthly notes and conversation archives.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.30.14, NautGate routing for cloud workers, native dispatch diagnosis and recovery of stopped failed runs.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.31.0, a structured Live Journal with ticket timelines, activity maps, monthly notes and conversation archives.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,41 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.31.0">
+    <div class="rel-head">
+      <h2>v1.31.0</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">12 October 2026</span>
+    </div>
+    <p class="rel-lead">Keep the conversation in the center and inspect the work beside it. The Live Journal now has clearer sections, compact ticket details and direct access to recorded agent activity.</p>
+    <div class="grp">
+      <h3>Choose the detail you need</h3>
+      <ul>
+        <li><strong>Six Journal sections.</strong> Tickets, Timeline, Agents, Insights, Notes and Handoffs share one scrolling pane and the existing application palette.</li>
+        <li><strong>Follow ticket and release activity.</strong> Timeline, Waterfall, Activity Map and Event log show recorded work in the selected scope. Select an assigned release to see its tickets together.</li>
+        <li><strong>Inspect attempts inline.</strong> Open a ticket’s trace, load saved output and compare retained attempts without losing the project context.</li>
+        <li><strong>Find activity by date.</strong> A full-year heatmap has month and day filters, aligned partial weeks and graded yellow activity levels.</li>
+        <li><strong>Read notes across the month.</strong> Saved notes are grouped by date and can be filtered by author.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Keep conversations manageable</h3>
+      <ul>
+        <li><strong>Search and archive.</strong> Conversations are grouped by creation year, month and day. Archive finished threads and revisit them in the Archived view.</li>
+        <li><strong>Copy either side.</strong> User messages and agent responses have copy controls.</li>
+        <li><strong>Keep source reads off the UI executor.</strong> Journal source reads run asynchronously; unrelated shared-record diagnostics go to logs while project-specific failures stay visible.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>What this release does not yet provide</h3>
+      <p>Insights show recorded completion history, not a delivery forecast. Forecasting, cutoff dates and a release CI/merge summary remain incomplete. The release header appears only when an assigned release is selected; unassigned tickets have no release number, and ticket drill-down hides that header. Acceptance checkmarks are author-reported, and unchecked criteria are not labelled as failed tests.</p>
+    </div>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.31.0">v1.31.0 on GitHub</a><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/blob/v1.31.0/JOURNAL.md">Journal guide</a></div>
+  </section>
+
   <section class="rel" id="v1.30.14">
     <div class="rel-head">
       <h2>v1.30.14</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">11 October 2026</span>
     </div>
     <p class="rel-lead">Cloud workers now use your enabled NautGate connection. NautBot can inspect the actual dispatch configuration and recover a stopped failure while preserving its work.</p>
@@ -1913,7 +1944,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.30.14, NautGate routing for cloud workers, native dispatch diagnosis and recovery of stopped failed runs.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.31.0, a structured Live Journal with ticket timelines, activity maps, monthly notes and conversation archives.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

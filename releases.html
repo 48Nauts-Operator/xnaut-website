@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Releases | xNAUT</title>
-  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.31.0, a structured Live Journal with ticket timelines, activity maps, monthly notes and conversation archives.">
+  <meta name="description" content="What shipped in each version of xNAUT, the terminal that runs your coding agents. Latest: v1.31.1, independent PR review recovery and persistent Agent Space message sorting.">
   <link rel="canonical" href="https://xnaut.dev/releases.html">
   <meta name="author" content="André">
   <meta name="keywords" content="xNAUT releases, changelog, AI terminal release notes, coding agent updates, build log, agent orchestration">
   <meta property="og:title" content="xNAUT Releases">
-  <meta property="og:description" content="What shipped in each version. Latest: v1.31.0, a structured Live Journal with ticket timelines, activity maps, monthly notes and conversation archives.">
+  <meta property="og:description" content="What shipped in each version. Latest: v1.31.1, independent PR review recovery and persistent Agent Space message sorting.">
   <meta property="og:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://xnaut.dev/assets/og-v1.27.0.png">
@@ -72,10 +72,35 @@
   <h1>Releases</h1>
   <span class="updated">What shipped, and why it mattered · <a href="https://github.com/48Nauts-Operator/xNaut/releases">all builds on GitHub</a></span>
 
+  <section class="rel" id="v1.31.1">
+    <div class="rel-head">
+      <h2>v1.31.1</h2>
+      <span class="tag-latest">LATEST</span>
+      <span class="rel-date">12 October 2026</span>
+    </div>
+    <p class="rel-lead">Published work stays available for independent review when a ticket changes hands. Agent Space lets you choose whether the newest messages appear at the top or bottom.</p>
+    <div class="grp">
+      <h3>Restore independent reviews</h3>
+      <ul>
+        <li><strong>Keep published PRs reviewable.</strong> A changed ticket owner no longer hides a verified task PR from Ralph. The current owner’s handback remains untouched.</li>
+        <li><strong>Check the reviewer’s authority.</strong> Reviews use current project permission and their exact reserved revision. The author’s historical assignment no longer blocks a separately authorized reviewer.</li>
+        <li><strong>Recover a refused review safely.</strong> Never-started reviews blocked solely by the old assignment check return to the queue with their history retained. Stopped groups, read-only mode, quarantine and worker capacity still apply.</li>
+      </ul>
+    </div>
+    <div class="grp">
+      <h3>Choose your reading order</h3>
+      <ul>
+        <li><strong>Oldest first or Newest first.</strong> Use Sort above the Agent Space conversation. Your choice persists across conversations and restarts.</li>
+        <li><strong>Keep complete messages together.</strong> Replies, actions and copy controls move as one block. Streaming text and your reading position are retained; the agent still receives chronological context.</li>
+      </ul>
+    </div>
+    <p class="note">Install and restart through More → Updates to activate the review fix. Queued reviews must still pass current permissions, capacity and worker readiness checks.</p>
+    <div class="cta-row"><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/releases/tag/v1.31.1">v1.31.1 on GitHub</a><a class="btn btn-ghost" href="https://github.com/48Nauts-Operator/xNaut/blob/v1.31.1/JOURNAL.md">Journal guide</a></div>
+  </section>
+
   <section class="rel" id="v1.31.0">
     <div class="rel-head">
       <h2>v1.31.0</h2>
-      <span class="tag-latest">LATEST</span>
       <span class="rel-date">12 October 2026</span>
     </div>
     <p class="rel-lead">Keep the conversation in the center and inspect the work beside it. The Live Journal now has clearer sections, compact ticket details and direct access to recorded agent activity.</p>
@@ -1944,7 +1969,7 @@
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "xNAUT Releases",
-  "description": "What shipped in each version of xNAUT. Latest: v1.31.0, a structured Live Journal with ticket timelines, activity maps, monthly notes and conversation archives.",
+  "description": "What shipped in each version of xNAUT. Latest: v1.31.1, independent PR review recovery and persistent Agent Space message sorting.",
   "url": "https://xnaut.dev/releases.html"
 }
 </script>

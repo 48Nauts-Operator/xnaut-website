@@ -119,7 +119,7 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 
 /* ---- feature grid ---- */
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.card { display: flex; flex-direction: column; gap: 14px; padding: 32px; background: var(--panel); border: 1px solid var(--border-card); border-radius: 14px; }
+.card { min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 32px; background: var(--panel); border: 1px solid var(--border-card); border-radius: 14px; }
 .card-hl { border-color: #2A2E36; }
 .card h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
 .card p { font-size: 14.5px; color: var(--muted); line-height: 1.59; }
@@ -227,7 +227,10 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 }
 @media (max-width: 720px) {
   .nav-links { display: none; }
-  .grid { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .card-visual { flex-wrap: wrap; }
+  .hero h1 { max-width: 100%; }
+  .footer-links { flex-wrap: wrap; }
   .stats { flex-wrap: wrap; gap: 32px; }
   .stat + .stat { border-left: none; }
   .term-agents, .term-lights { width: auto; }
@@ -237,8 +240,8 @@ h1, h2, h3 { font-family: var(--disp); letter-spacing: -0.02em; }
 }
 
 /* ---- install row (hero) ---- */
-.install-row { display: flex; align-items: stretch; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel-deep); overflow: hidden; max-width: 520px; margin: 26px 0 18px; }
-.install-row code { font-size: 13px; color: var(--text-soft); padding: 13px 15px; white-space: nowrap; overflow-x: auto; flex: 1 1 auto; }
+.install-row { display: flex; align-items: stretch; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel-deep); overflow: hidden; max-width: min(520px, 100%); margin: 26px 0 18px; }
+.install-row code { min-width: 0; font-size: 13px; color: var(--text-soft); padding: 13px 15px; white-space: nowrap; overflow-x: auto; flex: 1 1 auto; }
 .install-row .install-copy { flex: 0 0 auto; border: 0; border-left: 1px solid var(--line-strong); background: transparent; color: var(--faint); font-size: 11px; letter-spacing: .06em; padding: 0 15px; cursor: pointer; }
 .install-row .install-copy:hover { color: var(--amber); }
 .install-row .install-copy.ok { color: var(--green); }
